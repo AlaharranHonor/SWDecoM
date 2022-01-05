@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "swdm:block/swdm_red_wool_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/red_wool"
+    },
+    "type=top": {
+      "model": "swdm:block/swdm_red_wool_slab_top"
+    }
+  }
+}
