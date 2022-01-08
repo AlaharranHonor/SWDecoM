@@ -26,13 +26,14 @@ public class ModEventBusSubscriber {
             colors.register((state, reader, pos, color) -> {
                         return reader != null && pos != null ? BiomeColors.getAverageFoliageColor(reader, pos) : FoliageColors.getDefaultColor();
                     }, BlockInit.SWDM_ACACIA_LEAVES_STAIRS.get(), BlockInit.SWDM_JUNGLE_LEAVES_STAIRS.get(), BlockInit.SWDM_DARK_OAK_LEAVES_STAIRS.get(), BlockInit.SWDM_OAK_LEAVES_STAIRS.get(),
-                    BlockInit.SWDM_ACACIA_LEAVES_SLAB.get(), BlockInit.SWDM_JUNGLE_LEAVES_SLAB.get(), BlockInit.SWDM_DARK_OAK_LEAVES_SLAB.get(), BlockInit.SWDM_OAK_LEAVES_SLAB.get());
+                    BlockInit.SWDM_ACACIA_LEAVES_SLAB.get(), BlockInit.SWDM_JUNGLE_LEAVES_SLAB.get(), BlockInit.SWDM_DARK_OAK_LEAVES_SLAB.get(), BlockInit.SWDM_OAK_LEAVES_SLAB.get(),
+                    BlockInit.SWDM_ACACIA_LEAVES_WALL.get(), BlockInit.SWDM_JUNGLE_LEAVES_WALL.get(), BlockInit.SWDM_DARK_OAK_LEAVES_WALL.get(), BlockInit.SWDM_OAK_LEAVES_WALL.get());
             colors.register((state, reader, pos, color) -> {
                 return FoliageColors.getEvergreenColor();
-            }, BlockInit.SWDM_SPRUCE_LEAVES_STAIRS.get(), BlockInit.SWDM_SPRUCE_LEAVES_SLAB.get());
+            }, BlockInit.SWDM_SPRUCE_LEAVES_STAIRS.get(), BlockInit.SWDM_SPRUCE_LEAVES_SLAB.get(), BlockInit.SWDM_SPRUCE_LEAVES_WALL.get());
             colors.register((state, reader, pos, color) -> {
                 return FoliageColors.getBirchColor();
-            }, BlockInit.SWDM_BIRCH_LEAVES_STAIRS.get(), BlockInit.SWDM_BIRCH_LEAVES_SLAB.get());
+            }, BlockInit.SWDM_BIRCH_LEAVES_STAIRS.get(), BlockInit.SWDM_BIRCH_LEAVES_SLAB.get(), BlockInit.SWDM_BIRCH_LEAVES_WALL.get());
         }
 
         @SubscribeEvent
@@ -43,8 +44,9 @@ public class ModEventBusSubscriber {
                         return event.getBlockColors().getColor(blockstate, (IBlockDisplayReader) null, (BlockPos) null, color);
                     }, BlockInit.SWDM_ACACIA_LEAVES_STAIRS.get(), BlockInit.SWDM_JUNGLE_LEAVES_STAIRS.get(), BlockInit.SWDM_DARK_OAK_LEAVES_STAIRS.get(), BlockInit.SWDM_OAK_LEAVES_STAIRS.get(),
                     BlockInit.SWDM_ACACIA_LEAVES_SLAB.get(), BlockInit.SWDM_JUNGLE_LEAVES_SLAB.get(), BlockInit.SWDM_DARK_OAK_LEAVES_SLAB.get(), BlockInit.SWDM_OAK_LEAVES_SLAB.get(),
-                    BlockInit.SWDM_SPRUCE_LEAVES_STAIRS.get(), BlockInit.SWDM_SPRUCE_LEAVES_SLAB.get(),
-                    BlockInit.SWDM_BIRCH_LEAVES_STAIRS.get(), BlockInit.SWDM_BIRCH_LEAVES_SLAB.get());
+                    BlockInit.SWDM_ACACIA_LEAVES_WALL.get(), BlockInit.SWDM_JUNGLE_LEAVES_WALL.get(), BlockInit.SWDM_DARK_OAK_LEAVES_WALL.get(), BlockInit.SWDM_OAK_LEAVES_WALL.get(),
+                    BlockInit.SWDM_SPRUCE_LEAVES_STAIRS.get(), BlockInit.SWDM_SPRUCE_LEAVES_SLAB.get(), BlockInit.SWDM_SPRUCE_LEAVES_WALL.get(),
+                    BlockInit.SWDM_BIRCH_LEAVES_STAIRS.get(), BlockInit.SWDM_BIRCH_LEAVES_SLAB.get(), BlockInit.SWDM_BIRCH_LEAVES_WALL.get());
         }
     }
 }

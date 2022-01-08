@@ -1,0 +1,6 @@
+{
+  "parent": "swdm:block/wall_inventory",
+  "textures": {
+    "wall": "minecraft:block/oak_leaves"
+  }
+}

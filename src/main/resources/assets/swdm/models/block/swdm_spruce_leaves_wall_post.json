@@ -1,0 +1,6 @@
+{
+  "parent": "swdm:block/template_wall_post",
+  "textures": {
+    "wall": "minecraft:block/spruce_leaves"
+  }
+}

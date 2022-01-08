@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:swdm_stone_wall",
+    "swdm:swdm_acacia_leaves_wall",
+    "swdm:swdm_birch_leaves_wall",
+    "swdm:swdm_dark_oak_leaves_wall",
+    "swdm:swdm_jungle_leaves_wall",
+    "swdm:swdm_oak_leaves_wall",
+    "swdm:swdm_spruce_leaves_wall"
+  ]
+}

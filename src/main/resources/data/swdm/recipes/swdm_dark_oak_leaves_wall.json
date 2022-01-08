@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "leaves_wall",
+  "pattern":
+  [
+    "xxx",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:dark_oak_leaves"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:swdm_dark_oak_leaves_wall",
+    "count": 6
+  }
+}
