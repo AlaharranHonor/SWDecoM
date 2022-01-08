@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -47,7 +48,11 @@ public class SWDM
     public static final ItemGroup SWDMTAB = new ItemGroup("SWDMTAB") {
         @Override
         public ItemStack makeIcon() {
-            return null;
+            return new ItemStack(BlockInit.SWDM_STONE_WALL.get());
         }
-    };
+        @Override
+        public boolean hasSearchBar() {
+            return true;
+        }
+    }.setBackgroundImage(new ResourceLocation("minecraft", "textures/gui/container/creative_inventory/tab_item_search.png"));
 }
