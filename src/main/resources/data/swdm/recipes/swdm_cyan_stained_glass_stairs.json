@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "stained_glass_stairs",
+  "pattern":
+  [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:cyan_stained_glass"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:swdm_cyan_stained_glass_stairs",
+    "count": 6
+  }
+}
