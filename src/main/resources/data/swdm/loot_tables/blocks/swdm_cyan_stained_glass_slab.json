@@ -5,7 +5,21 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "enchantments": [
+                  {
+                    "enchantment": "minecraft:silk_touch",
+                    "levels": {
+                      "min": 1
+                    }
+                  }
+                ]
+              }
+            }
+          ],
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -24,6 +38,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
+          "type": "minecraft:item",
           "name": "swdm:swdm_cyan_stained_glass_slab"
         }
       ]
