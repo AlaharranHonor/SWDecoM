@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "meter_point",
+  "ingredients": [
+    {
+      "item": "swdm:sandstone_muted_brown"
+    }
+  ],
+  "result": {
+    "item": "swdm:meter_point_muted_brown"
+  }
+}
