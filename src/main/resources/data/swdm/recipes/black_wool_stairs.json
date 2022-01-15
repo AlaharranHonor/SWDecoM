@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wool_stairs",
+  "pattern":
+  [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:black_wool"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:black_wool_stairs",
+    "count": 6
+  }
+}

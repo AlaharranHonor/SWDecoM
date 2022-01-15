@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:thatch_block"
+    ]
+  },
+  "criteria": {
+    "has_thatch": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:thatch"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:thatch_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_thatch",
+      "has_the_recipe"
+    ]
+  ]
+}

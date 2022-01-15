@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "xxx",
+	"xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:thatch"
+    }
+  },
+  "result": {
+    "item": "swdm:thatch_block"
+  }
+}

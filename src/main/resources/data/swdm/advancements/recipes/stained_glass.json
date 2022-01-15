@@ -1,0 +1,63 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:black_stained_glass_stairs",
+      "swdm:blue_stained_glass_stairs",
+      "swdm:brown_stained_glass_stairs",
+      "swdm:cyan_stained_glass_stairs",
+      "swdm:gray_stained_glass_stairs",
+      "swdm:green_stained_glass_stairs",
+      "swdm:light_blue_stained_glass_stairs",
+      "swdm:light_gray_stained_glass_stairs",
+      "swdm:lime_stained_glass_stairs",
+      "swdm:magenta_stained_glass_stairs",
+      "swdm:orange_stained_glass_stairs",
+      "swdm:pink_stained_glass_stairs",
+      "swdm:purple_stained_glass_stairs",
+      "swdm:red_stained_glass_stairs",
+      "swdm:white_stained_glass_stairs",
+      "swdm:yellow_stained_glass_stairs",
+      "swdm:black_stained_glass_slab",
+      "swdm:blue_stained_glass_slab",
+      "swdm:brown_stained_glass_slab",
+      "swdm:cyan_stained_glass_slab",
+      "swdm:gray_stained_glass_slab",
+      "swdm:green_stained_glass_slab",
+      "swdm:light_blue_stained_glass_slab",
+      "swdm:light_gray_stained_glass_slab",
+      "swdm:lime_stained_glass_slab",
+      "swdm:magenta_stained_glass_slab",
+      "swdm:orange_stained_glass_slab",
+      "swdm:pink_stained_glass_slab",
+      "swdm:purple_stained_glass_slab",
+      "swdm:red_stained_glass_slab",
+      "swdm:white_stained_glass_slab",
+      "swdm:yellow_stained_glass_slab"
+    ]
+  },
+  "criteria": {
+    "has_stained_glass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "swdm:stained_glass"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:black_stained_glass_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_stained_glass",
+      "has_the_recipe"
+    ]
+  ]
+}

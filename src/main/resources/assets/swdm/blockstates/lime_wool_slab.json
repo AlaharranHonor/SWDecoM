@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "swdm:block/lime_wool_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/lime_wool"
+    },
+    "type=top": {
+      "model": "swdm:block/lime_wool_slab_top"
+    }
+  }
+}

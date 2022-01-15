@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "swdm:block/thatch_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/extra_thatch_block"
+    },
+    "type=top": {
+      "model": "swdm:block/thatch_slab_top"
+    }
+  }
+}

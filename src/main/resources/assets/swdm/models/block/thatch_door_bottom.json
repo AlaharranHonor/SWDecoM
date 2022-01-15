@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom",
+  "textures": {
+    "top": "swdm:blocks/thatch_door_top",
+    "bottom": "swdm:blocks/thatch_door_bottom"
+  }
+}

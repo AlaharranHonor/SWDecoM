@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mossy_slab",
+  "pattern": [
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:more_mossy_andesite"
+    }
+  },
+  "result": {
+    "item": "swdm:more_mossy_andesite_slab",
+    "count": 6
+  }
+}

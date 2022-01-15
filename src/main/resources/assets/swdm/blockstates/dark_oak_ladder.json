@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "swdm:block/dark_oak_ladder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "swdm:block/dark_oak_ladder"
+    },
+    "facing=south": {
+      "model": "swdm:block/dark_oak_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "swdm:block/dark_oak_ladder",
+      "y": 270
+    }
+  }
+}

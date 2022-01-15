@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mossy_wall",
+  "pattern": [
+    "xxx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:more_mossy_stone"
+    }
+  },
+  "result": {
+    "item": "swdm:more_mossy_stone_wall",
+    "count": 6
+  }
+}

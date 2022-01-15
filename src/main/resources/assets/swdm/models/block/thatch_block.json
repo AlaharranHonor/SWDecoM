@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "swdm:blocks/thatch_block_top",
+    "side": "swdm:blocks/thatch_block"
+  }
+}

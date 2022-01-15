@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "swdm:blocks/thatch_block",
+    "top": "swdm:blocks/extra_thatch_block",
+    "side": "swdm:blocks/thatch_block"
+  }
+}

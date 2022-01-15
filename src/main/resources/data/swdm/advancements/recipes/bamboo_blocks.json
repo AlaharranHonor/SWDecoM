@@ -1,0 +1,41 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:bamboo_block_to_bamboo",
+      "swdm:bamboo_button",
+      "swdm:bamboo_door",
+      "swdm:bamboo_fence",
+      "swdm:bamboo_fence_gate",
+      "swdm:bamboo_ladder",
+      "swdm:bamboo_pressure_plate",
+      "swdm:bamboo_slab",
+      "swdm:bamboo_stairs",
+      "swdm:bamboo_trapdoor"
+    ]
+  },
+  "criteria": {
+    "has_bamboo_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:bamboo_block"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:bamboo_block_to_bamboo"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bamboo_block",
+      "has_the_recipe"
+    ]
+  ]
+}

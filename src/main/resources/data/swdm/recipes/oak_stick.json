@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wood_sticks",
+  "pattern": [
+    "x  ",
+    " x "
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:oak_planks"
+    }
+  },
+  "result": {
+    "item": "swdm:oak_stick",
+    "count": 4
+  }
+}

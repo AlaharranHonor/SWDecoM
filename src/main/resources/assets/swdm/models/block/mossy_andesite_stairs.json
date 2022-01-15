@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "swdm:blocks/mossy_andesite",
+    "top": "swdm:blocks/mossy_andesite",
+    "side": "swdm:blocks/mossy_andesite"
+  }
+}

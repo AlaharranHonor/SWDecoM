@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:bamboo_block"
+    }
+  },
+  "result": {
+    "item": "swdm:bamboo_pressure_plate"
+  }
+}

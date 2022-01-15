@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "mossy_stones",
+  "ingredients": [
+    {
+      "item": "minecraft:andesite"
+    },
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "minecraft:vine"
+    }
+  ],
+  "result": {
+    "item": "swdm:more_mossy_andesite"
+  }
+}

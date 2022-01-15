@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "yxy",
+    "yxy"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:thatch_block"
+    },
+	"y": {
+      "item": "swdm:thatch"
+    }
+  },
+  "result": {
+    "item": "swdm:thatch_fence_gate"
+  }
+}

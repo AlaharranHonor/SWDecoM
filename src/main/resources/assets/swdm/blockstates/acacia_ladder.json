@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "swdm:block/acacia_ladder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "swdm:block/acacia_ladder"
+    },
+    "facing=south": {
+      "model": "swdm:block/acacia_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "swdm:block/acacia_ladder",
+      "y": 270
+    }
+  }
+}

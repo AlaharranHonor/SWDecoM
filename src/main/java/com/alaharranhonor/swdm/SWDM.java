@@ -48,7 +48,7 @@ public class SWDM
     public static final ItemGroup SWDMTAB = new ItemGroup("SWDMTAB") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(BlockInit.SWDM_STONE_WALL.get());
+            return new ItemStack(BlockInit.STONE_WALL.get());
         }
         @Override
         public boolean hasSearchBar() {

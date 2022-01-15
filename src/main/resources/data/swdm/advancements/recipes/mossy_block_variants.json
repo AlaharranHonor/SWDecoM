@@ -1,0 +1,51 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:more_mossy_andesite_button",
+      "swdm:more_mossy_andesite_pressure_plate",
+      "swdm:more_mossy_andesite_slab",
+      "swdm:more_mossy_andesite_stairs",
+      "swdm:more_mossy_andesite_wall",
+      "swdm:more_mossy_stone_button",
+      "swdm:more_mossy_stone_pressure_plate",
+      "swdm:more_mossy_stone_slab",
+      "swdm:more_mossy_stone_stairs",
+      "swdm:more_mossy_stone_wall",
+      "swdm:mossy_andesite_button",
+      "swdm:mossy_andesite_pressure_plate",
+      "swdm:mossy_andesite_slab",
+      "swdm:mossy_andesite_stairs",
+      "swdm:mossy_andesite_wall",
+      "swdm:mossy_stone_button",
+      "swdm:mossy_stone_pressure_plate",
+      "swdm:mossy_stone_slab",
+      "swdm:mossy_stone_stairs",
+      "swdm:mossy_stone_wall"
+    ]
+  },
+  "criteria": {
+    "has_mossy_variants": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "swdm:mossy_variants"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:more_mossy_andesite_button"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_mossy_variants",
+      "has_the_recipe"
+    ]
+  ]
+}

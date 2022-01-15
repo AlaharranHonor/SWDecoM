@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:mossy_stone",
+    "swdm:mossy_andesite",
+    "swdm:more_mossy_stone",
+    "swdm:more_mossy_andesite"
+  ]
+}

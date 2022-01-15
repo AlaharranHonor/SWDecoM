@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:mossy_andesite"
+  },
+  "result": "swdm:mossy_andesite_wall",
+  "count": 1
+}

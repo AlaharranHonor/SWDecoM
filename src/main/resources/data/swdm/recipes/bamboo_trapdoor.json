@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:bamboo_block"
+    }
+  },
+  "result": {
+    "item": "swdm:bamboo_trapdoor",
+    "count": 2
+  }
+}

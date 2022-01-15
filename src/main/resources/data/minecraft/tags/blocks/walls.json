@@ -1,12 +1,16 @@
 {
   "replace": false,
   "values": [
-    "swdm:swdm_stone_wall",
-    "swdm:swdm_acacia_leaves_wall",
-    "swdm:swdm_birch_leaves_wall",
-    "swdm:swdm_dark_oak_leaves_wall",
-    "swdm:swdm_jungle_leaves_wall",
-    "swdm:swdm_oak_leaves_wall",
-    "swdm:swdm_spruce_leaves_wall"
+    "swdm:stone_wall",
+    "swdm:acacia_leaves_wall",
+    "swdm:birch_leaves_wall",
+    "swdm:dark_oak_leaves_wall",
+    "swdm:jungle_leaves_wall",
+    "swdm:oak_leaves_wall",
+    "swdm:spruce_leaves_wall",
+    "swdm:mossy_stone_wall",
+    "swdm:more_mossy_stone_wall",
+    "swdm:mossy_andesite_wall",
+    "swdm:more_mossy_andesite_wall"
   ]
 }

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "beam_down",
+  "pattern": [
+    "yxy",
+    "yxy",
+	"yyy"
+  ],
+  "key": {
+    "y": {
+      "item": "swdm:dark_oak_stick"
+    },
+	"x": {
+      "item": "minecraft:dark_oak_planks"
+    }
+  },
+  "result": {
+    "item": "swdm:dark_oak_beam_down"
+  }
+}

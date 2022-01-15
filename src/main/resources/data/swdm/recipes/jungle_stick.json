@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wood_sticks",
+  "pattern": [
+    "x  ",
+    " x "
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:jungle_planks"
+    }
+  },
+  "result": {
+    "item": "swdm:jungle_stick",
+    "count": 4
+  }
+}

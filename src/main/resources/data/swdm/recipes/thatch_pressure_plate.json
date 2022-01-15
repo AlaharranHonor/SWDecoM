@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xx "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:thatch_block"
+    }
+  },
+  "result": {
+    "item": "swdm:thatch_pressure_plate"
+  }
+}

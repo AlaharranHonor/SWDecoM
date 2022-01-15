@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "yxy",
+    "yxy"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:bamboo_block"
+    },
+	"y": {
+      "item": "minecraft:bamboo"
+    }
+  },
+  "result": {
+    "item": "swdm:bamboo_fence_gate"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:acacia_ladder",
+    "swdm:birch_ladder",
+    "swdm:dark_oak_ladder",
+    "swdm:jungle_ladder",
+    "swdm:oak_ladder",
+    "swdm:spruce_ladder",
+    "swdm:bamboo_ladder",
+    "swdm:thatch_ladder"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wood_ladder",
+  "pattern": [
+    "x x",
+    "xxx",
+	"x x"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:birch_stick"
+    }
+  },
+  "result": {
+    "item": "swdm:birch_ladder",
+    "count": 3
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "swdm:blocks/sandstone_top_muted_brown",
+    "bottom": "swdm:blocks/sandstone_bottom_muted_brown",
+    "side": "swdm:blocks/sandstone_muted_brown"
+  }
+}
