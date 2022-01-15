@@ -1,0 +1,42 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:meter_point_black",
+      "swdm:meter_point_blue_gray",
+      "swdm:meter_point_brown",
+      "swdm:meter_point_dark_brown",
+      "swdm:meter_point_dusted_gray",
+      "swdm:meter_point_golden",
+      "swdm:meter_point_gray",
+      "swdm:meter_point_light_gray",
+      "swdm:meter_point_muted_brown",
+      "swdm:meter_point_vivid_red",
+      "swdm:meter_point_white"
+    ]
+  },
+  "criteria": {
+    "has_sandstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "swdm:sandstone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:meter_point_black"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sandstone",
+      "has_the_recipe"
+    ]
+  ]
+}

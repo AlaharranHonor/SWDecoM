@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:sand_black",
+    "swdm:sand_blue_gray",
+    "swdm:sand_brown",
+    "swdm:sand_dark_brown",
+    "swdm:sand_dusted_gray",
+    "swdm:sand_golden",
+    "swdm:sand_gray",
+    "swdm:sand_light_gray",
+    "swdm:sand_muted_brown",
+    "swdm:sand_vivid_red",
+    "swdm:sand_white"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:sand_black",
+      "swdm:sand_blue_gray",
+      "swdm:sand_brown",
+      "swdm:sand_dark_brown",
+      "swdm:sand_dusted_gray",
+      "swdm:sand_golden",
+      "swdm:sand_gray",
+      "swdm:sand_light_gray",
+      "swdm:sand_muted_brown",
+      "swdm:sand_vivid_red",
+      "swdm:sand_white"
+    ]
+  },
+  "criteria": {
+    "has_sand": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:sand"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:sand_black"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sand",
+      "has_the_recipe"
+    ]
+  ]
+}
