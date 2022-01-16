@@ -105,17 +105,6 @@ public class BlockInit {
     public static final RegistryObject<Block> WHITE_STAINED_GLASS_SLAB = BLOCKS.register("white_stained_glass_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.WHITE_STAINED_GLASS)));
     public static final RegistryObject<Block> YELLOW_STAINED_GLASS_SLAB = BLOCKS.register("yellow_stained_glass_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.YELLOW_STAINED_GLASS)));
 
-    public static final RegistryObject<Block> METER_POINT_BLACK = BLOCKS.register("meter_point_black", () -> new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> METER_POINT_BLUE_GRAY = BLOCKS.register("meter_point_blue_gray", () -> new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> METER_POINT_BROWN = BLOCKS.register("meter_point_brown", () -> new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> METER_POINT_DARK_BROWN = BLOCKS.register("meter_point_dark_brown", () -> new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> METER_POINT_DUSTED_GRAY = BLOCKS.register("meter_point_dusted_gray", () -> new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> METER_POINT_GOLDEN = BLOCKS.register("meter_point_golden", () -> new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> METER_POINT_GRAY = BLOCKS.register("meter_point_gray", () -> new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> METER_POINT_LIGHT_GRAY = BLOCKS.register("meter_point_light_gray", () -> new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> METER_POINT_MUTED_BROWN = BLOCKS.register("meter_point_muted_brown", () -> new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> METER_POINT_VIVID_RED = BLOCKS.register("meter_point_vivid_red", () -> new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)));
-    public static final RegistryObject<Block> METER_POINT_WHITE = BLOCKS.register("meter_point_white", () -> new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)));
     public static final RegistryObject<Block> SAND_BLACK = BLOCKS.register("sand_black", () -> new SandBlock(14406560, AbstractBlock.Properties.copy(Blocks.SAND)));
     public static final RegistryObject<Block> SAND_BLUE_GRAY = BLOCKS.register("sand_blue_gray", () -> new SandBlock(14406560, AbstractBlock.Properties.copy(Blocks.SAND)));
     public static final RegistryObject<Block> SAND_BROWN = BLOCKS.register("sand_brown", () -> new SandBlock(14406560, AbstractBlock.Properties.copy(Blocks.SAND)));
@@ -302,17 +291,6 @@ public class BlockInit {
     public static final RegistryObject<Item> WHITE_STAINED_GLASS_SLAB_ITEM = ITEMS.register("white_stained_glass_slab", () -> new BlockItem(WHITE_STAINED_GLASS_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> YELLOW_STAINED_GLASS_SLAB_ITEM = ITEMS.register("yellow_stained_glass_slab", () -> new BlockItem(YELLOW_STAINED_GLASS_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
 
-    public static final RegistryObject<Item> METER_POINT_BLACK_ITEM = ITEMS.register("meter_point_black", () -> new BlockItem(METER_POINT_BLACK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<Item> METER_POINT_BLUE_GRAY_ITEM = ITEMS.register("meter_point_blue_gray", () -> new BlockItem(METER_POINT_BLUE_GRAY.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<Item> METER_POINT_BROWN_ITEM = ITEMS.register("meter_point_brown", () -> new BlockItem(METER_POINT_BROWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<Item> METER_POINT_DARK_BROWN_ITEM = ITEMS.register("meter_point_dark_brown", () -> new BlockItem(METER_POINT_DARK_BROWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<Item> METER_POINT_DUSTED_GRAY_ITEM = ITEMS.register("meter_point_dusted_gray", () -> new BlockItem(METER_POINT_DUSTED_GRAY.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<Item> METER_POINT_GOLDEN_ITEM = ITEMS.register("meter_point_golden", () -> new BlockItem(METER_POINT_GOLDEN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<Item> METER_POINT_GRAY_ITEM = ITEMS.register("meter_point_gray", () -> new BlockItem(METER_POINT_GRAY.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<Item> METER_POINT_LIGHT_GRAY_ITEM = ITEMS.register("meter_point_light_gray", () -> new BlockItem(METER_POINT_LIGHT_GRAY.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<Item> METER_POINT_MUTED_BROWN_ITEM = ITEMS.register("meter_point_muted_brown", () -> new BlockItem(METER_POINT_MUTED_BROWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<Item> METER_POINT_VIVID_RED_ITEM = ITEMS.register("meter_point_vivid_red", () -> new BlockItem(METER_POINT_VIVID_RED.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<Item> METER_POINT_WHITE_ITEM = ITEMS.register("meter_point_white", () -> new BlockItem(METER_POINT_WHITE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SAND_BLACK_ITEM = ITEMS.register("sand_black", () -> new BlockItem(SAND_BLACK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SAND_BLUE_GRAY_ITEM = ITEMS.register("sand_blue_gray", () -> new BlockItem(SAND_BLUE_GRAY.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SAND_BROWN_ITEM = ITEMS.register("sand_brown", () -> new BlockItem(SAND_BROWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
