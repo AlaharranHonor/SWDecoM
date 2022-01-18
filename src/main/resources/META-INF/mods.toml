@@ -48,11 +48,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     modId="swem"
     mandatory=false
     versionRange="[1.16.5-0.2,]"
-    ordering="AFTER"
+    ordering="NONE"
     side="BOTH"
 [[dependencies.swdm]]
     modId="swlm"
     mandatory=false
     versionRange="[1.16.5-1,]"
-    ordering="AFTER"
+    ordering="NONE"
     side="BOTH"
