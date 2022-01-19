@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "beam",
+  "pattern": [
+    "yxy",
+    "yxy",
+	"yxy"
+  ],
+  "key": {
+    "y": {
+      "item": "swdm:birch_stick"
+    },
+	"x": {
+      "item": "minecraft:birch_planks"
+    }
+  },
+  "result": {
+    "item": "swdm:birch_beam"
+  }
+}

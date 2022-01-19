@@ -2,34 +2,22 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "swdm:acacia_beam_down",
-      "swdm:acacia_beam_middle",
-      "swdm:acacia_beam_up",
+      "swdm:acacia_beam",
       "swdm:acacia_ladder",
       "swdm:acacia_stick",
-      "swdm:birch_beam_down",
-      "swdm:birch_beam_middle",
-      "swdm:birch_beam_up",
+      "swdm:birch_beam",
       "swdm:birch_ladder",
       "swdm:birch_stick",
-      "swdm:dark_oak_beam_down",
-      "swdm:dark_oak_beam_middle",
-      "swdm:dark_oak_beam_up",
+      "swdm:dark_oak_beam",
       "swdm:dark_oak_ladder",
       "swdm:dark_oak_stick",
-      "swdm:jungle_beam_down",
-      "swdm:jungle_beam_middle",
-      "swdm:jungle_beam_up",
+      "swdm:jungle_beam",
       "swdm:jungle_ladder",
       "swdm:jungle_stick",
-      "swdm:oak_beam_down",
-      "swdm:oak_beam_middle",
-      "swdm:oak_beam_up",
-      "swdm:oak_soul_torch",
+      "swdm:oak_beam",
+      "swdm:oak_ladder",
       "swdm:oak_stick",
-      "swdm:spruce_beam_down",
-      "swdm:spruce_beam_middle",
-      "swdm:spruce_beam_up",
+      "swdm:spruce_beam",
       "swdm:spruce_ladder",
       "swdm:spruce_stick"
     ]
@@ -48,7 +36,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "swdm:acacia_beam_down"
+        "recipe": "swdm:acacia_beam"
       }
     }
   },

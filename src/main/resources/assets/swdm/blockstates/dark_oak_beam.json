@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "tile=single": {
+      "model": "swdm:block/dark_oak_beam_single"
+    },
+    "tile=upper": {
+      "model": "swdm:block/dark_oak_beam_up"
+    },
+    "tile=middle": {
+      "model": "swdm:block/dark_oak_beam_middle"
+    },
+    "tile=bottom": {
+      "model": "swdm:block/dark_oak_beam_down"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.util.init;
 
 import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.blocks.BeamBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
@@ -178,24 +179,13 @@ public class BlockInit {
     public static final RegistryObject<Block> MORE_MOSSY_ANDESITE_PRESSURE_PLATE = BLOCKS.register("more_mossy_andesite_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, AbstractBlock.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5F,6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(0).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> MORE_MOSSY_ANDESITE_SLAB = BLOCKS.register("more_mossy_andesite_slab", () -> new SlabBlock(AbstractBlock.Properties.copy(BlockInit.MORE_MOSSY_ANDESITE.get())));
     public static final RegistryObject<Block> MORE_MOSSY_ANDESITE_STAIRS = BLOCKS.register("more_mossy_andesite_stairs", () -> new StairsBlock(() -> BlockInit.MORE_MOSSY_ANDESITE.get().defaultBlockState() , AbstractBlock.Properties.copy(BlockInit.MORE_MOSSY_ANDESITE.get())));
-    public static final RegistryObject<Block> ACACIA_BEAM_UP = BLOCKS.register("acacia_beam_up", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> ACACIA_BEAM_MIDDLE = BLOCKS.register("acacia_beam_middle", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> ACACIA_BEAM_DOWN = BLOCKS.register("acacia_beam_down", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BIRCH_BEAM_UP = BLOCKS.register("birch_beam_up", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BIRCH_BEAM_MIDDLE = BLOCKS.register("birch_beam_middle", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BIRCH_BEAM_DOWN = BLOCKS.register("birch_beam_down", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> OAK_BEAM_UP = BLOCKS.register("oak_beam_up", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> OAK_BEAM_MIDDLE = BLOCKS.register("oak_beam_middle", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> OAK_BEAM_DOWN = BLOCKS.register("oak_beam_down", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> JUNGLE_BEAM_UP = BLOCKS.register("jungle_beam_up", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> JUNGLE_BEAM_MIDDLE = BLOCKS.register("jungle_beam_middle", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> JUNGLE_BEAM_DOWN = BLOCKS.register("jungle_beam_down", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> SPRUCE_BEAM_UP = BLOCKS.register("spruce_beam_up", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> SPRUCE_BEAM_MIDDLE = BLOCKS.register("spruce_beam_middle", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> SPRUCE_BEAM_DOWN = BLOCKS.register("spruce_beam_down", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> DARK_OAK_BEAM_UP = BLOCKS.register("dark_oak_beam_up", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> DARK_OAK_BEAM_MIDDLE = BLOCKS.register("dark_oak_beam_middle", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> DARK_OAK_BEAM_DOWN = BLOCKS.register("dark_oak_beam_down", () -> new Block(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
+
+    public static final RegistryObject<Block> ACACIA_BEAM = BLOCKS.register("acacia_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> BIRCH_BEAM = BLOCKS.register("birch_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> DARK_OAK_BEAM = BLOCKS.register("dark_oak_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> JUNGLE_BEAM = BLOCKS.register("jungle_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> OAK_BEAM = BLOCKS.register("oak_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> SPRUCE_BEAM = BLOCKS.register("spruce_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
 
     //Items
     public static final RegistryObject<Item> ACACIA_STICK = ITEMS.register("acacia_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
@@ -290,7 +280,6 @@ public class BlockInit {
     public static final RegistryObject<Item> RED_STAINED_GLASS_SLAB_ITEM = ITEMS.register("red_stained_glass_slab", () -> new BlockItem(RED_STAINED_GLASS_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> WHITE_STAINED_GLASS_SLAB_ITEM = ITEMS.register("white_stained_glass_slab", () -> new BlockItem(WHITE_STAINED_GLASS_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> YELLOW_STAINED_GLASS_SLAB_ITEM = ITEMS.register("yellow_stained_glass_slab", () -> new BlockItem(YELLOW_STAINED_GLASS_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-
     public static final RegistryObject<Item> SAND_BLACK_ITEM = ITEMS.register("sand_black", () -> new BlockItem(SAND_BLACK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SAND_BLUE_GRAY_ITEM = ITEMS.register("sand_blue_gray", () -> new BlockItem(SAND_BLUE_GRAY.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SAND_BROWN_ITEM = ITEMS.register("sand_brown", () -> new BlockItem(SAND_BROWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
@@ -313,7 +302,6 @@ public class BlockInit {
     public static final RegistryObject<Item> SANDSTONE_MUTED_BROWN_ITEM = ITEMS.register("sandstone_muted_brown", () -> new BlockItem(SANDSTONE_MUTED_BROWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SANDSTONE_VIVID_RED_ITEM = ITEMS.register("sandstone_vivid_red", () -> new BlockItem(SANDSTONE_VIVID_RED.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SANDSTONE_WHITE_ITEM = ITEMS.register("sandstone_white", () -> new BlockItem(SANDSTONE_WHITE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-
     public static final RegistryObject<BlockItem> THATCH_BLOCK_ITEM = ITEMS.register("thatch_block", () -> new BlockItem(THATCH_BLOCK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> THATCH_BUTTON_ITEM = ITEMS.register("thatch_button", () -> new BlockItem(THATCH_BUTTON.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> THATCH_FENCE_ITEM = ITEMS.register("thatch_fence", () -> new BlockItem(THATCH_FENCE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
@@ -364,23 +352,12 @@ public class BlockInit {
     public static final RegistryObject<BlockItem> MORE_MOSSY_ANDESITE_PRESSURE_PLATE_ITEM = ITEMS.register("more_mossy_andesite_pressure_plate", () -> new BlockItem(MORE_MOSSY_ANDESITE_PRESSURE_PLATE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> MORE_MOSSY_ANDESITE_SLAB_ITEM = ITEMS.register("more_mossy_andesite_slab", () -> new BlockItem(MORE_MOSSY_ANDESITE_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> MORE_MOSSY_ANDESITE_STAIRS_ITEM = ITEMS.register("more_mossy_andesite_stairs", () -> new BlockItem(MORE_MOSSY_ANDESITE_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> ACACIA_BEAM_UP_ITEM = ITEMS.register("acacia_beam_up", () -> new BlockItem(ACACIA_BEAM_UP.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> ACACIA_BEAM_MIDDLE_ITEM = ITEMS.register("acacia_beam_middle", () -> new BlockItem(ACACIA_BEAM_MIDDLE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> ACACIA_BEAM_DOWN_ITEM = ITEMS.register("acacia_beam_down", () -> new BlockItem(ACACIA_BEAM_DOWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> BIRCH_BEAM_UP_ITEM = ITEMS.register("birch_beam_up", () -> new BlockItem(BIRCH_BEAM_UP.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> BIRCH_BEAM_MIDDLE_ITEM = ITEMS.register("birch_beam_middle", () -> new BlockItem(BIRCH_BEAM_MIDDLE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> BIRCH_BEAM_DOWN_ITEM = ITEMS.register("birch_beam_down", () -> new BlockItem(BIRCH_BEAM_DOWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> DARK_OAK_BEAM_UP_ITEM = ITEMS.register("dark_oak_beam_up", () -> new BlockItem(DARK_OAK_BEAM_UP.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> DARK_OAK_BEAM_MIDDLE_ITEM = ITEMS.register("dark_oak_beam_middle", () -> new BlockItem(DARK_OAK_BEAM_MIDDLE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> DARK_OAK_BEAM_DOWN_ITEM = ITEMS.register("dark_oak_beam_down", () -> new BlockItem(DARK_OAK_BEAM_DOWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> JUNGLE_BEAM_UP_ITEM = ITEMS.register("jungle_beam_up", () -> new BlockItem(JUNGLE_BEAM_UP.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> JUNGLE_BEAM_MIDDLE_ITEM = ITEMS.register("jungle_beam_middle", () -> new BlockItem(JUNGLE_BEAM_MIDDLE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> JUNGLE_BEAM_DOWN_ITEM = ITEMS.register("jungle_beam_down", () -> new BlockItem(JUNGLE_BEAM_DOWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> OAK_BEAM_UP_ITEM = ITEMS.register("oak_beam_up", () -> new BlockItem(OAK_BEAM_UP.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> OAK_BEAM_MIDDLE_ITEM = ITEMS.register("oak_beam_middle", () -> new BlockItem(OAK_BEAM_MIDDLE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> OAK_BEAM_DOWN_ITEM = ITEMS.register("oak_beam_down", () -> new BlockItem(OAK_BEAM_DOWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> SPRUCE_BEAM_UP_ITEM = ITEMS.register("spruce_beam_up", () -> new BlockItem(SPRUCE_BEAM_UP.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> SPRUCE_BEAM_MIDDLE_ITEM = ITEMS.register("spruce_beam_middle", () -> new BlockItem(SPRUCE_BEAM_MIDDLE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
-    public static final RegistryObject<BlockItem> SPRUCE_BEAM_DOWN_ITEM = ITEMS.register("spruce_beam_down", () -> new BlockItem(SPRUCE_BEAM_DOWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+
+    public static final RegistryObject<BlockItem> ACACIA_BEAM_ITEM = ITEMS.register("acacia_beam", () -> new BlockItem(ACACIA_BEAM.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<BlockItem> BIRCH_BEAM_ITEM = ITEMS.register("birch_beam", () -> new BlockItem(BIRCH_BEAM.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<BlockItem> DARK_OAK_BEAM_ITEM = ITEMS.register("dark_oak_beam", () -> new BlockItem(DARK_OAK_BEAM.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<BlockItem> JUNGLE_BEAM_ITEM = ITEMS.register("jungle_beam", () -> new BlockItem(JUNGLE_BEAM.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<BlockItem> OAK_BEAM_ITEM = ITEMS.register("oak_beam", () -> new BlockItem(OAK_BEAM.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<BlockItem> SPRUCE_BEAM_ITEM = ITEMS.register("spruce_beam", () -> new BlockItem(SPRUCE_BEAM.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
 
 }
