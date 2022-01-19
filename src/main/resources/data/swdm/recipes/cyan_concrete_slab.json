@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "concrete_slab",
+  "pattern":
+  [
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:cyan_concrete"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:cyan_concrete_slab",
+    "count": 6
+  }
+}

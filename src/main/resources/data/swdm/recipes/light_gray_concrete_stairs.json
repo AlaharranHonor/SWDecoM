@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "concrete_stairs",
+  "pattern":
+  [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:light_gray_concrete"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:light_gray_concrete_stairs",
+    "count": 6
+  }
+}

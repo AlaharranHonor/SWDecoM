@@ -1,0 +1,63 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:black_concrete_stairs",
+      "swdm:blue_concrete_stairs",
+      "swdm:brown_concrete_stairs",
+      "swdm:cyan_concrete_stairs",
+      "swdm:gray_concrete_stairs",
+      "swdm:green_concrete_stairs",
+      "swdm:light_blue_concrete_stairs",
+      "swdm:light_gray_concrete_stairs",
+      "swdm:lime_concrete_stairs",
+      "swdm:magenta_concrete_stairs",
+      "swdm:orange_concrete_stairs",
+      "swdm:pink_concrete_stairs",
+      "swdm:purple_concrete_stairs",
+      "swdm:red_concrete_stairs",
+      "swdm:white_concrete_stairs",
+      "swdm:yellow_concrete_stairs",
+      "swdm:black_concrete_slab",
+      "swdm:blue_concrete_slab",
+      "swdm:brown_concrete_slab",
+      "swdm:cyan_concrete_slab",
+      "swdm:gray_concrete_slab",
+      "swdm:green_concrete_slab",
+      "swdm:light_blue_concrete_slab",
+      "swdm:light_gray_concrete_slab",
+      "swdm:lime_concrete_slab",
+      "swdm:magenta_concrete_slab",
+      "swdm:orange_concrete_slab",
+      "swdm:pink_concrete_slab",
+      "swdm:purple_concrete_slab",
+      "swdm:red_concrete_slab",
+      "swdm:white_concrete_slab",
+      "swdm:yellow_concrete_slab"
+    ]
+  },
+  "criteria": {
+    "has_concrete": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:concrete"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:black_concrete_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_concrete",
+      "has_the_recipe"
+    ]
+  ]
+}
