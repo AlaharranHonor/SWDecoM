@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:acacia_stick",
+    "swdm:birch_stick",
+    "swdm:dark_oak_stick",
+    "swdm:jungle_stick",
+    "swdm:oak_stick",
+    "swdm:spruce_stick"
+  ]
+}

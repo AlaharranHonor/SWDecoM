@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:uncraft_wood_sticks"
+    ]
+  },
+  "criteria": {
+    "has_wood_sticks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "swdm:wood_sticks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:uncraft_wood_sticks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wood_sticks",
+      "has_the_recipe"
+    ]
+  ]
+}
