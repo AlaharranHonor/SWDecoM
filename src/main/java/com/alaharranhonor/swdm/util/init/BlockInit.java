@@ -215,6 +215,23 @@ public class BlockInit {
     public static final RegistryObject<Block> RED_CONCRETE_SLAB = BLOCKS.register("red_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLACK_CONCRETE)));
     public static final RegistryObject<Block> WHITE_CONCRETE_SLAB = BLOCKS.register("white_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLACK_CONCRETE)));
     public static final RegistryObject<Block> YELLOW_CONCRETE_SLAB = BLOCKS.register("yellow_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLACK_CONCRETE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_BLACK = BLOCKS.register("dark_prismarine_black", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_BLUE = BLOCKS.register("dark_prismarine_blue", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_BROWN = BLOCKS.register("dark_prismarine_brown", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_CYAN = BLOCKS.register("dark_prismarine_cyan", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_GRAY = BLOCKS.register("dark_prismarine_gray", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_GREEN = BLOCKS.register("dark_prismarine_green", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_LIGHT_BLUE = BLOCKS.register("dark_prismarine_light_blue", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_LIGHT_GRAY = BLOCKS.register("dark_prismarine_light_gray", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_LIME = BLOCKS.register("dark_prismarine_lime", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_MAGENTA = BLOCKS.register("dark_prismarine_magenta", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_ORANGE = BLOCKS.register("dark_prismarine_orange", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_PINK = BLOCKS.register("dark_prismarine_pink", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_PURPLE = BLOCKS.register("dark_prismarine_purple", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_RED = BLOCKS.register("dark_prismarine_red", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_WHITE = BLOCKS.register("dark_prismarine_white", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> DARK_PRISMARINE_YELLOW = BLOCKS.register("dark_prismarine_yellow", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
+    public static final RegistryObject<Block> PRISMARINE_GLASS_BRICKS_CYAN = BLOCKS.register("prismarine_glass_bricks_cyan", () -> new Block(Block.Properties.copy(Blocks.PRISMARINE)));
 
     //Items
     public static final RegistryObject<Item> ACACIA_STICK = ITEMS.register("acacia_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
@@ -419,5 +436,23 @@ public class BlockInit {
     public static final RegistryObject<Item> RED_CONCRETE_SLAB_ITEM = ITEMS.register("red_concrete_slab", () -> new BlockItem(RED_CONCRETE_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> WHITE_CONCRETE_SLAB_ITEM = ITEMS.register("white_concrete_slab", () -> new BlockItem(WHITE_CONCRETE_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> YELLOW_CONCRETE_SLAB_ITEM = ITEMS.register("yellow_concrete_slab", () -> new BlockItem(YELLOW_CONCRETE_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_BLACK_ITEM = ITEMS.register("dark_prismarine_black", () -> new BlockItem(DARK_PRISMARINE_BLACK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_BLUE_ITEM = ITEMS.register("dark_prismarine_blue", () -> new BlockItem(DARK_PRISMARINE_BLUE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_BROWN_ITEM = ITEMS.register("dark_prismarine_brown", () -> new BlockItem(DARK_PRISMARINE_BROWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_CYAN_ITEM = ITEMS.register("dark_prismarine_cyan", () -> new BlockItem(DARK_PRISMARINE_CYAN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_GRAY_ITEM = ITEMS.register("dark_prismarine_gray", () -> new BlockItem(DARK_PRISMARINE_GRAY.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_GREEN_ITEM = ITEMS.register("dark_prismarine_green", () -> new BlockItem(DARK_PRISMARINE_GREEN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_LIGHT_BLUE_ITEM = ITEMS.register("dark_prismarine_light_blue", () -> new BlockItem(DARK_PRISMARINE_LIGHT_BLUE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_LIGHT_GRAY_ITEM = ITEMS.register("dark_prismarine_light_gray", () -> new BlockItem(DARK_PRISMARINE_LIGHT_GRAY.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_LIME_ITEM = ITEMS.register("dark_prismarine_lime", () -> new BlockItem(DARK_PRISMARINE_LIME.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_MAGENTA_ITEM = ITEMS.register("dark_prismarine_magenta", () -> new BlockItem(DARK_PRISMARINE_MAGENTA.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_ORANGE_ITEM = ITEMS.register("dark_prismarine_orange", () -> new BlockItem(DARK_PRISMARINE_ORANGE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_PINK_ITEM = ITEMS.register("dark_prismarine_pink", () -> new BlockItem(DARK_PRISMARINE_PINK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_PURPLE_ITEM = ITEMS.register("dark_prismarine_purple", () -> new BlockItem(DARK_PRISMARINE_PURPLE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_RED_ITEM = ITEMS.register("dark_prismarine_red", () -> new BlockItem(DARK_PRISMARINE_RED.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_WHITE_ITEM = ITEMS.register("dark_prismarine_white", () -> new BlockItem(DARK_PRISMARINE_WHITE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_PRISMARINE_YELLOW_ITEM = ITEMS.register("dark_prismarine_yellow", () -> new BlockItem(DARK_PRISMARINE_YELLOW.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> PRISMARINE_GLASS_BRICKS_CYAN_ITEM = ITEMS.register("prismarine_glass_bricks_cyan", () -> new BlockItem(PRISMARINE_GLASS_BRICKS_CYAN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+
 
 }
