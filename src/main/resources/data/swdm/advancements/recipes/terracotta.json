@@ -1,0 +1,95 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:black_terracotta_stairs",
+      "swdm:blue_terracotta_stairs",
+      "swdm:brown_terracotta_stairs",
+      "swdm:cyan_terracotta_stairs",
+      "swdm:gray_terracotta_stairs",
+      "swdm:green_terracotta_stairs",
+      "swdm:light_blue_terracotta_stairs",
+      "swdm:light_gray_terracotta_stairs",
+      "swdm:lime_terracotta_stairs",
+      "swdm:magenta_terracotta_stairs",
+      "swdm:orange_terracotta_stairs",
+      "swdm:pink_terracotta_stairs",
+      "swdm:purple_terracotta_stairs",
+      "swdm:red_terracotta_stairs",
+      "swdm:white_terracotta_stairs",
+      "swdm:yellow_terracotta_stairs",
+      "swdm:black_terracotta_slab",
+      "swdm:blue_terracotta_slab",
+      "swdm:brown_terracotta_slab",
+      "swdm:cyan_terracotta_slab",
+      "swdm:gray_terracotta_slab",
+      "swdm:green_terracotta_slab",
+      "swdm:light_blue_terracotta_slab",
+      "swdm:light_gray_terracotta_slab",
+      "swdm:lime_terracotta_slab",
+      "swdm:magenta_terracotta_slab",
+      "swdm:orange_terracotta_slab",
+      "swdm:pink_terracotta_slab",
+      "swdm:purple_terracotta_slab",
+      "swdm:red_terracotta_slab",
+      "swdm:white_terracotta_slab",
+      "swdm:yellow_terracotta_slab",
+      "swdm:black_terracotta_stairs_stonecutter",
+      "swdm:blue_terracotta_stairs_stonecutter",
+      "swdm:brown_terracotta_stairs_stonecutter",
+      "swdm:cyan_terracotta_stairs_stonecutter",
+      "swdm:gray_terracotta_stairs_stonecutter",
+      "swdm:green_terracotta_stairs_stonecutter",
+      "swdm:light_blue_terracotta_stairs_stonecutter",
+      "swdm:light_gray_terracotta_stairs_stonecutter",
+      "swdm:lime_terracotta_stairs_stonecutter",
+      "swdm:magenta_terracotta_stairs_stonecutter",
+      "swdm:orange_terracotta_stairs_stonecutter",
+      "swdm:pink_terracotta_stairs_stonecutter",
+      "swdm:purple_terracotta_stairs_stonecutter",
+      "swdm:red_terracotta_stairs_stonecutter",
+      "swdm:white_terracotta_stairs_stonecutter",
+      "swdm:yellow_terracotta_stairs_stonecutter",
+      "swdm:black_terracotta_slab_stonecutter",
+      "swdm:blue_terracotta_slab_stonecutter",
+      "swdm:brown_terracotta_slab_stonecutter",
+      "swdm:cyan_terracotta_slab_stonecutter",
+      "swdm:gray_terracotta_slab_stonecutter",
+      "swdm:green_terracotta_slab_stonecutter",
+      "swdm:light_blue_terracotta_slab_stonecutter",
+      "swdm:light_gray_terracotta_slab_stonecutter",
+      "swdm:lime_terracotta_slab_stonecutter",
+      "swdm:magenta_terracotta_slab_stonecutter",
+      "swdm:orange_terracotta_slab_stonecutter",
+      "swdm:pink_terracotta_slab_stonecutter",
+      "swdm:purple_terracotta_slab_stonecutter",
+      "swdm:red_terracotta_slab_stonecutter",
+      "swdm:white_terracotta_slab_stonecutter",
+      "swdm:yellow_terracotta_slab_stonecutter"
+    ]
+  },
+  "criteria": {
+    "has_terracotta": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "swdm:terracotta"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:black_terracotta_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_terracotta",
+      "has_the_recipe"
+    ]
+  ]
+}

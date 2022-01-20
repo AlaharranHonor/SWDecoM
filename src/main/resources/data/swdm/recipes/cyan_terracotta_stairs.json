@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "terracotta_stairs",
+  "pattern":
+  [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:cyan_terracotta"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:cyan_terracotta_stairs",
+    "count": 6
+  }
+}
