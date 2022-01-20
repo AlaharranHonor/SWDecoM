@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:dark_prismarine_black",
+      "swdm:dark_prismarine_blue",
+      "swdm:dark_prismarine_brown",
+      "swdm:dark_prismarine_cyan",
+      "swdm:dark_prismarine_gray",
+      "swdm:dark_prismarine_green",
+      "swdm:dark_prismarine_light_blue",
+      "swdm:dark_prismarine_light_gray",
+      "swdm:dark_prismarine_lime",
+      "swdm:dark_prismarine_magenta",
+      "swdm:dark_prismarine_orange",
+      "swdm:dark_prismarine_pink",
+      "swdm:dark_prismarine_purple",
+      "swdm:dark_prismarine_red",
+      "swdm:dark_prismarine_white",
+      "swdm:dark_prismarine_yellow"
+    ]
+  },
+  "criteria": {
+    "has_dark_prismarine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:dark_prismarine"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:dark_prismarine_black"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dark_prismarine",
+      "has_the_recipe"
+    ]
+  ]
+}

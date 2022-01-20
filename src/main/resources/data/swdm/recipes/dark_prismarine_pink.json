@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "swdm_dark_prismarine",
+  "ingredients": [
+    {
+      "item": "minecraft:dark_prismarine"
+    },
+    {
+      "item": "minecraft:pink_dye"
+    }
+  ],
+  "result": {
+    "item": "swdm:dark_prismarine_pink"
+  }
+}
