@@ -33,7 +33,39 @@
       "swdm:purple_concrete_slab",
       "swdm:red_concrete_slab",
       "swdm:white_concrete_slab",
-      "swdm:yellow_concrete_slab"
+      "swdm:yellow_concrete_slab",
+      "swdm:black_concrete_stairs_stonecutter",
+      "swdm:blue_concrete_stairs_stonecutter",
+      "swdm:brown_concrete_stairs_stonecutter",
+      "swdm:cyan_concrete_stairs_stonecutter",
+      "swdm:gray_concrete_stairs_stonecutter",
+      "swdm:green_concrete_stairs_stonecutter",
+      "swdm:light_blue_concrete_stairs_stonecutter",
+      "swdm:light_gray_concrete_stairs_stonecutter",
+      "swdm:lime_concrete_stairs_stonecutter",
+      "swdm:magenta_concrete_stairs_stonecutter",
+      "swdm:orange_concrete_stairs_stonecutter",
+      "swdm:pink_concrete_stairs_stonecutter",
+      "swdm:purple_concrete_stairs_stonecutter",
+      "swdm:red_concrete_stairs_stonecutter",
+      "swdm:white_concrete_stairs_stonecutter",
+      "swdm:yellow_concrete_stairs_stonecutter",
+      "swdm:black_concrete_slab_stonecutter",
+      "swdm:blue_concrete_slab_stonecutter",
+      "swdm:brown_concrete_slab_stonecutter",
+      "swdm:cyan_concrete_slab_stonecutter",
+      "swdm:gray_concrete_slab_stonecutter",
+      "swdm:green_concrete_slab_stonecutter",
+      "swdm:light_blue_concrete_slab_stonecutter",
+      "swdm:light_gray_concrete_slab_stonecutter",
+      "swdm:lime_concrete_slab_stonecutter",
+      "swdm:magenta_concrete_slab_stonecutter",
+      "swdm:orange_concrete_slab_stonecutter",
+      "swdm:pink_concrete_slab_stonecutter",
+      "swdm:purple_concrete_slab_stonecutter",
+      "swdm:red_concrete_slab_stonecutter",
+      "swdm:white_concrete_slab_stonecutter",
+      "swdm:yellow_concrete_slab_stonecutter"
     ]
   },
   "criteria": {
@@ -42,7 +74,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "minecraft:concrete"
+            "tag": "swdm:concrete"
           }
         ]
       }
