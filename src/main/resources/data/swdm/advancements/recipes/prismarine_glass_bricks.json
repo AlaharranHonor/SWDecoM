@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "swdm:prismarine_glass_bricks_cyan"
+      "swdm:cyan_prismarine_glass_bricks"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "swdm:prismarine_glass_bricks_cyan"
+        "recipe": "swdm:cyan_prismarine_glass_bricks"
       }
     }
   },
