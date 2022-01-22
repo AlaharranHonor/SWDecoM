@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:cyan_prismarine_glass_bricks"
+  },
+  "result": "swdm:cyan_prismarine_glass_bricks_slab",
+  "count": 2
+}
