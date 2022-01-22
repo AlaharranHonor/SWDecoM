@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "end": "swdm:blocks/jungle_beam_single",
-    "side": "swdm:blocks/jungle_oak_beam_up"
+    "side": "swdm:blocks/jungle_beam_up"
   }
 }
