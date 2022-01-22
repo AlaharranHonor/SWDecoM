@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "swdm:blocks/dark_oak_beam_up"
+    "end": "swdm:blocks/dark_oak_beam_single",
+    "side": "swdm:blocks/dark_oak_beam_up"
   }
 }

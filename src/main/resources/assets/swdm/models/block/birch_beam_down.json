@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "swdm:blocks/birch_beam_down"
+    "end": "swdm:blocks/birch_beam_single",
+    "side": "swdm:blocks/birch_beam_down"
   }
 }
