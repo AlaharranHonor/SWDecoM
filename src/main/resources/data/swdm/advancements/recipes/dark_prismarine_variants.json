@@ -1,0 +1,95 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:black_dark_prismarine_stairs",
+      "swdm:blue_dark_prismarine_stairs",
+      "swdm:brown_dark_prismarine_stairs",
+      "swdm:cyan_dark_prismarine_stairs",
+      "swdm:gray_dark_prismarine_stairs",
+      "swdm:green_dark_prismarine_stairs",
+      "swdm:light_blue_dark_prismarine_stairs",
+      "swdm:light_gray_dark_prismarine_stairs",
+      "swdm:lime_dark_prismarine_stairs",
+      "swdm:magenta_dark_prismarine_stairs",
+      "swdm:orange_dark_prismarine_stairs",
+      "swdm:pink_dark_prismarine_stairs",
+      "swdm:purple_dark_prismarine_stairs",
+      "swdm:red_dark_prismarine_stairs",
+      "swdm:white_dark_prismarine_stairs",
+      "swdm:yellow_dark_prismarine_stairs",
+      "swdm:black_dark_prismarine_slab",
+      "swdm:blue_dark_prismarine_slab",
+      "swdm:brown_dark_prismarine_slab",
+      "swdm:cyan_dark_prismarine_slab",
+      "swdm:gray_dark_prismarine_slab",
+      "swdm:green_dark_prismarine_slab",
+      "swdm:light_blue_dark_prismarine_slab",
+      "swdm:light_gray_dark_prismarine_slab",
+      "swdm:lime_dark_prismarine_slab",
+      "swdm:magenta_dark_prismarine_slab",
+      "swdm:orange_dark_prismarine_slab",
+      "swdm:pink_dark_prismarine_slab",
+      "swdm:purple_dark_prismarine_slab",
+      "swdm:red_dark_prismarine_slab",
+      "swdm:white_dark_prismarine_slab",
+      "swdm:yellow_dark_prismarine_slab",
+      "swdm:black_dark_prismarine_stairs_stonecutter",
+      "swdm:blue_dark_prismarine_stairs_stonecutter",
+      "swdm:brown_dark_prismarine_stairs_stonecutter",
+      "swdm:cyan_dark_prismarine_stairs_stonecutter",
+      "swdm:gray_dark_prismarine_stairs_stonecutter",
+      "swdm:green_dark_prismarine_stairs_stonecutter",
+      "swdm:light_blue_dark_prismarine_stairs_stonecutter",
+      "swdm:light_gray_dark_prismarine_stairs_stonecutter",
+      "swdm:lime_dark_prismarine_stairs_stonecutter",
+      "swdm:magenta_dark_prismarine_stairs_stonecutter",
+      "swdm:orange_dark_prismarine_stairs_stonecutter",
+      "swdm:pink_dark_prismarine_stairs_stonecutter",
+      "swdm:purple_dark_prismarine_stairs_stonecutter",
+      "swdm:red_dark_prismarine_stairs_stonecutter",
+      "swdm:white_dark_prismarine_stairs_stonecutter",
+      "swdm:yellow_dark_prismarine_stairs_stonecutter",
+      "swdm:black_dark_prismarine_slab_stonecutter",
+      "swdm:blue_dark_prismarine_slab_stonecutter",
+      "swdm:brown_dark_prismarine_slab_stonecutter",
+      "swdm:cyan_dark_prismarine_slab_stonecutter",
+      "swdm:gray_dark_prismarine_slab_stonecutter",
+      "swdm:green_dark_prismarine_slab_stonecutter",
+      "swdm:light_blue_dark_prismarine_slab_stonecutter",
+      "swdm:light_gray_dark_prismarine_slab_stonecutter",
+      "swdm:lime_dark_prismarine_slab_stonecutter",
+      "swdm:magenta_dark_prismarine_slab_stonecutter",
+      "swdm:orange_dark_prismarine_slab_stonecutter",
+      "swdm:pink_dark_prismarine_slab_stonecutter",
+      "swdm:purple_dark_prismarine_slab_stonecutter",
+      "swdm:red_dark_prismarine_slab_stonecutter",
+      "swdm:white_dark_prismarine_slab_stonecutter",
+      "swdm:yellow_dark_prismarine_slab_stonecutter"
+    ]
+  },
+  "criteria": {
+    "has_dark_prismarine_colored": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "swdm:dark_prismarine_colored"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:black_dark_prismarine_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dark_prismarine_colored",
+      "has_the_recipe"
+    ]
+  ]
+}

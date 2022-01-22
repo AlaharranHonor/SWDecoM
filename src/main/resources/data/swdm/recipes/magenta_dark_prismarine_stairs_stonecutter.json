@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:magenta_dark_prismarine"
+  },
+  "result": "swdm:magenta_dark_prismarine_stairs",
+  "count": 1
+}

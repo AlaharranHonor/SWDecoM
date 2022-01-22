@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "dark_prismarine_stairs",
+  "pattern":
+  [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "swdm:green_dark_prismarine"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:green_dark_prismarine_stairs",
+    "count": 6
+  }
+}
