@@ -33,7 +33,23 @@
       "swdm:purple_wool_slab",
       "swdm:red_wool_slab",
       "swdm:white_wool_slab",
-      "swdm:yellow_wool_slab"
+      "swdm:yellow_wool_slab",
+      "swdm:black_wool_wall",
+      "swdm:blue_wool_wall",
+      "swdm:brown_wool_wall",
+      "swdm:cyan_wool_wall",
+      "swdm:gray_wool_wall",
+      "swdm:green_wool_wall",
+      "swdm:light_blue_wool_wall",
+      "swdm:light_gray_wool_wall",
+      "swdm:lime_wool_wall",
+      "swdm:magenta_wool_wall",
+      "swdm:orange_wool_wall",
+      "swdm:pink_wool_wall",
+      "swdm:purple_wool_wall",
+      "swdm:red_wool_wall",
+      "swdm:white_wool_wall",
+      "swdm:yellow_wool_wall"
     ]
   },
   "criteria": {

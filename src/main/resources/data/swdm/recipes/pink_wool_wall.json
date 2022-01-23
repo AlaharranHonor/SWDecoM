@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wool_wall",
+  "pattern":
+  [
+    "xxx",
+	"xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:pink_wool"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:pink_wool_wall",
+    "count": 6
+  }
+}
