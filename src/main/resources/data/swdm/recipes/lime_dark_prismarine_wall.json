@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "dark_prismarine_wall",
+  "pattern":
+  [
+    "xxx",
+	"xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "swdm:lime_dark_prismarine"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:lime_dark_prismarine_wall",
+    "count": 6
+  }
+}
