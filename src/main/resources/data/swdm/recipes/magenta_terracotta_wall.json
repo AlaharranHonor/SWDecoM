@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "terracotta_wall",
+  "pattern":
+  [
+    "xxx",
+	"xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:magenta_terracotta"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:magenta_terracotta_wall",
+    "count": 6
+  }
+}
