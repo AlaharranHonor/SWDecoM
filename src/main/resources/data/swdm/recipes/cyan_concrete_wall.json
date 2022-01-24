@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "concrete_wall",
+  "pattern":
+  [
+    "xxx",
+	"xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:cyan_concrete"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:cyan_concrete_wall",
+    "count": 6
+  }
+}
