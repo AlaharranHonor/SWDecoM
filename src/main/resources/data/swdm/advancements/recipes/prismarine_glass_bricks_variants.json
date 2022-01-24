@@ -5,7 +5,9 @@
       "swdm:cyan_prismarine_glass_bricks_stairs",
       "swdm:cyan_prismarine_glass_bricks_stairs_stonecutter",
       "swdm:cyan_prismarine_glass_bricks_slab",
-      "swdm:cyan_prismarine_glass_bricks_slab_stonecutter"
+      "swdm:cyan_prismarine_glass_bricks_slab_stonecutter",
+      "swdm:cyan_prismarine_glass_bricks_wall",
+      "swdm:cyan_prismarine_glass_bricks_wall_stonecutter"
     ]
   },
   "criteria": {
