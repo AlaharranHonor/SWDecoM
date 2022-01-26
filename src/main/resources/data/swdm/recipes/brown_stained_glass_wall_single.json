@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "recolor_stained_glass_wall",
+  "ingredients": [
+    {
+      "tag": "swdm:stained_glass_wall"
+    },
+    {
+      "item": "minecraft:brown_dye"
+    }
+  ],
+  "result": {
+    "item": "swdm:brown_stained_glass_wall"
+  }
+}

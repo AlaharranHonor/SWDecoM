@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "recolor_stained_glass_wall",
+  "ingredients": [
+    {
+      "tag": "swdm:stained_glass_wall"
+    },
+    {
+      "item": "minecraft:black_dye"
+    }
+  ],
+  "result": {
+    "item": "swdm:black_stained_glass_wall"
+  }
+}
