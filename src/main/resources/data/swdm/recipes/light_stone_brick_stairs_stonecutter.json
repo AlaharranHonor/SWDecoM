@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:light_stone_bricks"
+  },
+  "result": "swdm:light_stone_brick_stairs",
+  "count": 1
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "stone_brick_wall",
+  "pattern": [
+    "xxx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:dark_stone_bricks"
+    }
+  },
+  "result": {
+    "item": "swdm:dark_stone_brick_wall",
+    "count": 6
+  }
+}
