@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "swdm:blocks/stripped_spruce_log_beam_middle"
+  }
+}

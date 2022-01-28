@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "swdm:blocks/stripped_acacia_log_beam_single",
+    "side": "swdm:blocks/stripped_acacia_log_beam_down"
+  }
+}

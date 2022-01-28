@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "tile=single": {
+      "model": "swdm:block/stripped_oak_log_beam_single"
+    },
+    "tile=upper": {
+      "model": "swdm:block/stripped_oak_log_beam_up"
+    },
+    "tile=middle": {
+      "model": "swdm:block/stripped_oak_log_beam_middle"
+    },
+    "tile=bottom": {
+      "model": "swdm:block/stripped_oak_log_beam_down"
+    }
+  }
+}
