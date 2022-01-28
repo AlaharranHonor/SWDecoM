@@ -95,6 +95,24 @@
     "swdm:cyan_prismarine_glass_bricks_wall",
     "swdm:light_stone_brick_wall",
     "swdm:medium_stone_brick_wall",
-    "swdm:dark_stone_brick_wall"
+    "swdm:dark_stone_brick_wall",
+    "swdm:acacia_plank_wall",
+    "swdm:birch_plank_wall",
+    "swdm:dark_oak_plank_wall",
+    "swdm:jungle_plank_wall",
+    "swdm:oak_plank_wall",
+    "swdm:spruce_plank_wall",
+    "swdm:acacia_log_wall",
+    "swdm:birch_log_wall",
+    "swdm:dark_oak_log_wall",
+    "swdm:jungle_log_wall",
+    "swdm:oak_log_wall",
+    "swdm:spruce_log_wall",
+    "swdm:stripped_acacia_log_wall",
+    "swdm:stripped_birch_log_wall",
+    "swdm:stripped_dark_oak_log_wall",
+    "swdm:stripped_jungle_log_wall",
+    "swdm:stripped_oak_log_wall",
+    "swdm:stripped_spruce_log_wall"
   ]
 }

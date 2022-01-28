@@ -409,6 +409,24 @@ public class BlockInit {
     public static final RegistryObject<Block> DARK_STONE_BRICK_BUTTON = BLOCKS.register("dark_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
     public static final RegistryObject<Block> DARK_STONE_BRICK_PRESSURE_PLATE = BLOCKS.register("dark_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
     public static final RegistryObject<Block> DARK_STONE_BRICK_WALL = BLOCKS.register("dark_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
+    public static final RegistryObject<Block> ACACIA_PLANK_WALL = BLOCKS.register("acacia_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.ACACIA_PLANKS)));
+    public static final RegistryObject<Block> BIRCH_PLANK_WALL = BLOCKS.register("birch_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BIRCH_PLANKS)));
+    public static final RegistryObject<Block> DARK_OAK_PLANK_WALL = BLOCKS.register("dark_oak_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+    public static final RegistryObject<Block> JUNGLE_PLANK_WALL = BLOCKS.register("jungle_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.JUNGLE_PLANKS)));
+    public static final RegistryObject<Block> OAK_PLANK_WALL = BLOCKS.register("oak_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.OAK_PLANKS)));
+    public static final RegistryObject<Block> SPRUCE_PLANK_WALL = BLOCKS.register("spruce_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.SPRUCE_PLANKS)));
+    public static final RegistryObject<Block> ACACIA_LOG_WALL = BLOCKS.register("acacia_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> BIRCH_LOG_WALL = BLOCKS.register("birch_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> DARK_OAK_LOG_WALL = BLOCKS.register("dark_oak_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> JUNGLE_LOG_WALL = BLOCKS.register("jungle_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> OAK_LOG_WALL = BLOCKS.register("oak_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> SPRUCE_LOG_WALL = BLOCKS.register("spruce_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> STRIPPED_ACACIA_LOG_WALL = BLOCKS.register("stripped_acacia_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> STRIPPED_BIRCH_LOG_WALL = BLOCKS.register("stripped_birch_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> STRIPPED_DARK_OAK_LOG_WALL = BLOCKS.register("stripped_dark_oak_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> STRIPPED_JUNGLE_LOG_WALL = BLOCKS.register("stripped_jungle_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> STRIPPED_OAK_LOG_WALL = BLOCKS.register("stripped_oak_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> STRIPPED_SPRUCE_LOG_WALL = BLOCKS.register("stripped_spruce_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
 
     //Items
     public static final RegistryObject<Item> ACACIA_STICK = ITEMS.register("acacia_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
@@ -807,5 +825,23 @@ public class BlockInit {
     public static final RegistryObject<Item> DARK_STONE_BRICK_BUTTON_ITEM = ITEMS.register("dark_stone_brick_button", () -> new BlockItem(DARK_STONE_BRICK_BUTTON.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> DARK_STONE_BRICK_PRESSURE_PLATE_ITEM = ITEMS.register("dark_stone_brick_pressure_plate", () -> new BlockItem(DARK_STONE_BRICK_PRESSURE_PLATE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> DARK_STONE_BRICK_WALL_ITEM = ITEMS.register("dark_stone_brick_wall", () -> new BlockItem(DARK_STONE_BRICK_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> ACACIA_PLANK_WALL_ITEM = ITEMS.register("acacia_plank_wall", () -> new BlockItem(ACACIA_PLANK_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> BIRCH_PLANK_WALL_ITEM = ITEMS.register("birch_plank_wall", () -> new BlockItem(BIRCH_PLANK_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_OAK_PLANK_WALL_ITEM = ITEMS.register("dark_oak_plank_wall", () -> new BlockItem(DARK_OAK_PLANK_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> JUNGLE_PLANK_WALL_ITEM = ITEMS.register("jungle_plank_wall", () -> new BlockItem(JUNGLE_PLANK_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> OAK_PLANK_WALL_ITEM = ITEMS.register("oak_plank_wall", () -> new BlockItem(OAK_PLANK_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> SPRUCE_PLANK_WALL_ITEM = ITEMS.register("spruce_plank_wall", () -> new BlockItem(SPRUCE_PLANK_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> ACACIA_LOG_WALL_ITEM = ITEMS.register("acacia_log_wall", () -> new BlockItem(ACACIA_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> BIRCH_LOG_WALL_ITEM = ITEMS.register("birch_log_wall", () -> new BlockItem(BIRCH_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_OAK_LOG_WALL_ITEM = ITEMS.register("dark_oak_log_wall", () -> new BlockItem(DARK_OAK_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> JUNGLE_LOG_WALL_ITEM = ITEMS.register("jungle_log_wall", () -> new BlockItem(JUNGLE_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> OAK_LOG_WALL_ITEM = ITEMS.register("oak_log_wall", () -> new BlockItem(OAK_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> SPRUCE_LOG_WALL_ITEM = ITEMS.register("spruce_log_wall", () -> new BlockItem(SPRUCE_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> STRIPPED_ACACIA_LOG_WALL_ITEM = ITEMS.register("stripped_acacia_log_wall", () -> new BlockItem(STRIPPED_ACACIA_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> STRIPPED_BIRCH_LOG_WALL_ITEM = ITEMS.register("stripped_birch_log_wall", () -> new BlockItem(STRIPPED_BIRCH_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> STRIPPED_DARK_OAK_LOG_WALL_ITEM = ITEMS.register("stripped_dark_oak_log_wall", () -> new BlockItem(STRIPPED_DARK_OAK_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> STRIPPED_JUNGLE_LOG_WALL_ITEM = ITEMS.register("stripped_jungle_log_wall", () -> new BlockItem(STRIPPED_JUNGLE_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> STRIPPED_OAK_LOG_WALL_ITEM = ITEMS.register("stripped_oak_log_wall", () -> new BlockItem(STRIPPED_OAK_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> STRIPPED_SPRUCE_LOG_WALL_ITEM = ITEMS.register("stripped_spruce_log_wall", () -> new BlockItem(STRIPPED_SPRUCE_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
 
 }
