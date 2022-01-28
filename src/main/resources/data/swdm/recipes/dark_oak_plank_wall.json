@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "plank_wall",
+  "pattern": [
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:dark_oak_log_wall"
+    }
+  },
+  "result": {
+    "item": "swdm:dark_oak_plank_wall",
+    "count": 16
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "plank_wall",
+  "pattern": [
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:birch_log_wall"
+    }
+  },
+  "result": {
+    "item": "swdm:birch_plank_wall",
+    "count": 16
+  }
+}

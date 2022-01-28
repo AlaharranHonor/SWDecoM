@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "plank_wall",
+  "pattern": [
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:acacia_log_wall"
+    }
+  },
+  "result": {
+    "item": "swdm:acacia_plank_wall",
+    "count": 16
+  }
+}
