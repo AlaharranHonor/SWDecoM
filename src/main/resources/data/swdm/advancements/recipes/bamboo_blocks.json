@@ -2,16 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "swdm:bamboo_block_to_bamboo",
-      "swdm:bamboo_button",
-      "swdm:bamboo_door",
-      "swdm:bamboo_fence",
-      "swdm:bamboo_fence_gate",
-      "swdm:bamboo_ladder",
-      "swdm:bamboo_pressure_plate",
-      "swdm:bamboo_slab",
-      "swdm:bamboo_stairs",
-      "swdm:bamboo_trapdoor"
+      "swdm:bamboo_block_to_bamboo"
     ]
   },
   "criteria": {
