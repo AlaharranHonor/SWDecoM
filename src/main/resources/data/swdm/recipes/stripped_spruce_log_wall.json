@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "stripped_log_wall",
+  "pattern": [
+    "xxx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:stripped_spruce_log"
+    }
+  },
+  "result": {
+    "item": "swdm:stripped_spruce_log_wall",
+    "count": 6
+  }
+}
