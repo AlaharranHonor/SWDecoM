@@ -2,16 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "swdm:thatch_block_to_thatch",
-      "swdm:thatch_button",
-      "swdm:thatch_door",
-      "swdm:thatch_fence",
-      "swdm:thatch_fence_gate",
-      "swdm:thatch_ladder",
-      "swdm:thatch_pressure_plate",
-      "swdm:thatch_slab",
-      "swdm:thatch_stairs",
-      "swdm:thatch_trapdoor"
+      "swdm:thatch_block_to_thatch"
     ]
   },
   "criteria": {

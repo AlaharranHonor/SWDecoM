@@ -9,6 +9,7 @@
     }
   },
   "result": {
-    "item": "swdm:thatch_pressure_plate"
+    "item": "swdm:thatch_pressure_plate",
+    "count": 16
   }
 }
