@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mass_clay",
+  "pattern":
+  [
+    "yyy",
+    "yxy",
+    "yyy"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:white_dye"
+    },
+    "y":
+    {
+      "item": "minecraft:clay"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:light_clay_block",
+    "count": 8
+  }
+}

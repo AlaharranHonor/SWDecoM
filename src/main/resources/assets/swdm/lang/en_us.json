@@ -425,5 +425,8 @@
   "block.swdm.stripped_dark_oak_log_wall": "Stripped Dark Oak Log Wall",
   "block.swdm.stripped_jungle_log_wall": "Stripped Jungle Log Wall",
   "block.swdm.stripped_oak_log_wall": "Stripped Oak Log Wall",
-  "block.swdm.stripped_spruce_log_wall": "Stripped Spruce Log Wall"
+  "block.swdm.stripped_spruce_log_wall": "Stripped Spruce Log Wall",
+  "block.swdm.light_clay_block": "Light Clay",
+  "block.swdm.medium_clay_block": "Medium Clay",
+  "block.swdm.dark_clay_block": "Dark Clay"
 }

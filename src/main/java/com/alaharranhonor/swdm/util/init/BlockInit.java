@@ -430,6 +430,9 @@ public class BlockInit {
     public static final RegistryObject<Block> STRIPPED_JUNGLE_LOG_WALL = BLOCKS.register("stripped_jungle_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> STRIPPED_OAK_LOG_WALL = BLOCKS.register("stripped_oak_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> STRIPPED_SPRUCE_LOG_WALL = BLOCKS.register("stripped_spruce_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> LIGHT_CLAY_BLOCK = BLOCKS.register("light_clay_block", () -> new Block(Block.Properties.copy(Blocks.CLAY)));
+    public static final RegistryObject<Block> MEDIUM_CLAY_BLOCK = BLOCKS.register("medium_clay_block", () -> new Block(Block.Properties.copy(Blocks.CLAY)));
+    public static final RegistryObject<Block> DARK_CLAY_BLOCK= BLOCKS.register("dark_clay_block", () -> new Block(Block.Properties.copy(Blocks.CLAY)));
 
     //Items
     public static final RegistryObject<Item> ACACIA_STICK = ITEMS.register("acacia_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
@@ -849,5 +852,8 @@ public class BlockInit {
     public static final RegistryObject<Item> STRIPPED_JUNGLE_LOG_WALL_ITEM = ITEMS.register("stripped_jungle_log_wall", () -> new BlockItem(STRIPPED_JUNGLE_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> STRIPPED_OAK_LOG_WALL_ITEM = ITEMS.register("stripped_oak_log_wall", () -> new BlockItem(STRIPPED_OAK_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> STRIPPED_SPRUCE_LOG_WALL_ITEM = ITEMS.register("stripped_spruce_log_wall", () -> new BlockItem(STRIPPED_SPRUCE_LOG_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_CLAY_BLOCK_ITEM = ITEMS.register("light_clay_block", () -> new BlockItem(LIGHT_CLAY_BLOCK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_CLAY_BLOCK_ITEM = ITEMS.register("medium_clay_block", () -> new BlockItem(MEDIUM_CLAY_BLOCK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_CLAY_BLOCK_ITEM = ITEMS.register("dark_clay_block", () -> new BlockItem(DARK_CLAY_BLOCK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
 
 }
