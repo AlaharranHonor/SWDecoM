@@ -4,7 +4,7 @@
       "model": "swdm:block/medium_stone_brick_slab"
     },
     "type=double": {
-      "model": "swdm:block/medium_stone_brick"
+      "model": "swdm:block/medium_stone_bricks"
     },
     "type=top": {
       "model": "swdm:block/medium_stone_brick_slab_top"

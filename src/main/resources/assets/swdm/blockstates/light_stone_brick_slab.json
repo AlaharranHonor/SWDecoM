@@ -4,7 +4,7 @@
       "model": "swdm:block/light_stone_brick_slab"
     },
     "type=double": {
-      "model": "swdm:block/light_stone_brick"
+      "model": "swdm:block/light_stone_bricks"
     },
     "type=top": {
       "model": "swdm:block/light_stone_brick_slab_top"
