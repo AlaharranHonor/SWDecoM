@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "log_beam",
+  "pattern": [
+    "yxy",
+    "yxy",
+	"yxy"
+  ],
+  "key": {
+    "y": {
+      "item": "swdm:jungle_stick"
+    },
+	"x": {
+      "item": "minecraft:jungle_log"
+    }
+  },
+  "result": {
+    "item": "swdm:jungle_log_beam"
+  }
+}

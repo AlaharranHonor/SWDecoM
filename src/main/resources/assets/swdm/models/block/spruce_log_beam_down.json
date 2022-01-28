@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "swdm:blocks/spruce_log_beam_single",
+    "side": "swdm:blocks/spruce_log_beam_down"
+  }
+}
