@@ -81,7 +81,10 @@
       "swdm:purple_stained_glass_wall_mass",
       "swdm:red_stained_glass_wall_mass",
       "swdm:white_stained_glass_wall_mass",
-      "swdm:yellow_stained_glass_wall_mass"
+      "swdm:yellow_stained_glass_wall_mass",
+      "swdm:glass_wall",
+      "swdm:glass_stairs",
+      "swdm:glass_slab"
     ]
   },
   "criteria": {

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:glass"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:glass_slab",
+    "count": 6
+  }
+}

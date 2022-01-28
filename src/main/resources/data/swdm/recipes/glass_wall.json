@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xyx",
+	"xyx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:glass"
+    },
+    "y":
+    {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:glass_wall",
+    "count": 6
+  }
+}

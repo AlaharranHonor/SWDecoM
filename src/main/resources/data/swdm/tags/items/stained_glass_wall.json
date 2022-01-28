@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "swdm:glass_wall",
     "swdm:white_stained_glass_wall",
     "swdm:orange_stained_glass_wall",
     "swdm:magenta_stained_glass_wall",

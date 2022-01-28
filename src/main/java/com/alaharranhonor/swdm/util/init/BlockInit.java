@@ -137,6 +137,9 @@ public class BlockInit {
     public static final RegistryObject<Block> RED_STAINED_GLASS_WALL = BLOCKS.register("red_stained_glass_wall", () -> new WallBlock(Block.Properties.copy(Blocks.RED_STAINED_GLASS)));
     public static final RegistryObject<Block> WHITE_STAINED_GLASS_WALL = BLOCKS.register("white_stained_glass_wall", () -> new WallBlock(Block.Properties.copy(Blocks.WHITE_STAINED_GLASS)));
     public static final RegistryObject<Block> YELLOW_STAINED_GLASS_WALL = BLOCKS.register("yellow_stained_glass_wall", () -> new WallBlock(Block.Properties.copy(Blocks.YELLOW_STAINED_GLASS)));
+    public static final RegistryObject<Block> GLASS_STAIRS = BLOCKS.register("glass_stairs", () -> new StairsBlock(Blocks.GLASS.defaultBlockState(), Block.Properties.copy(Blocks.GLASS)));
+    public static final RegistryObject<Block> GLASS_SLAB = BLOCKS.register("glass_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.GLASS)));
+    public static final RegistryObject<Block> GLASS_WALL = BLOCKS.register("glass_wall", () -> new WallBlock(Block.Properties.copy(Blocks.GLASS)));
     public static final RegistryObject<Block> SAND_BLACK = BLOCKS.register("sand_black", () -> new SandBlock(14406560, AbstractBlock.Properties.copy(Blocks.SAND)));
     public static final RegistryObject<Block> SAND_BLUE_GRAY = BLOCKS.register("sand_blue_gray", () -> new SandBlock(14406560, AbstractBlock.Properties.copy(Blocks.SAND)));
     public static final RegistryObject<Block> SAND_BROWN = BLOCKS.register("sand_brown", () -> new SandBlock(14406560, AbstractBlock.Properties.copy(Blocks.SAND)));
@@ -553,6 +556,9 @@ public class BlockInit {
     public static final RegistryObject<Item> RED_STAINED_GLASS_WALL_ITEM = ITEMS.register("red_stained_glass_wall", () -> new BlockItem(RED_STAINED_GLASS_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> WHITE_STAINED_GLASS_WALL_ITEM = ITEMS.register("white_stained_glass_wall", () -> new BlockItem(WHITE_STAINED_GLASS_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> YELLOW_STAINED_GLASS_WALL_ITEM = ITEMS.register("yellow_stained_glass_wall", () -> new BlockItem(YELLOW_STAINED_GLASS_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> GLASS_STAIRS_ITEM = ITEMS.register("glass_stairs", () -> new BlockItem(GLASS_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> GLASS_SLAB_ITEM = ITEMS.register("glass_slab", () -> new BlockItem(GLASS_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> GLASS_WALL_ITEM = ITEMS.register("glass_wall", () -> new BlockItem(GLASS_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SAND_BLACK_ITEM = ITEMS.register("sand_black", () -> new BlockItem(SAND_BLACK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SAND_BLUE_GRAY_ITEM = ITEMS.register("sand_blue_gray", () -> new BlockItem(SAND_BLUE_GRAY.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SAND_BROWN_ITEM = ITEMS.register("sand_brown", () -> new BlockItem(SAND_BROWN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));

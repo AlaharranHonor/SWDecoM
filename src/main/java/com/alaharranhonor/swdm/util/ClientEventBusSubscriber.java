@@ -80,6 +80,9 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(BlockInit.RED_STAINED_GLASS_WALL.get(), RenderType.translucent());
         RenderTypeLookup.setRenderLayer(BlockInit.WHITE_STAINED_GLASS_WALL.get(), RenderType.translucent());
         RenderTypeLookup.setRenderLayer(BlockInit.YELLOW_STAINED_GLASS_WALL.get(), RenderType.translucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.GLASS_STAIRS.get(), RenderType.translucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.GLASS_SLAB.get(), RenderType.translucent());
+        RenderTypeLookup.setRenderLayer(BlockInit.GLASS_WALL.get(), RenderType.translucent());
         RenderTypeLookup.setRenderLayer(BlockInit.THATCH_DOOR.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.BAMBOO_DOOR.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.BAMBOO_LADDER.get(), RenderType.cutout());
