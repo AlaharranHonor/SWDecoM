@@ -428,5 +428,10 @@
   "block.swdm.stripped_spruce_log_wall": "Stripped Spruce Log Wall",
   "block.swdm.light_clay_block": "Light Clay",
   "block.swdm.medium_clay_block": "Medium Clay",
-  "block.swdm.dark_clay_block": "Dark Clay"
+  "block.swdm.dark_clay_block": "Dark Clay",
+  "block.swdm.whitewash_ladder": "Whitewash Ladder",
+  "block.swdm.whitewash_plank_beam": "Whitewash Plank Beam",
+  "block.swdm.whitewash_log_beam": "Whitewash Log Beam",
+  "block.swdm.whitewash_plank_wall": "Whitewash Plank Wall",
+  "block.swdm.whitewash_log_wall": "Whitewash Log Wall"
 }

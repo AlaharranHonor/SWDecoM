@@ -2,6 +2,7 @@ package com.alaharranhonor.swdm.util;
 
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.util.init.BlockInit;
+import com.alaharranhonor.swdm.util.init.SWEMInit;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.api.distmarker.Dist;
@@ -95,5 +96,6 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(BlockInit.JUNGLE_LADDER.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.OAK_LADDER.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.SPRUCE_LADDER.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(SWEMInit.WHITEWASH_LADDER.getBlock(), RenderType.cutout());
     }
 }

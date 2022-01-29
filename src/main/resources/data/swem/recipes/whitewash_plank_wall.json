@@ -1,0 +1,30 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "swem",
+          "type": "forge:mod_loaded"
+        }
+      ],
+
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "plank_wall",
+        "pattern": [
+          "xxx"
+        ],
+        "key": {
+          "x": {
+            "item": "swdm:whitewash_log_wall"
+          }
+        },
+        "result": {
+          "item": "swdm:whitewash_plank_wall",
+          "count": 16
+        }
+      }
+    }
+  ]
+}

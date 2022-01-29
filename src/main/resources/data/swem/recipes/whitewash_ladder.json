@@ -1,0 +1,30 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "swem",
+          "type": "forge:mod_loaded"
+        }
+      ],
+
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "wood_ladder",
+        "ingredients": [
+          {
+            "item": "swem:whitewash_finish"
+          },
+          {
+            "tag": "swdm:ladders"
+          }
+        ],
+        "result": {
+          "item": "swdm:whitewash_ladder",
+          "count": 1
+        }
+      }
+    }
+  ]
+}

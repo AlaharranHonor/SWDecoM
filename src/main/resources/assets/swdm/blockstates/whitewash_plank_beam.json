@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "tile=single": {
+      "model": "swdm:block/whitewash_plank_beam_single"
+    },
+    "tile=upper": {
+      "model": "swdm:block/whitewash_plank_beam_up"
+    },
+    "tile=middle": {
+      "model": "swdm:block/whitewash_plank_beam_middle"
+    },
+    "tile=bottom": {
+      "model": "swdm:block/whitewash_plank_beam_down"
+    }
+  }
+}

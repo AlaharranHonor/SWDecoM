@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swem:whitewash_ladder",
+      "swem:whitewash_plank_beam",
+      "swem:whitewash_log_beam",
+      "swem:whitewash_plank_wall",
+      "swem:whitewash_log_wall"
+    ]
+  },
+  "criteria": {
+    "has_whitewash_finish": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swem:whitewash_finish"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swem:whitewash_ladder"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_whitewash_finish",
+      "has_the_recipe"
+    ]
+  ]
+}

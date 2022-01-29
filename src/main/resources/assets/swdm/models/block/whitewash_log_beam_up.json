@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "swdm:blocks/whitewash_log_beam_single",
+    "side": "swdm:blocks/whitewash_log_beam_up"
+  }
+}

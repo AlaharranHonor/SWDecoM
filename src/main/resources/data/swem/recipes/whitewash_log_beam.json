@@ -1,0 +1,34 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "swem",
+          "type": "forge:mod_loaded"
+        }
+      ],
+
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "log_beam",
+        "pattern": [
+          "yxy",
+          "yxy",
+          "yxy"
+        ],
+        "key": {
+          "y": {
+            "tag": "swdm:sticks"
+          },
+          "x": {
+            "item": "swem:whitewash_log"
+          }
+        },
+        "result": {
+          "item": "swdm:whitewash_log_beam"
+        }
+      }
+    }
+  ]
+}
