@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:more_mossy_diorite"
+  },
+  "result": "swdm:more_mossy_diorite_wall",
+  "count": 1
+}

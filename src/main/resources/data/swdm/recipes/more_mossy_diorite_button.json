@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mossy_button",
+  "pattern": [
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:more_mossy_diorite"
+    }
+  },
+  "result": {
+    "item": "swdm:more_mossy_diorite_button"
+  }
+}
