@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:mossy_diorite"
+  },
+  "result": "swdm:mossy_diorite_stairs",
+  "count": 1
+}
