@@ -3,7 +3,11 @@
   "values": [
     "swdm:mossy_stone",
     "swdm:mossy_andesite",
+    "swdm:mossy_diorite",
+    "swdm:mossy_granite",
     "swdm:more_mossy_stone",
-    "swdm:more_mossy_andesite"
+    "swdm:more_mossy_andesite",
+    "swdm:more_mossy_diorite",
+    "swdm:more_mossy_granite"
   ]
 }

@@ -4,8 +4,12 @@
     "recipes": [
       "swdm:more_mossy_andesite",
       "swdm:more_mossy_stone",
+      "swdm:more_mossy_diorite",
+      "swdm:more_mossy_granite",
       "swdm:mossy_andesite",
-      "swdm:mossy_stone"
+      "swdm:mossy_stone",
+      "swdm:mossy_diorite",
+      "swdm:mossy_granite"
     ]
   },
   "criteria": {
