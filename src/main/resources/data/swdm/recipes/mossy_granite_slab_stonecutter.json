@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:mossy_granite"
+  },
+  "result": "swdm:mossy_granite_slab",
+  "count": 2
+}
