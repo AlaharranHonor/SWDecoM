@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "swdm:blocks/cracked_andesite",
+    "top": "swdm:blocks/cracked_andesite",
+    "side": "swdm:blocks/cracked_andesite"
+  }
+}

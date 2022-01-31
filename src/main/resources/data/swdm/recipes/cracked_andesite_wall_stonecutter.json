@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:cracked_andesite"
+  },
+  "result": "swdm:cracked_andesite_wall",
+  "count": 1
+}
