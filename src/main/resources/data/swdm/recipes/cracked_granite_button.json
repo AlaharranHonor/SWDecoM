@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "cracked_button",
+  "pattern": [
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:cracked_granite"
+    }
+  },
+  "result": {
+    "item": "swdm:cracked_granite_button"
+  }
+}

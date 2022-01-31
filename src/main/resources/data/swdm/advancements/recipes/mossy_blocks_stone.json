@@ -9,7 +9,11 @@
       "swdm:mossy_andesite",
       "swdm:mossy_stone",
       "swdm:mossy_diorite",
-      "swdm:mossy_granite"
+      "swdm:mossy_granite",
+      "swdm:cracked_andesite",
+      "swdm:cracked_stone",
+      "swdm:cracked_diorite",
+      "swdm:cracked_granite"
     ]
   },
   "criteria": {

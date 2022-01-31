@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:cracked_granite"
+  },
+  "result": "swdm:cracked_granite_stairs",
+  "count": 1
+}

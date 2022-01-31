@@ -8,6 +8,10 @@
     "swdm:more_mossy_stone",
     "swdm:more_mossy_andesite",
     "swdm:more_mossy_diorite",
-    "swdm:more_mossy_granite"
+    "swdm:more_mossy_granite",
+    "swdm:cracked_stone",
+    "swdm:cracked_andesite",
+    "swdm:cracked_diorite",
+    "swdm:cracked_granite"
   ]
 }

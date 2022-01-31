@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "cracked_wall",
+  "pattern": [
+    "xxx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:cracked_granite"
+    }
+  },
+  "result": {
+    "item": "swdm:cracked_granite_wall",
+    "count": 6
+  }
+}
