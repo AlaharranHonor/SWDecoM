@@ -12,6 +12,10 @@
     "swdm:more_mossy_stone_wall",
     "swdm:mossy_andesite_wall",
     "swdm:more_mossy_andesite_wall",
+    "swdm:mossy_diorite_wall",
+    "swdm:more_mossy_diorite_wall",
+    "swdm:mossy_granite_wall",
+    "swdm:more_mossy_granite_wall",
     "swdm:black_wool_wall",
     "swdm:blue_wool_wall",
     "swdm:brown_wool_wall",
@@ -116,6 +120,9 @@
     "swdm:stripped_oak_log_wall",
     "swdm:stripped_spruce_log_wall",
     "swdm:whitewash_plank_wall",
-    "swdm:whitewash_log_wall"
+    "swdm:whitewash_log_wall",
+    "swdm:light_brick_wall",
+    "swdm:medium_brick_wall",
+    "swdm:dark_brick_wall"
   ]
 }

@@ -1,0 +1,58 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:light_bricks",
+      "swdm:light_brick_button",
+      "swdm:light_brick_pressure_plate",
+      "swdm:light_brick_slab",
+      "swdm:light_brick_slab_stonecutter",
+      "swdm:light_brick_stairs",
+      "swdm:light_brick_stairs_stonecutter",
+      "swdm:light_brick_wall",
+      "swdm:light_brick_wall_stonecutter",
+      "swdm:medium_bricks",
+      "swdm:medium_brick_button",
+      "swdm:medium_brick_pressure_plate",
+      "swdm:medium_brick_slab",
+      "swdm:medium_brick_slab_stonecutter",
+      "swdm:medium_brick_stairs",
+      "swdm:medium_brick_stairs_stonecutter",
+      "swdm:medium_brick_wall",
+      "swdm:medium_brick_wall_stonecutter",
+      "swdm:dark_bricks",
+      "swdm:dark_brick_button",
+      "swdm:dark_brick_pressure_plate",
+      "swdm:dark_brick_slab",
+      "swdm:dark_brick_slab_stonecutter",
+      "swdm:dark_brick_stairs",
+      "swdm:dark_brick_stairs_stonecutter",
+      "swdm:dark_brick_wall",
+      "swdm:dark_brick_wall_stonecutter"
+    ]
+  },
+  "criteria": {
+    "has_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:light_bricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

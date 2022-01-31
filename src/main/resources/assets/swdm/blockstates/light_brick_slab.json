@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "swdm:block/light_brick_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/light_bricks"
+    },
+    "type=top": {
+      "model": "swdm:block/light_brick_slab_top"
+    }
+  }
+}

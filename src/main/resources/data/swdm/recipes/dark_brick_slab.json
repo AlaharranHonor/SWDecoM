@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "brick_slab",
+  "pattern": [
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:dark_bricks"
+    }
+  },
+  "result": {
+    "item": "swdm:dark_brick_slab",
+    "count": 6
+  }
+}

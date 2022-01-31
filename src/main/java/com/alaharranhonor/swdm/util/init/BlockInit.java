@@ -457,6 +457,24 @@ public class BlockInit {
     public static final RegistryObject<Block> LIGHT_CLAY_BLOCK = BLOCKS.register("light_clay_block", () -> new Block(Block.Properties.copy(Blocks.CLAY)));
     public static final RegistryObject<Block> MEDIUM_CLAY_BLOCK = BLOCKS.register("medium_clay_block", () -> new Block(Block.Properties.copy(Blocks.CLAY)));
     public static final RegistryObject<Block> DARK_CLAY_BLOCK= BLOCKS.register("dark_clay_block", () -> new Block(Block.Properties.copy(Blocks.CLAY)));
+    public static final RegistryObject<Block> LIGHT_BRICKS = BLOCKS.register("light_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> LIGHT_BRICK_STAIRS = BLOCKS.register("light_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> LIGHT_BRICK_SLAB = BLOCKS.register("light_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> LIGHT_BRICK_BUTTON = BLOCKS.register("light_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> LIGHT_BRICK_PRESSURE_PLATE = BLOCKS.register("light_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> LIGHT_BRICK_WALL = BLOCKS.register("light_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> MEDIUM_BRICKS = BLOCKS.register("medium_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> MEDIUM_BRICK_STAIRS = BLOCKS.register("medium_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> MEDIUM_BRICK_SLAB = BLOCKS.register("medium_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> MEDIUM_BRICK_BUTTON = BLOCKS.register("medium_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> MEDIUM_BRICK_PRESSURE_PLATE = BLOCKS.register("medium_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> MEDIUM_BRICK_WALL = BLOCKS.register("medium_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> DARK_BRICKS = BLOCKS.register("dark_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> DARK_BRICK_STAIRS = BLOCKS.register("dark_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> DARK_BRICK_SLAB = BLOCKS.register("dark_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> DARK_BRICK_BUTTON = BLOCKS.register("dark_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> DARK_BRICK_PRESSURE_PLATE = BLOCKS.register("dark_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
+    public static final RegistryObject<Block> DARK_BRICK_WALL = BLOCKS.register("dark_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
 
     //Items
     public static final RegistryObject<Item> ACACIA_STICK = ITEMS.register("acacia_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
@@ -903,5 +921,23 @@ public class BlockInit {
     public static final RegistryObject<Item> LIGHT_CLAY_BLOCK_ITEM = ITEMS.register("light_clay_block", () -> new BlockItem(LIGHT_CLAY_BLOCK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> MEDIUM_CLAY_BLOCK_ITEM = ITEMS.register("medium_clay_block", () -> new BlockItem(MEDIUM_CLAY_BLOCK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> DARK_CLAY_BLOCK_ITEM = ITEMS.register("dark_clay_block", () -> new BlockItem(DARK_CLAY_BLOCK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_BRICKS_ITEM = ITEMS.register("light_bricks", () -> new BlockItem(LIGHT_BRICKS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_BRICK_STAIRS_ITEM = ITEMS.register("light_brick_stairs", () -> new BlockItem(LIGHT_BRICK_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_BRICK_SLAB_ITEM = ITEMS.register("light_brick_slab", () -> new BlockItem(LIGHT_BRICK_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_BRICK_BUTTON_ITEM = ITEMS.register("light_brick_button", () -> new BlockItem(LIGHT_BRICK_BUTTON.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_BRICK_PRESSURE_PLATE_ITEM = ITEMS.register("light_brick_pressure_plate", () -> new BlockItem(LIGHT_BRICK_PRESSURE_PLATE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_BRICK_WALL_ITEM = ITEMS.register("light_brick_wall", () -> new BlockItem(LIGHT_BRICK_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_BRICKS_ITEM = ITEMS.register("medium_bricks", () -> new BlockItem(MEDIUM_BRICKS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_BRICK_STAIRS_ITEM = ITEMS.register("medium_brick_stairs", () -> new BlockItem(MEDIUM_BRICK_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_BRICK_SLAB_ITEM = ITEMS.register("medium_brick_slab", () -> new BlockItem(MEDIUM_BRICK_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_BRICK_BUTTON_ITEM = ITEMS.register("medium_brick_button", () -> new BlockItem(MEDIUM_BRICK_BUTTON.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_BRICK_PRESSURE_PLATE_ITEM = ITEMS.register("medium_brick_pressure_plate", () -> new BlockItem(MEDIUM_BRICK_PRESSURE_PLATE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_BRICK_WALL_ITEM = ITEMS.register("medium_brick_wall", () -> new BlockItem(MEDIUM_BRICK_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_BRICKS_ITEM = ITEMS.register("dark_bricks", () -> new BlockItem(DARK_BRICKS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_BRICK_STAIRS_ITEM = ITEMS.register("dark_brick_stairs", () -> new BlockItem(DARK_BRICK_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_BRICK_SLAB_ITEM = ITEMS.register("dark_brick_slab", () -> new BlockItem(DARK_BRICK_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_BRICK_BUTTON_ITEM = ITEMS.register("dark_brick_button", () -> new BlockItem(DARK_BRICK_BUTTON.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_BRICK_PRESSURE_PLATE_ITEM = ITEMS.register("dark_brick_pressure_plate", () -> new BlockItem(DARK_BRICK_PRESSURE_PLATE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_BRICK_WALL_ITEM = ITEMS.register("dark_brick_wall", () -> new BlockItem(DARK_BRICK_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
 
 }
