@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "swdm:block/cracked_stone_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/cracked_stone"
+    },
+    "type=top": {
+      "model": "swdm:block/cracked_stone_slab_top"
+    }
+  }
+}
