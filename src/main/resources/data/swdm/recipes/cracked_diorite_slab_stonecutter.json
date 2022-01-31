@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:cracked_diorite"
+  },
+  "result": "swdm:cracked_diorite_slab",
+  "count": 2
+}

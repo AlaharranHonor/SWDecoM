@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "cracked_stairs",
+  "pattern": [
+    "x  ",
+	"xx ",
+	"xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:cracked_diorite"
+    }
+  },
+  "result": {
+    "item": "swdm:cracked_diorite_stairs",
+    "count": 6
+  }
+}
