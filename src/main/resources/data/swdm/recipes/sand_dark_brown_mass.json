@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mass_sand",
+  "pattern":
+  [
+    "yyy",
+    "yxy",
+    "yyy"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:black_dye"
+    },
+    "y":
+    {
+      "item": "swdm:sand_brown"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:sand_dark_brown",
+    "count": 8
+  }
+}

@@ -12,7 +12,18 @@
       "swdm:sand_light_gray",
       "swdm:sand_muted_brown",
       "swdm:sand_vivid_red",
-      "swdm:sand_white"
+      "swdm:sand_white",
+      "swdm:sand_black_mass",
+      "swdm:sand_blue_gray_mass",
+      "swdm:sand_brown_mass",
+      "swdm:sand_dark_brown_mass",
+      "swdm:sand_dusted_gray_mass",
+      "swdm:sand_golden_mass",
+      "swdm:sand_gray_mass",
+      "swdm:sand_light_gray_mass",
+      "swdm:sand_muted_brown_mass",
+      "swdm:sand_vivid_red_mass",
+      "swdm:sand_white_mass"
     ]
   },
   "criteria": {
