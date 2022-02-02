@@ -96,6 +96,5 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(BlockInit.JUNGLE_LADDER.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.OAK_LADDER.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.SPRUCE_LADDER.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(SWEMInit.WHITEWASH_LADDER.getBlock(), RenderType.cutout());
     }
 }
