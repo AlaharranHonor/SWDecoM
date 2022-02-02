@@ -96,9 +96,9 @@ public class SWEMInit {
             item.getRegistry().register(new BlockItem(METER_POINT_MUTED_BROWN, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(METER_POINT_MUTED_BROWN.getRegistryName()));
             item.getRegistry().register(new BlockItem(METER_POINT_VIVID_RED, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(METER_POINT_VIVID_RED.getRegistryName()));
             item.getRegistry().register(new BlockItem(METER_POINT_WHITE, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(METER_POINT_WHITE.getRegistryName()));
-            item.getRegistry().register(new BlockItem(WHITEWASH_LADDER, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_LADDER.getRegistryName()));
-            item.getRegistry().register(new BlockItem(WHITEWASH_PLANK_WALL, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_PLANK_WALL.getRegistryName()));
-            item.getRegistry().register(new BlockItem(WHITEWASH_LOG_WALL, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_LOG_WALL.getRegistryName()));
+            //item.getRegistry().register(new BlockItem(WHITEWASH_LADDER, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_LADDER.getRegistryName()));
+            //item.getRegistry().register(new BlockItem(WHITEWASH_PLANK_WALL, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_PLANK_WALL.getRegistryName()));
+            //item.getRegistry().register(new BlockItem(WHITEWASH_LOG_WALL, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_LOG_WALL.getRegistryName()));
             item.getRegistry().register(new BlockItem(WHITEWASH_PLANK_BEAM, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_PLANK_BEAM.getRegistryName()));
             item.getRegistry().register(new BlockItem(WHITEWASH_LOG_BEAM, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_LOG_BEAM.getRegistryName()));
 
