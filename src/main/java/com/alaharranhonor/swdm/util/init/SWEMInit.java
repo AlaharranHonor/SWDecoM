@@ -63,13 +63,13 @@ public class SWEMInit {
             item.getRegistry().register(METER_POINT_VIVID_RED);
             METER_POINT_WHITE = new Block(AbstractBlock.Properties.copy(Blocks.SANDSTONE)).setRegistryName("meter_point_white");
             item.getRegistry().register(METER_POINT_WHITE);
-            /* Breaks the mod, making it require swem
+            // Breaks the mod, making it require swem
             WHITEWASH_LADDER = new LadderBlock(AbstractBlock.Properties.copy(Blocks.LADDER)).setRegistryName("whitewash_ladder");
             item.getRegistry().register(WHITEWASH_LADDER);
             WHITEWASH_PLANK_WALL = new WallBlock(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS)).setRegistryName("whitewash_plank_wall");
             item.getRegistry().register(WHITEWASH_PLANK_WALL);
             WHITEWASH_LOG_WALL = new WallBlock(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS)).setRegistryName("whitewash_log_wall");
-            item.getRegistry().register(WHITEWASH_LOG_WALL); */
+            item.getRegistry().register(WHITEWASH_LOG_WALL);
             WHITEWASH_PLANK_BEAM = new BeamBlock(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS)).setRegistryName("whitewash_plank_beam");
             item.getRegistry().register(WHITEWASH_PLANK_BEAM);
             WHITEWASH_LOG_BEAM = new BeamBlock(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS)).setRegistryName("whitewash_log_beam");
@@ -96,9 +96,9 @@ public class SWEMInit {
             item.getRegistry().register(new BlockItem(METER_POINT_MUTED_BROWN, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(METER_POINT_MUTED_BROWN.getRegistryName()));
             item.getRegistry().register(new BlockItem(METER_POINT_VIVID_RED, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(METER_POINT_VIVID_RED.getRegistryName()));
             item.getRegistry().register(new BlockItem(METER_POINT_WHITE, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(METER_POINT_WHITE.getRegistryName()));
-            //item.getRegistry().register(new BlockItem(WHITEWASH_LADDER, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_LADDER.getRegistryName()));
-            //item.getRegistry().register(new BlockItem(WHITEWASH_PLANK_WALL, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_PLANK_WALL.getRegistryName()));
-            //item.getRegistry().register(new BlockItem(WHITEWASH_LOG_WALL, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_LOG_WALL.getRegistryName()));
+            item.getRegistry().register(new BlockItem(WHITEWASH_LADDER, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_LADDER.getRegistryName()));
+            item.getRegistry().register(new BlockItem(WHITEWASH_PLANK_WALL, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_PLANK_WALL.getRegistryName()));
+            item.getRegistry().register(new BlockItem(WHITEWASH_LOG_WALL, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_LOG_WALL.getRegistryName()));
             item.getRegistry().register(new BlockItem(WHITEWASH_PLANK_BEAM, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_PLANK_BEAM.getRegistryName()));
             item.getRegistry().register(new BlockItem(WHITEWASH_LOG_BEAM, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(WHITEWASH_LOG_BEAM.getRegistryName()));
 

@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -15,6 +16,8 @@ public class ClientEventBusSubscriber {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        SWEMonClientSetup(event);
+
         RenderTypeLookup.setRenderLayer(BlockInit.ACACIA_LEAVES_STAIRS.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.BIRCH_LEAVES_STAIRS.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.DARK_OAK_LEAVES_STAIRS.get(), RenderType.cutout());
@@ -96,5 +99,11 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(BlockInit.JUNGLE_LADDER.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.OAK_LADDER.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.SPRUCE_LADDER.get(), RenderType.cutout());
+    }
+
+    public static void SWEMonClientSetup(FMLClientSetupEvent event) {
+        if (ModList.get().isLoaded("swem")) {
+            RenderTypeLookup.setRenderLayer(SWEMInit.WHITEWASH_LADDER, RenderType.cutout());
+        }
     }
 }
