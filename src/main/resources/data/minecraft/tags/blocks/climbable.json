@@ -9,5 +9,8 @@
     "swdm:spruce_ladder",
     "swdm:bamboo_ladder",
     "swdm:thatch_ladder"
+  ],
+  "optional": [
+    "swdm:whitewash_ladder"
   ]
 }

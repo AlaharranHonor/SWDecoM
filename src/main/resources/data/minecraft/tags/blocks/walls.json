@@ -126,5 +126,9 @@
     "swdm:light_brick_wall",
     "swdm:medium_brick_wall",
     "swdm:dark_brick_wall"
+  ],
+  "optional": [
+    "swdm:whitewash_plank_wall",
+    "swdm:whitewash_log_wall"
   ]
 }
