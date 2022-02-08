@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "swdm:block/green_terracotta_pressure_plate"
+    },
+    "powered=true": {
+      "model": "swdm:block/green_terracotta_pressure_plate_down"
+    }
+  }
+}
