@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "swdm:block/blue_dark_prismarine_pressure_plate"
+    },
+    "powered=true": {
+      "model": "swdm:block/blue_dark_prismarine_pressure_plate_down"
+    }
+  }
+}
