@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "jungle_trapdoor_variants",
+  "pattern": [
+    "xyx",
+    "xyx"
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:acacia_planks"
+    },
+    "y": {
+      "item": "minecraft:jungle_planks"
+    }
+  },
+  "result": {
+    "item": "swdm:jungle_trapdoor_acacia",
+    "count": 4
+  }
+}

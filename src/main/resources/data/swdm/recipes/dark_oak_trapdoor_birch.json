@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "dark_oak_trapdoor_variants",
+  "pattern": [
+    "xyx",
+    "xyx"
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:birch_planks"
+    },
+    "y": {
+      "item": "minecraft:dark_oak_planks"
+    }
+  },
+  "result": {
+    "item": "swdm:dark_oak_trapdoor_birch",
+    "count": 4
+  }
+}

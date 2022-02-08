@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "spruce_trapdoor_variants",
+  "pattern": [
+    "xyx",
+    "xyx"
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:dark_oak_planks"
+    },
+    "y": {
+      "item": "minecraft:spruce_planks"
+    }
+  },
+  "result": {
+    "item": "swdm:spruce_trapdoor_dark_oak",
+    "count": 4
+  }
+}
