@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "concrete_pressure_plate",
+  "pattern": [
+    "xx "
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:gray_concrete"
+    }
+  },
+  "result": {
+    "item": "swdm:gray_concrete_pressure_plate"
+  }
+}
