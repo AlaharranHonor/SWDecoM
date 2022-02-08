@@ -7,7 +7,9 @@
       "swdm:cyan_prismarine_glass_bricks_slab",
       "swdm:cyan_prismarine_glass_bricks_slab_stonecutter",
       "swdm:cyan_prismarine_glass_bricks_wall",
-      "swdm:cyan_prismarine_glass_bricks_wall_stonecutter"
+      "swdm:cyan_prismarine_glass_bricks_wall_stonecutter",
+      "swdm:cyan_prismarine_glass_bricks_button",
+      "swdm:cyan_prismarine_glass_bricks_pressure_plate"
     ]
   },
   "criteria": {
