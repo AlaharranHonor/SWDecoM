@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "swdm:blocks/blue_glass_bricks",
+    "top": "swdm:blocks/blue_glass_bricks",
+    "side": "swdm:blocks/blue_glass_bricks"
+  }
+}

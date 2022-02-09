@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:purple_glass_bricks"
+  },
+  "result": "swdm:purple_glass_bricks_wall",
+  "count": 1
+}

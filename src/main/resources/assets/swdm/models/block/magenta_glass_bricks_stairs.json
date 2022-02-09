@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "swdm:blocks/magenta_glass_bricks",
+    "top": "swdm:blocks/magenta_glass_bricks",
+    "side": "swdm:blocks/magenta_glass_bricks"
+  }
+}

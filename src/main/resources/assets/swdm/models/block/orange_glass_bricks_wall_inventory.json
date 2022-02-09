@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "swdm:blocks/orange_glass_bricks"
+  }
+}

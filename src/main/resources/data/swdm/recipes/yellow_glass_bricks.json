@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "glass_bricks",
+  "pattern":
+  [
+    "yyy",
+    "yxy",
+    "yyy"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:bricks"
+    },
+    "y":
+    {
+      "item": "minecraft:yellow_stained_glass"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:yellow_glass_bricks",
+    "count": 8
+  }
+}

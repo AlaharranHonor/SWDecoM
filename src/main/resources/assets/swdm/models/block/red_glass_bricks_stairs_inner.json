@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "swdm:blocks/red_glass_bricks",
+    "top": "swdm:blocks/red_glass_bricks",
+    "side": "swdm:blocks/red_glass_bricks"
+  }
+}

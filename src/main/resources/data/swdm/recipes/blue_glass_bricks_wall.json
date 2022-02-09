@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "glass_bricks_wall",
+  "pattern":
+  [
+    "xxx",
+	"xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "swdm:blue_glass_bricks"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:blue_glass_bricks_wall",
+    "count": 6
+  }
+}

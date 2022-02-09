@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:white_glass_bricks",
+    "swdm:orange_glass_bricks",
+    "swdm:magenta_glass_bricks",
+    "swdm:light_blue_glass_bricks",
+    "swdm:yellow_glass_bricks",
+    "swdm:lime_glass_bricks",
+    "swdm:pink_glass_bricks",
+    "swdm:gray_glass_bricks",
+    "swdm:light_gray_glass_bricks",
+    "swdm:cyan_glass_bricks",
+    "swdm:purple_glass_bricks",
+    "swdm:blue_glass_bricks",
+    "swdm:brown_glass_bricks",
+    "swdm:green_glass_bricks",
+    "swdm:red_glass_bricks",
+    "swdm:black_glass_bricks"
+  ]
+}

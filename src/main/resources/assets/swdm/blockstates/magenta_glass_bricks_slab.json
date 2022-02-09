@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "swdm:block/magenta_glass_bricks_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/magenta_glass_bricks"
+    },
+    "type=top": {
+      "model": "swdm:block/magenta_glass_bricks_slab_top"
+    }
+  }
+}

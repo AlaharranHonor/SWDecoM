@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "glass_bricks_stairs",
+  "pattern":
+  [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "swdm:yellow_glass_bricks"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:yellow_glass_bricks_stairs",
+    "count": 6
+  }
+}
