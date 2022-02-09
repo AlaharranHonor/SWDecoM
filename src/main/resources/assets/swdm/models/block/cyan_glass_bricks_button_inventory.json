@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_inventory",
+  "textures": {
+    "texture": "swdm:blocks/cyan_glass_bricks"
+  }
+}
