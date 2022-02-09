@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "xxx",
+    " x "
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:bamboo"
+    }
+  },
+  "result": {
+    "item": "swdm:bamboo_sign",
+    "count": 4
+  }
+}

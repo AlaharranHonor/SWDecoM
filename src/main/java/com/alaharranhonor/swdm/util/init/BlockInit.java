@@ -2,10 +2,13 @@ package com.alaharranhonor.swdm.util.init;
 
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.blocks.BeamBlock;
+import com.alaharranhonor.swdm.blocks.ModdedStandingSignBlock;
+import com.alaharranhonor.swdm.blocks.ModdedWallSignBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SignItem;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -178,6 +181,8 @@ public class BlockInit {
     public static final RegistryObject<Block> THATCH_SLAB = BLOCKS.register("thatch_slab", () -> new SlabBlock(AbstractBlock.Properties.copy(BlockInit.THATCH_BLOCK.get())));
     public static final RegistryObject<Block> THATCH_STAIRS = BLOCKS.register("thatch_stairs", () -> new StairsBlock(() -> BlockInit.THATCH_BLOCK.get().defaultBlockState() , AbstractBlock.Properties.copy(BlockInit.THATCH_BLOCK.get())));
     public static final RegistryObject<Block> THATCH_TRAPDOOR = BLOCKS.register("thatch_trapdoor", () -> new TrapDoorBlock(AbstractBlock.Properties.of(Material.PLANT).sound(SoundType.WET_GRASS).strength(0.5F,0.5F).noOcclusion()));
+    public static final RegistryObject<ModdedStandingSignBlock> THATCH_SIGN = BLOCKS.register("thatch_sign", () -> new ModdedStandingSignBlock(AbstractBlock.Properties.of(Material.PLANT).noCollission().strength(0.5F).sound(SoundType.WET_GRASS), SWDM.THATCH_WT));
+    public static final RegistryObject<ModdedWallSignBlock> THATCH_WALL_SIGN = BLOCKS.register("thatch_wall_sign", () -> new ModdedWallSignBlock(AbstractBlock.Properties.of(Material.PLANT).noCollission().strength(0.5F).sound(SoundType.WET_GRASS).lootFrom(() -> THATCH_SIGN.get()), SWDM.THATCH_WT));
     public static final RegistryObject<Block> BAMBOO_BLOCK = BLOCKS.register("bamboo_block", () -> new RotatedPillarBlock(AbstractBlock.Properties.of(Material.BAMBOO).sound(SoundType.BAMBOO_SAPLING).strength(0.5F, 0.5F)));
     public static final RegistryObject<Block> BAMBOO_BUTTON = BLOCKS.register("bamboo_button", () -> new WoodButtonBlock(AbstractBlock.Properties.of(Material.BAMBOO).sound(SoundType.BAMBOO).strength(0.5F, 0.5F)));
     public static final RegistryObject<Block> BAMBOO_DOOR = BLOCKS.register("bamboo_door", () -> new DoorBlock(AbstractBlock.Properties.of(Material.BAMBOO).sound(SoundType.BAMBOO_SAPLING).strength(0.5F, 0.5F).noOcclusion()));
@@ -188,6 +193,8 @@ public class BlockInit {
     public static final RegistryObject<Block> BAMBOO_SLAB = BLOCKS.register("bamboo_slab", () -> new SlabBlock(AbstractBlock.Properties.copy(BlockInit.BAMBOO_BLOCK.get())));
     public static final RegistryObject<Block> BAMBOO_STAIRS = BLOCKS.register("bamboo_stairs", () -> new StairsBlock(() -> BlockInit.BAMBOO_BLOCK.get().defaultBlockState() , AbstractBlock.Properties.copy(BlockInit.BAMBOO_BLOCK.get())));
     public static final RegistryObject<Block> BAMBOO_TRAPDOOR = BLOCKS.register("bamboo_trapdoor", () -> new TrapDoorBlock(AbstractBlock.Properties.of(Material.BAMBOO).sound(SoundType.BAMBOO_SAPLING).strength(0.5F,0.5F).noOcclusion()));
+    public static final RegistryObject<ModdedStandingSignBlock> BAMBOO_SIGN = BLOCKS.register("bamboo_sign", () -> new ModdedStandingSignBlock(AbstractBlock.Properties.of(Material.BAMBOO).noCollission().strength(0.5F).sound(SoundType.BAMBOO_SAPLING), SWDM.BAMBOO_WT));
+    public static final RegistryObject<ModdedWallSignBlock> BAMBOO_WALL_SIGN = BLOCKS.register("bamboo_wall_sign", () -> new ModdedWallSignBlock(AbstractBlock.Properties.of(Material.BAMBOO).noCollission().strength(0.5F).sound(SoundType.BAMBOO_SAPLING).lootFrom(() -> BAMBOO_SIGN.get()), SWDM.BAMBOO_WT));
     public static final RegistryObject<Block> MOSSY_STONE = BLOCKS.register("mossy_stone", () -> new Block(AbstractBlock.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(0).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> MOSSY_STONE_BUTTON = BLOCKS.register("mossy_stone_button", () -> new StoneButtonBlock(AbstractBlock.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(0).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> MOSSY_STONE_WALL = BLOCKS.register("mossy_stone_wall", () -> new WallBlock(AbstractBlock.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5F,6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(0).requiresCorrectToolForDrops()));
@@ -630,7 +637,6 @@ public class BlockInit {
     public static final RegistryObject<Block> RED_GLASS_BRICKS_PRESSURE_PLATE = BLOCKS.register("red_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
     public static final RegistryObject<Block> WHITE_GLASS_BRICKS_PRESSURE_PLATE = BLOCKS.register("white_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
     public static final RegistryObject<Block> YELLOW_GLASS_BRICKS_PRESSURE_PLATE = BLOCKS.register("yellow_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-
     public static final RegistryObject<Block> LIGHT_STONE_BRICKS = BLOCKS.register("light_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
     public static final RegistryObject<Block> LIGHT_STONE_BRICK_STAIRS = BLOCKS.register("light_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
     public static final RegistryObject<Block> LIGHT_STONE_BRICK_SLAB = BLOCKS.register("light_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
@@ -879,6 +885,7 @@ public class BlockInit {
     public static final RegistryObject<BlockItem> THATCH_SLAB_ITEM = ITEMS.register("thatch_slab", () -> new BlockItem(THATCH_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> THATCH_STAIRS_ITEM = ITEMS.register("thatch_stairs", () -> new BlockItem(THATCH_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> THATCH_TRAPDOOR_ITEM = ITEMS.register("thatch_trapdoor", () -> new BlockItem(THATCH_TRAPDOOR.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<SignItem> THATCH_SIGN_ITEM = ITEMS.register("thatch_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(SWDM.SWDMTAB), THATCH_SIGN.get(), THATCH_WALL_SIGN.get()));
     public static final RegistryObject<BlockItem> BAMBOO_BLOCK_ITEM = ITEMS.register("bamboo_block", () -> new BlockItem(BAMBOO_BLOCK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> BAMBOO_BUTTON_ITEM = ITEMS.register("bamboo_button", () -> new BlockItem(BAMBOO_BUTTON.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> BAMBOO_FENCE_ITEM = ITEMS.register("bamboo_fence", () -> new BlockItem(BAMBOO_FENCE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
@@ -889,6 +896,7 @@ public class BlockInit {
     public static final RegistryObject<BlockItem> BAMBOO_SLAB_ITEM = ITEMS.register("bamboo_slab", () -> new BlockItem(BAMBOO_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> BAMBOO_STAIRS_ITEM = ITEMS.register("bamboo_stairs", () -> new BlockItem(BAMBOO_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> BAMBOO_TRAPDOOR_ITEM = ITEMS.register("bamboo_trapdoor", () -> new BlockItem(BAMBOO_TRAPDOOR.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<SignItem> BAMBOO_SIGN_ITEM = ITEMS.register("bamboo_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(SWDM.SWDMTAB), BAMBOO_SIGN.get(), BAMBOO_WALL_SIGN.get()));
     public static final RegistryObject<BlockItem> ACACIA_LADDER_ITEM = ITEMS.register("acacia_ladder", () -> new BlockItem(ACACIA_LADDER.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> BIRCH_LADDER_ITEM = ITEMS.register("birch_ladder", () -> new BlockItem(BIRCH_LADDER.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> DARK_OAK_LADDER_ITEM = ITEMS.register("dark_oak_ladder", () -> new BlockItem(DARK_OAK_LADDER.get(), new Item.Properties().tab(SWDM.SWDMTAB)));

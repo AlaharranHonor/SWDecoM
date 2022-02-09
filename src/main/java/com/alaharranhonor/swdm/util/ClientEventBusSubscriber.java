@@ -2,12 +2,16 @@ package com.alaharranhonor.swdm.util;
 
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.util.init.BlockInit;
+import com.alaharranhonor.swdm.util.init.SWDMTileEntities;
 import com.alaharranhonor.swdm.util.init.SWEMInit;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -17,6 +21,10 @@ public class ClientEventBusSubscriber {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         SWEMonClientSetup(event);
+
+        Atlases.addWoodType(SWDM.THATCH_WT);
+        Atlases.addWoodType(SWDM.BAMBOO_WT);
+        ClientRegistry.bindTileEntityRenderer(SWDMTileEntities.SWDM_SIGN.get(), SignTileEntityRenderer::new);
 
         RenderTypeLookup.setRenderLayer(BlockInit.ACACIA_LEAVES_STAIRS.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.BIRCH_LEAVES_STAIRS.get(), RenderType.cutout());
