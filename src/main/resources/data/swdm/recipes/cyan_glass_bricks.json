@@ -1,15 +1,26 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "group": "swdm_glass_bricks",
-  "ingredients": [
-    {
-      "item": "minecraft:prismarine"
-    },
-    {
-      "item": "minecraft:cyan_dye"
-    }
+  "type": "minecraft:crafting_shaped",
+  "group": "glass_bricks",
+  "pattern":
+  [
+    "yyy",
+    "yxy",
+    "yyy"
   ],
-  "result": {
-    "item": "swdm:cyan_glass_bricks"
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:bricks"
+    },
+    "y":
+    {
+      "item": "minecraft:cyan_stained_glass"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:cyan_glass_bricks",
+    "count": 8
   }
 }
