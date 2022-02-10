@@ -11,22 +11,27 @@
 
       "recipe": {
         "type": "minecraft:crafting_shaped",
-        "group": "log_beam",
-        "pattern": [
+        "group": "wood_ladder",
+        "pattern":
+        [
+          "yyy",
           "yxy",
-          "yxy",
-          "yxy"
+          "yyy"
         ],
-        "key": {
-          "y": {
-            "tag": "swdm:sticks"
+        "key":
+        {
+          "x":
+          {
+            "item": "swem:whitewash_finish"
           },
-          "x": {
-            "item": "swem:whitewash_log"
+          "y":
+          {
+            "tag": "swdm:ladders"
           }
         },
-        "result": {
-          "item": "swdm:whitewash_log_beam",
+        "result":
+        {
+          "item": "swdm:whitewash_ladder",
           "count": 8
         }
       }

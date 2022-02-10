@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mossy_stones",
+  "pattern":
+  [
+    "yyy",
+    "yxy",
+    "yyy"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:vine"
+    },
+    "y":
+    {
+      "item": "swdm:mossy_granite"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:more_mossy_granite",
+    "count": 8
+  }
+}

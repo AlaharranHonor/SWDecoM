@@ -15,6 +15,7 @@
     }
   },
   "result": {
-    "item": "swdm:jungle_beam"
+    "item": "swdm:jungle_beam",
+    "count": 8
   }
 }

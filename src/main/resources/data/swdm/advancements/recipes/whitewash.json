@@ -3,6 +3,7 @@
   "rewards": {
     "recipes": [
       "swem:whitewash_ladder",
+      "swem:whitewash_ladder_mass",
       "swem:whitewash_plank_beam",
       "swem:whitewash_log_beam",
       "swem:whitewash_plank_wall",

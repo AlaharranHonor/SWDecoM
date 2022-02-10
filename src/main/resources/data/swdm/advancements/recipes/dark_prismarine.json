@@ -17,7 +17,23 @@
       "swdm:purple_dark_prismarine",
       "swdm:red_dark_prismarine",
       "swdm:white_dark_prismarine",
-      "swdm:yellow_dark_prismarine"
+      "swdm:yellow_dark_prismarine",
+      "swdm:black_dark_prismarine_mass",
+      "swdm:blue_dark_prismarine_mass",
+      "swdm:brown_dark_prismarine_mass",
+      "swdm:cyan_dark_prismarine_mass",
+      "swdm:gray_dark_prismarine_mass",
+      "swdm:green_dark_prismarine_mass",
+      "swdm:light_blue_dark_prismarine_mass",
+      "swdm:light_gray_dark_prismarine_mass",
+      "swdm:lime_dark_prismarine_mass",
+      "swdm:magenta_dark_prismarine_mass",
+      "swdm:orange_dark_prismarine_mass",
+      "swdm:pink_dark_prismarine_mass",
+      "swdm:purple_dark_prismarine_mass",
+      "swdm:red_dark_prismarine_mass",
+      "swdm:white_dark_prismarine_mass",
+      "swdm:yellow_dark_prismarine_mass"
     ]
   },
   "criteria": {

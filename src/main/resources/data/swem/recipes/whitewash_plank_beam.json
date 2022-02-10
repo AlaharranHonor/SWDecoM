@@ -26,7 +26,8 @@
           }
         },
         "result": {
-          "item": "swdm:whitewash_plank_beam"
+          "item": "swdm:whitewash_plank_beam",
+          "count": 8
         }
       }
     }

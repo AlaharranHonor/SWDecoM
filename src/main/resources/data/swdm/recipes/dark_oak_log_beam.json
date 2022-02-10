@@ -15,6 +15,7 @@
     }
   },
   "result": {
-    "item": "swdm:dark_oak_log_beam"
+    "item": "swdm:dark_oak_log_beam",
+    "count": 8
   }
 }

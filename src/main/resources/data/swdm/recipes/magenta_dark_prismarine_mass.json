@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mass_dark_prismarine",
+  "pattern":
+  [
+    "yyy",
+    "yxy",
+    "yyy"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:magenta_dye"
+    },
+    "y":
+    {
+      "item": "minecraft:dark_prismarine"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:magenta_dark_prismarine",
+    "count": 8
+  }
+}
