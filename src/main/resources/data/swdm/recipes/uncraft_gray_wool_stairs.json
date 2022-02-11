@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_wool_stairs",
+  "ingredients": [
+    {
+      "item": "swdm:gray_wool_stairs"
+    }
+  ],
+  "result": {
+    "item": "minecraft:gray_wool",
+    "count": 1
+  }
+}

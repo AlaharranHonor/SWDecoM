@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_glass_bricks_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:light_blue_glass_bricks_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:light_blue_glass_bricks",
+    "count": 1
+  }
+}

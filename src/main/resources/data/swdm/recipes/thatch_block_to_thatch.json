@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "group": "thatch",
   "ingredients": [
     {
       "item": "swdm:thatch_block"

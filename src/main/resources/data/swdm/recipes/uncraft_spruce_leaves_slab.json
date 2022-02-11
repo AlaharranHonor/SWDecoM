@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_leaves_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:spruce_leaves_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:spruce_leaves",
+    "count": 1
+  }
+}

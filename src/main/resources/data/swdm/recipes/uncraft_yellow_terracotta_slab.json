@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_terracotta_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:yellow_terracotta_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:yellow_terracotta",
+    "count": 1
+  }
+}

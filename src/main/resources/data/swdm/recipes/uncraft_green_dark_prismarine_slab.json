@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_dark_prismarine_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:green_dark_prismarine_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:green_dark_prismarine",
+    "count": 1
+  }
+}

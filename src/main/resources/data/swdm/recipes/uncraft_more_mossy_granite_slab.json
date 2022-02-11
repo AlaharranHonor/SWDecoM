@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_mossy_stones",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:more_mossy_granite_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:more_mossy_granite",
+    "count": 1
+  }
+}

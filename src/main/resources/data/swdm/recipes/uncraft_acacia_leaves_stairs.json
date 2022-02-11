@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_leaves_stairs",
+  "ingredients": [
+    {
+      "item": "swdm:acacia_leaves_stairs"
+    }
+  ],
+  "result": {
+    "item": "minecraft:acacia_leaves",
+    "count": 1
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_leaves_stairs",
+  "ingredients": [
+    {
+      "item": "swdm:jungle_leaves_stairs"
+    }
+  ],
+  "result": {
+    "item": "minecraft:jungle_leaves",
+    "count": 1
+  }
+}

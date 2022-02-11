@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_concrete_stairs",
+  "ingredients": [
+    {
+      "item": "swdm:yellow_concrete_stairs"
+    }
+  ],
+  "result": {
+    "item": "minecraft:yellow_concrete",
+    "count": 1
+  }
+}

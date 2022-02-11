@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_leaves_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:acacia_leaves_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:acacia_leaves",
+    "count": 1
+  }
+}

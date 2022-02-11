@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "group": "bamboo",
   "ingredients": [
     {
       "item": "swdm:bamboo_block"

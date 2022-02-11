@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_stained_glass_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:magenta_stained_glass_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:magenta_stained_glass",
+    "count": 1
+  }
+}

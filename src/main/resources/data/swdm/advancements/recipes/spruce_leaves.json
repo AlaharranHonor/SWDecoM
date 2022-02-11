@@ -4,7 +4,9 @@
     "recipes": [
       "swdm:spruce_leaves_stairs",
       "swdm:spruce_leaves_slab",
-      "swdm:spruce_leaves_wall"
+      "swdm:spruce_leaves_wall",
+      "swdm:uncraft_spruce_leaves_stairs",
+      "swdm:uncraft_spruce_leaves_slab"
     ]
   },
   "criteria": {

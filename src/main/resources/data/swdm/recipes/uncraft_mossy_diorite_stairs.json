@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_mossy_stones",
+  "ingredients": [
+    {
+      "item": "swdm:mossy_diorite_stairs"
+    }
+  ],
+  "result": {
+    "item": "swdm:mossy_diorite",
+    "count": 1
+  }
+}

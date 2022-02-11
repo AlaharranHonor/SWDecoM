@@ -31,7 +31,13 @@
       "swdm:dark_brick_wall_stonecutter",
       "swdm:light_brick_mass",
       "swdm:medium_brick_mass",
-      "swdm:dark_brick_mass"
+      "swdm:dark_brick_mass",
+      "swdm:uncraft_light_brick_slab",
+      "swdm:uncraft_light_brick_stairs",
+      "swdm:uncraft_medium_brick_slab",
+      "swdm:uncraft_medium_brick_stairs",
+      "swdm:uncraft_dark_brick_slab",
+      "swdm:uncraft_dark_brick_stairs"
     ]
   },
   "criteria": {

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_glass",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:glass_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:glass",
+    "count": 1
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_concrete_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:black_concrete_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:black_concrete",
+    "count": 1
+  }
+}

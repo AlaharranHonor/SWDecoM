@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_bricks",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:medium_brick_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:medium_bricks",
+    "count": 1
+  }
+}

@@ -4,7 +4,9 @@
     "recipes": [
       "swdm:dark_oak_leaves_stairs",
       "swdm:dark_oak_leaves_slab",
-      "swdm:dark_oak_leaves_wall"
+      "swdm:dark_oak_leaves_wall",
+      "swdm:uncraft_dark_oak_leaves_stairs",
+      "swdm:uncraft_dark_oak_leaves_slab"
     ]
   },
   "criteria": {

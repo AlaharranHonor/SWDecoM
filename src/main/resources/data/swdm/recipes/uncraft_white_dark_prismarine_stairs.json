@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_dark_prismarine_stairs",
+  "ingredients": [
+    {
+      "item": "swdm:white_dark_prismarine_stairs"
+    }
+  ],
+  "result": {
+    "item": "swdm:white_dark_prismarine",
+    "count": 1
+  }
+}

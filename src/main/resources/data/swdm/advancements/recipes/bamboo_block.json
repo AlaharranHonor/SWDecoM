@@ -3,6 +3,7 @@
   "rewards": {
     "recipes": [
       "swdm:bamboo_block",
+      "swdm:bamboo_block_to_bamboo",
       "swdm:bamboo_button",
       "swdm:bamboo_door",
       "swdm:bamboo_fence",
@@ -12,7 +13,9 @@
       "swdm:bamboo_slab",
       "swdm:bamboo_stairs",
       "swdm:bamboo_trapdoor",
-      "swdm:bamboo_sign"
+      "swdm:bamboo_sign",
+      "swdm:uncraft_bamboo_slab",
+      "swdm:uncraft_bamboo_stairs"
     ]
   },
   "criteria": {

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bamboo",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:bamboo_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:bamboo",
+    "count": 1
+  }
+}

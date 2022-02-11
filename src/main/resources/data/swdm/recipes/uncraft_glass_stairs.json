@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_glass",
+  "ingredients": [
+    {
+      "item": "swdm:glass_stairs"
+    }
+  ],
+  "result": {
+    "item": "minecraft:glass",
+    "count": 1
+  }
+}

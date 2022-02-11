@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_concrete_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:lime_concrete_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:lime_concrete",
+    "count": 1
+  }
+}

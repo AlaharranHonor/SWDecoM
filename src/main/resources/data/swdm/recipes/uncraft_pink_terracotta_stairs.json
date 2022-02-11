@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_terracotta_stairs",
+  "ingredients": [
+    {
+      "item": "swdm:pink_terracotta_stairs"
+    }
+  ],
+  "result": {
+    "item": "minecraft:pink_terracotta",
+    "count": 1
+  }
+}

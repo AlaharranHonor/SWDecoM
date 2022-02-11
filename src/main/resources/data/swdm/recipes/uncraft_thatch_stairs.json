@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "thatch",
+  "ingredients": [
+    {
+      "item": "swdm:thatch_stairs"
+    }
+  ],
+  "result": {
+    "item": "swdm:thatch",
+    "count": 1
+  }
+}

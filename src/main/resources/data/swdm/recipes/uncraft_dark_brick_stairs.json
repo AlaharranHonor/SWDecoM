@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_bricks",
+  "ingredients": [
+    {
+      "item": "swdm:dark_brick_stairs"
+    }
+  ],
+  "result": {
+    "item": "swdm:dark_bricks",
+    "count": 1
+  }
+}

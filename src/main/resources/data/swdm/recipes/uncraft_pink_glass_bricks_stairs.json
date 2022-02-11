@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_glass_brick_stairs",
+  "ingredients": [
+    {
+      "item": "swdm:pink_glass_bricks_stairs"
+    }
+  ],
+  "result": {
+    "item": "swdm:pink_glass_bricks",
+    "count": 1
+  }
+}
