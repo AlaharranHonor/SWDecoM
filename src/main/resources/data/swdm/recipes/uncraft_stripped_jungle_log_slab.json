@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_log_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:stripped_jungle_log_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:stripped_jungle_log",
+    "count": 1
+  }
+}
