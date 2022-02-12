@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_log_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:dark_oak_log_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:dark_oak_log",
+    "count": 1
+  }
+}

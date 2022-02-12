@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_log_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:spruce_log_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:spruce_log",
+    "count": 1
+  }
+}

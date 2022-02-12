@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "swdm:block/birch_log_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/birch_wood"
+    },
+    "type=top": {
+      "model": "swdm:block/birch_log_slab_top"
+    }
+  }
+}

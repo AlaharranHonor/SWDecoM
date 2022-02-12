@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "log_stairs",
+  "pattern":
+  [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:spruce_log"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:spruce_log_stairs",
+    "count": 6
+  }
+}
