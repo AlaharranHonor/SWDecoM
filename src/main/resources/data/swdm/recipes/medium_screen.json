@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "screen",
+  "pattern": [
+    "xxx",
+    "xyx",
+	"xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:string"
+    },
+    "y": {
+      "item": "minecraft:gray_dye"
+    }
+  },
+  "result": {
+    "item": "swdm:medium_screen",
+    "count": 8
+  }
+}

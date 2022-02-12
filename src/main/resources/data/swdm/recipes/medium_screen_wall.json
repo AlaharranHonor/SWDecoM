@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "screen_wall",
+  "pattern": [
+	"xxx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:medium_screen"
+    }
+  },
+  "result": {
+    "item": "swdm:medium_screen_wall",
+    "count": 6
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_screen",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:medium_screen_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:medium_screen",
+    "count": 1
+  }
+}

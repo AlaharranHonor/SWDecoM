@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_side_alt",
+  "textures": {
+    "pane": "swdm:blocks/light_screen",
+    "edge": "swdm:blocks/light_screen"
+  }
+}

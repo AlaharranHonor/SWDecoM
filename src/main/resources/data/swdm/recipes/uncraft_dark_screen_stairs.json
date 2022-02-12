@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_screen",
+  "ingredients": [
+    {
+      "item": "swdm:dark_screen_stairs"
+    }
+  ],
+  "result": {
+    "item": "swdm:dark_screen",
+    "count": 1
+  }
+}

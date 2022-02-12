@@ -140,7 +140,10 @@
     "swdm:stripped_spruce_log_wall",
     "swdm:light_brick_wall",
     "swdm:medium_brick_wall",
-    "swdm:dark_brick_wall"
+    "swdm:dark_brick_wall",
+    "swdm:light_screen_wall",
+    "swdm:medium_screen_wall",
+    "swdm:dark_screen_wall"
   ],
   "optional": [
     "swdm:whitewash_plank_wall",

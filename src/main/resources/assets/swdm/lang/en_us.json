@@ -720,7 +720,6 @@
   "block.swdm.spruce_trapdoor_dark_oak": "Spruce Trapdoor Dark Oak",
   "block.swdm.spruce_trapdoor_jungle": "Spruce Trapdoor Jungle",
   "block.swdm.spruce_trapdoor_oak": "Spruce Trapdoor Oak",
-
   "block.swdm.acacia_log_stairs": "Acacia Log Stairs",
   "block.swdm.stripped_acacia_log_stairs": "Stripped Acacia Log Stairs",
   "block.swdm.birch_log_stairs": "Birch Log Stairs",
@@ -744,5 +743,20 @@
   "block.swdm.oak_log_slab": "Oak Log Slab",
   "block.swdm.stripped_oak_log_slab": "Stripped Oak Log Slab",
   "block.swdm.spruce_log_slab": "Spruce Log Slab",
-  "block.swdm.stripped_spruce_log_slab": "Stripped Spruce Log Slab"
+  "block.swdm.stripped_spruce_log_slab": "Stripped Spruce Log Slab",
+  "block.swdm.light_screen": "Light Screen",
+  "block.swdm.light_screen_stairs": "Light Screen Stairs",
+  "block.swdm.light_screen_slab": "Light Screen Slab",
+  "block.swdm.light_screen_wall": "Light Screen Wall",
+  "block.swdm.light_screen_glass_pane": "Light Screen Glass Pane",
+  "block.swdm.medium_screen": "Medium Screen",
+  "block.swdm.medium_screen_stairs": "Medium Screen Stairs",
+  "block.swdm.medium_screen_slab": "Medium Screen Slab",
+  "block.swdm.medium_screen_wall": "Medium Screen Wall",
+  "block.swdm.medium_screen_glass_pane": "Medium Screen Glass Pane",
+  "block.swdm.dark_screen": "Dark Screen",
+  "block.swdm.dark_screen_stairs": "Dark Screen Stairs",
+  "block.swdm.dark_screen_slab": "Dark Screen Slab",
+  "block.swdm.dark_screen_wall": "Dark Screen Wall",
+  "block.swdm.dark_screen_glass_pane": "Dark Screen Glass Pane"
 }

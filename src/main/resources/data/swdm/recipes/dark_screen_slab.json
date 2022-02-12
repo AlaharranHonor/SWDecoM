@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "screen_slab",
+  "pattern": [
+	"xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:dark_screen"
+    }
+  },
+  "result": {
+    "item": "swdm:dark_screen_slab",
+    "count": 6
+  }
+}

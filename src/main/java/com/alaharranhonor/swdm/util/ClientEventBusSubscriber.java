@@ -137,6 +137,21 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_OAK.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.LIGHT_SCREEN.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.LIGHT_SCREEN_SLAB.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.LIGHT_SCREEN_STAIRS.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.LIGHT_SCREEN_WALL.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.LIGHT_SCREEN_GLASS_PANE.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.MEDIUM_SCREEN.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.MEDIUM_SCREEN_SLAB.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.MEDIUM_SCREEN_STAIRS.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.MEDIUM_SCREEN_WALL.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.MEDIUM_SCREEN_GLASS_PANE.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DARK_SCREEN.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DARK_SCREEN_SLAB.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DARK_SCREEN_STAIRS.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DARK_SCREEN_WALL.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DARK_SCREEN_GLASS_PANE.get(), RenderType.cutout());
     }
 
     public static void SWEMonClientSetup(FMLClientSetupEvent event) {

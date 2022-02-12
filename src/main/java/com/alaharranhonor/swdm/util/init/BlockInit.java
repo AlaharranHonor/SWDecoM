@@ -748,6 +748,22 @@ public class BlockInit {
     public static final RegistryObject<Block> STRIPPED_OAK_LOG_SLAB = BLOCKS.register("stripped_oak_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> SPRUCE_LOG_SLAB = BLOCKS.register("spruce_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> STRIPPED_SPRUCE_LOG_SLAB = BLOCKS.register("stripped_spruce_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
+    public static final RegistryObject<Block> LIGHT_SCREEN = BLOCKS.register("light_screen", () -> new Block(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).noOcclusion()));
+    public static final RegistryObject<Block> LIGHT_SCREEN_STAIRS = BLOCKS.register("light_screen_stairs", () -> new StairsBlock(LIGHT_SCREEN.get().defaultBlockState(), Block.Properties.copy(LIGHT_SCREEN.get())));
+    public static final RegistryObject<Block> LIGHT_SCREEN_SLAB = BLOCKS.register("light_screen_slab", () -> new SlabBlock(Block.Properties.copy(LIGHT_SCREEN.get())));
+    public static final RegistryObject<Block> LIGHT_SCREEN_WALL = BLOCKS.register("light_screen_wall", () -> new WallBlock(Block.Properties.copy(LIGHT_SCREEN.get())));
+    public static final RegistryObject<Block> LIGHT_SCREEN_GLASS_PANE = BLOCKS.register("light_screen_glass_pane", () -> new PaneBlock(Block.Properties.copy(LIGHT_SCREEN.get())));
+    public static final RegistryObject<Block> MEDIUM_SCREEN = BLOCKS.register("medium_screen", () -> new Block(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).noOcclusion()));
+    public static final RegistryObject<Block> MEDIUM_SCREEN_STAIRS = BLOCKS.register("medium_screen_stairs", () -> new StairsBlock(MEDIUM_SCREEN.get().defaultBlockState(), Block.Properties.copy(MEDIUM_SCREEN.get())));
+    public static final RegistryObject<Block> MEDIUM_SCREEN_SLAB = BLOCKS.register("medium_screen_slab", () -> new SlabBlock(Block.Properties.copy(MEDIUM_SCREEN.get())));
+    public static final RegistryObject<Block> MEDIUM_SCREEN_WALL = BLOCKS.register("medium_screen_wall", () -> new WallBlock(Block.Properties.copy(MEDIUM_SCREEN.get())));
+    public static final RegistryObject<Block> MEDIUM_SCREEN_GLASS_PANE = BLOCKS.register("medium_screen_glass_pane", () -> new PaneBlock(Block.Properties.copy(MEDIUM_SCREEN.get())));
+    public static final RegistryObject<Block> DARK_SCREEN = BLOCKS.register("dark_screen", () -> new Block(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).noOcclusion()));
+    public static final RegistryObject<Block> DARK_SCREEN_STAIRS = BLOCKS.register("dark_screen_stairs", () -> new StairsBlock(DARK_SCREEN.get().defaultBlockState(), Block.Properties.copy(DARK_SCREEN.get())));
+    public static final RegistryObject<Block> DARK_SCREEN_SLAB = BLOCKS.register("dark_screen_slab", () -> new SlabBlock(Block.Properties.copy(DARK_SCREEN.get())));
+    public static final RegistryObject<Block> DARK_SCREEN_WALL = BLOCKS.register("dark_screen_wall", () -> new WallBlock(Block.Properties.copy(DARK_SCREEN.get())));
+    public static final RegistryObject<Block> DARK_SCREEN_GLASS_PANE = BLOCKS.register("dark_screen_glass_pane", () -> new PaneBlock(Block.Properties.copy(DARK_SCREEN.get())));
+
 
     //Items
     public static final RegistryObject<Item> ACACIA_STICK = ITEMS.register("acacia_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
@@ -1480,5 +1496,20 @@ public class BlockInit {
     public static final RegistryObject<Item> STRIPPED_OAK_LOG_SLAB_ITEM = ITEMS.register("stripped_oak_log_slab", () -> new BlockItem(STRIPPED_OAK_LOG_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SPRUCE_LOG_SLAB_ITEM = ITEMS.register("spruce_log_slab", () -> new BlockItem(SPRUCE_LOG_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> STRIPPED_SPRUCE_LOG_SLAB_ITEM = ITEMS.register("stripped_spruce_log_slab", () -> new BlockItem(STRIPPED_SPRUCE_LOG_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_SCREEN_ITEM = ITEMS.register("light_screen", () -> new BlockItem(LIGHT_SCREEN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_SCREEN_STAIRS_ITEM = ITEMS.register("light_screen_stairs", () -> new BlockItem(LIGHT_SCREEN_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_SCREEN_SLAB_ITEM = ITEMS.register("light_screen_slab", () -> new BlockItem(LIGHT_SCREEN_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_SCREEN_WALL_ITEM = ITEMS.register("light_screen_wall", () -> new BlockItem(LIGHT_SCREEN_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_SCREEN_GLASS_PANE_ITEM = ITEMS.register("light_screen_glass_pane", () -> new BlockItem(LIGHT_SCREEN_GLASS_PANE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_SCREEN_ITEM = ITEMS.register("medium_screen", () -> new BlockItem(MEDIUM_SCREEN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_SCREEN_STAIRS_ITEM = ITEMS.register("medium_screen_stairs", () -> new BlockItem(MEDIUM_SCREEN_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_SCREEN_SLAB_ITEM = ITEMS.register("medium_screen_slab", () -> new BlockItem(MEDIUM_SCREEN_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_SCREEN_WALL_ITEM = ITEMS.register("medium_screen_wall", () -> new BlockItem(MEDIUM_SCREEN_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MEDIUM_SCREEN_GLASS_PANE_ITEM = ITEMS.register("medium_screen_glass_pane", () -> new BlockItem(MEDIUM_SCREEN_GLASS_PANE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_SCREEN_ITEM = ITEMS.register("dark_screen", () -> new BlockItem(DARK_SCREEN.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_SCREEN_STAIRS_ITEM = ITEMS.register("dark_screen_stairs", () -> new BlockItem(DARK_SCREEN_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_SCREEN_SLAB_ITEM = ITEMS.register("dark_screen_slab", () -> new BlockItem(DARK_SCREEN_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_SCREEN_WALL_ITEM = ITEMS.register("dark_screen_wall", () -> new BlockItem(DARK_SCREEN_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_SCREEN_GLASS_PANE_ITEM = ITEMS.register("dark_screen_glass_pane", () -> new BlockItem(DARK_SCREEN_GLASS_PANE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
 
 }

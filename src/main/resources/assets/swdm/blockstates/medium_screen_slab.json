@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "swdm:block/medium_screen_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/medium_screen"
+    },
+    "type=top": {
+      "model": "swdm:block/medium_screen_slab_top"
+    }
+  }
+}

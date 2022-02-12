@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "swdm:blocks/dark_screen",
+    "top": "swdm:blocks/dark_screen",
+    "side": "swdm:blocks/dark_screen"
+  }
+}

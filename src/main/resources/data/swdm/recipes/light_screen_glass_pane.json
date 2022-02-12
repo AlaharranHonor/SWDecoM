@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "screen_glass_pane",
+  "pattern": [
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:light_screen"
+    }
+  },
+  "result": {
+    "item": "swdm:light_screen_glass_pane",
+    "count": 16
+  }
+}
