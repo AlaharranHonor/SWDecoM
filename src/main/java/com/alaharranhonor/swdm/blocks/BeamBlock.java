@@ -48,7 +48,7 @@ public class BeamBlock extends Block {
                     if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.BOTTOM && pFacingState.getValue(TILE) == SWDMBlockstateProperties.Tileable.BOTTOM) {
                         return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.MIDDLE);
                     }
-                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.SINGLE && pFacingState.getValue(TILE) == SWDMBlockstateProperties.Tileable.SINGLE) {
+                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.SINGLE && pFacingState.getValue(TILE) == SWDMBlockstateProperties.Tileable.BOTTOM) {
                         return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.UPPER);
                     }
                 }
