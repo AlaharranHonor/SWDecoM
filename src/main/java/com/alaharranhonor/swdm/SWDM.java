@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm;
 
 import com.alaharranhonor.swdm.util.init.BlockInit;
+import com.alaharranhonor.swdm.util.init.SWDMPaintings;
 import com.alaharranhonor.swdm.util.init.SWDMTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -45,6 +46,7 @@ public class SWDM
 
         BlockInit.init();
         SWDMTileEntities.init(modEventBus);
+        SWDMPaintings.init(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
