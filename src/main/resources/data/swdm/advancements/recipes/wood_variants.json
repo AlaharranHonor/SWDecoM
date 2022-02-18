@@ -79,7 +79,8 @@
       "swdm:spruce_trapdoor_birch",
       "swdm:spruce_trapdoor_dark_oak",
       "swdm:spruce_trapdoor_jungle",
-      "swdm:spruce_trapdoor_oak"
+      "swdm:spruce_trapdoor_oak",
+      "swdm:clock"
     ]
   },
   "criteria": {
