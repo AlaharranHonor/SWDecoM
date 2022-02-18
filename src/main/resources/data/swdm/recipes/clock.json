@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "clock",
+  "pattern":
+  [
+    "xxx",
+    "xyx",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "tag": "minecraft:planks"
+    },
+    "y": {
+      "tag": "swdm:sticks"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:clock",
+    "count": 1
+  }
+}
