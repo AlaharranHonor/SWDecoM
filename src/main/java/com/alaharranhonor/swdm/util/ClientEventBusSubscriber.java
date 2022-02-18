@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.util;
 
 import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.client.renderers.ClockTileRenderer;
 import com.alaharranhonor.swdm.util.init.BlockInit;
 import com.alaharranhonor.swdm.util.init.SWDMTileEntities;
 import com.alaharranhonor.swdm.util.init.SWEMInit;
@@ -25,6 +26,7 @@ public class ClientEventBusSubscriber {
         Atlases.addWoodType(SWDM.THATCH_WT);
         Atlases.addWoodType(SWDM.BAMBOO_WT);
         ClientRegistry.bindTileEntityRenderer(SWDMTileEntities.SWDM_SIGN.get(), SignTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(SWDMTileEntities.CLOCK.get(), ClockTileRenderer::new);
 
         RenderTypeLookup.setRenderLayer(BlockInit.ACACIA_LEAVES_STAIRS.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.BIRCH_LEAVES_STAIRS.get(), RenderType.cutout());

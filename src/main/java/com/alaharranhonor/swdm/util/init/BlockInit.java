@@ -2,6 +2,7 @@ package com.alaharranhonor.swdm.util.init;
 
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.blocks.BeamBlock;
+import com.alaharranhonor.swdm.blocks.ClockBlock;
 import com.alaharranhonor.swdm.blocks.ModdedStandingSignBlock;
 import com.alaharranhonor.swdm.blocks.ModdedWallSignBlock;
 import net.minecraft.block.*;
@@ -763,6 +764,7 @@ public class BlockInit {
     public static final RegistryObject<Block> DARK_SCREEN_SLAB = BLOCKS.register("dark_screen_slab", () -> new SlabBlock(Block.Properties.copy(DARK_SCREEN.get())));
     public static final RegistryObject<Block> DARK_SCREEN_WALL = BLOCKS.register("dark_screen_wall", () -> new WallBlock(Block.Properties.copy(DARK_SCREEN.get())));
     public static final RegistryObject<Block> DARK_SCREEN_GLASS_PANE = BLOCKS.register("dark_screen_glass_pane", () -> new PaneBlock(Block.Properties.copy(DARK_SCREEN.get())));
+    public static final RegistryObject<Block> CLOCK = BLOCKS.register("clock", () -> new ClockBlock(AbstractBlock.Properties.of(Material.WOOD).strength(1).noOcclusion()));
 
 
     //Items
@@ -1033,6 +1035,7 @@ public class BlockInit {
     public static final RegistryObject<BlockItem> STRIPPED_JUNGLE_LOG_BEAM_ITEM = ITEMS.register("stripped_jungle_log_beam", () -> new BlockItem(STRIPPED_JUNGLE_LOG_BEAM.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> STRIPPED_OAK_LOG_BEAM_ITEM = ITEMS.register("stripped_oak_log_beam", () -> new BlockItem(STRIPPED_OAK_LOG_BEAM.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<BlockItem> STRIPPED_SPRUCE_LOG_BEAM_ITEM = ITEMS.register("stripped_spruce_log_beam", () -> new BlockItem(STRIPPED_SPRUCE_LOG_BEAM.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<BlockItem> CLOCK_ITEM = ITEMS.register("clock", () -> new BlockItem(CLOCK.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> BLACK_CONCRETE_STAIRS_ITEM = ITEMS.register("black_concrete_stairs", () -> new BlockItem(BLACK_CONCRETE_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> BLUE_CONCRETE_STAIRS_ITEM = ITEMS.register("blue_concrete_stairs", () -> new BlockItem(BLUE_CONCRETE_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> BROWN_CONCRETE_STAIRS_ITEM = ITEMS.register("brown_concrete_stairs", () -> new BlockItem(BROWN_CONCRETE_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
