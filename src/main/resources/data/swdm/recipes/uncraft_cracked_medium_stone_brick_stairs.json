@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_cracked_brick",
+  "ingredients": [
+    {
+      "item": "swdm:cracked_medium_stone_brick_stairs"
+    }
+  ],
+  "result": {
+    "item": "swdm:cracked_medium_stone_bricks",
+    "count": 1
+  }
+}

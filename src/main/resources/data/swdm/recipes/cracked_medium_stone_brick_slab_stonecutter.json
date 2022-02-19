@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:cracked_medium_stone_bricks"
+  },
+  "result": "swdm:cracked_medium_stone_brick_slab",
+  "count": 2
+}

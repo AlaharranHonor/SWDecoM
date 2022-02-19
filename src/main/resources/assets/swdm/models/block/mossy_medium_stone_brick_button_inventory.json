@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_inventory",
+  "textures": {
+    "texture": "swdm:blocks/mossy_medium_stone_brick"
+  }
+}
