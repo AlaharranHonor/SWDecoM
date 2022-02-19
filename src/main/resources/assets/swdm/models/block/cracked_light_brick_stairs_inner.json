@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "swdm:blocks/cracked_light_bricks",
+    "top": "swdm:blocks/cracked_light_bricks",
+    "side": "swdm:blocks/cracked_light_bricks"
+  }
+}

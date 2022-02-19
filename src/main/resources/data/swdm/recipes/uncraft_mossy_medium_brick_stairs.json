@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_mossy_brick",
+  "ingredients": [
+    {
+      "item": "swdm:mossy_medium_brick_stairs"
+    }
+  ],
+  "result": {
+    "item": "swdm:mossy_medium_bricks",
+    "count": 1
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:more_mossy_light_bricks"
+  },
+  "result": "swdm:more_mossy_light_brick_wall",
+  "count": 1
+}

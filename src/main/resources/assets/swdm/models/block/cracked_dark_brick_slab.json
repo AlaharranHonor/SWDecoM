@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "swdm:blocks/cracked_dark_bricks",
+    "top": "swdm:blocks/cracked_dark_bricks",
+    "side": "swdm:blocks/cracked_dark_bricks"
+  }
+}

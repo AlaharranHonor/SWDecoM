@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:mossy_medium_bricks"
+  },
+  "result": "swdm:mossy_medium_brick_stairs",
+  "count": 1
+}

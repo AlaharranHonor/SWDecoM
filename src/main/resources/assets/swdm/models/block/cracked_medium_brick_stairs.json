@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "swdm:blocks/cracked_medium_bricks",
+    "top": "swdm:blocks/cracked_medium_bricks",
+    "side": "swdm:blocks/cracked_medium_bricks"
+  }
+}

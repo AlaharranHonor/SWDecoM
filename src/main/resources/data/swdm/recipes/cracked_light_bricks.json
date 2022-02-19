@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swdm:light_bricks"
+  },
+  "result": "swdm:cracked_light_bricks",
+  "count": 1
+}

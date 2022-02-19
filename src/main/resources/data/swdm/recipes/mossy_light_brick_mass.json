@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mossy_stones",
+  "pattern":
+  [
+    "yyy",
+    "yxy",
+    "yyy"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:vine"
+    },
+    "y":
+    {
+      "item": "minecraft:light_bricks"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:mossy_light_brick",
+    "count": 8
+  }
+}

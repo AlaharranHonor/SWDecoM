@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "swdm:blocks/more_mossy_light_bricks",
+    "top": "swdm:blocks/more_mossy_light_bricks",
+    "side": "swdm:blocks/more_mossy_light_bricks"
+  }
+}

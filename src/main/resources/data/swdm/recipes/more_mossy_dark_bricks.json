@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "more_mossy_brick",
+  "ingredients": [
+    {
+      "item": "minecraft:dark_bricks"
+    },
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "minecraft:vine"
+    }
+  ],
+  "result": {
+    "item": "swdm:more_mossy_dark_bricks"
+  }
+}

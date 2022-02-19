@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "mossy_brick",
+  "ingredients": [
+    {
+      "item": "minecraft:medium_bricks"
+    },
+    {
+      "item": "minecraft:vine"
+    }
+  ],
+  "result": {
+    "item": "swdm:mossy_medium_bricks"
+  }
+}
