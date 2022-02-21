@@ -46,6 +46,12 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(BlockInit.JUNGLE_LEAVES_SLAB.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.OAK_LEAVES_SLAB.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.SPRUCE_LEAVES_SLAB.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.ACACIA_LEAVES_TRAPDOOR.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.BIRCH_LEAVES_TRAPDOOR.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DARK_OAK_LEAVES_TRAPDOOR.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.JUNGLE_LEAVES_TRAPDOOR.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.OAK_LEAVES_TRAPDOOR.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.SPRUCE_LEAVES_TRAPDOOR.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.BLACK_STAINED_GLASS_SLAB.get(), RenderType.translucent());
         RenderTypeLookup.setRenderLayer(BlockInit.BLUE_STAINED_GLASS_SLAB.get(), RenderType.translucent());
         RenderTypeLookup.setRenderLayer(BlockInit.BROWN_STAINED_GLASS_SLAB.get(), RenderType.translucent());

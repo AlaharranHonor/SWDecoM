@@ -25,15 +25,19 @@ public class ModEventBusSubscriber {
             BlockColors colors = event.getBlockColors();
             colors.register((state, reader, pos, color) -> {
                         return reader != null && pos != null ? BiomeColors.getAverageFoliageColor(reader, pos) : FoliageColors.getDefaultColor();
-                    }, BlockInit.ACACIA_LEAVES_STAIRS.get(), BlockInit.JUNGLE_LEAVES_STAIRS.get(), BlockInit.DARK_OAK_LEAVES_STAIRS.get(), BlockInit.OAK_LEAVES_STAIRS.get(),
+                    },
+                    BlockInit.ACACIA_LEAVES_STAIRS.get(), BlockInit.JUNGLE_LEAVES_STAIRS.get(), BlockInit.DARK_OAK_LEAVES_STAIRS.get(), BlockInit.OAK_LEAVES_STAIRS.get(),
                     BlockInit.ACACIA_LEAVES_SLAB.get(), BlockInit.JUNGLE_LEAVES_SLAB.get(), BlockInit.DARK_OAK_LEAVES_SLAB.get(), BlockInit.OAK_LEAVES_SLAB.get(),
-                    BlockInit.ACACIA_LEAVES_WALL.get(), BlockInit.JUNGLE_LEAVES_WALL.get(), BlockInit.DARK_OAK_LEAVES_WALL.get(), BlockInit.OAK_LEAVES_WALL.get());
+                    BlockInit.ACACIA_LEAVES_WALL.get(), BlockInit.JUNGLE_LEAVES_WALL.get(), BlockInit.DARK_OAK_LEAVES_WALL.get(), BlockInit.OAK_LEAVES_WALL.get(),
+                    BlockInit.ACACIA_LEAVES_TRAPDOOR.get(), BlockInit.JUNGLE_LEAVES_TRAPDOOR.get(), BlockInit.DARK_OAK_LEAVES_TRAPDOOR.get(), BlockInit.OAK_LEAVES_TRAPDOOR.get());
             colors.register((state, reader, pos, color) -> {
                 return FoliageColors.getEvergreenColor();
-            }, BlockInit.SPRUCE_LEAVES_STAIRS.get(), BlockInit.SPRUCE_LEAVES_SLAB.get(), BlockInit.SPRUCE_LEAVES_WALL.get());
+            },
+                    BlockInit.SPRUCE_LEAVES_STAIRS.get(), BlockInit.SPRUCE_LEAVES_SLAB.get(), BlockInit.SPRUCE_LEAVES_WALL.get(), BlockInit.SPRUCE_LEAVES_TRAPDOOR.get());
             colors.register((state, reader, pos, color) -> {
                 return FoliageColors.getBirchColor();
-            }, BlockInit.BIRCH_LEAVES_STAIRS.get(), BlockInit.BIRCH_LEAVES_SLAB.get(), BlockInit.BIRCH_LEAVES_WALL.get());
+            },
+                    BlockInit.BIRCH_LEAVES_STAIRS.get(), BlockInit.BIRCH_LEAVES_SLAB.get(), BlockInit.BIRCH_LEAVES_WALL.get(), BlockInit.BIRCH_LEAVES_TRAPDOOR.get());
         }
 
         @SubscribeEvent
@@ -42,11 +46,13 @@ public class ModEventBusSubscriber {
             colors.register((stack, color) -> {
                         BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
                         return event.getBlockColors().getColor(blockstate, (IBlockDisplayReader) null, (BlockPos) null, color);
-                    }, BlockInit.ACACIA_LEAVES_STAIRS.get(), BlockInit.JUNGLE_LEAVES_STAIRS.get(), BlockInit.DARK_OAK_LEAVES_STAIRS.get(), BlockInit.OAK_LEAVES_STAIRS.get(),
+                    },
+                    BlockInit.ACACIA_LEAVES_STAIRS.get(), BlockInit.JUNGLE_LEAVES_STAIRS.get(), BlockInit.DARK_OAK_LEAVES_STAIRS.get(), BlockInit.OAK_LEAVES_STAIRS.get(),
                     BlockInit.ACACIA_LEAVES_SLAB.get(), BlockInit.JUNGLE_LEAVES_SLAB.get(), BlockInit.DARK_OAK_LEAVES_SLAB.get(), BlockInit.OAK_LEAVES_SLAB.get(),
                     BlockInit.ACACIA_LEAVES_WALL.get(), BlockInit.JUNGLE_LEAVES_WALL.get(), BlockInit.DARK_OAK_LEAVES_WALL.get(), BlockInit.OAK_LEAVES_WALL.get(),
-                    BlockInit.SPRUCE_LEAVES_STAIRS.get(), BlockInit.SPRUCE_LEAVES_SLAB.get(), BlockInit.SPRUCE_LEAVES_WALL.get(),
-                    BlockInit.BIRCH_LEAVES_STAIRS.get(), BlockInit.BIRCH_LEAVES_SLAB.get(), BlockInit.BIRCH_LEAVES_WALL.get());
+                    BlockInit.ACACIA_LEAVES_TRAPDOOR.get(), BlockInit.JUNGLE_LEAVES_TRAPDOOR.get(), BlockInit.DARK_OAK_LEAVES_TRAPDOOR.get(), BlockInit.OAK_LEAVES_TRAPDOOR.get(),
+                    BlockInit.SPRUCE_LEAVES_STAIRS.get(), BlockInit.SPRUCE_LEAVES_SLAB.get(), BlockInit.SPRUCE_LEAVES_WALL.get(), BlockInit.SPRUCE_LEAVES_TRAPDOOR.get(),
+                    BlockInit.BIRCH_LEAVES_STAIRS.get(), BlockInit.BIRCH_LEAVES_SLAB.get(), BlockInit.BIRCH_LEAVES_WALL.get(), BlockInit.BIRCH_LEAVES_TRAPDOOR.get());
         }
     }
 }

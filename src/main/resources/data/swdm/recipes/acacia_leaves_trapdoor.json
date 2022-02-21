@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "leaves_trapdoor",
+  "pattern":
+  [
+    "xx ",
+    "xx "
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:acacia_leaves"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:acacia_leaves_trapdoor",
+    "count": 4
+  }
+}

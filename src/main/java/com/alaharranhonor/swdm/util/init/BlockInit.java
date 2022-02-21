@@ -92,6 +92,12 @@ public class BlockInit {
     public static final RegistryObject<Block> JUNGLE_LEAVES_WALL = BLOCKS.register("jungle_leaves_wall", () -> new WallBlock(Block.Properties.copy(Blocks.JUNGLE_LEAVES)));
     public static final RegistryObject<Block> OAK_LEAVES_WALL = BLOCKS.register("oak_leaves_wall", () -> new WallBlock(Block.Properties.copy(Blocks.OAK_LEAVES)));
     public static final RegistryObject<Block> SPRUCE_LEAVES_WALL = BLOCKS.register("spruce_leaves_wall", () -> new WallBlock(Block.Properties.copy(Blocks.SPRUCE_LEAVES)));
+    public static final RegistryObject<Block> ACACIA_LEAVES_TRAPDOOR = BLOCKS.register("acacia_leaves_trapdoor", () -> new TrapDoorBlock(Block.Properties.of(Material.LEAVES).strength(0.2F).sound(SoundType.GRASS).noOcclusion()));
+    public static final RegistryObject<Block> BIRCH_LEAVES_TRAPDOOR = BLOCKS.register("birch_leaves_trapdoor", () -> new TrapDoorBlock(Block.Properties.of(Material.LEAVES).strength(0.2F).sound(SoundType.GRASS).noOcclusion()));
+    public static final RegistryObject<Block> DARK_OAK_LEAVES_TRAPDOOR = BLOCKS.register("dark_oak_leaves_trapdoor", () -> new TrapDoorBlock(Block.Properties.of(Material.LEAVES).strength(0.2F).sound(SoundType.GRASS).noOcclusion()));
+    public static final RegistryObject<Block> JUNGLE_LEAVES_TRAPDOOR = BLOCKS.register("jungle_leaves_trapdoor", () -> new TrapDoorBlock(Block.Properties.of(Material.LEAVES).strength(0.2F).sound(SoundType.GRASS).noOcclusion()));
+    public static final RegistryObject<Block> OAK_LEAVES_TRAPDOOR = BLOCKS.register("oak_leaves_trapdoor", () -> new TrapDoorBlock(Block.Properties.of(Material.LEAVES).strength(0.2F).sound(SoundType.GRASS).noOcclusion()));
+    public static final RegistryObject<Block> SPRUCE_LEAVES_TRAPDOOR = BLOCKS.register("spruce_leaves_trapdoor", () -> new TrapDoorBlock(Block.Properties.of(Material.LEAVES).strength(0.2F).sound(SoundType.GRASS).noOcclusion()));
     public static final RegistryObject<Block> STONE_WALL = BLOCKS.register("stone_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE)));
     public static final RegistryObject<Block> BLACK_STAINED_GLASS_STAIRS = BLOCKS.register("black_stained_glass_stairs", () -> new StairsBlock(Blocks.BLACK_STAINED_GLASS.defaultBlockState(), Block.Properties.copy(Blocks.BLACK_STAINED_GLASS)));
     public static final RegistryObject<Block> BLUE_STAINED_GLASS_STAIRS = BLOCKS.register("blue_stained_glass_stairs", () -> new StairsBlock(Blocks.BLUE_STAINED_GLASS.defaultBlockState(), Block.Properties.copy(Blocks.BLUE_STAINED_GLASS)));
@@ -644,7 +650,6 @@ public class BlockInit {
     public static final RegistryObject<Block> LIGHT_STONE_BRICK_BUTTON = BLOCKS.register("light_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
     public static final RegistryObject<Block> LIGHT_STONE_BRICK_PRESSURE_PLATE = BLOCKS.register("light_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
     public static final RegistryObject<Block> LIGHT_STONE_BRICK_WALL = BLOCKS.register("light_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-
     public static final RegistryObject<Block> MOSSY_LIGHT_STONE_BRICKS = BLOCKS.register("mossy_light_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
     public static final RegistryObject<Block> MOSSY_LIGHT_STONE_BRICK_STAIRS = BLOCKS.register("mossy_light_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
     public static final RegistryObject<Block> MOSSY_LIGHT_STONE_BRICK_SLAB = BLOCKS.register("mossy_light_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
@@ -951,6 +956,12 @@ public class BlockInit {
     public static final RegistryObject<Item> JUNGLE_LEAVES_WALL_ITEM = ITEMS.register("jungle_leaves_wall", () -> new BlockItem(JUNGLE_LEAVES_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> OAK_LEAVES_WALL_ITEM = ITEMS.register("oak_leaves_wall", () -> new BlockItem(OAK_LEAVES_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> SPRUCE_LEAVES_WALL_ITEM = ITEMS.register("spruce_leaves_wall", () -> new BlockItem(SPRUCE_LEAVES_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> ACACIA_LEAVES_TRAPDOOR_ITEM = ITEMS.register("acacia_leaves_trapdoor", () -> new BlockItem(ACACIA_LEAVES_TRAPDOOR.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> BIRCH_LEAVES_TRAPDOOR_ITEM = ITEMS.register("birch_leaves_trapdoor", () -> new BlockItem(BIRCH_LEAVES_TRAPDOOR.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_OAK_LEAVES_TRAPDOOR_ITEM = ITEMS.register("dark_oak_leaves_trapdoor", () -> new BlockItem(DARK_OAK_LEAVES_TRAPDOOR.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> JUNGLE_LEAVES_TRAPDOOR_ITEM = ITEMS.register("jungle_leaves_trapdoor", () -> new BlockItem(JUNGLE_LEAVES_TRAPDOOR.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> OAK_LEAVES_TRAPDOOR_ITEM = ITEMS.register("oak_leaves_trapdoor", () -> new BlockItem(OAK_LEAVES_TRAPDOOR.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> SPRUCE_LEAVES_TRAPDOOR_ITEM = ITEMS.register("spruce_leaves_trapdoor", () -> new BlockItem(SPRUCE_LEAVES_TRAPDOOR.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> STONE_WALL_ITEM = ITEMS.register("stone_wall", () -> new BlockItem(STONE_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> BLACK_STAINED_GLASS_STAIRS_ITEM = ITEMS.register("black_stained_glass_stairs", () -> new BlockItem(BLACK_STAINED_GLASS_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> BLUE_STAINED_GLASS_STAIRS_ITEM = ITEMS.register("blue_stained_glass_stairs", () -> new BlockItem(BLUE_STAINED_GLASS_STAIRS.get(), new Item.Properties().tab(SWDM.SWDMTAB)));

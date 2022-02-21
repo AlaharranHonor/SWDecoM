@@ -1,0 +1,6 @@
+{
+  "parent": "swdm:block/template_orientable_trapdoor_top",
+  "textures": {
+    "texture": "minecraft:block/birch_leaves"
+  }
+}
