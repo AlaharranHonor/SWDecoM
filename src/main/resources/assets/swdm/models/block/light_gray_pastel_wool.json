@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "swdm:blocks/light_gray_pastel_wool"
+  }
+}

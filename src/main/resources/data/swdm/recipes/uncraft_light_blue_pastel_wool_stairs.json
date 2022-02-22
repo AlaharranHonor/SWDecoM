@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_pastel_wool_stairs",
+  "ingredients": [
+    {
+      "item": "swdm:light_blue_pastel_wool_stairs"
+    }
+  ],
+  "result": {
+    "item": "swdm:light_blue_pastel_wool",
+    "count": 1
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "pastel_wool_wall",
+  "pattern":
+  [
+    "xxx",
+	"xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "swdm:blue_pastel_wool"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:blue_pastel_wool_wall",
+    "count": 6
+  }
+}

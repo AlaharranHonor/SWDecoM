@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "swdm:blocks/gray_pastel_wool",
+    "top": "swdm:blocks/gray_pastel_wool",
+    "side": "swdm:blocks/gray_pastel_wool"
+  }
+}

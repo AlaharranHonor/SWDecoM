@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_pastel_wool_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:yellow_pastel_wool_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:yellow_pastel_wool",
+    "count": 1
+  }
+}

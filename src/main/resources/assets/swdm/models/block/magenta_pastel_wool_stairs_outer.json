@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "swdm:blocks/magenta_pastel_wool",
+    "top": "swdm:blocks/magenta_pastel_wool",
+    "side": "swdm:blocks/magenta_pastel_wool"
+  }
+}

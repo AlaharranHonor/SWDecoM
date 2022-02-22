@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "pastel_carpet",
+  "pattern":
+  [
+    "yy "
+  ],
+  "key":
+  {
+    "y":
+    {
+      "item": "swdm:blue_pastel_wool"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:blue_pastel_carpet",
+    "count": 3
+  }
+}
