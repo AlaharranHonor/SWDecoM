@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "swdm:block/brown_tinted_wool_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/brown_tinted_wool"
+    },
+    "type=top": {
+      "model": "swdm:block/brown_tinted_wool_slab_top"
+    }
+  }
+}

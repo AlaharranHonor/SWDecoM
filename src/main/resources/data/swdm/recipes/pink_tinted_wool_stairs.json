@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tinted_wool_stairs",
+  "pattern":
+  [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "swdm:pink_tinted_wool"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:pink_tinted_wool_stairs",
+    "count": 6
+  }
+}

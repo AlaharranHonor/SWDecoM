@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "swdm:blocks/brown_tinted_wool",
+    "top": "swdm:blocks/brown_tinted_wool",
+    "side": "swdm:blocks/brown_tinted_wool"
+  }
+}

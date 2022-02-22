@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_tinted_wool_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:green_tinted_wool_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:green_tinted_wool",
+    "count": 1
+  }
+}

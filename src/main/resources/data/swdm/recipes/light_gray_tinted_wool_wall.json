@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tinted_wool_wall",
+  "pattern":
+  [
+    "xxx",
+	"xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "swdm:light_gray_tinted_wool"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:light_gray_tinted_wool_wall",
+    "count": 6
+  }
+}

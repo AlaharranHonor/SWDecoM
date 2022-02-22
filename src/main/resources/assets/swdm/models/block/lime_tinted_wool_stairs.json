@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "swdm:blocks/lime_tinted_wool",
+    "top": "swdm:blocks/lime_tinted_wool",
+    "side": "swdm:blocks/lime_tinted_wool"
+  }
+}

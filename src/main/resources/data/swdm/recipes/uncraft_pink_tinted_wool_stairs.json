@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_tinted_wool_stairs",
+  "ingredients": [
+    {
+      "item": "swdm:pink_tinted_wool_stairs"
+    }
+  ],
+  "result": {
+    "item": "swdm:pink_tinted_wool",
+    "count": 1
+  }
+}
