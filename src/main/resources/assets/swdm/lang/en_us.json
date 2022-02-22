@@ -873,5 +873,16 @@
   "block.swdm.dark_screen_slab": "Dark Screen Slab",
   "block.swdm.dark_screen_wall": "Dark Screen Wall",
   "block.swdm.dark_screen_glass_pane": "Dark Screen Glass Pane",
-  "block.swdm.clock": "Clock"
+  "block.swdm.clock": "Clock",
+  "block.swdm.black_fiber_carpet": "Black Fiber Carpet",
+  "block.swdm.blue_gray_fiber_carpet": "Blue Gray Fiber Carpet",
+  "block.swdm.brown_fiber_carpet": "Brown Fiber Carpet",
+  "block.swdm.dark_brown_fiber_carpet": "Dark Brown Fiber Carpet",
+  "block.swdm.dusted_gray_fiber_carpet": "Dusted Gray Fiber Carpet",
+  "block.swdm.golden_fiber_carpet": "Golden Fiber Carpet",
+  "block.swdm.gray_fiber_carpet": "Gray Fiber Carpet",
+  "block.swdm.light_gray_fiber_carpet": "Light Gray Fiber Carpet",
+  "block.swdm.muted_brown_fiber_carpet": "Muted Brown Fiber Carpet",
+  "block.swdm.vivid_red_fiber_carpet": "Vivid Red Fiber Carpet",
+  "block.swdm.white_fiber_carpet": "White Fiber Carpet"
 }

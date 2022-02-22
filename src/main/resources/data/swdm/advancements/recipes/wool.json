@@ -81,7 +81,19 @@
       "swdm:uncraft_purple_wool_slab",
       "swdm:uncraft_red_wool_slab",
       "swdm:uncraft_white_wool_slab",
-      "swdm:uncraft_yellow_wool_slab"
+      "swdm:uncraft_yellow_wool_slab",
+
+      "swdm:black_fiber_carpet",
+      "swdm:blue_gray_fiber_carpet",
+      "swdm:brown_fiber_carpet",
+      "swdm:dark_brown_fiber_carpet",
+      "swdm:dusted_gray_fiber_carpet",
+      "swdm:golden_fiber_carpet",
+      "swdm:gray_fiber_carpet",
+      "swdm:light_gray_fiber_carpet",
+      "swdm:muted_brown_fiber_carpet",
+      "swdm:vivid_red_fiber_carpet",
+      "swdm:white_fiber_carpet"
     ]
   },
   "criteria": {

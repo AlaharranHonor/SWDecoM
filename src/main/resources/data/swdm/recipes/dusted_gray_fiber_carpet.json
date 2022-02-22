@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "fiber_carpet",
+  "pattern":
+  [
+    "yyy",
+    "yxy",
+    "yyy"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:white_dye"
+    },
+    "y":
+    {
+      "item": "minecraft:light_gray_carpet"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:dusted_gray_fiber_carpet",
+    "count": 8
+  }
+}

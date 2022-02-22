@@ -7,7 +7,9 @@ import com.alaharranhonor.swdm.blocks.ModdedStandingSignBlock;
 import com.alaharranhonor.swdm.blocks.ModdedWallSignBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.SignItem;
 import net.minecraftforge.common.ToolType;
@@ -879,6 +881,17 @@ public class BlockInit {
     public static final RegistryObject<Block> DARK_SCREEN_WALL = BLOCKS.register("dark_screen_wall", () -> new WallBlock(Block.Properties.copy(DARK_SCREEN.get())));
     public static final RegistryObject<Block> DARK_SCREEN_GLASS_PANE = BLOCKS.register("dark_screen_glass_pane", () -> new PaneBlock(Block.Properties.copy(DARK_SCREEN.get())));
     public static final RegistryObject<Block> CLOCK = BLOCKS.register("clock", () -> new ClockBlock(AbstractBlock.Properties.of(Material.WOOD).strength(1).noOcclusion()));
+    public static final RegistryObject<Block> BLACK_FIBER_CARPET = BLOCKS.register("black_fiber_carpet", () -> new CarpetBlock(DyeColor.BLACK, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
+    public static final RegistryObject<Block> BLUE_GRAY_FIBER_CARPET = BLOCKS.register("blue_gray_fiber_carpet", () -> new CarpetBlock(DyeColor.BLUE, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
+    public static final RegistryObject<Block> BROWN_FIBER_CARPET = BLOCKS.register("brown_fiber_carpet", () -> new CarpetBlock(DyeColor.BROWN, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
+    public static final RegistryObject<Block> DARK_BROWN_FIBER_CARPET = BLOCKS.register("dark_brown_fiber_carpet", () -> new CarpetBlock(DyeColor.BROWN, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
+    public static final RegistryObject<Block> DUSTED_GRAY_FIBER_CARPET = BLOCKS.register("dusted_gray_fiber_carpet", () -> new CarpetBlock(DyeColor.GRAY, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
+    public static final RegistryObject<Block> GOLDEN_FIBER_CARPET = BLOCKS.register("golden_fiber_carpet", () -> new CarpetBlock(DyeColor.YELLOW, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
+    public static final RegistryObject<Block> GRAY_FIBER_CARPET = BLOCKS.register("gray_fiber_carpet", () -> new CarpetBlock(DyeColor.GRAY, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
+    public static final RegistryObject<Block> LIGHT_GRAY_FIBER_CARPET = BLOCKS.register("light_gray_fiber_carpet", () -> new CarpetBlock(DyeColor.LIGHT_GRAY, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
+    public static final RegistryObject<Block> MUTED_BROWN_FIBER_CARPET = BLOCKS.register("muted_brown_fiber_carpet", () -> new CarpetBlock(DyeColor.BROWN, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
+    public static final RegistryObject<Block> VIVID_RED_FIBER_CARPET = BLOCKS.register("vivid_red_fiber_carpet", () -> new CarpetBlock(DyeColor.RED, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
+    public static final RegistryObject<Block> WHITE_FIBER_CARPET = BLOCKS.register("white_fiber_carpet", () -> new CarpetBlock(DyeColor.WHITE, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
 
     //Items
     public static final RegistryObject<Item> ACACIA_STICK = ITEMS.register("acacia_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
@@ -1741,5 +1754,16 @@ public class BlockInit {
     public static final RegistryObject<Item> DARK_SCREEN_SLAB_ITEM = ITEMS.register("dark_screen_slab", () -> new BlockItem(DARK_SCREEN_SLAB.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> DARK_SCREEN_WALL_ITEM = ITEMS.register("dark_screen_wall", () -> new BlockItem(DARK_SCREEN_WALL.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> DARK_SCREEN_GLASS_PANE_ITEM = ITEMS.register("dark_screen_glass_pane", () -> new BlockItem(DARK_SCREEN_GLASS_PANE.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> BLACK_FIBER_CARPET_ITEM = ITEMS.register("black_fiber_carpet", () -> new BlockItem(BLACK_FIBER_CARPET.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> BLUE_GRAY_FIBER_CARPET_ITEM = ITEMS.register("blue_gray_fiber_carpet", () -> new BlockItem(BLUE_GRAY_FIBER_CARPET.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> BROWN_FIBER_CARPET_ITEM = ITEMS.register("brown_fiber_carpet", () -> new BlockItem(BROWN_FIBER_CARPET.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DARK_BROWN_FIBER_CARPET_ITEM = ITEMS.register("dark_brown_fiber_carpet", () -> new BlockItem(DARK_BROWN_FIBER_CARPET.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> DUSTED_GRAY_FIBER_CARPET_ITEM = ITEMS.register("dusted_gray_fiber_carpet", () -> new BlockItem(DUSTED_GRAY_FIBER_CARPET.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> GOLDEN_FIBER_CARPET_ITEM = ITEMS.register("golden_fiber_carpet", () -> new BlockItem(GOLDEN_FIBER_CARPET.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> GRAY_FIBER_CARPET_ITEM = ITEMS.register("gray_fiber_carpet", () -> new BlockItem(GRAY_FIBER_CARPET.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> LIGHT_GRAY_FIBER_CARPET_ITEM = ITEMS.register("light_gray_fiber_carpet", () -> new BlockItem(LIGHT_GRAY_FIBER_CARPET.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> MUTED_BROWN_FIBER_CARPET_ITEM = ITEMS.register("muted_brown_fiber_carpet", () -> new BlockItem(MUTED_BROWN_FIBER_CARPET.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> VIVID_RED_FIBER_CARPET_ITEM = ITEMS.register("vivid_red_fiber_carpet", () -> new BlockItem(VIVID_RED_FIBER_CARPET.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
+    public static final RegistryObject<Item> WHITE_FIBER_CARPET_ITEM = ITEMS.register("white_fiber_carpet", () -> new BlockItem(WHITE_FIBER_CARPET.get(), new Item.Properties().tab(SWDM.SWDMTAB)));
 
 }

@@ -160,6 +160,18 @@ public class ClientEventBusSubscriber {
         RenderTypeLookup.setRenderLayer(BlockInit.DARK_SCREEN_STAIRS.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.DARK_SCREEN_WALL.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(BlockInit.DARK_SCREEN_GLASS_PANE.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.BLACK_FIBER_CARPET.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.BLUE_GRAY_FIBER_CARPET.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.BROWN_FIBER_CARPET.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DARK_BROWN_FIBER_CARPET.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.DUSTED_GRAY_FIBER_CARPET.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.GOLDEN_FIBER_CARPET.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.GRAY_FIBER_CARPET.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.LIGHT_GRAY_FIBER_CARPET.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.MUTED_BROWN_FIBER_CARPET.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.VIVID_RED_FIBER_CARPET.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(BlockInit.WHITE_FIBER_CARPET.get(), RenderType.cutout());
+
     }
 
     public static void SWEMonClientSetup(FMLClientSetupEvent event) {
