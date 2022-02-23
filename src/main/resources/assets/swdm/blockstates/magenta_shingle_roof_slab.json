@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "swdm:block/magenta_shingle_roof_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/magenta_shingle_roof"
+    },
+    "type=top": {
+      "model": "swdm:block/magenta_shingle_roof_slab_top"
+    }
+  }
+}

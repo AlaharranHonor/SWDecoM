@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:white_shingle_roof",
+    "swdm:orange_shingle_roof",
+    "swdm:magenta_shingle_roof",
+    "swdm:light_blue_shingle_roof",
+    "swdm:yellow_shingle_roof",
+    "swdm:lime_shingle_roof",
+    "swdm:pink_shingle_roof",
+    "swdm:gray_shingle_roof",
+    "swdm:light_gray_shingle_roof",
+    "swdm:cyan_shingle_roof",
+    "swdm:purple_shingle_roof",
+    "swdm:blue_shingle_roof",
+    "swdm:brown_shingle_roof",
+    "swdm:green_shingle_roof",
+    "swdm:red_shingle_roof",
+    "swdm:black_shingle_roof"
+  ]
+}

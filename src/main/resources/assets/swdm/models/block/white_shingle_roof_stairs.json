@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "swdm:blocks/white_shingle_roof",
+    "top": "swdm:blocks/white_shingle_roof",
+    "side": "swdm:blocks/white_shingle_roof"
+  }
+}

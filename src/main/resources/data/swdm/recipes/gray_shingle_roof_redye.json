@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "redye_shingle_roof",
+  "pattern": [
+    "yyy",
+    "yxy",
+	"yyy"
+  ],
+  "key": {
+    "y": {
+      "tag": "swdm:shingle_roofs"
+    },
+	"x": {
+      "item": "minecraft:gray_dye"
+    }
+  },
+  "result": {
+    "item": "swdm:gray_shingle_roof",
+    "count": 16
+  }
+}

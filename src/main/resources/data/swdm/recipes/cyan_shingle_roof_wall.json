@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "shingle_roof_wall",
+  "pattern":
+  [
+    "xxx",
+	"xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "swdm:cyan_shingle_roof"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:cyan_shingle_roof_wall",
+    "count": 6
+  }
+}
