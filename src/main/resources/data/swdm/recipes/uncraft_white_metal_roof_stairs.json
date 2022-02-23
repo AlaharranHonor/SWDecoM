@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "uncraft_metal_roof_stairs",
+  "ingredients": [
+    {
+      "item": "swdm:white_metal_roof_stairs"
+    }
+  ],
+  "result": {
+    "item": "swdm:white_metal_roof",
+    "count": 1
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_metal_roof_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:lime_metal_roof_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:lime_metal_roof",
+    "count": 1
+  }
+}

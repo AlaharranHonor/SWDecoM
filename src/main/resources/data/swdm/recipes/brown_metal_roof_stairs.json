@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "metal_roof_stairs",
+  "pattern":
+  [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "swdm:brown_metal_roof"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:brown_metal_roof_stairs",
+    "count": 6
+  }
+}

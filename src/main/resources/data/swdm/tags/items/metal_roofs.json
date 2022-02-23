@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:white_metal_roof",
+    "swdm:orange_metal_roof",
+    "swdm:magenta_metal_roof",
+    "swdm:light_blue_metal_roof",
+    "swdm:yellow_metal_roof",
+    "swdm:lime_metal_roof",
+    "swdm:pink_metal_roof",
+    "swdm:gray_metal_roof",
+    "swdm:light_gray_metal_roof",
+    "swdm:cyan_metal_roof",
+    "swdm:purple_metal_roof",
+    "swdm:blue_metal_roof",
+    "swdm:brown_metal_roof",
+    "swdm:green_metal_roof",
+    "swdm:red_metal_roof",
+    "swdm:black_metal_roof"
+  ]
+}

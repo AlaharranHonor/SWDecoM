@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "redye_metal_roof",
+  "pattern": [
+    "yyy",
+    "yxy",
+	"yyy"
+  ],
+  "key": {
+    "y": {
+      "tag": "swdm:metal_roofs"
+    },
+	"x": {
+      "item": "minecraft:pink_dye"
+    }
+  },
+  "result": {
+    "item": "swdm:pink_metal_roof",
+    "count": 16
+  }
+}
