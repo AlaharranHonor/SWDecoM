@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:white_tile_roof",
+    "swdm:orange_tile_roof",
+    "swdm:magenta_tile_roof",
+    "swdm:light_blue_tile_roof",
+    "swdm:yellow_tile_roof",
+    "swdm:lime_tile_roof",
+    "swdm:pink_tile_roof",
+    "swdm:gray_tile_roof",
+    "swdm:light_gray_tile_roof",
+    "swdm:cyan_tile_roof",
+    "swdm:purple_tile_roof",
+    "swdm:blue_tile_roof",
+    "swdm:brown_tile_roof",
+    "swdm:green_tile_roof",
+    "swdm:red_tile_roof",
+    "swdm:black_tile_roof"
+  ]
+}

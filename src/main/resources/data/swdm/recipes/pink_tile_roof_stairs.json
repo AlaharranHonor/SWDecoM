@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tile_roof_stairs",
+  "pattern":
+  [
+    "x  ",
+    "xx ",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "swdm:pink_tile_roof"
+    }
+  },
+  "result":
+  {
+    "item": "swdm:pink_tile_roof_stairs",
+    "count": 6
+  }
+}

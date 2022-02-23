@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "uncraft_tile_roof_slabs",
+  "pattern": [
+    "x  ",
+    "x  "
+  ],
+  "key": {
+    "x": {
+      "item": "swdm:pink_tile_roof_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:pink_tile_roof",
+    "count": 1
+  }
+}

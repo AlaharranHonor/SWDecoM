@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tile_roof",
+  "pattern": [
+    "yyy",
+    "yxy",
+	"yyy"
+  ],
+  "key": {
+    "y": {
+      "item": "minecraft:clay_ball"
+    },
+	"x": {
+      "item": "minecraft:light_gray_dye"
+    }
+  },
+  "result": {
+    "item": "swdm:light_gray_tile_roof",
+    "count": 16
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "swdm:block/green_tile_roof_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/green_tile_roof"
+    },
+    "type=top": {
+      "model": "swdm:block/green_tile_roof_slab_top"
+    }
+  }
+}

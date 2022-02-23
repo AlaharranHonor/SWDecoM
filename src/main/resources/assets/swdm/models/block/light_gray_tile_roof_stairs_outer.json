@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "swdm:blocks/light_gray_tile_roof",
+    "top": "swdm:blocks/light_gray_tile_roof",
+    "side": "swdm:blocks/light_gray_tile_roof"
+  }
+}
