@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:chain",
     "swdm:stone_wall",
     "swdm:acacia_leaves_wall",
     "swdm:birch_leaves_wall",
