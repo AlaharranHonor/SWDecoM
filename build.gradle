@@ -85,7 +85,9 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'swdm', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
+
+            environment 'target', 'fmluserdevdata'
 
             mods {
                 examplemod {
@@ -107,7 +109,7 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.20'
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.16.5:3.0.35")
-    implementation fg.deobf("com.alaharranhonor.swem:swem:${swem_version}")
+    compileOnly fg.deobf("com.alaharranhonor.swem:swem:${swem_version}")
     implementation fg.deobf("com.alaharranhonor.swlm:swlm:${swlm_version}")
 
 }

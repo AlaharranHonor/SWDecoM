@@ -26,19 +26,25 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Mod("swdm")
 public class SWDM
 {
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "swdm";
     public static WoodType THATCH_WT;
     public static WoodType BAMBOO_WT;
+    public static final List<String> STONE_TYPES = new ArrayList(Arrays.asList("mossy", "cracked", "more_mossy"));
+    public static final List<String> STONES = new ArrayList(Arrays.asList("stone", "andesite", "granite", "diorite"));
 
     public SWDM() {
         THATCH_WT = WoodType.register(WoodType.create("swdm:thatch"));
@@ -57,8 +63,8 @@ public class SWDM
     private void setup(final FMLCommonSetupEvent event) {
 
         event.enqueueWork(() -> {
-            ComposterBlock.COMPOSTABLES.put(BlockInit.ACACIA_LEAVES_SLAB_ITEM.get(), 0.3F);
-            ComposterBlock.COMPOSTABLES.put(BlockInit.ACACIA_LEAVES_STAIRS_ITEM.get(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation("swdm", "acacia_leaves_slab")), 0.3F);
+            /*ComposterBlock.COMPOSTABLES.put(BlockInit.ACACIA_LEAVES_STAIRS_ITEM.get(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(BlockInit.ACACIA_LEAVES_WALL_ITEM.get(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(BlockInit.BIRCH_LEAVES_SLAB_ITEM.get(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(BlockInit.BIRCH_LEAVES_STAIRS_ITEM.get(), 0.3F);
@@ -74,7 +80,7 @@ public class SWDM
             ComposterBlock.COMPOSTABLES.put(BlockInit.OAK_LEAVES_WALL_ITEM.get(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(BlockInit.SPRUCE_LEAVES_SLAB_ITEM.get(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(BlockInit.SPRUCE_LEAVES_STAIRS_ITEM.get(), 0.3F);
-            ComposterBlock.COMPOSTABLES.put(BlockInit.SPRUCE_LEAVES_WALL_ITEM.get(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(BlockInit.SPRUCE_LEAVES_WALL_ITEM.get(), 0.3F);*/
 
             ShovelItem.FLATTENABLES.put(BlockInit.SANDSTONE_BLACK.get(), SWEMInit.METER_POINT_BLACK.defaultBlockState());
             ShovelItem.FLATTENABLES.put(BlockInit.SANDSTONE_BLUE_GRAY.get(), SWEMInit.METER_POINT_BLUE_GRAY.defaultBlockState());
@@ -90,7 +96,7 @@ public class SWDM
         });
     }
 
-    public static final ItemGroup SWDMTAB = new ItemGroup("SWDMTAB") {
+    public static final ItemGroup SWDMTAB = new ItemGroup("swdmtab") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(BlockInit.STONE_WALL.get());
