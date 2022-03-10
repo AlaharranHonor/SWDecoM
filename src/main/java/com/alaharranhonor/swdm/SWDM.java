@@ -5,15 +5,15 @@ import com.alaharranhonor.swdm.util.init.SWDMPaintings;
 import com.alaharranhonor.swdm.util.init.SWDMTileEntities;
 import com.alaharranhonor.swdm.util.init.SWEMInit;
 import com.alaharranhonor.swem.util.registry.SWEMBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ComposterBlock;
-import net.minecraft.block.WoodType;
+import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,9 +30,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Mod("swdm")
@@ -44,7 +42,43 @@ public class SWDM
     public static WoodType THATCH_WT;
     public static WoodType BAMBOO_WT;
     public static final List<String> STONE_TYPES = new ArrayList(Arrays.asList("mossy", "cracked", "more_mossy"));
-    public static final List<String> STONES = new ArrayList(Arrays.asList("stone", "andesite", "granite", "diorite"));
+    public static final HashMap<String, List<String>> STONE_SETS = new HashMap() {{
+        put("color", Arrays.asList("dark_prismarine", "glass_brick", "concrete", "terracotta"));
+        put("with_default", Arrays.asList("light_bricks", "light_stone_bricks", "medium_bricks", "medium_stone_bricks", "dark_bricks", "dark_stone_bricks"));
+        put("no_default", Arrays.asList("stone", "andesite", "granite", "diorite"));
+    }};
+
+    public static final HashMap<String, List<String>> WOOD_SETS = new HashMap() {{
+
+    }};
+
+    // Block, Stair, Slab, Wall.
+    public static final HashMap<String, HashMap<String, AbstractBlock.Properties>> SSW_SETS = new HashMap() {{
+        put("color", new HashMap() {{
+            put("metal_roof", Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE));
+            put("tile_roof", AbstractBlock.Properties.copy(Blocks.CLAY));
+            put("shingle_roof", Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE));
+            put("stained_glass", AbstractBlock.Properties.copy(Blocks.BLACK_STAINED_GLASS));
+            put("wool", AbstractBlock.Properties.copy(Blocks.BLACK_WOOL));
+            put("pastel_wool", AbstractBlock.Properties.copy(Blocks.BLACK_WOOL));
+            put("tinted_wool", AbstractBlock.Properties.copy(Blocks.BLACK_WOOL));
+        }});
+        put("color_carpet", new HashMap() {{
+            put("pastel_wool", AbstractBlock.Properties.copy(Blocks.BLACK_WOOL));
+            put("tinted_wool", AbstractBlock.Properties.copy(Blocks.BLACK_WOOL));
+        }});
+        put("wv", new HashMap() {{
+            put("log", AbstractBlock.Properties.copy(Blocks.OAK_LOG));
+            put("stripped_log", AbstractBlock.Properties.copy(Blocks.STRIPPED_OAK_LOG));
+        }});
+        put("wv_beam", new HashMap() {{
+            put("log", AbstractBlock.Properties.copy(Blocks.OAK_LOG));
+            put("stripped_log", AbstractBlock.Properties.copy(Blocks.STRIPPED_OAK_LOG));
+        }});
+        put("wv-whitewash", new HashMap() {{
+
+        }});
+    }};
 
     public SWDM() {
         THATCH_WT = WoodType.register(WoodType.create("swdm:thatch"));

@@ -25,6 +25,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class BlockInit {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, SWDM.MOD_ID);
@@ -81,6 +83,15 @@ public class BlockInit {
     public static final Map<String, Map<String, RegistryObject<Block>>> STONE_SLAB = new HashMap<>();
     public static final Map<String, Map<String, RegistryObject<Block>>> STONE_STAIRS = new HashMap<>();
 
+    // Stone sets 16 colours.
+    // Stonem set -> List of the 16 colours
+    public static final Map<String, List<RegistryObject<Block>>> STONE_SET_BLOCKS = new HashMap<>();
+    public static final Map<String, List<RegistryObject<Block>>> STONE_SET_STAIRS = new HashMap<>();
+    public static final Map<String, List<RegistryObject<Block>>> STONE_SET_SLABS = new HashMap<>();
+    public static final Map<String, List<RegistryObject<Block>>> STONE_SET_BUTTON = new HashMap<>();
+    public static final Map<String, List<RegistryObject<Block>>> STONE_SET_PRESSURE_PLATE = new HashMap<>();
+    public static final Map<String, List<RegistryObject<Block>>> STONE_SET_WALL = new HashMap<>();
+
 
     // Vanilla Wood types
     public static final List<RegistryObject<Block>> LEAVES_STAIRS = new ArrayList<>();
@@ -89,10 +100,23 @@ public class BlockInit {
     public static final List<RegistryObject<Block>> LEAVES_TRAPDOORS = new ArrayList<>();
     public static final List<RegistryObject<Block>> LADDERS = new ArrayList<>();
 
+
+    // SSW_SET
+    // Type of set -> Map<BlockTypes> -> List<Blocks>'
+    public static final HashMap<String, HashMap<String, List<RegistryObject<Block>>>> SSW_SET_BLOCKS = new HashMap<>();
+    public static final HashMap<String, HashMap<String, List<RegistryObject<Block>>>> SSW_SET_STAIRS = new HashMap<>();
+    public static final HashMap<String, HashMap<String, List<RegistryObject<Block>>>> SSW_SET_SLABS = new HashMap<>();
+    public static final HashMap<String, HashMap<String, List<RegistryObject<Block>>>> SSW_SET_WALLS = new HashMap<>();
+    public static final HashMap<String, HashMap<String, List<RegistryObject<Block>>>> SSW_SET_CARPETS = new HashMap<>();
+    public static final HashMap<String, HashMap<String, List<RegistryObject<Block>>>> SSW_SET_BEAMS = new HashMap<>();
+
+
+
+
     static {
 
         for (String stone_type : SWDM.STONE_TYPES) {
-            for (String stone : SWDM.STONES) {
+            for (String stone : Stream.of(SWDM.STONE_SETS.get("no_default"), SWDM.STONE_SETS.get("with_default")).flatMap(Collection::stream).collect(Collectors.toList())) {
                 Map<String, RegistryObject<Block>> stone_walls = STONE_WALLS.getOrDefault(stone_type, new HashMap<>());
                 stone_walls.put(stone, register(stone_type+"_"+stone+"_wall", () -> new WallBlock(AbstractBlock.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(0).requiresCorrectToolForDrops())));
                 STONE_WALLS.put(stone_type, stone_walls);
@@ -116,44 +140,154 @@ public class BlockInit {
                 Map<String, RegistryObject<Block>> stone_stairs = STONE_STAIRS.getOrDefault(stone_type, new HashMap<>());
                 stone_stairs.put(stone, register(stone_type+"_"+stone+"_stairs", () -> new StairsBlock(() -> STONE_BLOCKS.get(stone_type).get(stone).get().defaultBlockState(), AbstractBlock.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5F, 6.0F).harvestTool(ToolType.PICKAXE).harvestLevel(0).requiresCorrectToolForDrops())));
                 STONE_STAIRS.put(stone_type, stone_stairs);
-
             }
         }
+
+        for (String stone : SWDM.STONE_SETS.get("with_default")) {
+            List<RegistryObject<Block>> ssSlabs = STONE_SET_SLABS.getOrDefault(stone, new ArrayList<>());
+            ssSlabs.add(register(stone + "_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+            STONE_SET_SLABS.put(stone, ssSlabs);
+
+
+            List<RegistryObject<Block>> ssBlocks = STONE_SET_BLOCKS.getOrDefault(stone, new ArrayList<>());
+            ssBlocks.add(register(stone, () -> new Block(Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+            STONE_SET_BLOCKS.put(stone, ssBlocks);
+            System.out.println("Registered " + STONE_SET_BLOCKS);
+
+            List<RegistryObject<Block>> ssButtons = STONE_SET_BUTTON.getOrDefault(stone, new ArrayList<>());
+            ssButtons.add(register(stone + "_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+            STONE_SET_BUTTON.put(stone, ssButtons);
+
+            List<RegistryObject<Block>> ssWalls = STONE_SET_WALL.getOrDefault(stone, new ArrayList<>());
+            ssWalls.add(register(stone + "_wall", () -> new WallBlock(Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+            STONE_SET_WALL.put(stone, ssWalls);
+
+            List<RegistryObject<Block>> ssPressurePlate = STONE_SET_PRESSURE_PLATE.getOrDefault(stone, new ArrayList<>());
+            ssPressurePlate.add(register(stone + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+            STONE_SET_PRESSURE_PLATE.put(stone, ssPressurePlate);
+
+            Block stairBlock = STONE_SET_BLOCKS.get(stone).get(0).get();
+            List<RegistryObject<Block>> ssStairs = STONE_SET_STAIRS.getOrDefault(stone, new ArrayList<>());
+            ssStairs.add(register(stone + "_stairs", () -> new StairsBlock(() -> stairBlock.defaultBlockState(), Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+            STONE_SET_STAIRS.put(stone, ssStairs);
+        }
+
+
 
         for (DyeColor color : DyeColor.values()) {
 
-            WOOL_STAIRS.add(register(color.getName() + "_wool_stairs", () -> new StairsBlock(() -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.getName() + "_wool")).defaultBlockState(), Block.Properties.copy(Blocks.WHITE_WOOL))));
-            WOOL_SLABS.add(register(color.getName() + "_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLACK_WOOL))));
-            WOOL_WALL.add(register(color.getName() + "_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BLACK_WOOL))));
-            PASTEL_WOOL.add(register(color.getName() + "_pastel_wool", () -> new Block(Block.Properties.copy(Blocks.BLACK_WOOL))));
-            PASTEL_WOOL_STAIRS.add(register(color.getName() + "_pastel_wool_stairs", () -> new StairsBlock(() -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.getName() + "_wool")).defaultBlockState(), Block.Properties.copy(Blocks.WHITE_WOOL))));
-            PASTEL_WOOL_SLABS.add(register(color.getName() + "_pastel_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLACK_WOOL))));
-            PASTEL_WOOL_WALL.add(register(color.getName() + "_pastel_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BLACK_WOOL))));
-            PASTEL_WOOL_CARPETS.add(register(color.getName() + "_pastel_wool_carpet", () -> new CarpetBlock(color, Block.Properties.copy(Blocks.BLACK_WOOL))));
-            STAINED_GLASS_STAIRS.add(register(color.getName() + "_stained_glass_stairs", () -> new StairsBlock(() -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.getName() + "_stained_glass")).defaultBlockState(), Block.Properties.copy(Blocks.BLACK_STAINED_GLASS))));
-            STAINED_GLASS_SLABS.add(register(color.getName() + "_stained_glass_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLACK_STAINED_GLASS))));
-            STAINED_GLASS_WALLS.add(register(color.getName() + "_stained_glass_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BLACK_STAINED_GLASS))));
-        }
+            for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.SSW_SETS.get("color").entrySet()) {
+                Block stairBlock = null;
+                if (!blockType.getKey().equals("wool") && !blockType.getKey().equals("stained_glass")) {
+                    List<RegistryObject<Block>> sswTypeBlocks = SSW_SET_BLOCKS.getOrDefault("color", new HashMap<>()).getOrDefault(blockType.getKey(), new ArrayList<>());
+                    stairBlock = new Block(blockType.getValue());
+                    sswTypeBlocks.add(register(color.getName()+"_"+blockType, () -> new Block(blockType.getValue())));
+                    SSW_SET_BLOCKS.getOrDefault("color", new HashMap<>()).put(blockType.getKey(), sswTypeBlocks);
+                }
+
+                if (stairBlock == null) {
+                    stairBlock = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:"+color.getName()+"_"+blockType.getKey()));
+                }
+
+                List<RegistryObject<Block>> sswTypeSlabs = SSW_SET_SLABS.getOrDefault("color", new HashMap<>()).getOrDefault(blockType.getKey(), new ArrayList<>());
+                sswTypeSlabs.add(register(color.getName() + "_" + blockType + "_slab", () -> new SlabBlock(blockType.getValue())));
+                SSW_SET_SLABS.getOrDefault("color", new HashMap<>()).put(blockType.getKey(), sswTypeSlabs);
+
+                List<RegistryObject<Block>> sswTypeWalls = SSW_SET_WALLS.getOrDefault("color", new HashMap<>()).getOrDefault(blockType.getKey(), new ArrayList<>());
+                sswTypeWalls.add(register(color.getName() + "_" + blockType + "_wall", () -> new WallBlock(blockType.getValue())));
+                SSW_SET_WALLS.getOrDefault("color", new HashMap<>()).put(blockType.getKey(), sswTypeWalls);
+            }
+
+            for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.SSW_SETS.get("color_carpet").entrySet()) {
+                List<RegistryObject<Block>> sswTypeCarpets = SSW_SET_CARPETS.getOrDefault("color", new HashMap<>()).getOrDefault(blockType.getKey(), new ArrayList<>());
+                sswTypeCarpets.add(register(color.getName() + "_" + blockType + "_carpet", () -> new CarpetBlock(color, blockType.getValue())));
+                SSW_SET_CARPETS.getOrDefault("color", new HashMap<>()).put(blockType.getKey(), sswTypeCarpets);
+            }
+
+
+
+            for (String stoneSetWithColor : SWDM.STONE_SETS.get("color")) {
+                List<RegistryObject<Block>> ssSlabs = STONE_SET_SLABS.getOrDefault(stoneSetWithColor, new ArrayList<>());
+                ssSlabs.add(register(color.getName() + "_" + stoneSetWithColor + "_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+                STONE_SET_SLABS.put(stoneSetWithColor, ssSlabs);
+
+                if (!stoneSetWithColor.equals("concrete") || !stoneSetWithColor.equals("terracotta")) {
+                    List<RegistryObject<Block>> ssBlocks = STONE_SET_BLOCKS.getOrDefault(stoneSetWithColor, new ArrayList<>());
+                    ssBlocks.add(register(color.getName() + "_" + stoneSetWithColor, () -> new Block(Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+                    STONE_SET_BLOCKS.put(stoneSetWithColor, ssBlocks);
+                }
+
+                Block stairBlock = stoneSetWithColor.equals("concrete")
+                    ? ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:"+color.getName()+"_concrete"))
+                    : stoneSetWithColor.equals("terracotta")
+                    ? ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:"+color.getName()+"_terracotta"))
+                    : STONE_SET_BLOCKS.get(stoneSetWithColor).get(color.getId()).get();
+                List<RegistryObject<Block>> ssStairs = STONE_SET_STAIRS.getOrDefault(stoneSetWithColor, new ArrayList<>());
+                ssStairs.add(register(color.getName() + "_" + stoneSetWithColor + "_stairs", () -> new StairsBlock(() -> stairBlock.defaultBlockState(), Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+                STONE_SET_STAIRS.put(stoneSetWithColor, ssStairs);
+
+                List<RegistryObject<Block>> ssButtons = STONE_SET_BUTTON.getOrDefault(stoneSetWithColor, new ArrayList<>());
+                ssButtons.add(register(color.getName() + "_" + stoneSetWithColor + "_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+                STONE_SET_BUTTON.put(stoneSetWithColor, ssButtons);
+
+                List<RegistryObject<Block>> ssWalls = STONE_SET_WALL.getOrDefault(stoneSetWithColor, new ArrayList<>());
+                ssWalls.add(register(color.getName() + "_" + stoneSetWithColor + "_wall", () -> new WallBlock(Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+                STONE_SET_WALL.put(stoneSetWithColor, ssWalls);
+
+                List<RegistryObject<Block>> ssPressurePlate = STONE_SET_PRESSURE_PLATE.getOrDefault(stoneSetWithColor, new ArrayList<>());
+                ssPressurePlate.add(register(color.getName() + "_" + stoneSetWithColor + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.CYAN_CONCRETE))));
+                STONE_SET_PRESSURE_PLATE.put(stoneSetWithColor, ssPressurePlate);
+            }
+
+
+       }
 
         WoodType.values().forEach((wood) -> {
-            if (wood.name().equals("crimson") || wood.name().equals("warped")) {
-                // Do nothing for these wood types.
-            }
-            // Any SWEM wood types. Currently only whitewash.
-            else if (wood.name().contains("swem:")) {
+            for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.SSW_SETS.get("wv").entrySet()) {
+                if (wood.name().equals("crimson") || wood.name().equals("warped") || wood.name().contains("swdm:")) {
+                    // Do nothing for these wood types.
+                }
 
-            }
-            // Any wood types added by SWDM.
-            else if (wood.name().contains("swdm:")) {
+                Block stairBlock = null;
+                if (!blockType.getKey().equals("wool") && !blockType.getKey().equals("stained_glass")) {
+                    List<RegistryObject<Block>> sswTypeBlocks = SSW_SET_BLOCKS.getOrDefault("color", new HashMap<>()).getOrDefault(blockType.getKey(), new ArrayList<>());
+                    stairBlock = new Block(blockType.getValue());
+                    sswTypeBlocks.add(register(wood.name()+"_"+blockType, () -> new Block(blockType.getValue())));
+                    SSW_SET_BLOCKS.getOrDefault("color", new HashMap<>()).put(blockType.getKey(), sswTypeBlocks);
+                }
 
-            } else {
+                if (stairBlock == null) {
+                    stairBlock = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:"+wood.name()+"_"+blockType.getKey()));
+                }
+
+                List<RegistryObject<Block>> sswTypeSlabs = SSW_SET_SLABS.getOrDefault("color", new HashMap<>()).getOrDefault(blockType.getKey(), new ArrayList<>());
+                sswTypeSlabs.add(register(wood.name() + "_" + blockType + "_slab", () -> new SlabBlock(blockType.getValue())));
+                SSW_SET_SLABS.getOrDefault("color", new HashMap<>()).put(blockType.getKey(), sswTypeSlabs);
+
+                List<RegistryObject<Block>> sswTypeStairs = SSW_SET_STAIRS.getOrDefault("stairs", new HashMap<>()).getOrDefault(blockType.getKey(), new ArrayList<>());
+                Block finalStairBlock = stairBlock;
+                sswTypeStairs.add(register(wood.name() + "_" + blockType + "_stairs", () -> new StairsBlock(() -> finalStairBlock.defaultBlockState(), blockType.getValue())));
+                SSW_SET_STAIRS.getOrDefault("stairs", new HashMap<>()).put(blockType.getKey(), sswTypeStairs);
+
+                List<RegistryObject<Block>> sswTypeWalls = SSW_SET_WALLS.getOrDefault("color", new HashMap<>()).getOrDefault(blockType.getKey(), new ArrayList<>());
+                sswTypeWalls.add(register(wood.name() + "_" + blockType + "_wall", () -> new WallBlock(blockType.getValue())));
+                SSW_SET_WALLS.getOrDefault("color", new HashMap<>()).put(blockType.getKey(), sswTypeWalls);
+            }
+
+            for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.SSW_SETS.get("wv_beam").entrySet()) {
+                List<RegistryObject<Block>> sswTypeBeams = SSW_SET_BEAMS.getOrDefault("color", new HashMap<>()).getOrDefault(blockType.getKey(), new ArrayList<>());
+                sswTypeBeams.add(register(wood.name() + "_" + blockType + "_beam", () -> new BeamBlock(blockType.getValue())));
+                SSW_SET_BEAMS.getOrDefault("wv", new HashMap<>()).put(blockType.getKey(), sswTypeBeams);
+            }
+
+
                 // All other vanilla wood types.
                 LEAVES_STAIRS.add(register(wood.name() + "_leaves_stairs", () -> new StairsBlock(() -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", wood.name() + "_planks")).defaultBlockState(), Block.Properties.of(Material.LEAVES).strength(0.2F).sound(SoundType.GRASS).noOcclusion())));
                 LEAVES_SLABS.add(register(wood.name() + "_leaves_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.ACACIA_LEAVES))));
                 LEAVES_WALLS.add(register(wood.name() + "_leaves_wall", () -> new WallBlock(Block.Properties.copy(Blocks.ACACIA_LEAVES))));
                 LEAVES_TRAPDOORS.add(register(wood.name() + "_leaves_trapdoor", () -> new TrapDoorBlock(Block.Properties.of(Material.LEAVES).strength(0.2F).sound(SoundType.GRASS).noOcclusion())));
                 LADDERS.add(register(wood.name() + "_ladder", () -> new LadderBlock(AbstractBlock.Properties.copy(Blocks.LADDER))));
-            }
+
         });
     }
 
@@ -213,535 +347,15 @@ public class BlockInit {
     public static final RegistryObject<Block> JUNGLE_BEAM = register("jungle_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> OAK_BEAM = register("oak_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> SPRUCE_BEAM = register("spruce_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> ACACIA_LOG_BEAM = register("acacia_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BIRCH_LOG_BEAM = register("birch_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> DARK_OAK_LOG_BEAM = register("dark_oak_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> JUNGLE_LOG_BEAM = register("jungle_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> OAK_LOG_BEAM = register("oak_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> SPRUCE_LOG_BEAM = register("spruce_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_ACACIA_LOG_BEAM = register("stripped_acacia_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_BIRCH_LOG_BEAM = register("stripped_birch_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_DARK_OAK_LOG_BEAM = register("stripped_dark_oak_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_JUNGLE_LOG_BEAM = register("stripped_jungle_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_OAK_LOG_BEAM = register("stripped_oak_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_SPRUCE_LOG_BEAM = register("stripped_spruce_log_beam", () -> new BeamBlock(AbstractBlock.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BLACK_CONCRETE_STAIRS = register("black_concrete_stairs", () -> new StairsBlock(Blocks.BLACK_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.BLACK_CONCRETE)));
-    public static final RegistryObject<Block> BLUE_CONCRETE_STAIRS = register("blue_concrete_stairs", () -> new StairsBlock(Blocks.BLUE_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.BLUE_CONCRETE)));
-    public static final RegistryObject<Block> BROWN_CONCRETE_STAIRS = register("brown_concrete_stairs", () -> new StairsBlock(Blocks.BROWN_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.BROWN_CONCRETE)));
-    public static final RegistryObject<Block> CYAN_CONCRETE_STAIRS = register("cyan_concrete_stairs", () -> new StairsBlock(Blocks.CYAN_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.CYAN_CONCRETE)));
-    public static final RegistryObject<Block> GRAY_CONCRETE_STAIRS = register("gray_concrete_stairs", () -> new StairsBlock(Blocks.GRAY_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.GRAY_CONCRETE)));
-    public static final RegistryObject<Block> GREEN_CONCRETE_STAIRS = register("green_concrete_stairs", () -> new StairsBlock(Blocks.GREEN_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.GREEN_CONCRETE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE_STAIRS = register("light_blue_concrete_stairs", () -> new StairsBlock(Blocks.LIGHT_BLUE_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.LIGHT_BLUE_CONCRETE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE_STAIRS = register("light_gray_concrete_stairs", () -> new StairsBlock(Blocks.LIGHT_GRAY_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.LIGHT_GRAY_CONCRETE)));
-    public static final RegistryObject<Block> LIME_CONCRETE_STAIRS = register("lime_concrete_stairs", () -> new StairsBlock(Blocks.LIME_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.LIME_CONCRETE)));
-    public static final RegistryObject<Block> MAGENTA_CONCRETE_STAIRS = register("magenta_concrete_stairs", () -> new StairsBlock(Blocks.MAGENTA_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.MAGENTA_CONCRETE)));
-    public static final RegistryObject<Block> ORANGE_CONCRETE_STAIRS = register("orange_concrete_stairs", () -> new StairsBlock(Blocks.ORANGE_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.ORANGE_CONCRETE)));
-    public static final RegistryObject<Block> PINK_CONCRETE_STAIRS = register("pink_concrete_stairs", () -> new StairsBlock(Blocks.PINK_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.PINK_CONCRETE)));
-    public static final RegistryObject<Block> PURPLE_CONCRETE_STAIRS = register("purple_concrete_stairs", () -> new StairsBlock(Blocks.PURPLE_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.PURPLE_CONCRETE)));
-    public static final RegistryObject<Block> RED_CONCRETE_STAIRS = register("red_concrete_stairs", () -> new StairsBlock(Blocks.RED_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.RED_CONCRETE)));
-    public static final RegistryObject<Block> WHITE_CONCRETE_STAIRS = register("white_concrete_stairs", () -> new StairsBlock(Blocks.WHITE_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.WHITE_CONCRETE)));
-    public static final RegistryObject<Block> YELLOW_CONCRETE_STAIRS = register("yellow_concrete_stairs", () -> new StairsBlock(Blocks.YELLOW_CONCRETE.defaultBlockState(), Block.Properties.copy(Blocks.YELLOW_CONCRETE)));
-    public static final RegistryObject<Block> BLACK_CONCRETE_SLAB = register("black_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLACK_CONCRETE)));
-    public static final RegistryObject<Block> BLUE_CONCRETE_SLAB = register("blue_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLUE_CONCRETE)));
-    public static final RegistryObject<Block> BROWN_CONCRETE_SLAB = register("brown_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BROWN_CONCRETE)));
-    public static final RegistryObject<Block> CYAN_CONCRETE_SLAB = register("cyan_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.CYAN_CONCRETE)));
-    public static final RegistryObject<Block> GRAY_CONCRETE_SLAB = register("gray_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.GRAY_CONCRETE)));
-    public static final RegistryObject<Block> GREEN_CONCRETE_SLAB = register("green_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.GREEN_CONCRETE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE_SLAB = register("light_blue_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.LIGHT_BLUE_CONCRETE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE_SLAB = register("light_gray_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.LIGHT_GRAY_CONCRETE)));
-    public static final RegistryObject<Block> LIME_CONCRETE_SLAB = register("lime_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.LIME_CONCRETE)));
-    public static final RegistryObject<Block> MAGENTA_CONCRETE_SLAB = register("magenta_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.MAGENTA_CONCRETE)));
-    public static final RegistryObject<Block> ORANGE_CONCRETE_SLAB = register("orange_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.ORANGE_CONCRETE)));
-    public static final RegistryObject<Block> PINK_CONCRETE_SLAB = register("pink_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.PINK_CONCRETE)));
-    public static final RegistryObject<Block> PURPLE_CONCRETE_SLAB = register("purple_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.PURPLE_CONCRETE)));
-    public static final RegistryObject<Block> RED_CONCRETE_SLAB = register("red_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.RED_CONCRETE)));
-    public static final RegistryObject<Block> WHITE_CONCRETE_SLAB = register("white_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.WHITE_CONCRETE)));
-    public static final RegistryObject<Block> YELLOW_CONCRETE_SLAB = register("yellow_concrete_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.YELLOW_CONCRETE)));
-    public static final RegistryObject<Block> BLACK_CONCRETE_WALL = register("black_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BLACK_CONCRETE)));
-    public static final RegistryObject<Block> BLUE_CONCRETE_WALL = register("blue_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BLUE_CONCRETE)));
-    public static final RegistryObject<Block> BROWN_CONCRETE_WALL = register("brown_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BROWN_CONCRETE)));
-    public static final RegistryObject<Block> CYAN_CONCRETE_WALL = register("cyan_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.CYAN_CONCRETE)));
-    public static final RegistryObject<Block> GRAY_CONCRETE_WALL = register("gray_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.GRAY_CONCRETE)));
-    public static final RegistryObject<Block> GREEN_CONCRETE_WALL = register("green_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.GREEN_CONCRETE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE_WALL = register("light_blue_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.LIGHT_BLUE_CONCRETE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE_WALL = register("light_gray_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.LIGHT_GRAY_CONCRETE)));
-    public static final RegistryObject<Block> LIME_CONCRETE_WALL = register("lime_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.LIME_CONCRETE)));
-    public static final RegistryObject<Block> MAGENTA_CONCRETE_WALL = register("magenta_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.MAGENTA_CONCRETE)));
-    public static final RegistryObject<Block> ORANGE_CONCRETE_WALL = register("orange_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.ORANGE_CONCRETE)));
-    public static final RegistryObject<Block> PINK_CONCRETE_WALL = register("pink_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.PINK_CONCRETE)));
-    public static final RegistryObject<Block> PURPLE_CONCRETE_WALL = register("purple_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.PURPLE_CONCRETE)));
-    public static final RegistryObject<Block> RED_CONCRETE_WALL = register("red_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.RED_CONCRETE)));
-    public static final RegistryObject<Block> WHITE_CONCRETE_WALL = register("white_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.WHITE_CONCRETE)));
-    public static final RegistryObject<Block> YELLOW_CONCRETE_WALL = register("yellow_concrete_wall", () -> new WallBlock(Block.Properties.copy(Blocks.YELLOW_CONCRETE)));
-    public static final RegistryObject<Block> BLACK_CONCRETE_BUTTON = register("black_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BLACK_CONCRETE)));
-    public static final RegistryObject<Block> BLUE_CONCRETE_BUTTON = register("blue_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BLUE_CONCRETE)));
-    public static final RegistryObject<Block> BROWN_CONCRETE_BUTTON = register("brown_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BROWN_CONCRETE)));
-    public static final RegistryObject<Block> CYAN_CONCRETE_BUTTON = register("cyan_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.CYAN_CONCRETE)));
-    public static final RegistryObject<Block> GRAY_CONCRETE_BUTTON = register("gray_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.GRAY_CONCRETE)));
-    public static final RegistryObject<Block> GREEN_CONCRETE_BUTTON = register("green_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.GREEN_CONCRETE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE_BUTTON = register("light_blue_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.LIGHT_BLUE_CONCRETE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE_BUTTON = register("light_gray_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.LIGHT_GRAY_CONCRETE)));
-    public static final RegistryObject<Block> LIME_CONCRETE_BUTTON = register("lime_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.LIME_CONCRETE)));
-    public static final RegistryObject<Block> MAGENTA_CONCRETE_BUTTON = register("magenta_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.MAGENTA_CONCRETE)));
-    public static final RegistryObject<Block> ORANGE_CONCRETE_BUTTON = register("orange_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.ORANGE_CONCRETE)));
-    public static final RegistryObject<Block> PINK_CONCRETE_BUTTON = register("pink_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.PINK_CONCRETE)));
-    public static final RegistryObject<Block> PURPLE_CONCRETE_BUTTON = register("purple_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.PURPLE_CONCRETE)));
-    public static final RegistryObject<Block> RED_CONCRETE_BUTTON = register("red_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.RED_CONCRETE)));
-    public static final RegistryObject<Block> WHITE_CONCRETE_BUTTON = register("white_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.WHITE_CONCRETE)));
-    public static final RegistryObject<Block> YELLOW_CONCRETE_BUTTON = register("yellow_concrete_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.YELLOW_CONCRETE)));
-    public static final RegistryObject<Block> BLACK_CONCRETE_PRESSURE_PLATE = register("black_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BLACK_CONCRETE)));
-    public static final RegistryObject<Block> BLUE_CONCRETE_PRESSURE_PLATE = register("blue_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BLUE_CONCRETE)));
-    public static final RegistryObject<Block> BROWN_CONCRETE_PRESSURE_PLATE = register("brown_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BROWN_CONCRETE)));
-    public static final RegistryObject<Block> CYAN_CONCRETE_PRESSURE_PLATE = register("cyan_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.CYAN_CONCRETE)));
-    public static final RegistryObject<Block> GRAY_CONCRETE_PRESSURE_PLATE = register("gray_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.GRAY_CONCRETE)));
-    public static final RegistryObject<Block> GREEN_CONCRETE_PRESSURE_PLATE = register("green_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.GREEN_CONCRETE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_CONCRETE_PRESSURE_PLATE = register("light_blue_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.LIGHT_BLUE_CONCRETE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_CONCRETE_PRESSURE_PLATE = register("light_gray_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.LIGHT_GRAY_CONCRETE)));
-    public static final RegistryObject<Block> LIME_CONCRETE_PRESSURE_PLATE = register("lime_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.LIME_CONCRETE)));
-    public static final RegistryObject<Block> MAGENTA_CONCRETE_PRESSURE_PLATE = register("magenta_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.MAGENTA_CONCRETE)));
-    public static final RegistryObject<Block> ORANGE_CONCRETE_PRESSURE_PLATE = register("orange_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.ORANGE_CONCRETE)));
-    public static final RegistryObject<Block> PINK_CONCRETE_PRESSURE_PLATE = register("pink_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.PINK_CONCRETE)));
-    public static final RegistryObject<Block> PURPLE_CONCRETE_PRESSURE_PLATE = register("purple_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.PURPLE_CONCRETE)));
-    public static final RegistryObject<Block> RED_CONCRETE_PRESSURE_PLATE = register("red_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.RED_CONCRETE)));
-    public static final RegistryObject<Block> WHITE_CONCRETE_PRESSURE_PLATE = register("white_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.WHITE_CONCRETE)));
-    public static final RegistryObject<Block> YELLOW_CONCRETE_PRESSURE_PLATE = register("yellow_concrete_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.YELLOW_CONCRETE)));
-    public static final RegistryObject<Block> BLACK_TERRACOTTA_STAIRS = register("black_terracotta_stairs", () -> new StairsBlock(Blocks.BLACK_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.BLACK_TERRACOTTA)));
-    public static final RegistryObject<Block> BLUE_TERRACOTTA_STAIRS = register("blue_terracotta_stairs", () -> new StairsBlock(Blocks.BLUE_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.BLUE_TERRACOTTA)));
-    public static final RegistryObject<Block> BROWN_TERRACOTTA_STAIRS = register("brown_terracotta_stairs", () -> new StairsBlock(Blocks.BROWN_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.BROWN_TERRACOTTA)));
-    public static final RegistryObject<Block> CYAN_TERRACOTTA_STAIRS = register("cyan_terracotta_stairs", () -> new StairsBlock(Blocks.CYAN_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.CYAN_TERRACOTTA)));
-    public static final RegistryObject<Block> GRAY_TERRACOTTA_STAIRS = register("gray_terracotta_stairs", () -> new StairsBlock(Blocks.GRAY_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.GRAY_TERRACOTTA)));
-    public static final RegistryObject<Block> GREEN_TERRACOTTA_STAIRS = register("green_terracotta_stairs", () -> new StairsBlock(Blocks.GREEN_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.GREEN_TERRACOTTA)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TERRACOTTA_STAIRS = register("light_blue_terracotta_stairs", () -> new StairsBlock(Blocks.LIGHT_BLUE_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.LIGHT_BLUE_TERRACOTTA)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TERRACOTTA_STAIRS = register("light_gray_terracotta_stairs", () -> new StairsBlock(Blocks.LIGHT_GRAY_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.LIGHT_GRAY_TERRACOTTA)));
-    public static final RegistryObject<Block> LIME_TERRACOTTA_STAIRS = register("lime_terracotta_stairs", () -> new StairsBlock(Blocks.LIME_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.LIME_TERRACOTTA)));
-    public static final RegistryObject<Block> MAGENTA_TERRACOTTA_STAIRS = register("magenta_terracotta_stairs", () -> new StairsBlock(Blocks.MAGENTA_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.MAGENTA_TERRACOTTA)));
-    public static final RegistryObject<Block> ORANGE_TERRACOTTA_STAIRS = register("orange_terracotta_stairs", () -> new StairsBlock(Blocks.ORANGE_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.ORANGE_TERRACOTTA)));
-    public static final RegistryObject<Block> PINK_TERRACOTTA_STAIRS = register("pink_terracotta_stairs", () -> new StairsBlock(Blocks.PINK_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.PINK_TERRACOTTA)));
-    public static final RegistryObject<Block> PURPLE_TERRACOTTA_STAIRS = register("purple_terracotta_stairs", () -> new StairsBlock(Blocks.PURPLE_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.PURPLE_TERRACOTTA)));
-    public static final RegistryObject<Block> RED_TERRACOTTA_STAIRS = register("red_terracotta_stairs", () -> new StairsBlock(Blocks.RED_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.RED_TERRACOTTA)));
-    public static final RegistryObject<Block> WHITE_TERRACOTTA_STAIRS = register("white_terracotta_stairs", () -> new StairsBlock(Blocks.WHITE_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.WHITE_TERRACOTTA)));
-    public static final RegistryObject<Block> YELLOW_TERRACOTTA_STAIRS = register("yellow_terracotta_stairs", () -> new StairsBlock(Blocks.YELLOW_TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.YELLOW_TERRACOTTA)));
-    public static final RegistryObject<Block> BLACK_TERRACOTTA_SLAB = register("black_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLACK_TERRACOTTA)));
-    public static final RegistryObject<Block> BLUE_TERRACOTTA_SLAB = register("blue_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLUE_TERRACOTTA)));
-    public static final RegistryObject<Block> BROWN_TERRACOTTA_SLAB = register("brown_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BROWN_TERRACOTTA)));
-    public static final RegistryObject<Block> CYAN_TERRACOTTA_SLAB = register("cyan_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.CYAN_TERRACOTTA)));
-    public static final RegistryObject<Block> GRAY_TERRACOTTA_SLAB = register("gray_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.GRAY_TERRACOTTA)));
-    public static final RegistryObject<Block> GREEN_TERRACOTTA_SLAB = register("green_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.GREEN_TERRACOTTA)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TERRACOTTA_SLAB = register("light_blue_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.LIGHT_BLUE_TERRACOTTA)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TERRACOTTA_SLAB = register("light_gray_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.LIGHT_GRAY_TERRACOTTA)));
-    public static final RegistryObject<Block> LIME_TERRACOTTA_SLAB = register("lime_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.LIME_TERRACOTTA)));
-    public static final RegistryObject<Block> MAGENTA_TERRACOTTA_SLAB = register("magenta_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.MAGENTA_TERRACOTTA)));
-    public static final RegistryObject<Block> ORANGE_TERRACOTTA_SLAB = register("orange_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.ORANGE_TERRACOTTA)));
-    public static final RegistryObject<Block> PINK_TERRACOTTA_SLAB = register("pink_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.PINK_TERRACOTTA)));
-    public static final RegistryObject<Block> PURPLE_TERRACOTTA_SLAB = register("purple_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.PURPLE_TERRACOTTA)));
-    public static final RegistryObject<Block> RED_TERRACOTTA_SLAB = register("red_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.RED_TERRACOTTA)));
-    public static final RegistryObject<Block> WHITE_TERRACOTTA_SLAB = register("white_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.WHITE_TERRACOTTA)));
-    public static final RegistryObject<Block> YELLOW_TERRACOTTA_SLAB = register("yellow_terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.YELLOW_TERRACOTTA)));
-    public static final RegistryObject<Block> BLACK_TERRACOTTA_WALL = register("black_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BLACK_TERRACOTTA)));
-    public static final RegistryObject<Block> BLUE_TERRACOTTA_WALL = register("blue_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BLUE_TERRACOTTA)));
-    public static final RegistryObject<Block> BROWN_TERRACOTTA_WALL = register("brown_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BROWN_TERRACOTTA)));
-    public static final RegistryObject<Block> CYAN_TERRACOTTA_WALL = register("cyan_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.CYAN_TERRACOTTA)));
-    public static final RegistryObject<Block> GRAY_TERRACOTTA_WALL = register("gray_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.GRAY_TERRACOTTA)));
-    public static final RegistryObject<Block> GREEN_TERRACOTTA_WALL = register("green_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.GREEN_TERRACOTTA)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TERRACOTTA_WALL = register("light_blue_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.LIGHT_BLUE_TERRACOTTA)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TERRACOTTA_WALL = register("light_gray_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.LIGHT_GRAY_TERRACOTTA)));
-    public static final RegistryObject<Block> LIME_TERRACOTTA_WALL = register("lime_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.LIME_TERRACOTTA)));
-    public static final RegistryObject<Block> MAGENTA_TERRACOTTA_WALL = register("magenta_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.MAGENTA_TERRACOTTA)));
-    public static final RegistryObject<Block> ORANGE_TERRACOTTA_WALL = register("orange_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.ORANGE_TERRACOTTA)));
-    public static final RegistryObject<Block> PINK_TERRACOTTA_WALL = register("pink_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.PINK_TERRACOTTA)));
-    public static final RegistryObject<Block> PURPLE_TERRACOTTA_WALL = register("purple_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.PURPLE_TERRACOTTA)));
-    public static final RegistryObject<Block> RED_TERRACOTTA_WALL = register("red_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.RED_TERRACOTTA)));
-    public static final RegistryObject<Block> WHITE_TERRACOTTA_WALL = register("white_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.WHITE_TERRACOTTA)));
-    public static final RegistryObject<Block> YELLOW_TERRACOTTA_WALL = register("yellow_terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.YELLOW_TERRACOTTA)));
-    public static final RegistryObject<Block> BLACK_TERRACOTTA_BUTTON = register("black_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BLACK_TERRACOTTA)));
-    public static final RegistryObject<Block> BLUE_TERRACOTTA_BUTTON = register("blue_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BLUE_TERRACOTTA)));
-    public static final RegistryObject<Block> BROWN_TERRACOTTA_BUTTON = register("brown_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BROWN_TERRACOTTA)));
-    public static final RegistryObject<Block> CYAN_TERRACOTTA_BUTTON = register("cyan_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.CYAN_TERRACOTTA)));
-    public static final RegistryObject<Block> GRAY_TERRACOTTA_BUTTON = register("gray_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.GRAY_TERRACOTTA)));
-    public static final RegistryObject<Block> GREEN_TERRACOTTA_BUTTON = register("green_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.GREEN_TERRACOTTA)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TERRACOTTA_BUTTON = register("light_blue_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.LIGHT_BLUE_TERRACOTTA)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TERRACOTTA_BUTTON = register("light_gray_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.LIGHT_GRAY_TERRACOTTA)));
-    public static final RegistryObject<Block> LIME_TERRACOTTA_BUTTON = register("lime_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.LIME_TERRACOTTA)));
-    public static final RegistryObject<Block> MAGENTA_TERRACOTTA_BUTTON = register("magenta_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.MAGENTA_TERRACOTTA)));
-    public static final RegistryObject<Block> ORANGE_TERRACOTTA_BUTTON = register("orange_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.ORANGE_TERRACOTTA)));
-    public static final RegistryObject<Block> PINK_TERRACOTTA_BUTTON = register("pink_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.PINK_TERRACOTTA)));
-    public static final RegistryObject<Block> PURPLE_TERRACOTTA_BUTTON = register("purple_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.PURPLE_TERRACOTTA)));
-    public static final RegistryObject<Block> RED_TERRACOTTA_BUTTON = register("red_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.RED_TERRACOTTA)));
-    public static final RegistryObject<Block> WHITE_TERRACOTTA_BUTTON = register("white_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.WHITE_TERRACOTTA)));
-    public static final RegistryObject<Block> YELLOW_TERRACOTTA_BUTTON = register("yellow_terracotta_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.YELLOW_TERRACOTTA)));
-    public static final RegistryObject<Block> BLACK_TERRACOTTA_PRESSURE_PLATE = register("black_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BLACK_TERRACOTTA)));
-    public static final RegistryObject<Block> BLUE_TERRACOTTA_PRESSURE_PLATE = register("blue_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BLUE_TERRACOTTA)));
-    public static final RegistryObject<Block> BROWN_TERRACOTTA_PRESSURE_PLATE = register("brown_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BROWN_TERRACOTTA)));
-    public static final RegistryObject<Block> CYAN_TERRACOTTA_PRESSURE_PLATE = register("cyan_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.CYAN_TERRACOTTA)));
-    public static final RegistryObject<Block> GRAY_TERRACOTTA_PRESSURE_PLATE = register("gray_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.GRAY_TERRACOTTA)));
-    public static final RegistryObject<Block> GREEN_TERRACOTTA_PRESSURE_PLATE = register("green_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.GREEN_TERRACOTTA)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TERRACOTTA_PRESSURE_PLATE = register("light_blue_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.LIGHT_BLUE_TERRACOTTA)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TERRACOTTA_PRESSURE_PLATE = register("light_gray_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.LIGHT_GRAY_TERRACOTTA)));
-    public static final RegistryObject<Block> LIME_TERRACOTTA_PRESSURE_PLATE = register("lime_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.LIME_TERRACOTTA)));
-    public static final RegistryObject<Block> MAGENTA_TERRACOTTA_PRESSURE_PLATE = register("magenta_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.MAGENTA_TERRACOTTA)));
-    public static final RegistryObject<Block> ORANGE_TERRACOTTA_PRESSURE_PLATE = register("orange_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.ORANGE_TERRACOTTA)));
-    public static final RegistryObject<Block> PINK_TERRACOTTA_PRESSURE_PLATE = register("pink_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.PINK_TERRACOTTA)));
-    public static final RegistryObject<Block> PURPLE_TERRACOTTA_PRESSURE_PLATE = register("purple_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.PURPLE_TERRACOTTA)));
-    public static final RegistryObject<Block> RED_TERRACOTTA_PRESSURE_PLATE = register("red_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.RED_TERRACOTTA)));
-    public static final RegistryObject<Block> WHITE_TERRACOTTA_PRESSURE_PLATE = register("white_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.WHITE_TERRACOTTA)));
-    public static final RegistryObject<Block> YELLOW_TERRACOTTA_PRESSURE_PLATE = register("yellow_terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.YELLOW_TERRACOTTA)));
-    public static final RegistryObject<Block> BLACK_DARK_PRISMARINE = register("black_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLUE_DARK_PRISMARINE = register("blue_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BROWN_DARK_PRISMARINE = register("brown_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> CYAN_DARK_PRISMARINE = register("cyan_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GRAY_DARK_PRISMARINE = register("gray_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GREEN_DARK_PRISMARINE = register("green_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_DARK_PRISMARINE = register("light_blue_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_DARK_PRISMARINE = register("light_gray_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIME_DARK_PRISMARINE = register("lime_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> MAGENTA_DARK_PRISMARINE = register("magenta_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> ORANGE_DARK_PRISMARINE = register("orange_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PINK_DARK_PRISMARINE = register("pink_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PURPLE_DARK_PRISMARINE = register("purple_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> RED_DARK_PRISMARINE = register("red_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> WHITE_DARK_PRISMARINE = register("white_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> YELLOW_DARK_PRISMARINE = register("yellow_dark_prismarine", () -> new Block(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLACK_DARK_PRISMARINE_STAIRS = register("black_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLUE_DARK_PRISMARINE_STAIRS = register("blue_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BROWN_DARK_PRISMARINE_STAIRS = register("brown_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> CYAN_DARK_PRISMARINE_STAIRS = register("cyan_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GRAY_DARK_PRISMARINE_STAIRS = register("gray_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GREEN_DARK_PRISMARINE_STAIRS = register("green_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_DARK_PRISMARINE_STAIRS = register("light_blue_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_DARK_PRISMARINE_STAIRS = register("light_gray_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIME_DARK_PRISMARINE_STAIRS = register("lime_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> MAGENTA_DARK_PRISMARINE_STAIRS = register("magenta_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> ORANGE_DARK_PRISMARINE_STAIRS = register("orange_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PINK_DARK_PRISMARINE_STAIRS = register("pink_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PURPLE_DARK_PRISMARINE_STAIRS = register("purple_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> RED_DARK_PRISMARINE_STAIRS = register("red_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> WHITE_DARK_PRISMARINE_STAIRS = register("white_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> YELLOW_DARK_PRISMARINE_STAIRS = register("yellow_dark_prismarine_stairs", () -> new StairsBlock(Blocks.DARK_PRISMARINE.defaultBlockState(), Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLACK_DARK_PRISMARINE_SLAB = register("black_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLUE_DARK_PRISMARINE_SLAB = register("blue_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BROWN_DARK_PRISMARINE_SLAB = register("brown_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> CYAN_DARK_PRISMARINE_SLAB = register("cyan_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GRAY_DARK_PRISMARINE_SLAB = register("gray_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GREEN_DARK_PRISMARINE_SLAB = register("green_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_DARK_PRISMARINE_SLAB = register("light_blue_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_DARK_PRISMARINE_SLAB = register("light_gray_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIME_DARK_PRISMARINE_SLAB = register("lime_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> MAGENTA_DARK_PRISMARINE_SLAB = register("magenta_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> ORANGE_DARK_PRISMARINE_SLAB = register("orange_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PINK_DARK_PRISMARINE_SLAB = register("pink_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PURPLE_DARK_PRISMARINE_SLAB = register("purple_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> RED_DARK_PRISMARINE_SLAB = register("red_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> WHITE_DARK_PRISMARINE_SLAB = register("white_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> YELLOW_DARK_PRISMARINE_SLAB = register("yellow_dark_prismarine_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLACK_DARK_PRISMARINE_WALL = register("black_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLUE_DARK_PRISMARINE_WALL = register("blue_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BROWN_DARK_PRISMARINE_WALL = register("brown_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> CYAN_DARK_PRISMARINE_WALL = register("cyan_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GRAY_DARK_PRISMARINE_WALL = register("gray_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GREEN_DARK_PRISMARINE_WALL = register("green_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_DARK_PRISMARINE_WALL = register("light_blue_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_DARK_PRISMARINE_WALL = register("light_gray_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIME_DARK_PRISMARINE_WALL = register("lime_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> MAGENTA_DARK_PRISMARINE_WALL = register("magenta_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> ORANGE_DARK_PRISMARINE_WALL = register("orange_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PINK_DARK_PRISMARINE_WALL = register("pink_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PURPLE_DARK_PRISMARINE_WALL = register("purple_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> RED_DARK_PRISMARINE_WALL = register("red_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> WHITE_DARK_PRISMARINE_WALL = register("white_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> YELLOW_DARK_PRISMARINE_WALL = register("yellow_dark_prismarine_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLACK_DARK_PRISMARINE_BUTTON = register("black_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLUE_DARK_PRISMARINE_BUTTON = register("blue_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BROWN_DARK_PRISMARINE_BUTTON = register("brown_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> CYAN_DARK_PRISMARINE_BUTTON = register("cyan_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GRAY_DARK_PRISMARINE_BUTTON = register("gray_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GREEN_DARK_PRISMARINE_BUTTON = register("green_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_DARK_PRISMARINE_BUTTON = register("light_blue_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_DARK_PRISMARINE_BUTTON = register("light_gray_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIME_DARK_PRISMARINE_BUTTON = register("lime_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> MAGENTA_DARK_PRISMARINE_BUTTON = register("magenta_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> ORANGE_DARK_PRISMARINE_BUTTON = register("orange_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PINK_DARK_PRISMARINE_BUTTON = register("pink_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PURPLE_DARK_PRISMARINE_BUTTON = register("purple_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> RED_DARK_PRISMARINE_BUTTON = register("red_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> WHITE_DARK_PRISMARINE_BUTTON = register("white_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> YELLOW_DARK_PRISMARINE_BUTTON = register("yellow_dark_prismarine_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLACK_DARK_PRISMARINE_PRESSURE_PLATE = register("black_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLUE_DARK_PRISMARINE_PRESSURE_PLATE = register("blue_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BROWN_DARK_PRISMARINE_PRESSURE_PLATE = register("brown_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> CYAN_DARK_PRISMARINE_PRESSURE_PLATE = register("cyan_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GRAY_DARK_PRISMARINE_PRESSURE_PLATE = register("gray_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> GREEN_DARK_PRISMARINE_PRESSURE_PLATE = register("green_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_DARK_PRISMARINE_PRESSURE_PLATE = register("light_blue_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_DARK_PRISMARINE_PRESSURE_PLATE = register("light_gray_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> LIME_DARK_PRISMARINE_PRESSURE_PLATE = register("lime_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> MAGENTA_DARK_PRISMARINE_PRESSURE_PLATE = register("magenta_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> ORANGE_DARK_PRISMARINE_PRESSURE_PLATE = register("orange_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PINK_DARK_PRISMARINE_PRESSURE_PLATE = register("pink_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> PURPLE_DARK_PRISMARINE_PRESSURE_PLATE = register("purple_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> RED_DARK_PRISMARINE_PRESSURE_PLATE = register("red_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> WHITE_DARK_PRISMARINE_PRESSURE_PLATE = register("white_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> YELLOW_DARK_PRISMARINE_PRESSURE_PLATE = register("yellow_dark_prismarine_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.DARK_PRISMARINE)));
-    public static final RegistryObject<Block> BLACK_GLASS_BRICKS = register("black_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BLUE_GLASS_BRICKS = register("blue_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BROWN_GLASS_BRICKS = register("brown_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CYAN_GLASS_BRICKS = register("cyan_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GRAY_GLASS_BRICKS = register("gray_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GREEN_GLASS_BRICKS = register("green_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_BLUE_GLASS_BRICKS = register("light_blue_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_GRAY_GLASS_BRICKS = register("light_gray_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIME_GLASS_BRICKS = register("lime_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MAGENTA_GLASS_BRICKS = register("magenta_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> ORANGE_GLASS_BRICKS = register("orange_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PINK_GLASS_BRICKS = register("pink_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PURPLE_GLASS_BRICKS = register("purple_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> RED_GLASS_BRICKS = register("red_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> WHITE_GLASS_BRICKS = register("white_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> YELLOW_GLASS_BRICKS = register("yellow_glass_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BLACK_GLASS_BRICKS_STAIRS = register("black_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BLUE_GLASS_BRICKS_STAIRS = register("blue_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BROWN_GLASS_BRICKS_STAIRS = register("brown_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CYAN_GLASS_BRICKS_STAIRS = register("cyan_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GRAY_GLASS_BRICKS_STAIRS = register("gray_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GREEN_GLASS_BRICKS_STAIRS = register("green_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_BLUE_GLASS_BRICKS_STAIRS = register("light_blue_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_GRAY_GLASS_BRICKS_STAIRS = register("light_gray_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIME_GLASS_BRICKS_STAIRS = register("lime_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MAGENTA_GLASS_BRICKS_STAIRS = register("magenta_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> ORANGE_GLASS_BRICKS_STAIRS = register("orange_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PINK_GLASS_BRICKS_STAIRS = register("pink_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PURPLE_GLASS_BRICKS_STAIRS = register("purple_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> RED_GLASS_BRICKS_STAIRS = register("red_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> WHITE_GLASS_BRICKS_STAIRS = register("white_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> YELLOW_GLASS_BRICKS_STAIRS = register("yellow_glass_bricks_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BLACK_GLASS_BRICKS_SLAB = register("black_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BLUE_GLASS_BRICKS_SLAB = register("blue_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BROWN_GLASS_BRICKS_SLAB = register("brown_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CYAN_GLASS_BRICKS_SLAB = register("cyan_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GRAY_GLASS_BRICKS_SLAB = register("gray_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GREEN_GLASS_BRICKS_SLAB = register("green_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_BLUE_GLASS_BRICKS_SLAB = register("light_blue_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_GRAY_GLASS_BRICKS_SLAB = register("light_gray_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIME_GLASS_BRICKS_SLAB = register("lime_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MAGENTA_GLASS_BRICKS_SLAB = register("magenta_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> ORANGE_GLASS_BRICKS_SLAB = register("orange_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PINK_GLASS_BRICKS_SLAB = register("pink_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PURPLE_GLASS_BRICKS_SLAB = register("purple_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> RED_GLASS_BRICKS_SLAB = register("red_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> WHITE_GLASS_BRICKS_SLAB = register("white_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> YELLOW_GLASS_BRICKS_SLAB = register("yellow_glass_bricks_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BLACK_GLASS_BRICKS_WALL = register("black_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BLUE_GLASS_BRICKS_WALL = register("blue_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BROWN_GLASS_BRICKS_WALL = register("brown_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CYAN_GLASS_BRICKS_WALL = register("cyan_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GRAY_GLASS_BRICKS_WALL = register("gray_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GREEN_GLASS_BRICKS_WALL = register("green_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_BLUE_GLASS_BRICKS_WALL = register("light_blue_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_GRAY_GLASS_BRICKS_WALL = register("light_gray_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIME_GLASS_BRICKS_WALL = register("lime_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MAGENTA_GLASS_BRICKS_WALL = register("magenta_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> ORANGE_GLASS_BRICKS_WALL = register("orange_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PINK_GLASS_BRICKS_WALL = register("pink_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PURPLE_GLASS_BRICKS_WALL = register("purple_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> RED_GLASS_BRICKS_WALL = register("red_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> WHITE_GLASS_BRICKS_WALL = register("white_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> YELLOW_GLASS_BRICKS_WALL = register("yellow_glass_bricks_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BLACK_GLASS_BRICKS_BUTTON = register("black_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BLUE_GLASS_BRICKS_BUTTON = register("blue_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BROWN_GLASS_BRICKS_BUTTON = register("brown_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CYAN_GLASS_BRICKS_BUTTON = register("cyan_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GRAY_GLASS_BRICKS_BUTTON = register("gray_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GREEN_GLASS_BRICKS_BUTTON = register("green_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_BLUE_GLASS_BRICKS_BUTTON = register("light_blue_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_GRAY_GLASS_BRICKS_BUTTON = register("light_gray_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIME_GLASS_BRICKS_BUTTON = register("lime_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MAGENTA_GLASS_BRICKS_BUTTON = register("magenta_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> ORANGE_GLASS_BRICKS_BUTTON = register("orange_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PINK_GLASS_BRICKS_BUTTON = register("pink_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PURPLE_GLASS_BRICKS_BUTTON = register("purple_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> RED_GLASS_BRICKS_BUTTON = register("red_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> WHITE_GLASS_BRICKS_BUTTON = register("white_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> YELLOW_GLASS_BRICKS_BUTTON = register("yellow_glass_bricks_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BLACK_GLASS_BRICKS_PRESSURE_PLATE = register("black_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BLUE_GLASS_BRICKS_PRESSURE_PLATE = register("blue_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> BROWN_GLASS_BRICKS_PRESSURE_PLATE = register("brown_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CYAN_GLASS_BRICKS_PRESSURE_PLATE = register("cyan_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GRAY_GLASS_BRICKS_PRESSURE_PLATE = register("gray_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> GREEN_GLASS_BRICKS_PRESSURE_PLATE = register("green_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_BLUE_GLASS_BRICKS_PRESSURE_PLATE = register("light_blue_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_GRAY_GLASS_BRICKS_PRESSURE_PLATE = register("light_gray_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIME_GLASS_BRICKS_PRESSURE_PLATE = register("lime_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MAGENTA_GLASS_BRICKS_PRESSURE_PLATE = register("magenta_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> ORANGE_GLASS_BRICKS_PRESSURE_PLATE = register("orange_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PINK_GLASS_BRICKS_PRESSURE_PLATE = register("pink_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> PURPLE_GLASS_BRICKS_PRESSURE_PLATE = register("purple_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> RED_GLASS_BRICKS_PRESSURE_PLATE = register("red_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> WHITE_GLASS_BRICKS_PRESSURE_PLATE = register("white_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> YELLOW_GLASS_BRICKS_PRESSURE_PLATE = register("yellow_glass_bricks_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_STONE_BRICKS = register("light_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> LIGHT_STONE_BRICK_STAIRS = register("light_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> LIGHT_STONE_BRICK_SLAB = register("light_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> LIGHT_STONE_BRICK_BUTTON = register("light_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> LIGHT_STONE_BRICK_PRESSURE_PLATE = register("light_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> LIGHT_STONE_BRICK_WALL = register("light_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_STONE_BRICKS = register("mossy_light_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_STONE_BRICK_STAIRS = register("mossy_light_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_STONE_BRICK_SLAB = register("mossy_light_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_STONE_BRICK_BUTTON = register("mossy_light_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_STONE_BRICK_PRESSURE_PLATE = register("mossy_light_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_STONE_BRICK_WALL = register("mossy_light_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_STONE_BRICKS = register("more_mossy_light_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_STONE_BRICK_STAIRS = register("more_mossy_light_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_STONE_BRICK_SLAB = register("more_mossy_light_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_STONE_BRICK_BUTTON = register("more_mossy_light_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_STONE_BRICK_PRESSURE_PLATE = register("more_mossy_light_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_STONE_BRICK_WALL = register("more_mossy_light_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_STONE_BRICKS = register("cracked_light_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_STONE_BRICK_STAIRS = register("cracked_light_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_STONE_BRICK_SLAB = register("cracked_light_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_STONE_BRICK_BUTTON = register("cracked_light_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_STONE_BRICK_PRESSURE_PLATE = register("cracked_light_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_STONE_BRICK_WALL = register("cracked_light_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_STONE_BRICKS = register("medium_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_STONE_BRICK_STAIRS = register("medium_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_STONE_BRICK_SLAB = register("medium_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_STONE_BRICK_BUTTON = register("medium_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_STONE_BRICK_PRESSURE_PLATE = register("medium_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_STONE_BRICK_WALL = register("medium_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_STONE_BRICKS = register("mossy_medium_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_STONE_BRICK_STAIRS = register("mossy_medium_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_STONE_BRICK_SLAB = register("mossy_medium_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_STONE_BRICK_BUTTON = register("mossy_medium_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_STONE_BRICK_PRESSURE_PLATE = register("mossy_medium_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_STONE_BRICK_WALL = register("mossy_medium_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_STONE_BRICKS = register("more_mossy_medium_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_STONE_BRICK_STAIRS = register("more_mossy_medium_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_STONE_BRICK_SLAB = register("more_mossy_medium_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_STONE_BRICK_BUTTON = register("more_mossy_medium_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_STONE_BRICK_PRESSURE_PLATE = register("more_mossy_medium_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_STONE_BRICK_WALL = register("more_mossy_medium_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_STONE_BRICKS = register("cracked_medium_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_STONE_BRICK_STAIRS = register("cracked_medium_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_STONE_BRICK_SLAB = register("cracked_medium_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_STONE_BRICK_BUTTON = register("cracked_medium_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_STONE_BRICK_PRESSURE_PLATE = register("cracked_medium_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_STONE_BRICK_WALL = register("cracked_medium_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> DARK_STONE_BRICKS = register("dark_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> DARK_STONE_BRICK_STAIRS = register("dark_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> DARK_STONE_BRICK_SLAB = register("dark_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> DARK_STONE_BRICK_BUTTON = register("dark_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> DARK_STONE_BRICK_PRESSURE_PLATE = register("dark_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> DARK_STONE_BRICK_WALL = register("dark_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_STONE_BRICKS = register("mossy_dark_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_STONE_BRICK_STAIRS = register("mossy_dark_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_STONE_BRICK_SLAB = register("mossy_dark_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_STONE_BRICK_BUTTON = register("mossy_dark_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_STONE_BRICK_PRESSURE_PLATE = register("mossy_dark_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_STONE_BRICK_WALL = register("mossy_dark_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_STONE_BRICKS = register("more_mossy_dark_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_STONE_BRICK_STAIRS = register("more_mossy_dark_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_STONE_BRICK_SLAB = register("more_mossy_dark_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_STONE_BRICK_BUTTON = register("more_mossy_dark_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_STONE_BRICK_PRESSURE_PLATE = register("more_mossy_dark_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_STONE_BRICK_WALL = register("more_mossy_dark_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_STONE_BRICKS = register("cracked_dark_stone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_STONE_BRICK_STAIRS = register("cracked_dark_stone_brick_stairs", () -> new StairsBlock(Blocks.STONE_BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_STONE_BRICK_SLAB = register("cracked_dark_stone_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_STONE_BRICK_BUTTON = register("cracked_dark_stone_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_STONE_BRICK_PRESSURE_PLATE = register("cracked_dark_stone_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_STONE_BRICK_WALL = register("cracked_dark_stone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE_BRICKS)));
     public static final RegistryObject<Block> ACACIA_PLANK_WALL = register("acacia_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.ACACIA_PLANKS)));
     public static final RegistryObject<Block> BIRCH_PLANK_WALL = register("birch_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BIRCH_PLANKS)));
     public static final RegistryObject<Block> DARK_OAK_PLANK_WALL = register("dark_oak_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_OAK_PLANKS)));
     public static final RegistryObject<Block> JUNGLE_PLANK_WALL = register("jungle_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.JUNGLE_PLANKS)));
     public static final RegistryObject<Block> OAK_PLANK_WALL = register("oak_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.OAK_PLANKS)));
     public static final RegistryObject<Block> SPRUCE_PLANK_WALL = register("spruce_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.SPRUCE_PLANKS)));
-    public static final RegistryObject<Block> ACACIA_LOG_WALL = register("acacia_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BIRCH_LOG_WALL = register("birch_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> DARK_OAK_LOG_WALL = register("dark_oak_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> JUNGLE_LOG_WALL = register("jungle_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> OAK_LOG_WALL = register("oak_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> SPRUCE_LOG_WALL = register("spruce_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_ACACIA_LOG_WALL = register("stripped_acacia_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_BIRCH_LOG_WALL = register("stripped_birch_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_DARK_OAK_LOG_WALL = register("stripped_dark_oak_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_JUNGLE_LOG_WALL = register("stripped_jungle_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_OAK_LOG_WALL = register("stripped_oak_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_SPRUCE_LOG_WALL = register("stripped_spruce_log_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> LIGHT_CLAY_BLOCK = register("light_clay_block", () -> new Block(Block.Properties.copy(Blocks.CLAY)));
     public static final RegistryObject<Block> MEDIUM_CLAY_BLOCK = register("medium_clay_block", () -> new Block(Block.Properties.copy(Blocks.CLAY)));
     public static final RegistryObject<Block> DARK_CLAY_BLOCK= register("dark_clay_block", () -> new Block(Block.Properties.copy(Blocks.CLAY)));
-    public static final RegistryObject<Block> LIGHT_BRICKS = register("light_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_BRICK_STAIRS = register("light_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_BRICK_SLAB = register("light_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_BRICK_BUTTON = register("light_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_BRICK_PRESSURE_PLATE = register("light_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> LIGHT_BRICK_WALL = register("light_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_BRICKS = register("mossy_light_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_BRICK_STAIRS = register("mossy_light_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_BRICK_SLAB = register("mossy_light_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_BRICK_BUTTON = register("mossy_light_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_BRICK_PRESSURE_PLATE = register("mossy_light_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_LIGHT_BRICK_WALL = register("mossy_light_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_BRICKS = register("more_mossy_light_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_BRICK_STAIRS = register("more_mossy_light_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_BRICK_SLAB = register("more_mossy_light_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_BRICK_BUTTON = register("more_mossy_light_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_BRICK_PRESSURE_PLATE = register("more_mossy_light_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_LIGHT_BRICK_WALL = register("more_mossy_light_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_BRICKS = register("cracked_light_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_BRICK_STAIRS = register("cracked_light_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_BRICK_SLAB = register("cracked_light_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_BRICK_BUTTON = register("cracked_light_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_BRICK_PRESSURE_PLATE = register("cracked_light_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_LIGHT_BRICK_WALL = register("cracked_light_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_BRICKS = register("medium_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_BRICK_STAIRS = register("medium_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_BRICK_SLAB = register("medium_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_BRICK_BUTTON = register("medium_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_BRICK_PRESSURE_PLATE = register("medium_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MEDIUM_BRICK_WALL = register("medium_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_BRICKS = register("mossy_medium_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_BRICK_STAIRS = register("mossy_medium_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_BRICK_SLAB = register("mossy_medium_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_BRICK_BUTTON = register("mossy_medium_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_BRICK_PRESSURE_PLATE = register("mossy_medium_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_MEDIUM_BRICK_WALL = register("mossy_medium_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_BRICKS = register("more_mossy_medium_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_BRICK_STAIRS = register("more_mossy_medium_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_BRICK_SLAB = register("more_mossy_medium_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_BRICK_BUTTON = register("more_mossy_medium_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_BRICK_PRESSURE_PLATE = register("more_mossy_medium_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_MEDIUM_BRICK_WALL = register("more_mossy_medium_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_BRICKS = register("cracked_medium_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_BRICK_STAIRS = register("cracked_medium_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_BRICK_SLAB = register("cracked_medium_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_BRICK_BUTTON = register("cracked_medium_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_BRICK_PRESSURE_PLATE = register("cracked_medium_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_MEDIUM_BRICK_WALL = register("cracked_medium_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> DARK_BRICKS = register("dark_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> DARK_BRICK_STAIRS = register("dark_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> DARK_BRICK_SLAB = register("dark_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> DARK_BRICK_BUTTON = register("dark_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> DARK_BRICK_PRESSURE_PLATE = register("dark_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> DARK_BRICK_WALL = register("dark_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_BRICKS = register("mossy_dark_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_BRICK_STAIRS = register("mossy_dark_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_BRICK_SLAB = register("mossy_dark_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_BRICK_BUTTON = register("mossy_dark_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_BRICK_PRESSURE_PLATE = register("mossy_dark_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MOSSY_DARK_BRICK_WALL = register("mossy_dark_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_BRICKS = register("more_mossy_dark_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_BRICK_STAIRS = register("more_mossy_dark_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_BRICK_SLAB = register("more_mossy_dark_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_BRICK_BUTTON = register("more_mossy_dark_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_BRICK_PRESSURE_PLATE = register("more_mossy_dark_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> MORE_MOSSY_DARK_BRICK_WALL = register("more_mossy_dark_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_BRICKS = register("cracked_dark_bricks", () -> new Block(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_BRICK_STAIRS = register("cracked_dark_brick_stairs", () -> new StairsBlock(Blocks.BRICKS.defaultBlockState(), Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_BRICK_SLAB = register("cracked_dark_brick_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_BRICK_BUTTON = register("cracked_dark_brick_button", () -> new StoneButtonBlock(Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_BRICK_PRESSURE_PLATE = register("cracked_dark_brick_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.BRICKS)));
-    public static final RegistryObject<Block> CRACKED_DARK_BRICK_WALL = register("cracked_dark_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BRICKS)));
     public static final RegistryObject<Block> ACACIA_TRAPDOOR_BIRCH = register("acacia_trapdoor_birch", () -> new TrapDoorBlock(AbstractBlock.Properties.copy(Blocks.BIRCH_TRAPDOOR)));
     public static final RegistryObject<Block> ACACIA_TRAPDOOR_DARK_OAK = register("acacia_trapdoor_dark_oak", () -> new TrapDoorBlock(AbstractBlock.Properties.copy(Blocks.DARK_OAK_TRAPDOOR)));
     public static final RegistryObject<Block> ACACIA_TRAPDOOR_JUNGLE = register("acacia_trapdoor_jungle", () -> new TrapDoorBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_TRAPDOOR)));
@@ -772,30 +386,6 @@ public class BlockInit {
     public static final RegistryObject<Block> SPRUCE_TRAPDOOR_DARK_OAK = register("spruce_trapdoor_dark_oak", () -> new TrapDoorBlock(AbstractBlock.Properties.copy(Blocks.DARK_OAK_TRAPDOOR)));
     public static final RegistryObject<Block> SPRUCE_TRAPDOOR_JUNGLE = register("spruce_trapdoor_jungle", () -> new TrapDoorBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_TRAPDOOR)));
     public static final RegistryObject<Block> SPRUCE_TRAPDOOR_OAK = register("spruce_trapdoor_oak", () -> new TrapDoorBlock(AbstractBlock.Properties.copy(Blocks.OAK_TRAPDOOR)));
-    public static final RegistryObject<Block> ACACIA_LOG_STAIRS = register("acacia_log_stairs", () -> new StairsBlock(Blocks.ACACIA_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_ACACIA_LOG_STAIRS = register("stripped_acacia_log_stairs", () -> new StairsBlock(Blocks.ACACIA_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BIRCH_LOG_STAIRS = register("birch_log_stairs", () -> new StairsBlock(Blocks.BIRCH_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_BIRCH_LOG_STAIRS = register("stripped_birch_log_stairs", () -> new StairsBlock(Blocks.BIRCH_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> DARK_OAK_LOG_STAIRS = register("dark_oak_log_stairs", () -> new StairsBlock(Blocks.DARK_OAK_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_DARK_OAK_LOG_STAIRS = register("stripped_dark_oak_log_stairs", () -> new StairsBlock(Blocks.DARK_OAK_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> JUNGLE_LOG_STAIRS = register("jungle_log_stairs", () -> new StairsBlock(Blocks.JUNGLE_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_JUNGLE_LOG_STAIRS = register("stripped_jungle_log_stairs", () -> new StairsBlock(Blocks.JUNGLE_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> OAK_LOG_STAIRS = register("oak_log_stairs", () -> new StairsBlock(Blocks.OAK_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_OAK_LOG_STAIRS = register("stripped_oak_log_stairs", () -> new StairsBlock(Blocks.OAK_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> SPRUCE_LOG_STAIRS = register("spruce_log_stairs", () -> new StairsBlock(Blocks.SPRUCE_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_SPRUCE_LOG_STAIRS = register("stripped_spruce_log_stairs", () -> new StairsBlock(Blocks.SPRUCE_PLANKS.defaultBlockState(), Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> ACACIA_LOG_SLAB = register("acacia_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_ACACIA_LOG_SLAB = register("stripped_acacia_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BIRCH_LOG_SLAB = register("birch_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_BIRCH_LOG_SLAB = register("stripped_birch_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> DARK_OAK_LOG_SLAB = register("dark_oak_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_DARK_OAK_LOG_SLAB = register("stripped_dark_oak_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> JUNGLE_LOG_SLAB = register("jungle_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_JUNGLE_LOG_SLAB = register("stripped_jungle_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> OAK_LOG_SLAB = register("oak_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_OAK_LOG_SLAB = register("stripped_oak_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> SPRUCE_LOG_SLAB = register("spruce_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> STRIPPED_SPRUCE_LOG_SLAB = register("stripped_spruce_log_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F).harvestTool(ToolType.AXE)));
     public static final RegistryObject<Block> LIGHT_SCREEN = register("light_screen", () -> new Block(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).noOcclusion()));
     public static final RegistryObject<Block> LIGHT_SCREEN_STAIRS = register("light_screen_stairs", () -> new StairsBlock(LIGHT_SCREEN.get().defaultBlockState(), Block.Properties.copy(LIGHT_SCREEN.get())));
     public static final RegistryObject<Block> LIGHT_SCREEN_SLAB = register("light_screen_slab", () -> new SlabBlock(Block.Properties.copy(LIGHT_SCREEN.get())));
@@ -823,279 +413,6 @@ public class BlockInit {
     public static final RegistryObject<Block> MUTED_BROWN_FIBER_CARPET = register("muted_brown_fiber_carpet", () -> new CarpetBlock(DyeColor.BROWN, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
     public static final RegistryObject<Block> VIVID_RED_FIBER_CARPET = register("vivid_red_fiber_carpet", () -> new CarpetBlock(DyeColor.RED, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
     public static final RegistryObject<Block> WHITE_FIBER_CARPET = register("white_fiber_carpet", () -> new CarpetBlock(DyeColor.WHITE, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
-    public static final RegistryObject<Block> BLACK_TINTED_WOOL = register("black_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.BLACK_WOOL)));
-    public static final RegistryObject<Block> BLUE_TINTED_WOOL = register("blue_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.BLUE_WOOL)));
-    public static final RegistryObject<Block> BROWN_TINTED_WOOL = register("brown_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.BROWN_WOOL)));
-    public static final RegistryObject<Block> CYAN_TINTED_WOOL = register("cyan_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.CYAN_WOOL)));
-    public static final RegistryObject<Block> GRAY_TINTED_WOOL = register("gray_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.GRAY_WOOL)));
-    public static final RegistryObject<Block> GREEN_TINTED_WOOL = register("green_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.GREEN_WOOL)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TINTED_WOOL = register("light_blue_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.LIGHT_BLUE_WOOL)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TINTED_WOOL = register("light_gray_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.LIGHT_GRAY_WOOL)));
-    public static final RegistryObject<Block> LIME_TINTED_WOOL = register("lime_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.LIME_WOOL)));
-    public static final RegistryObject<Block> MAGENTA_TINTED_WOOL = register("magenta_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.MAGENTA_WOOL)));
-    public static final RegistryObject<Block> ORANGE_TINTED_WOOL = register("orange_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.ORANGE_WOOL)));
-    public static final RegistryObject<Block> PINK_TINTED_WOOL = register("pink_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.PINK_WOOL)));
-    public static final RegistryObject<Block> PURPLE_TINTED_WOOL = register("purple_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.PURPLE_WOOL)));
-    public static final RegistryObject<Block> RED_TINTED_WOOL = register("red_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.RED_WOOL)));
-    public static final RegistryObject<Block> WHITE_TINTED_WOOL = register("white_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.WHITE_WOOL)));
-    public static final RegistryObject<Block> YELLOW_TINTED_WOOL = register("yellow_tinted_wool", () -> new Block(Block.Properties.copy(Blocks.YELLOW_WOOL)));
-    public static final RegistryObject<Block> BLACK_TINTED_WOOL_STAIRS = register("black_tinted_wool_stairs", () -> new StairsBlock(Blocks.BLACK_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.BLACK_WOOL)));
-    public static final RegistryObject<Block> BLUE_TINTED_WOOL_STAIRS = register("blue_tinted_wool_stairs", () -> new StairsBlock(Blocks.BLUE_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.BLUE_WOOL)));
-    public static final RegistryObject<Block> BROWN_TINTED_WOOL_STAIRS = register("brown_tinted_wool_stairs", () -> new StairsBlock(Blocks.BROWN_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.BROWN_WOOL)));
-    public static final RegistryObject<Block> CYAN_TINTED_WOOL_STAIRS = register("cyan_tinted_wool_stairs", () -> new StairsBlock(Blocks.CYAN_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.CYAN_WOOL)));
-    public static final RegistryObject<Block> GRAY_TINTED_WOOL_STAIRS = register("gray_tinted_wool_stairs", () -> new StairsBlock(Blocks.GRAY_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.GRAY_WOOL)));
-    public static final RegistryObject<Block> GREEN_TINTED_WOOL_STAIRS = register("green_tinted_wool_stairs", () -> new StairsBlock(Blocks.GREEN_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.GREEN_WOOL)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TINTED_WOOL_STAIRS = register("light_blue_tinted_wool_stairs", () -> new StairsBlock(Blocks.LIGHT_BLUE_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.LIGHT_BLUE_WOOL)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TINTED_WOOL_STAIRS = register("light_gray_tinted_wool_stairs", () -> new StairsBlock(Blocks.LIGHT_GRAY_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.LIGHT_GRAY_WOOL)));
-    public static final RegistryObject<Block> LIME_TINTED_WOOL_STAIRS = register("lime_tinted_wool_stairs", () -> new StairsBlock(Blocks.LIME_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.LIME_WOOL)));
-    public static final RegistryObject<Block> MAGENTA_TINTED_WOOL_STAIRS = register("magenta_tinted_wool_stairs", () -> new StairsBlock(Blocks.MAGENTA_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.MAGENTA_WOOL)));
-    public static final RegistryObject<Block> ORANGE_TINTED_WOOL_STAIRS = register("orange_tinted_wool_stairs", () -> new StairsBlock(Blocks.ORANGE_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.ORANGE_WOOL)));
-    public static final RegistryObject<Block> PINK_TINTED_WOOL_STAIRS = register("pink_tinted_wool_stairs", () -> new StairsBlock(Blocks.PINK_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.PINK_WOOL)));
-    public static final RegistryObject<Block> PURPLE_TINTED_WOOL_STAIRS = register("purple_tinted_wool_stairs", () -> new StairsBlock(Blocks.PURPLE_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.PURPLE_WOOL)));
-    public static final RegistryObject<Block> RED_TINTED_WOOL_STAIRS = register("red_tinted_wool_stairs", () -> new StairsBlock(Blocks.RED_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.RED_WOOL)));
-    public static final RegistryObject<Block> WHITE_TINTED_WOOL_STAIRS = register("white_tinted_wool_stairs", () -> new StairsBlock(Blocks.WHITE_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.WHITE_WOOL)));
-    public static final RegistryObject<Block> YELLOW_TINTED_WOOL_STAIRS = register("yellow_tinted_wool_stairs", () -> new StairsBlock(Blocks.YELLOW_WOOL.defaultBlockState(), Block.Properties.copy(Blocks.YELLOW_WOOL)));
-    public static final RegistryObject<Block> BLACK_TINTED_WOOL_SLAB = register("black_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLACK_WOOL)));
-    public static final RegistryObject<Block> BLUE_TINTED_WOOL_SLAB = register("blue_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BLUE_WOOL)));
-    public static final RegistryObject<Block> BROWN_TINTED_WOOL_SLAB = register("brown_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.BROWN_WOOL)));
-    public static final RegistryObject<Block> CYAN_TINTED_WOOL_SLAB = register("cyan_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.CYAN_WOOL)));
-    public static final RegistryObject<Block> GRAY_TINTED_WOOL_SLAB = register("gray_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.GRAY_WOOL)));
-    public static final RegistryObject<Block> GREEN_TINTED_WOOL_SLAB = register("green_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.GREEN_WOOL)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TINTED_WOOL_SLAB = register("light_blue_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.LIGHT_BLUE_WOOL)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TINTED_WOOL_SLAB = register("light_gray_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.LIGHT_GRAY_WOOL)));
-    public static final RegistryObject<Block> LIME_TINTED_WOOL_SLAB = register("lime_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.LIME_WOOL)));
-    public static final RegistryObject<Block> MAGENTA_TINTED_WOOL_SLAB = register("magenta_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.MAGENTA_WOOL)));
-    public static final RegistryObject<Block> ORANGE_TINTED_WOOL_SLAB = register("orange_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.ORANGE_WOOL)));
-    public static final RegistryObject<Block> PINK_TINTED_WOOL_SLAB = register("pink_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.PINK_WOOL)));
-    public static final RegistryObject<Block> PURPLE_TINTED_WOOL_SLAB = register("purple_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.PURPLE_WOOL)));
-    public static final RegistryObject<Block> RED_TINTED_WOOL_SLAB = register("red_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.RED_WOOL)));
-    public static final RegistryObject<Block> WHITE_TINTED_WOOL_SLAB = register("white_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.WHITE_WOOL)));
-    public static final RegistryObject<Block> YELLOW_TINTED_WOOL_SLAB = register("yellow_tinted_wool_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.YELLOW_WOOL)));
-    public static final RegistryObject<Block> BLACK_TINTED_WOOL_WALL = register("black_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BLACK_WOOL)));
-    public static final RegistryObject<Block> BLUE_TINTED_WOOL_WALL = register("blue_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BLUE_WOOL)));
-    public static final RegistryObject<Block> BROWN_TINTED_WOOL_WALL = register("brown_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BROWN_WOOL)));
-    public static final RegistryObject<Block> CYAN_TINTED_WOOL_WALL = register("cyan_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.CYAN_WOOL)));
-    public static final RegistryObject<Block> GRAY_TINTED_WOOL_WALL = register("gray_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.GRAY_WOOL)));
-    public static final RegistryObject<Block> GREEN_TINTED_WOOL_WALL = register("green_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.GREEN_WOOL)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TINTED_WOOL_WALL = register("light_blue_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.LIGHT_BLUE_WOOL)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TINTED_WOOL_WALL = register("light_gray_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.LIGHT_GRAY_WOOL)));
-    public static final RegistryObject<Block> LIME_TINTED_WOOL_WALL = register("lime_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.LIME_WOOL)));
-    public static final RegistryObject<Block> MAGENTA_TINTED_WOOL_WALL = register("magenta_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.MAGENTA_WOOL)));
-    public static final RegistryObject<Block> ORANGE_TINTED_WOOL_WALL = register("orange_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.ORANGE_WOOL)));
-    public static final RegistryObject<Block> PINK_TINTED_WOOL_WALL = register("pink_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.PINK_WOOL)));
-    public static final RegistryObject<Block> PURPLE_TINTED_WOOL_WALL = register("purple_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.PURPLE_WOOL)));
-    public static final RegistryObject<Block> RED_TINTED_WOOL_WALL = register("red_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.RED_WOOL)));
-    public static final RegistryObject<Block> WHITE_TINTED_WOOL_WALL = register("white_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.WHITE_WOOL)));
-    public static final RegistryObject<Block> YELLOW_TINTED_WOOL_WALL = register("yellow_tinted_wool_wall", () -> new WallBlock(Block.Properties.copy(Blocks.YELLOW_WOOL)));
-    public static final RegistryObject<Block> BLACK_TINTED_CARPET = register("black_tinted_carpet", () -> new CarpetBlock(DyeColor.BLACK, Block.Properties.copy(Blocks.BLACK_WOOL)));
-    public static final RegistryObject<Block> BLUE_TINTED_CARPET = register("blue_tinted_carpet", () -> new CarpetBlock(DyeColor.BLUE, Block.Properties.copy(Blocks.BLUE_WOOL)));
-    public static final RegistryObject<Block> BROWN_TINTED_CARPET = register("brown_tinted_carpet", () -> new CarpetBlock(DyeColor.BROWN, Block.Properties.copy(Blocks.BROWN_WOOL)));
-    public static final RegistryObject<Block> CYAN_TINTED_CARPET = register("cyan_tinted_carpet", () -> new CarpetBlock(DyeColor.CYAN, Block.Properties.copy(Blocks.CYAN_WOOL)));
-    public static final RegistryObject<Block> GRAY_TINTED_CARPET = register("gray_tinted_carpet", () -> new CarpetBlock(DyeColor.GRAY, Block.Properties.copy(Blocks.GRAY_WOOL)));
-    public static final RegistryObject<Block> GREEN_TINTED_CARPET = register("green_tinted_carpet", () -> new CarpetBlock(DyeColor.GREEN, Block.Properties.copy(Blocks.GREEN_WOOL)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TINTED_CARPET = register("light_blue_tinted_carpet", () -> new CarpetBlock(DyeColor.LIGHT_BLUE, Block.Properties.copy(Blocks.LIGHT_BLUE_WOOL)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TINTED_CARPET = register("light_gray_tinted_carpet", () -> new CarpetBlock(DyeColor.LIGHT_GRAY, Block.Properties.copy(Blocks.LIGHT_GRAY_WOOL)));
-    public static final RegistryObject<Block> LIME_TINTED_CARPET = register("lime_tinted_carpet", () -> new CarpetBlock(DyeColor.LIME, Block.Properties.copy(Blocks.LIME_WOOL)));
-    public static final RegistryObject<Block> MAGENTA_TINTED_CARPET = register("magenta_tinted_carpet", () -> new CarpetBlock(DyeColor.MAGENTA, Block.Properties.copy(Blocks.MAGENTA_WOOL)));
-    public static final RegistryObject<Block> ORANGE_TINTED_CARPET = register("orange_tinted_carpet", () -> new CarpetBlock(DyeColor.ORANGE, Block.Properties.copy(Blocks.ORANGE_WOOL)));
-    public static final RegistryObject<Block> PINK_TINTED_CARPET = register("pink_tinted_carpet", () -> new CarpetBlock(DyeColor.PINK, Block.Properties.copy(Blocks.PINK_WOOL)));
-    public static final RegistryObject<Block> PURPLE_TINTED_CARPET = register("purple_tinted_carpet", () -> new CarpetBlock(DyeColor.PURPLE, Block.Properties.copy(Blocks.PURPLE_WOOL)));
-    public static final RegistryObject<Block> RED_TINTED_CARPET = register("red_tinted_carpet", () -> new CarpetBlock(DyeColor.RED, Block.Properties.copy(Blocks.RED_WOOL)));
-    public static final RegistryObject<Block> WHITE_TINTED_CARPET = register("white_tinted_carpet", () -> new CarpetBlock(DyeColor.WHITE, Block.Properties.copy(Blocks.WHITE_WOOL)));
-    public static final RegistryObject<Block> YELLOW_TINTED_CARPET = register("yellow_tinted_carpet", () -> new CarpetBlock(DyeColor.YELLOW, Block.Properties.copy(Blocks.YELLOW_WOOL)));
-    public static final RegistryObject<Block> BLACK_METAL_ROOF = register("black_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLUE_METAL_ROOF = register("blue_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BROWN_METAL_ROOF = register("brown_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> CYAN_METAL_ROOF = register("cyan_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GRAY_METAL_ROOF = register("gray_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GREEN_METAL_ROOF = register("green_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_METAL_ROOF = register("light_blue_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_METAL_ROOF = register("light_gray_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIME_METAL_ROOF = register("lime_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> MAGENTA_METAL_ROOF = register("magenta_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> ORANGE_METAL_ROOF = register("orange_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PINK_METAL_ROOF = register("pink_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PURPLE_METAL_ROOF = register("purple_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> RED_METAL_ROOF = register("red_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> WHITE_METAL_ROOF = register("white_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> YELLOW_METAL_ROOF = register("yellow_metal_roof", () -> new Block(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLACK_METAL_ROOF_STAIRS = register("black_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLUE_METAL_ROOF_STAIRS = register("blue_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BROWN_METAL_ROOF_STAIRS = register("brown_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> CYAN_METAL_ROOF_STAIRS = register("cyan_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GRAY_METAL_ROOF_STAIRS = register("gray_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GREEN_METAL_ROOF_STAIRS = register("green_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_METAL_ROOF_STAIRS = register("light_blue_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_METAL_ROOF_STAIRS = register("light_gray_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIME_METAL_ROOF_STAIRS = register("lime_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> MAGENTA_METAL_ROOF_STAIRS = register("magenta_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> ORANGE_METAL_ROOF_STAIRS = register("orange_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PINK_METAL_ROOF_STAIRS = register("pink_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PURPLE_METAL_ROOF_STAIRS = register("purple_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> RED_METAL_ROOF_STAIRS = register("red_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> WHITE_METAL_ROOF_STAIRS = register("white_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> YELLOW_METAL_ROOF_STAIRS = register("yellow_metal_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLACK_METAL_ROOF_SLAB = register("black_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLUE_METAL_ROOF_SLAB = register("blue_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BROWN_METAL_ROOF_SLAB = register("brown_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> CYAN_METAL_ROOF_SLAB = register("cyan_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GRAY_METAL_ROOF_SLAB = register("gray_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GREEN_METAL_ROOF_SLAB = register("green_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_METAL_ROOF_SLAB = register("light_blue_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_METAL_ROOF_SLAB = register("light_gray_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIME_METAL_ROOF_SLAB = register("lime_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> MAGENTA_METAL_ROOF_SLAB = register("magenta_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> ORANGE_METAL_ROOF_SLAB = register("orange_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PINK_METAL_ROOF_SLAB = register("pink_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PURPLE_METAL_ROOF_SLAB = register("purple_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> RED_METAL_ROOF_SLAB = register("red_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> WHITE_METAL_ROOF_SLAB = register("white_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> YELLOW_METAL_ROOF_SLAB = register("yellow_metal_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLACK_METAL_ROOF_WALL = register("black_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLUE_METAL_ROOF_WALL = register("blue_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BROWN_METAL_ROOF_WALL = register("brown_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> CYAN_METAL_ROOF_WALL = register("cyan_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GRAY_METAL_ROOF_WALL = register("gray_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GREEN_METAL_ROOF_WALL = register("green_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_METAL_ROOF_WALL = register("light_blue_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_METAL_ROOF_WALL = register("light_gray_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIME_METAL_ROOF_WALL = register("lime_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> MAGENTA_METAL_ROOF_WALL = register("magenta_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> ORANGE_METAL_ROOF_WALL = register("orange_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PINK_METAL_ROOF_WALL = register("pink_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PURPLE_METAL_ROOF_WALL = register("purple_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> RED_METAL_ROOF_WALL = register("red_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> WHITE_METAL_ROOF_WALL = register("white_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> YELLOW_METAL_ROOF_WALL = register("yellow_metal_roof_wall", () -> new WallBlock(Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLACK_TILE_ROOF = register("black_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLUE_TILE_ROOF = register("blue_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BROWN_TILE_ROOF = register("brown_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> CYAN_TILE_ROOF = register("cyan_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GRAY_TILE_ROOF = register("gray_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GREEN_TILE_ROOF = register("green_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TILE_ROOF = register("light_blue_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TILE_ROOF = register("light_gray_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIME_TILE_ROOF = register("lime_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> MAGENTA_TILE_ROOF = register("magenta_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> ORANGE_TILE_ROOF = register("orange_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PINK_TILE_ROOF = register("pink_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PURPLE_TILE_ROOF = register("purple_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> RED_TILE_ROOF = register("red_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> WHITE_TILE_ROOF = register("white_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> YELLOW_TILE_ROOF = register("yellow_tile_roof", () -> new Block(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLACK_TILE_ROOF_STAIRS = register("black_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLUE_TILE_ROOF_STAIRS = register("blue_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BROWN_TILE_ROOF_STAIRS = register("brown_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> CYAN_TILE_ROOF_STAIRS = register("cyan_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GRAY_TILE_ROOF_STAIRS = register("gray_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GREEN_TILE_ROOF_STAIRS = register("green_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TILE_ROOF_STAIRS = register("light_blue_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TILE_ROOF_STAIRS = register("light_gray_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIME_TILE_ROOF_STAIRS = register("lime_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> MAGENTA_TILE_ROOF_STAIRS = register("magenta_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> ORANGE_TILE_ROOF_STAIRS = register("orange_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PINK_TILE_ROOF_STAIRS = register("pink_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PURPLE_TILE_ROOF_STAIRS = register("purple_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> RED_TILE_ROOF_STAIRS = register("red_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> WHITE_TILE_ROOF_STAIRS = register("white_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> YELLOW_TILE_ROOF_STAIRS = register("yellow_tile_roof_stairs", () -> new StairsBlock(Blocks.IRON_BLOCK.defaultBlockState(), Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLACK_TILE_ROOF_SLAB = register("black_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLUE_TILE_ROOF_SLAB = register("blue_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BROWN_TILE_ROOF_SLAB = register("brown_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> CYAN_TILE_ROOF_SLAB = register("cyan_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GRAY_TILE_ROOF_SLAB = register("gray_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GREEN_TILE_ROOF_SLAB = register("green_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TILE_ROOF_SLAB = register("light_blue_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TILE_ROOF_SLAB = register("light_gray_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIME_TILE_ROOF_SLAB = register("lime_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> MAGENTA_TILE_ROOF_SLAB = register("magenta_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> ORANGE_TILE_ROOF_SLAB = register("orange_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PINK_TILE_ROOF_SLAB = register("pink_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PURPLE_TILE_ROOF_SLAB = register("purple_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> RED_TILE_ROOF_SLAB = register("red_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> WHITE_TILE_ROOF_SLAB = register("white_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> YELLOW_TILE_ROOF_SLAB = register("yellow_tile_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLACK_TILE_ROOF_WALL = register("black_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLUE_TILE_ROOF_WALL = register("blue_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BROWN_TILE_ROOF_WALL = register("brown_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> CYAN_TILE_ROOF_WALL = register("cyan_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GRAY_TILE_ROOF_WALL = register("gray_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> GREEN_TILE_ROOF_WALL = register("green_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_TILE_ROOF_WALL = register("light_blue_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_TILE_ROOF_WALL = register("light_gray_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> LIME_TILE_ROOF_WALL = register("lime_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> MAGENTA_TILE_ROOF_WALL = register("magenta_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> ORANGE_TILE_ROOF_WALL = register("orange_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PINK_TILE_ROOF_WALL = register("pink_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> PURPLE_TILE_ROOF_WALL = register("purple_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> RED_TILE_ROOF_WALL = register("red_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> WHITE_TILE_ROOF_WALL = register("white_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> YELLOW_TILE_ROOF_WALL = register("yellow_tile_roof_wall", () -> new WallBlock(Block.Properties.of(Material.STONE).strength(1.25F, 4.2F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE)));
-    public static final RegistryObject<Block> BLACK_SHINGLE_ROOF = register("black_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BLUE_SHINGLE_ROOF = register("blue_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BROWN_SHINGLE_ROOF = register("brown_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> CYAN_SHINGLE_ROOF = register("cyan_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> GRAY_SHINGLE_ROOF = register("gray_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> GREEN_SHINGLE_ROOF = register("green_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_SHINGLE_ROOF = register("light_blue_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_SHINGLE_ROOF = register("light_gray_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIME_SHINGLE_ROOF = register("lime_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> MAGENTA_SHINGLE_ROOF = register("magenta_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> ORANGE_SHINGLE_ROOF = register("orange_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> PINK_SHINGLE_ROOF = register("pink_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> PURPLE_SHINGLE_ROOF = register("purple_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> RED_SHINGLE_ROOF = register("red_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> WHITE_SHINGLE_ROOF = register("white_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> YELLOW_SHINGLE_ROOF = register("yellow_shingle_roof", () -> new Block(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BLACK_SHINGLE_ROOF_STAIRS = register("black_shingle_roof_stairs", () -> new StairsBlock(Blocks.BLACK_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BLUE_SHINGLE_ROOF_STAIRS = register("blue_shingle_roof_stairs", () -> new StairsBlock(Blocks.BLUE_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BROWN_SHINGLE_ROOF_STAIRS = register("brown_shingle_roof_stairs", () -> new StairsBlock(Blocks.BROWN_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> CYAN_SHINGLE_ROOF_STAIRS = register("cyan_shingle_roof_stairs", () -> new StairsBlock(Blocks.CYAN_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> GRAY_SHINGLE_ROOF_STAIRS = register("gray_shingle_roof_stairs", () -> new StairsBlock(Blocks.GRAY_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> GREEN_SHINGLE_ROOF_STAIRS = register("green_shingle_roof_stairs", () -> new StairsBlock(Blocks.GREEN_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_SHINGLE_ROOF_STAIRS = register("light_blue_shingle_roof_stairs", () -> new StairsBlock(Blocks.LIGHT_BLUE_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_SHINGLE_ROOF_STAIRS = register("light_gray_shingle_roof_stairs", () -> new StairsBlock(Blocks.LIGHT_GRAY_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIME_SHINGLE_ROOF_STAIRS = register("lime_shingle_roof_stairs", () -> new StairsBlock(Blocks.LIME_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> MAGENTA_SHINGLE_ROOF_STAIRS = register("magenta_shingle_roof_stairs", () -> new StairsBlock(Blocks.MAGENTA_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> ORANGE_SHINGLE_ROOF_STAIRS = register("orange_shingle_roof_stairs", () -> new StairsBlock(Blocks.ORANGE_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> PINK_SHINGLE_ROOF_STAIRS = register("pink_shingle_roof_stairs", () -> new StairsBlock(Blocks.PINK_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> PURPLE_SHINGLE_ROOF_STAIRS = register("purple_shingle_roof_stairs", () -> new StairsBlock(Blocks.PURPLE_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> RED_SHINGLE_ROOF_STAIRS = register("red_shingle_roof_stairs", () -> new StairsBlock(Blocks.RED_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> WHITE_SHINGLE_ROOF_STAIRS = register("white_shingle_roof_stairs", () -> new StairsBlock(Blocks.WHITE_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> YELLOW_SHINGLE_ROOF_STAIRS = register("yellow_shingle_roof_stairs", () -> new StairsBlock(Blocks.YELLOW_CONCRETE.defaultBlockState(), Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BLACK_SHINGLE_ROOF_SLAB = register("black_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BLUE_SHINGLE_ROOF_SLAB = register("blue_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BROWN_SHINGLE_ROOF_SLAB = register("brown_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> CYAN_SHINGLE_ROOF_SLAB = register("cyan_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> GRAY_SHINGLE_ROOF_SLAB = register("gray_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> GREEN_SHINGLE_ROOF_SLAB = register("green_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_SHINGLE_ROOF_SLAB = register("light_blue_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_SHINGLE_ROOF_SLAB = register("light_gray_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIME_SHINGLE_ROOF_SLAB = register("lime_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> MAGENTA_SHINGLE_ROOF_SLAB = register("magenta_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> ORANGE_SHINGLE_ROOF_SLAB = register("orange_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> PINK_SHINGLE_ROOF_SLAB = register("pink_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> PURPLE_SHINGLE_ROOF_SLAB = register("purple_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> RED_SHINGLE_ROOF_SLAB = register("red_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> WHITE_SHINGLE_ROOF_SLAB = register("white_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> YELLOW_SHINGLE_ROOF_SLAB = register("yellow_shingle_roof_slab", () -> new SlabBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BLACK_SHINGLE_ROOF_WALL = register("black_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BLUE_SHINGLE_ROOF_WALL = register("blue_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> BROWN_SHINGLE_ROOF_WALL = register("brown_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> CYAN_SHINGLE_ROOF_WALL = register("cyan_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> GRAY_SHINGLE_ROOF_WALL = register("gray_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> GREEN_SHINGLE_ROOF_WALL = register("green_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIGHT_BLUE_SHINGLE_ROOF_WALL = register("light_blue_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIGHT_GRAY_SHINGLE_ROOF_WALL = register("light_gray_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> LIME_SHINGLE_ROOF_WALL = register("lime_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> MAGENTA_SHINGLE_ROOF_WALL = register("magenta_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> ORANGE_SHINGLE_ROOF_WALL = register("orange_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> PINK_SHINGLE_ROOF_WALL = register("pink_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> PURPLE_SHINGLE_ROOF_WALL = register("purple_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> RED_SHINGLE_ROOF_WALL = register("red_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> WHITE_SHINGLE_ROOF_WALL = register("white_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-    public static final RegistryObject<Block> YELLOW_SHINGLE_ROOF_WALL = register("yellow_shingle_roof_wall", () -> new WallBlock(Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
-
     //Items
     public static final RegistryObject<Item> ACACIA_STICK = ITEMS.register("acacia_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
     public static final RegistryObject<Item> BIRCH_STICK = ITEMS.register("birch_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
