@@ -1,12 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "cracked_brick_pressure_plate",
+  "group": "stone_brick_pressure_plate",
   "pattern": [
-    "xx "
+    "##"
   ],
   "key": {
-    "x": {
-      "item": "swdm:cracked_medium_stone_bricks"
+    "#": {
+      "item": "swdm:cracked_medium_stone_brick"
     }
   },
   "result": {

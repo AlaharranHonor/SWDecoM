@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/inner_stairs",
   "textures": {
-    "bottom": "swdm:blocks/cracked_andesite",
-    "top": "swdm:blocks/cracked_andesite",
-    "side": "swdm:blocks/cracked_andesite"
+    "side": "swdm:block/cracked_andesite",
+    "bottom": "swdm:block/cracked_andesite",
+    "top": "swdm:block/cracked_andesite"
   }
 }

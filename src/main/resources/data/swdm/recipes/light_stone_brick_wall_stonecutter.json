@@ -1,7 +1,7 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "swdm:light_stone_bricks"
+    "item": "swdm:light_stone_brick"
   },
   "result": "swdm:light_stone_brick_wall",
   "count": 1

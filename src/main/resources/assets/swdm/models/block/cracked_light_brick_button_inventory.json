@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button_inventory",
   "textures": {
-    "texture": "swdm:blocks/cracked_light_bricks"
+    "texture": "swdm:block/cracked_light_brick"
   }
 }

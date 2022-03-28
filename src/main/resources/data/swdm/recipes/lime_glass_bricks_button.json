@@ -1,14 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "group": "glass_bricks_button",
-  "pattern": [
-    "x  "
-  ],
-  "key": {
-    "x": {
+  "ingredients": [
+    {
       "item": "swdm:lime_glass_bricks"
     }
-  },
+  ],
   "result": {
     "item": "swdm:lime_glass_bricks_button"
   }

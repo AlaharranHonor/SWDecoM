@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "group": "stone_brick_slab",
   "pattern": [
-    "xxx"
+    "###"
   ],
   "key": {
-    "x": {
-      "item": "swdm:light_stone_bricks"
+    "#": {
+      "item": "swdm:light_stone_brick"
     }
   },
   "result": {

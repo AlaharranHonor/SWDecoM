@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:cyan_glass_bricks_slab"
+    ]
+  },
+  "criteria": {
+    "glass_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:cyan_glass_bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:cyan_glass_bricks_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "glass_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

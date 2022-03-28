@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/brown_glass_bricks"
+    "all": "swdm:block/brown_glass_bricks"
   }
 }

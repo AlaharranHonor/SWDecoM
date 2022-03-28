@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "swdm:blocks/magenta_tinted_wool"
+    "wall": "swdm:block/magenta_tinted_wool"
   }
 }

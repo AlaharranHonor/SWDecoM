@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "swdm:blocks/birch_log_beam_single",
-    "side": "swdm:blocks/birch_log_beam_down"
+    "end": "swdm:block/birch_log_beam_single",
+    "side": "swdm:block/birch_log_beam_down"
   }
 }

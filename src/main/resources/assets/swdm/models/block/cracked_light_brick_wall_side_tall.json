@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side_tall",
   "textures": {
-    "wall": "swdm:blocks/cracked_light_bricks"
+    "wall": "swdm:block/cracked_light_brick"
   }
 }

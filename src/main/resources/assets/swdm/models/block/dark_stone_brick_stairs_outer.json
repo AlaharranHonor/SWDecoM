@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/outer_stairs",
   "textures": {
-    "bottom": "swdm:blocks/dark_stone_brick",
-    "top": "swdm:blocks/dark_stone_brick",
-    "side": "swdm:blocks/dark_stone_brick"
+    "side": "swdm:block/dark_stone_brick",
+    "bottom": "swdm:block/dark_stone_brick",
+    "top": "swdm:block/dark_stone_brick"
   }
 }

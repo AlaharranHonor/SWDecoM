@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "coated_chain",
+  "pattern": [
+    "N",
+    "D",
+    "N"
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:iron_nugget"
+    },
+    "D": {
+      "item": "minecraft:green_dye"
+    }
+  },
+  "result": {
+    "item": "swdm:coated_chain_green",
+    "count": 6
+  }
+}

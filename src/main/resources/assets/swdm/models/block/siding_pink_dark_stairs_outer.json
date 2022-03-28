@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "side": "swdm:block/siding_pink_dark",
+    "bottom": "swdm:block/siding_pink_dark",
+    "top": "swdm:block/siding_pink_dark"
+  }
+}

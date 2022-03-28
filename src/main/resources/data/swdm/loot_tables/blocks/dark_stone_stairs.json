@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "dark_stone_stairs",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:dark_stone_stairs"
+        }
+      ]
+    }
+  ]
+}

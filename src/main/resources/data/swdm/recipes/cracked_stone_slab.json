@@ -1,11 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "cracked_slab",
+  "group": "stone_slab",
   "pattern": [
-    "xxx"
+    "###"
   ],
   "key": {
-    "x": {
+    "#": {
       "item": "swdm:cracked_stone"
     }
   },

@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "brown_glass_bricks_wall",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:brown_glass_bricks_wall"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

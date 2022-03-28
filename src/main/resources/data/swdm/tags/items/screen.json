@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:light_screen",
+    "swdm:medium_screen",
+    "swdm:dark_screen"
+  ]
+}

@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "cracked_andesite",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:cracked_andesite"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

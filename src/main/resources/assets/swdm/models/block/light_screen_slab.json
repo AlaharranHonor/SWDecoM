@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab",
   "textures": {
-    "bottom": "swdm:blocks/light_screen",
-    "top": "swdm:blocks/light_screen",
-    "side": "swdm:blocks/light_screen"
+    "side": "swdm:block/light_screen",
+    "bottom": "swdm:block/light_screen",
+    "top": "swdm:block/light_screen"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate_down",
   "textures": {
-    "texture": "swdm:blocks/light_bricks"
+    "texture": "swdm:block/light_brick"
   }
 }

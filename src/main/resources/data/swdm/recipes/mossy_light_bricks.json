@@ -3,13 +3,13 @@
   "group": "mossy_brick",
   "ingredients": [
     {
-      "item": "minecraft:light_bricks"
+      "item": "swdm:light_brick"
     },
     {
       "item": "minecraft:vine"
     }
   ],
   "result": {
-    "item": "swdm:mossy_light_bricks"
+    "item": "swdm:mossy_light_brick"
   }
 }

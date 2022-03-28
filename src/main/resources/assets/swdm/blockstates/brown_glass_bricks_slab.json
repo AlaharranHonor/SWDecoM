@@ -1,13 +1,13 @@
 {
   "variants": {
+    "type=top": {
+      "model": "swdm:block/brown_glass_bricks_slab_top"
+    },
     "type=bottom": {
       "model": "swdm:block/brown_glass_bricks_slab"
     },
     "type=double": {
       "model": "swdm:block/brown_glass_bricks"
-    },
-    "type=top": {
-      "model": "swdm:block/brown_glass_bricks_slab_top"
     }
   }
 }

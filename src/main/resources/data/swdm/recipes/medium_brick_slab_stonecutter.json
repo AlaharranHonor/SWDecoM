@@ -1,7 +1,7 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "swdm:medium_bricks"
+    "item": "swdm:medium_brick"
   },
   "result": "swdm:medium_brick_slab",
   "count": 2

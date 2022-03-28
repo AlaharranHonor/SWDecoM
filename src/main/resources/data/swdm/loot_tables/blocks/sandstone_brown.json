@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "sandstone_brown",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:sandstone_brown"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

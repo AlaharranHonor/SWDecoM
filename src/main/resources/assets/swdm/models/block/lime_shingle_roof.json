@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/lime_shingle_roof"
+    "all": "swdm:block/lime_shingle_roof"
   }
 }

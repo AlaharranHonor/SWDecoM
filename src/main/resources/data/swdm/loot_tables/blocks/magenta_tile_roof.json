@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "magenta_tile_roof",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:magenta_tile_roof"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

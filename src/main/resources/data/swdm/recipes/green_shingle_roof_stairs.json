@@ -1,22 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "shingle_roof_stairs",
-  "pattern":
-  [
-    "x  ",
-    "xx ",
-    "xxx"
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "#": {
       "item": "swdm:green_shingle_roof"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:green_shingle_roof_stairs",
-    "count": 6
+    "count": 4
   }
 }

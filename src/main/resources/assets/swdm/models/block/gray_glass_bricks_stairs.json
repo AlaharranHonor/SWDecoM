@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/stairs",
   "textures": {
-    "bottom": "swdm:blocks/gray_glass_bricks",
-    "top": "swdm:blocks/gray_glass_bricks",
-    "side": "swdm:blocks/gray_glass_bricks"
+    "side": "swdm:block/gray_glass_bricks",
+    "bottom": "swdm:block/gray_glass_bricks",
+    "top": "swdm:block/gray_glass_bricks"
   }
 }

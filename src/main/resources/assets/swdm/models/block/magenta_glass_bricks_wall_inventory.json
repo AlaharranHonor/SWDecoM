@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "swdm:blocks/magenta_glass_bricks"
+    "wall": "swdm:block/magenta_glass_bricks"
   }
 }

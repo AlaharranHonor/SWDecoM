@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "group": "brick_stairs",
   "pattern": [
-    "x  ",
-	"xx ",
-	"xxx"
+    "#  ",
+    "## ",
+    "###"
   ],
   "key": {
-    "x": {
-      "item": "swdm:dark_bricks"
+    "#": {
+      "item": "swdm:dark_brick"
     }
   },
   "result": {
     "item": "swdm:dark_brick_stairs",
-    "count": 6
+    "count": 4
   }
 }

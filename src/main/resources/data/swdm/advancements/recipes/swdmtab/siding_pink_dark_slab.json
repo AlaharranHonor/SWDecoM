@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:siding_pink_dark_slab"
+    ]
+  },
+  "criteria": {
+    "siding": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:siding_pink_dark"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:siding_pink_dark_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "siding",
+      "has_the_recipe"
+    ]
+  ]
+}

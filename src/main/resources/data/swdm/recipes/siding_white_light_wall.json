@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "siding_wall",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:siding_white_light"
+    }
+  },
+  "result": {
+    "item": "swdm:siding_white_light_wall",
+    "count": 6
+  }
+}

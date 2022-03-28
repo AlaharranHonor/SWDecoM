@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:golden_terracotta_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:golden_terracotta"
+  }
+}

@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "blue_concrete_button",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:blue_concrete_button"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

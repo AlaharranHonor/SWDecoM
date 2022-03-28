@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side_tall",
   "textures": {
-    "wall": "swdm:blocks/lime_pastel_wool"
+    "wall": "swdm:block/lime_pastel_wool"
   }
 }

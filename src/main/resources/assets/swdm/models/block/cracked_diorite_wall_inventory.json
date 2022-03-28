@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "swdm:blocks/cracked_diorite"
+    "wall": "swdm:block/cracked_diorite"
   }
 }

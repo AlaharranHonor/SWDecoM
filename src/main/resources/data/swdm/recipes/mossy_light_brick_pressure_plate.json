@@ -1,12 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "mossy_brick_pressure_plate",
+  "group": "brick_pressure_plate",
   "pattern": [
-    "xx "
+    "##"
   ],
   "key": {
-    "x": {
-      "item": "swdm:mossy_light_bricks"
+    "#": {
+      "item": "swdm:mossy_light_brick"
     }
   },
   "result": {

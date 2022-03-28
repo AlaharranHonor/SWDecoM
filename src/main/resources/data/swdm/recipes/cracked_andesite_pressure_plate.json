@@ -1,11 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "cracked_pressure_plate",
+  "group": "andesite_pressure_plate",
   "pattern": [
-    "xx "
+    "##"
   ],
   "key": {
-    "x": {
+    "#": {
       "item": "swdm:cracked_andesite"
     }
   },

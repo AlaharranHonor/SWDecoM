@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab_top",
   "textures": {
-    "bottom": "swdm:blocks/orange_glass_bricks",
-    "top": "swdm:blocks/orange_glass_bricks",
-    "side": "swdm:blocks/orange_glass_bricks"
+    "side": "swdm:block/orange_glass_bricks",
+    "bottom": "swdm:block/orange_glass_bricks",
+    "top": "swdm:block/orange_glass_bricks"
   }
 }

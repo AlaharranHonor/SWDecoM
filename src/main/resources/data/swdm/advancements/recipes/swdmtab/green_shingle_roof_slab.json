@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:green_shingle_roof_slab"
+    ]
+  },
+  "criteria": {
+    "shingle_roof": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:green_shingle_roof"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:green_shingle_roof_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "shingle_roof",
+      "has_the_recipe"
+    ]
+  ]
+}

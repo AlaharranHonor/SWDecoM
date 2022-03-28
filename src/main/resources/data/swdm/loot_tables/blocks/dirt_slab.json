@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "dirt_slab",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:dirt_slab"
+        }
+      ]
+    }
+  ]
+}

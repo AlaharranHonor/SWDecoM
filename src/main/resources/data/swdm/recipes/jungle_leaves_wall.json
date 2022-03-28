@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "leaves_wall",
-  "pattern":
-  [
-    "xxx",
-    "xxx"
+  "pattern": [
+    "###",
+    "###"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "#": {
       "item": "minecraft:jungle_leaves"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:jungle_leaves_wall",
     "count": 6
   }

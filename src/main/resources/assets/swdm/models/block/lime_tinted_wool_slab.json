@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab",
   "textures": {
-    "bottom": "swdm:blocks/lime_tinted_wool",
-    "top": "swdm:blocks/lime_tinted_wool",
-    "side": "swdm:blocks/lime_tinted_wool"
+    "side": "swdm:block/lime_tinted_wool",
+    "bottom": "swdm:block/lime_tinted_wool",
+    "top": "swdm:block/lime_tinted_wool"
   }
 }

@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "tile_roof_wall",
-  "pattern":
-  [
-    "xxx",
-	"xxx"
+  "pattern": [
+    "###",
+    "###"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "#": {
       "item": "swdm:orange_tile_roof"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:orange_tile_roof_wall",
     "count": 6
   }

@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "fiber_carpet_dusted_gray",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:fiber_carpet_dusted_gray"
+        }
+      ]
+    }
+  ]
+}

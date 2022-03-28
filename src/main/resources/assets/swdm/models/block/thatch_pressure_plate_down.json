@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate_down",
   "textures": {
-    "texture": "swdm:blocks/extra_thatch_block"
+    "texture": "swdm:block/extra_thatch_block"
   }
 }

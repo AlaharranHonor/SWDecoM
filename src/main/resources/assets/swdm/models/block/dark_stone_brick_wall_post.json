@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_post",
   "textures": {
-    "wall": "swdm:blocks/dark_stone_brick"
+    "wall": "swdm:block/dark_stone_brick"
   }
 }

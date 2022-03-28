@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/brown_tinted_wool"
+    "all": "swdm:block/brown_tinted_wool"
   }
 }

@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "siding_pink_light_stairs",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:siding_pink_light_stairs"
+        }
+      ]
+    }
+  ]
+}

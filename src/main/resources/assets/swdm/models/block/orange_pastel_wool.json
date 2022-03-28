@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/orange_pastel_wool"
+    "all": "swdm:block/orange_pastel_wool"
   }
 }

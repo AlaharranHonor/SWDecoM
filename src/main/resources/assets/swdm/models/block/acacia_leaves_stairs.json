@@ -1,8 +1,8 @@
 {
   "parent": "swdm:block/stairs",
   "textures": {
+    "side": "minecraft:block/acacia_leaves",
     "bottom": "minecraft:block/acacia_leaves",
-    "top": "minecraft:block/acacia_leaves",
-    "side": "minecraft:block/acacia_leaves"
+    "top": "minecraft:block/acacia_leaves"
   }
 }

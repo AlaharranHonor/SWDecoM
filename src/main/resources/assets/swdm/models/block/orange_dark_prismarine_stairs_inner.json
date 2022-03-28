@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/inner_stairs",
   "textures": {
-    "bottom": "swdm:blocks/orange_dark_prismarine",
-    "top": "swdm:blocks/orange_dark_prismarine",
-    "side": "swdm:blocks/orange_dark_prismarine"
+    "side": "swdm:block/orange_dark_prismarine",
+    "bottom": "swdm:block/orange_dark_prismarine",
+    "top": "swdm:block/orange_dark_prismarine"
   }
 }

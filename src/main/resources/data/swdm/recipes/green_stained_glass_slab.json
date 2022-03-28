@@ -1,19 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "stained_glass_slab",
-  "pattern":
-  [
-    "xxx"
+  "pattern": [
+    "###"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "#": {
       "item": "minecraft:green_stained_glass"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:green_stained_glass_slab",
     "count": 6
   }

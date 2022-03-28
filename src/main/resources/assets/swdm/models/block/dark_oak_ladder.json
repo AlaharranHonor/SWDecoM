@@ -1,8 +1,8 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "particle": "swdm:blocks/dark_oak_ladder",
-    "texture": "swdm:blocks/dark_oak_ladder"
+    "particle": "swdm:block/dark_oak_ladder",
+    "texture": "swdm:block/dark_oak_ladder"
   },
   "elements": [
     {   "from": [ 0, 0, 15.2 ],

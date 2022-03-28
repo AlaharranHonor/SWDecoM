@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_post",
   "textures": {
-    "wall": "swdm:blocks/cyan_tinted_wool"
+    "wall": "swdm:block/cyan_tinted_wool"
   }
 }

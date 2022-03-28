@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/carpet",
   "textures": {
-    "wool": "swdm:blocks/dusted_gray_fiber_carpet"
+    "wool": "swdm:block/dusted_gray_fiber_carpet"
   }
 }

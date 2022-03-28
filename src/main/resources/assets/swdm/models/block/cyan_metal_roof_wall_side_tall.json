@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side_tall",
   "textures": {
-    "wall": "swdm:blocks/cyan_metal_roof"
+    "wall": "swdm:block/cyan_metal_roof"
   }
 }

@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "cracked_stone_button",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:cracked_stone_button"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

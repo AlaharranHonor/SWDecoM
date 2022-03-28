@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/mossy_diorite"
+    "all": "swdm:block/mossy_diorite"
   }
 }

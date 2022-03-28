@@ -4,14 +4,14 @@
   "pattern": [
     "yyy",
     "yxy",
-	"yyy"
+    "yyy"
   ],
   "key": {
+    "x": {
+      "item": "minecraft:pink_dye"
+    },
     "y": {
       "item": "minecraft:iron_ingot"
-    },
-	"x": {
-      "item": "minecraft:pink_dye"
     }
   },
   "result": {

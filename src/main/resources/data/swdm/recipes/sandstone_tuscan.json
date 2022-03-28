@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "sand",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:sand_tuscan"
+    }
+  },
+  "result": {
+    "item": "swdm:sandstone_tuscan",
+    "count": 4
+  }
+}

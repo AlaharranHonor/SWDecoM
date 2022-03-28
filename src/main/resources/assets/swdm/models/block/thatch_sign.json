@@ -1,5 +1,5 @@
 {
   "textures": {
-    "particle": "swdm:blocks/thatch_block"
+    "particle": "swdm:block/thatch_block"
   }
 }

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:oak_leaves_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:oak_leaves"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/light_clay_block"
+    "all": "swdm:block/light_clay_block"
   }
 }

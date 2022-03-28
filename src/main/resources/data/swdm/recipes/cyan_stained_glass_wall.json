@@ -1,24 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "stained_glass_wall",
-  "pattern":
-  [
-    "xyx",
-	"xyx"
+  "pattern": [
+    "###",
+    "###"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "#": {
       "item": "minecraft:cyan_stained_glass"
-    },
-    "y":
-    {
-      "item": "minecraft:cyan_stained_glass_pane"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:cyan_stained_glass_wall",
     "count": 6
   }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button_pressed",
   "textures": {
-    "texture": "swdm:blockss/cyan_glass_bricks"
+    "texture": "swdm:block/cyan_glass_bricks"
   }
 }

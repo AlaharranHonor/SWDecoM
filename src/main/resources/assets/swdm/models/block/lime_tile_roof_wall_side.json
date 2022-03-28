@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side",
   "textures": {
-    "wall": "swdm:blocks/lime_tile_roof"
+    "wall": "swdm:block/lime_tile_roof"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side",
   "textures": {
-    "wall": "swdm:blocks/light_blue_tinted_wool"
+    "wall": "swdm:block/light_blue_tinted_wool"
   }
 }

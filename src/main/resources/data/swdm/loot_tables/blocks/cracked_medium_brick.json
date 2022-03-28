@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "cracked_medium_brick",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:cracked_medium_brick"
+        }
+      ]
+    }
+  ]
+}

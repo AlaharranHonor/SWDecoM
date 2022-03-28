@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate_up",
   "textures": {
-    "texture": "swdm:blocks/blue_dark_prismarine"
+    "texture": "swdm:block/blue_dark_prismarine"
   }
 }

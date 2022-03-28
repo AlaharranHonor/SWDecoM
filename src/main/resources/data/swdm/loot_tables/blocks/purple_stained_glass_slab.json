@@ -1,43 +1,10 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "purple_stained_glass_slab",
       "rolls": 1,
       "entries": [
         {
-          "conditions": [
-            {
-              "condition": "minecraft:match_tool",
-              "predicate": {
-                "enchantments": [
-                  {
-                    "enchantment": "minecraft:silk_touch",
-                    "levels": {
-                      "min": 1
-                    }
-                  }
-                ]
-              }
-            }
-          ],
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "swdm:purple_stained_glass_slab",
-                  "properties": {
-                    "type": "double"
-                  }
-                }
-              ],
-              "count": 2
-            },
-            {
-              "function": "minecraft:explosion_decay"
-            }
-          ],
           "type": "minecraft:item",
           "name": "swdm:purple_stained_glass_slab"
         }

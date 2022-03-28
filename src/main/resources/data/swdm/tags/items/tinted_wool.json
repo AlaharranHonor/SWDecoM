@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:white_tinted_wool",
+    "swdm:orange_tinted_wool",
+    "swdm:magenta_tinted_wool",
+    "swdm:light_blue_tinted_wool",
+    "swdm:yellow_tinted_wool",
+    "swdm:lime_tinted_wool",
+    "swdm:pink_tinted_wool",
+    "swdm:gray_tinted_wool",
+    "swdm:light_gray_tinted_wool",
+    "swdm:cyan_tinted_wool",
+    "swdm:purple_tinted_wool",
+    "swdm:blue_tinted_wool",
+    "swdm:brown_tinted_wool",
+    "swdm:green_tinted_wool",
+    "swdm:red_tinted_wool",
+    "swdm:black_tinted_wool"
+  ]
+}

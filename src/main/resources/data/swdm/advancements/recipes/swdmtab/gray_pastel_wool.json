@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:gray_pastel_wool"
+    ]
+  },
+  "criteria": {
+    "has_pastel_wool": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:wool"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:gray_pastel_wool"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_pastel_wool",
+      "has_the_recipe"
+    ]
+  ]
+}

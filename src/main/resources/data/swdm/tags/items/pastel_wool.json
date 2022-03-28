@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:white_pastel_wool",
+    "swdm:orange_pastel_wool",
+    "swdm:magenta_pastel_wool",
+    "swdm:light_blue_pastel_wool",
+    "swdm:yellow_pastel_wool",
+    "swdm:lime_pastel_wool",
+    "swdm:pink_pastel_wool",
+    "swdm:gray_pastel_wool",
+    "swdm:light_gray_pastel_wool",
+    "swdm:cyan_pastel_wool",
+    "swdm:purple_pastel_wool",
+    "swdm:blue_pastel_wool",
+    "swdm:brown_pastel_wool",
+    "swdm:green_pastel_wool",
+    "swdm:red_pastel_wool",
+    "swdm:black_pastel_wool"
+  ]
+}

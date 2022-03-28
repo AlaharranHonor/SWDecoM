@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "group": "screen_wall",
   "pattern": [
-	"xxx",
-    "xxx"
+    "###",
+    "###"
   ],
   "key": {
-    "x": {
+    "#": {
       "item": "swdm:dark_screen"
     }
   },

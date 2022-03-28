@@ -1,8 +1,8 @@
 {
   "parent": "swdm:block/stairs",
   "textures": {
+    "side": "minecraft:block/jungle_leaves",
     "bottom": "minecraft:block/jungle_leaves",
-    "top": "minecraft:block/jungle_leaves",
-    "side": "minecraft:block/jungle_leaves"
+    "top": "minecraft:block/jungle_leaves"
   }
 }

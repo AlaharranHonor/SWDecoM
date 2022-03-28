@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_orientable_trapdoor_top",
   "textures": {
-    "texture": "swdm:blocks/jungle_trapdoor_birch"
+    "texture": "swdm:block/jungle_trapdoor_birch"
   }
 }

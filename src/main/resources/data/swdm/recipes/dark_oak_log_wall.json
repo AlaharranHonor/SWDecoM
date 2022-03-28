@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "group": "log_wall",
   "pattern": [
-    "xxx",
-    "xxx"
+    "###",
+    "###"
   ],
   "key": {
-    "x": {
+    "#": {
       "item": "minecraft:dark_oak_log"
     }
   },

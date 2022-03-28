@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "black_wool_wall",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:black_wool_wall"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

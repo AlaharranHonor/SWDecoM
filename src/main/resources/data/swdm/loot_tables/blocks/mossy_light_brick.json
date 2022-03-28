@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "mossy_light_brick",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:mossy_light_brick"
+        }
+      ]
+    }
+  ]
+}

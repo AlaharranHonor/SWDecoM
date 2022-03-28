@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "terracotta_wall",
-  "pattern":
-  [
-    "xxx",
-	"xxx"
+  "pattern": [
+    "###",
+    "###"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "#": {
       "item": "minecraft:white_terracotta"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:white_terracotta_wall",
     "count": 6
   }

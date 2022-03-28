@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_post",
   "textures": {
-    "wall": "swdm:blocks/pink_dark_prismarine"
+    "wall": "swdm:block/pink_dark_prismarine"
   }
 }

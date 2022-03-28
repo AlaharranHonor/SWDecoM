@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "group": "swdm_dark_prismarine",
+  "group": "dark_prismarine",
   "ingredients": [
     {
       "item": "minecraft:dark_prismarine"

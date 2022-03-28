@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:dark_screen_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:dark_screen"
+  }
+}

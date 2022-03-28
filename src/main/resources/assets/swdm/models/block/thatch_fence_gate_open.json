@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_fence_gate_open",
   "textures": {
-    "texture": "swdm:blocks/thatch_block"
+    "texture": "swdm:block/thatch_block"
   }
 }

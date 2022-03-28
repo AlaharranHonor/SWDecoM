@@ -1,13 +1,13 @@
 {
   "variants": {
+    "type=top": {
+      "model": "swdm:block/more_mossy_stone_slab_top"
+    },
     "type=bottom": {
       "model": "swdm:block/more_mossy_stone_slab"
     },
     "type=double": {
       "model": "swdm:block/more_mossy_stone"
-    },
-    "type=top": {
-      "model": "swdm:block/more_mossy_stone_slab_top"
     }
   }
 }

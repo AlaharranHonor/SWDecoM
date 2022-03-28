@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_post",
   "textures": {
-    "wall": "swdm:blocks/light_blue_glass_bricks"
+    "wall": "swdm:block/light_blue_glass_bricks"
   }
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "siding",
+  "pattern": [
+    "P ",
+    "PD",
+    "P "
+  ],
+  "key": {
+    "P": {
+      "tag": "minecraft:wooden_slabs"
+    },
+    "D": {
+      "item": "minecraft:green_dye"
+    }
+  },
+  "result": {
+    "item": "swdm:siding_green_medium",
+    "count": 8
+  }
+}

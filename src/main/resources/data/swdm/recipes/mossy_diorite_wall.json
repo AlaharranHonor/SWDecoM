@@ -1,12 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "mossy_wall",
+  "group": "diorite_wall",
   "pattern": [
-    "xxx",
-    "xxx"
+    "###",
+    "###"
   ],
   "key": {
-    "x": {
+    "#": {
       "item": "swdm:mossy_diorite"
     }
   },

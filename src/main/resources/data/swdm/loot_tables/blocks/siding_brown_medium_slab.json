@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "siding_brown_medium_slab",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:siding_brown_medium_slab"
+        }
+      ]
+    }
+  ]
+}

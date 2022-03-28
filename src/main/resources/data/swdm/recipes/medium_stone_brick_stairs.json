@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "group": "stone_brick_stairs",
   "pattern": [
-    "x  ",
-	"xx ",
-	"xxx"
+    "#  ",
+    "## ",
+    "###"
   ],
   "key": {
-    "x": {
-      "item": "swdm:medium_stone_bricks"
+    "#": {
+      "item": "swdm:medium_stone_brick"
     }
   },
   "result": {
     "item": "swdm:medium_stone_brick_stairs",
-    "count": 6
+    "count": 4
   }
 }

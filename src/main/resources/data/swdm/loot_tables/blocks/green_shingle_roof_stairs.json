@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "green_shingle_roof_stairs",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:green_shingle_roof_stairs"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

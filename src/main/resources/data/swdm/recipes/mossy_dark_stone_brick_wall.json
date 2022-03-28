@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "mossy_brick_wall",
+  "group": "stone_brick_wall",
   "pattern": [
-    "xxx",
-    "xxx"
+    "###",
+    "###"
   ],
   "key": {
-    "x": {
-      "item": "swdm:mossy_dark_stone_bricks"
+    "#": {
+      "item": "swdm:mossy_dark_stone_brick"
     }
   },
   "result": {

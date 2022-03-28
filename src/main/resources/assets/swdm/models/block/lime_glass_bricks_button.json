@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button",
   "textures": {
-    "texture": "swdm:blocks/lime_glass_bricks"
+    "texture": "swdm:block/lime_glass_bricks"
   }
 }

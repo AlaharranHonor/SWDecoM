@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "sage_terracotta",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:sage_terracotta"
+        }
+      ]
+    }
+  ]
+}

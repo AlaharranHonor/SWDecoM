@@ -1,19 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "wool_slab",
-  "pattern":
-  [
-    "xxx"
+  "pattern": [
+    "###"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "#": {
       "item": "minecraft:brown_wool"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:brown_wool_slab",
     "count": 6
   }

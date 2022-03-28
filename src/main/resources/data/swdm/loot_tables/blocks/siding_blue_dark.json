@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "siding_blue_dark",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:siding_blue_dark"
+        }
+      ]
+    }
+  ]
+}

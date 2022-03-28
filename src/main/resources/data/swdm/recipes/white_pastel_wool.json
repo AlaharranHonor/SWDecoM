@@ -1,25 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "mass_pastel_wool",
-  "pattern":
-  [
+  "group": "pastel_wool",
+  "pattern": [
     "yyy",
     "yxy",
     "yyy"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "x": {
       "item": "minecraft:white_dye"
     },
-    "y":
-    {
+    "y": {
       "item": "minecraft:white_wool"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:white_pastel_wool",
     "count": 8
   }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate_up",
   "textures": {
-    "texture": "swdm:blocks/magenta_glass_bricks"
+    "texture": "swdm:block/magenta_glass_bricks"
   }
 }

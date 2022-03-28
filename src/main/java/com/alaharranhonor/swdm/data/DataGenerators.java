@@ -16,9 +16,11 @@ public class DataGenerators {
 		if (event.includeServer()) {
 			data.addProvider(new Recipes(data));
 			data.addProvider(new LootTables(data));
+			data.addProvider(new BlockTags(data, SWDM.MOD_ID, event.getExistingFileHelper()));
 		}
 
 		if (event.includeClient()) {
+			data.addProvider(new Languages(data, SWDM.MOD_ID, "en_us"));
 			data.addProvider(new BlockStates(data, SWDM.MOD_ID, event.getExistingFileHelper()));
 			data.addProvider(new Items(data, SWDM.MOD_ID, event.getExistingFileHelper()));
 		}

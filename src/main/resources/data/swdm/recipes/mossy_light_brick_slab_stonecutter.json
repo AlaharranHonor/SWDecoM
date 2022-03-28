@@ -1,7 +1,7 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "swdm:mossy_light_bricks"
+    "item": "swdm:mossy_light_brick"
   },
   "result": "swdm:mossy_light_brick_slab",
   "count": 2

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "siding_slab",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:siding_magenta_medium"
+    }
+  },
+  "result": {
+    "item": "swdm:siding_magenta_medium_slab",
+    "count": 6
+  }
+}
