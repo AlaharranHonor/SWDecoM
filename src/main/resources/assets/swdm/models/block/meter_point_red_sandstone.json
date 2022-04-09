@@ -1,8 +1,8 @@
 {
   "parent": "swem:block/meter_point_template",
   "textures": {
-    "top": "swdm:block/meter_point_red_sandstone",
-    "bottom": "swdm:block/sandstone_bottom_red_sandstone",
-    "side": "swdm:block/sandstone_red_sandstone"
+    "top": "swdm:block/meter_point_top_red_sandstone",
+    "bottom": "minecraft:block/red_sandstone_bottom",
+    "side": "minecraft:block/red_sandstone"
   }
 }

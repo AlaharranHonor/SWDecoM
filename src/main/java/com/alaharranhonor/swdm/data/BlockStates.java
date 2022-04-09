@@ -335,7 +335,7 @@ public class BlockStates extends BlockStateProvider {
 				texture = modLoc("block/" + rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 11));
 
 				this.paneBlock(rb.get(), texture, texture);
-				this.itemModels().singleTexture(rb.get().getRegistryName().getPath(), mcLoc("item/generated"), texture); // Item model
+				this.itemModels().singleTexture(rb.get().getRegistryName().getPath(), mcLoc("item/generated"), "layer0", texture); // Item model
 			}
 
 		});

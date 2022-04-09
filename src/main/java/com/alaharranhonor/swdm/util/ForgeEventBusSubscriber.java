@@ -1,12 +1,16 @@
 package com.alaharranhonor.swdm.util;
 
 import com.alaharranhonor.swdm.SWDM;
+import net.minecraft.block.Block;
 import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = SWDM.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEventBusSubscriber {
@@ -18,5 +22,19 @@ public class ForgeEventBusSubscriber {
 		int dayTime = (int) event.getPlayer().level.getDayTime() % 24000;
 
 		event.getPlayer().sendMessage(new StringTextComponent(TimeUtil.getRealLifeMessage(dayTime)), Util.NIL_UUID);
+	}
+
+	@SubscribeEvent
+	public static void onBlockMissingMappings(RegistryEvent.MissingMappings<Block> event) {
+		for (RegistryEvent.MissingMappings.Mapping<Block> mapping : event.getAllMappings()) {
+			if (mapping.key.getNamespace().equalsIgnoreCase("swdm")) {
+
+				String missingMapping = mapping.key.getPath();
+				if (missingMapping.contains("light_bricks") || missingMapping.contains("light_stone_bricks") || missingMapping.contains("medium_bricks") || missingMapping.contains("medium_stone_bricks") || missingMapping.contains("dark_bricks") || missingMapping.contains("dark_stone_bricks")) {
+					mapping.remap(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("swdm", missingMapping.replaceAll("bricks", "brick"))));
+				}
+
+			}
+		}
 	}
 }

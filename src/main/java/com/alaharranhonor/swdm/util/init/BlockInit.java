@@ -686,6 +686,11 @@ public class BlockInit {
     public static final RegistryObject<Block> DIRT_SLAB = register("dirt_slab", () -> new SlabBlock(AbstractBlock.Properties.copy(Blocks.DIRT)));
     public static final RegistryObject<CarpetBlock> FIBER_CARPET_RED_SAND = register("fiber_carpet_red_sand", () -> new CarpetBlock(DyeColor.BLACK, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
     public static final RegistryObject<CarpetBlock> FIBER_CARPET_SAND = register("fiber_carpet_sand", () -> new CarpetBlock(DyeColor.BLACK, AbstractBlock.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
+    public static final RegistryObject<Block> TERRACOTTA_BUTTON = register("terracotta_button", () -> new StoneButtonBlock(AbstractBlock.Properties.copy(Blocks.TERRACOTTA)));
+    public static final RegistryObject<Block> TERRACOTTA_SLAB = register("terracotta_slab", () -> new SlabBlock(AbstractBlock.Properties.copy(Blocks.TERRACOTTA)));
+    public static final RegistryObject<Block> TERRACOTTA_PRESSURE_PLATE = register("terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, AbstractBlock.Properties.copy(Blocks.TERRACOTTA)));
+    public static final RegistryObject<Block> TERRACOTTA_STAIRS = register("terracotta_stairs", () -> new StairsBlock(() -> Blocks.TERRACOTTA.defaultBlockState(), AbstractBlock.Properties.copy(Blocks.TERRACOTTA)));
+    public static final RegistryObject<Block> TERRACOTTA_WALL = register("terracotta_wall", () -> new WallBlock(AbstractBlock.Properties.copy(Blocks.TERRACOTTA)));
 
     //Items
     public static final RegistryObject<Item> ACACIA_STICK = ITEMS.register("acacia_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));

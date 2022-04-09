@@ -40,7 +40,7 @@ public class SWDM
     public static final List<String> NATURAL_TONES = new ArrayList<>(Arrays.asList("dark_brown", "brown", "muted_brown", "vivid_red", "tuscan", "golden", "pale", "white", "dusted_gray", "light_gray", "blue_gray", "gray", "black"));
     public static final HashMap<String, HashMap<String, AbstractBlock.Properties>> STONE_SETS = new HashMap() {{
         put("color", new HashMap() {{
-            put("dark_prismarine", AbstractBlock.Properties.copy(Blocks.PRISMARINE));
+            put("dark_prismarine", AbstractBlock.Properties.copy(Blocks.PRISMARINE_BRICKS));
             put("glass_bricks", AbstractBlock.Properties.copy(Blocks.GLASS));
             put("concrete", AbstractBlock.Properties.copy(Blocks.BLACK_CONCRETE));
             put("terracotta", AbstractBlock.Properties.copy(Blocks.TERRACOTTA));
@@ -72,7 +72,7 @@ public class SWDM
         put("color", new HashMap() {{
             put("metal_roof", Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE));
             put("tile_roof", AbstractBlock.Properties.copy(Blocks.CLAY));
-            put("shingle_roof", Block.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE));
+            put("shingle_roof", Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BLACK).strength(2.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.AXE));
             put("stained_glass", AbstractBlock.Properties.copy(Blocks.BLACK_STAINED_GLASS));
             put("wool", AbstractBlock.Properties.copy(Blocks.BLACK_WOOL));
             put("pastel_wool", AbstractBlock.Properties.copy(Blocks.BLACK_WOOL));

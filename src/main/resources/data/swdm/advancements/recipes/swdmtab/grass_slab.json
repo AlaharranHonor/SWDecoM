@@ -2,7 +2,8 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "swdm:golden_terracotta_wall"
+      "swdm:grass_slab",
+      "swdm:dirt_slab"
     ]
   },
   "criteria": {
@@ -11,7 +12,7 @@
       "conditions": {
         "items": [
           {
-            "item": "swdm:golden_terracotta"
+            "item": "minecraft:dirt"
           }
         ]
       }
@@ -19,7 +20,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "swdm:golden_terracotta_wall"
+        "recipe": "swdm:grass_slab"
       }
     }
   },

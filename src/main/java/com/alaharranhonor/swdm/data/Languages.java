@@ -14,17 +14,18 @@ public class Languages extends LanguageProvider {
 	protected void addTranslations() {
 		this.add("itemGroup.swdmtab", "SWDM");
 		this.add("item.swdm.tatch", "Thatch");
-		this.add("item.swdm.acacia_stick", "Thatch");
-		this.add("item.swdm.birch_stick", "Thatch");
-		this.add("item.swdm.dark_oak_stick", "Thatch");
-		this.add("item.swdm.jungle_stick", "Thatch");
-		this.add("item.swdm.oak_stick", "Thatch");
-		this.add("item.swdm.spruce_stick", "Thatch");
+		this.add("item.swdm.acacia_stick", "Acacia Stick");
+		this.add("item.swdm.birch_stick", "Birch Stick");
+		this.add("item.swdm.dark_oak_stick", "Dark Oak Stick");
+		this.add("item.swdm.jungle_stick", "Jungle Stick");
+		this.add("item.swdm.oak_stick", "Oak Stick");
+		this.add("item.swdm.spruce_stick", "Spruce Stick");
 		this.add("block.swdm.whitewash_ladder", "Whitewash Ladder");
 		this.add("block.swdm.whitewash_plank_wall", "Whitewash Wall");
 		this.add("block.swdm.whitewash_log_wall", "Whitewash Log Wall");
 		this.add("block.swdm.whitewash_plank_beam", "Whitewash Beam");
 		this.add("block.swdm.whitewash_log_beam", "Whitewash Log Beam");
+		this.add("block.swdm.meter_point_red_sandstone", "Meter Point Red Sandstone");
 
 		for (String tone : SWDM.NATURAL_TONES) {
 			String[] nameParts = tone.split("_");
