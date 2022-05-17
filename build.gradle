@@ -1,3 +1,4 @@
+
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
@@ -9,13 +10,16 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath 'org.parchmentmc:librarian:1.+'
         classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
+        classpath "net.dumbcode.gradlehook:GradleHook:1.3.1"
     }
 }
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'eclipse'
 apply plugin: 'com.matthewprenger.cursegradle'
 apply plugin: 'maven-publish'
+apply plugin: "net.dumbcode.gradlehook"
 
 group = 'com.alaharranhonor.swdm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'swdm'
@@ -186,6 +190,9 @@ String getChangelogText() {
     return str
 }
 
+import com.matthewprenger.cursegradle.CurseArtifact
+def stabilitySuffix = ""
+
 tasks.curseforge.enabled = project.hasProperty('curseforge_key')
 
 
@@ -207,5 +214,47 @@ curseforge {
         relations {
             requiredDependency 'geckolib'
         }
+    }
+}
+
+
+tasks.getByName("curseforge").doLast {
+    if (project.hasProperty('swe_announcements_hook')) {
+        println "Preparing webhook"
+        def fileId = (tasks.getByName("curseforge$project.projectId").property("mainArtifact") as CurseArtifact).fileID
+        def curseforge_download = "https://www.curseforge.com/minecraft/mc-mods/$project.curseforge_slug/files/$fileId"
+        def release_url = curseforge_download
+        def discordChangelog = getChangelogText()
+
+        def result = DiscordBuilder.createForm {
+            if (project.use_project_username.toBoolean()) {
+                avatar_url = project.project_logo
+                username = project.project_name
+            }
+            embed {
+                color = Integer.decode(project.project_color)
+                author {
+                    name = project.project_name + stabilitySuffix
+                    url = project.project_url
+                }
+                thumbnail { url = project.project_logo }
+                title = "$project.project_name $project.version Released"
+                url = release_url
+                field {
+                    name = "Changes:"
+                    value = discordChangelog
+                }
+                field {
+                    name = "Downloads:"
+                    value = "[$curseforge_emote CurseForge]($curseforge_download)"
+                }
+                footer {
+                    text = "A $project.loader_name Mod"
+                    icon_url = project.loader_icon
+                }
+            }
+        }.send(project.property('swe_announcements_hook'))
+
+        println "Discord Webhook Response: " + result.responseCode
     }
 }
