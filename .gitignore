@@ -24,6 +24,4 @@ run
 # Files from Forge MDK
 forge*changelog.txt
 
-lib
-
 src/generated
