@@ -227,10 +227,6 @@ tasks.getByName("curseforge").doLast {
         def discordChangelog = getChangelogText()
 
         def result = DiscordBuilder.createForm {
-            if (project.use_project_username.toBoolean()) {
-                avatar_url = project.project_logo
-                username = project.project_name
-            }
             embed {
                 color = Integer.decode(project.project_color)
                 author {
