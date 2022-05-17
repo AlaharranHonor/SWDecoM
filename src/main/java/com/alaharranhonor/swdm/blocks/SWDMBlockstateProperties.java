@@ -4,7 +4,7 @@ import net.minecraft.state.EnumProperty;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.IStringSerializable;
 
-public class SWDMBlockstateProperties extends BlockStateProperties {
+public class SWDMBlockstateProperties {
     public static final EnumProperty<Tileable> TILEABLE = EnumProperty.create("tile", Tileable.class);
     public static final EnumProperty<SWDMBlockstateProperties.TwoWay> TWO_WAY = EnumProperty.create("two_way", SWDMBlockstateProperties.TwoWay.class);
 
