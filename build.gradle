@@ -208,7 +208,4 @@ curseforge {
             requiredDependency 'geckolib'
         }
     }
-    options {
-        debug = true
-    }
 }
