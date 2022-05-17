@@ -18,4 +18,4 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Execute Gradle
         id: build
-        run: chmod +x gradlew && ./gradlew build curseforge ${{ format('-Pcurseforge_key={0}', secrets.CURSEFORGE_API_KEY) }}
+        run: chmod +x gradlew && ./gradlew build curseforge ${{ format('-Pcurseforge_key={0} -Pswe_announcements_hook={1}', secrets.CURSEFORGE_API_KEY, secrets.WEBHOOK_URL) }}
