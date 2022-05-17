@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/stairs",
   "textures": {
-    "bottom": "swdm:blocks/green_dark_prismarine",
-    "top": "swdm:blocks/green_dark_prismarine",
-    "side": "swdm:blocks/green_dark_prismarine"
+    "side": "swdm:block/green_dark_prismarine",
+    "bottom": "swdm:block/green_dark_prismarine",
+    "top": "swdm:block/green_dark_prismarine"
   }
 }

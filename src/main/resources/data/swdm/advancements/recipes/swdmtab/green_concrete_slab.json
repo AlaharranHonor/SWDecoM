@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:green_concrete_slab"
+    ]
+  },
+  "criteria": {
+    "concrete": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:green_concrete"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:green_concrete_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "concrete",
+      "has_the_recipe"
+    ]
+  ]
+}

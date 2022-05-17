@@ -1,14 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "group": "terracotta_button",
-  "pattern": [
-    "x  "
-  ],
-  "key": {
-    "x": {
+  "ingredients": [
+    {
       "item": "minecraft:red_terracotta"
     }
-  },
+  ],
   "result": {
     "item": "swdm:red_terracotta_button"
   }

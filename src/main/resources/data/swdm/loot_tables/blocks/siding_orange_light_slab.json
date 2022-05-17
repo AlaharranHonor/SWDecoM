@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "siding_orange_light_slab",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:siding_orange_light_slab"
+        }
+      ]
+    }
+  ]
+}

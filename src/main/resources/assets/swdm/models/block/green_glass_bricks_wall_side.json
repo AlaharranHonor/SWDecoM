@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side",
   "textures": {
-    "wall": "swdm:blocks/green_glass_bricks"
+    "wall": "swdm:block/green_glass_bricks"
   }
 }

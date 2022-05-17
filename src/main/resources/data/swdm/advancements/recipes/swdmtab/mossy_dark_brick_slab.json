@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:mossy_dark_brick_slab"
+    ]
+  },
+  "criteria": {
+    "brick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:mossy_dark_brick"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:mossy_dark_brick_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "brick",
+      "has_the_recipe"
+    ]
+  ]
+}

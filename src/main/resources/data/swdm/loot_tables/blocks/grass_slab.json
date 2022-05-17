@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "grass_slab",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:grass_slab"
+        }
+      ]
+    }
+  ]
+}

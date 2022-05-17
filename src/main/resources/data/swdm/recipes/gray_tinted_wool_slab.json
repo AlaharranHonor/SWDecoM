@@ -1,19 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "tinted_wool_slab",
-  "pattern":
-  [
-    "xxx"
+  "pattern": [
+    "###"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "#": {
       "item": "swdm:gray_tinted_wool"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:gray_tinted_wool_slab",
     "count": 6
   }

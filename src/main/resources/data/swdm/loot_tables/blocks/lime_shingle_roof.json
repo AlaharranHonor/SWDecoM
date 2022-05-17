@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "lime_shingle_roof",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:lime_shingle_roof"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

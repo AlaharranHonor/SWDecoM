@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "golden_terracotta_slab",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:golden_terracotta_slab"
+        }
+      ]
+    }
+  ]
+}

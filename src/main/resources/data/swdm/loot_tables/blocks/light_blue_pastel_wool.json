@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "light_blue_pastel_wool",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:light_blue_pastel_wool"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

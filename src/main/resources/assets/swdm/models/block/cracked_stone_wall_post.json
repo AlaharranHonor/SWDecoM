@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_post",
   "textures": {
-    "wall": "swdm:blocks/cracked_stone"
+    "wall": "swdm:block/cracked_stone"
   }
 }

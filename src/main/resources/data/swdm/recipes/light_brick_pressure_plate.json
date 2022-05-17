@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "group": "brick_pressure_plate",
   "pattern": [
-    "xx "
+    "##"
   ],
   "key": {
-    "x": {
-      "item": "swdm:light_bricks"
+    "#": {
+      "item": "swdm:light_brick"
     }
   },
   "result": {

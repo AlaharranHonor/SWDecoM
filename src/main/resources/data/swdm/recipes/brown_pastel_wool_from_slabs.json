@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:brown_pastel_wool_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:brown_pastel_wool"
+  }
+}

@@ -1,11 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "mossy_slab",
+  "group": "andesite_slab",
   "pattern": [
-    "xxx"
+    "###"
   ],
   "key": {
-    "x": {
+    "#": {
       "item": "swdm:mossy_andesite"
     }
   },

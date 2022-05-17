@@ -8,7 +8,7 @@
   ],
   "key": {
     "y": {
-      "tag": "swdm:tile_roofs"
+      "tag": "swdm:tile_roof"
     },
 	"x": {
       "item": "minecraft:brown_dye"

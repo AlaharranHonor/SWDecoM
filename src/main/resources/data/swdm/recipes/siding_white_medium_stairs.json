@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "siding_stairs",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:siding_white_medium"
+    }
+  },
+  "result": {
+    "item": "swdm:siding_white_medium_stairs",
+    "count": 4
+  }
+}

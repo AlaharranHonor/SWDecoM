@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "green_terracotta_stairs",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:green_terracotta_stairs"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

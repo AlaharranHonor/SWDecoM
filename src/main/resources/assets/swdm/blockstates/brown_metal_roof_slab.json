@@ -1,13 +1,13 @@
 {
   "variants": {
+    "type=top": {
+      "model": "swdm:block/brown_metal_roof_slab_top"
+    },
     "type=bottom": {
       "model": "swdm:block/brown_metal_roof_slab"
     },
     "type=double": {
       "model": "swdm:block/brown_metal_roof"
-    },
-    "type=top": {
-      "model": "swdm:block/brown_metal_roof_slab_top"
     }
   }
 }

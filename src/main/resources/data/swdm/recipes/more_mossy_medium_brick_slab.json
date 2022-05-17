@@ -1,12 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "more_mossy_brick_slab",
+  "group": "brick_slab",
   "pattern": [
-    "xxx"
+    "###"
   ],
   "key": {
-    "x": {
-      "item": "swdm:more_mossy_medium_bricks"
+    "#": {
+      "item": "swdm:more_mossy_medium_brick"
     }
   },
   "result": {

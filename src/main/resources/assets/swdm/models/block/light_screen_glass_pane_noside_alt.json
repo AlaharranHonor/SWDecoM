@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_glass_pane_noside_alt",
   "textures": {
-    "pane": "swdm:blocks/light_screen"
+    "pane": "swdm:block/light_screen"
   }
 }

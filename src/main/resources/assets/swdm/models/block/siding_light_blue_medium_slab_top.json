@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "side": "swdm:block/siding_light_blue_medium",
+    "bottom": "swdm:block/siding_light_blue_medium",
+    "top": "swdm:block/siding_light_blue_medium"
+  }
+}

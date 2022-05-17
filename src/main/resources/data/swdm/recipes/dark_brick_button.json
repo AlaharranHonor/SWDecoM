@@ -1,14 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "group": "brick_button",
-  "pattern": [
-    "x  "
-  ],
-  "key": {
-    "x": {
-      "item": "swdm:dark_bricks"
+  "ingredients": [
+    {
+      "item": "swdm:dark_brick"
     }
-  },
+  ],
   "result": {
     "item": "swdm:dark_brick_button"
   }

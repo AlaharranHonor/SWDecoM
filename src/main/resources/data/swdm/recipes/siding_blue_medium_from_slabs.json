@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:siding_blue_medium_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:siding_blue_medium"
+  }
+}

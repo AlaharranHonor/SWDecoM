@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/sand_muted_brown"
+    "all": "swdm:block/sand_muted_brown"
   }
 }

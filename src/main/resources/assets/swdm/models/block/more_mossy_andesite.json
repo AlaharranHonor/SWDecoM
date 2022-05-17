@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/more_mossy_andesite"
+    "all": "swdm:block/more_mossy_andesite"
   }
 }

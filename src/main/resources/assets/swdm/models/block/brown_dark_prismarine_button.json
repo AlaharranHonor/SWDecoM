@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button",
   "textures": {
-    "texture": "swdm:blocks/brown_dark_prismarine"
+    "texture": "swdm:block/brown_dark_prismarine"
   }
 }

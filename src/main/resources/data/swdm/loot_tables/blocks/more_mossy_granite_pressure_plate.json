@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "more_mossy_granite_pressure_plate",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:more_mossy_granite_pressure_plate"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

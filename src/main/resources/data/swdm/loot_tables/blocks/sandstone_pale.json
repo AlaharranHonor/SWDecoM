@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "sandstone_pale",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:sandstone_pale"
+        }
+      ]
+    }
+  ]
+}

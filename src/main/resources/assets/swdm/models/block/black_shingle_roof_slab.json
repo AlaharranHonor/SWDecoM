@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab",
   "textures": {
-    "bottom": "swdm:blocks/black_shingle_roof",
-    "top": "swdm:blocks/black_shingle_roof",
-    "side": "swdm:blocks/black_shingle_roof"
+    "side": "swdm:block/black_shingle_roof",
+    "bottom": "swdm:block/black_shingle_roof",
+    "top": "swdm:block/black_shingle_roof"
   }
 }

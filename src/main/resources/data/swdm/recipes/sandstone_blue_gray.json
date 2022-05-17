@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "sandstone",
-  "pattern":
-  [
-    "xx ",
-    "xx "
+  "group": "sand",
+  "pattern": [
+    "##",
+    "##"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "#": {
       "item": "swdm:sand_blue_gray"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:sandstone_blue_gray",
     "count": 4
   }

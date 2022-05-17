@@ -1,14 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "mossy_button",
-  "pattern": [
-    "x  "
-  ],
-  "key": {
-    "x": {
+  "type": "minecraft:crafting_shapeless",
+  "group": "granite_button",
+  "ingredients": [
+    {
       "item": "swdm:more_mossy_granite"
     }
-  },
+  ],
   "result": {
     "item": "swdm:more_mossy_granite_button"
   }

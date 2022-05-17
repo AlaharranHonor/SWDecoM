@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:yellow_metal_roof_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:yellow_metal_roof"
+  }
+}

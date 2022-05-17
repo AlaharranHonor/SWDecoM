@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "stone_wall",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:light_stone"
+    }
+  },
+  "result": {
+    "item": "swdm:light_stone_wall",
+    "count": 6
+  }
+}

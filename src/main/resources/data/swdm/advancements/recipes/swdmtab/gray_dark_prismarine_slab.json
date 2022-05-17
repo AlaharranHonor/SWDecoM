@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:gray_dark_prismarine_slab"
+    ]
+  },
+  "criteria": {
+    "dark_prismarine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:gray_dark_prismarine"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:gray_dark_prismarine_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "dark_prismarine",
+      "has_the_recipe"
+    ]
+  ]
+}

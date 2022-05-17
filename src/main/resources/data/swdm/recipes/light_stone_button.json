@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "stone_button",
+  "ingredients": [
+    {
+      "item": "swdm:light_stone"
+    }
+  ],
+  "result": {
+    "item": "swdm:light_stone_button"
+  }
+}

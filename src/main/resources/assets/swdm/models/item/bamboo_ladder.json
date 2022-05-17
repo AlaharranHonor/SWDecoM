@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "swdm:blocks/bamboo_ladder"
+    "layer0": "swdm:block/bamboo_ladder"
   }
 }

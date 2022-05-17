@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/stairs",
   "textures": {
-    "bottom": "swdm:blocks/black_tinted_wool",
-    "top": "swdm:blocks/black_tinted_wool",
-    "side": "swdm:blocks/black_tinted_wool"
+    "side": "swdm:block/black_tinted_wool",
+    "bottom": "swdm:block/black_tinted_wool",
+    "top": "swdm:block/black_tinted_wool"
   }
 }

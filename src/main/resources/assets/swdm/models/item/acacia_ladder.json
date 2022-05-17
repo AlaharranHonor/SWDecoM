@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "swdm:blocks/acacia_ladder"
+    "layer0": "swdm:block/acacia_ladder"
   }
 }

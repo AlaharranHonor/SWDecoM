@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "gray_concrete_pressure_plate",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:gray_concrete_pressure_plate"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

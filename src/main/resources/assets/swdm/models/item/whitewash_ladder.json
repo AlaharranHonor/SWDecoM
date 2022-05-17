@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "swdm:blocks/whitewash_ladder"
+    "layer0": "swdm:block/whitewash_ladder"
   }
 }

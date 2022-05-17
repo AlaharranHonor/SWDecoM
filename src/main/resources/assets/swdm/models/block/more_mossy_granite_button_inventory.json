@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button_inventory",
   "textures": {
-    "texture": "swdm:blocks/more_mossy_granite"
+    "texture": "swdm:block/more_mossy_granite"
   }
 }

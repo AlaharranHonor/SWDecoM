@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "more_mossy_dark_stone_brick",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:more_mossy_dark_stone_brick"
+        }
+      ]
+    }
+  ]
+}

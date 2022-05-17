@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab_top",
   "textures": {
-    "bottom": "swdm:blocks/light_blue_metal_roof",
-    "top": "swdm:blocks/light_blue_metal_roof",
-    "side": "swdm:blocks/light_blue_metal_roof"
+    "side": "swdm:block/light_blue_metal_roof",
+    "bottom": "swdm:block/light_blue_metal_roof",
+    "top": "swdm:block/light_blue_metal_roof"
   }
 }

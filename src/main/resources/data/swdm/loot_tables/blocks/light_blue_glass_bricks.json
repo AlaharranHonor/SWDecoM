@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "light_blue_glass_bricks",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:light_blue_glass_bricks"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

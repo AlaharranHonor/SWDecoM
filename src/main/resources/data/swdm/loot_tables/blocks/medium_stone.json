@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "medium_stone",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:medium_stone"
+        }
+      ]
+    }
+  ]
+}

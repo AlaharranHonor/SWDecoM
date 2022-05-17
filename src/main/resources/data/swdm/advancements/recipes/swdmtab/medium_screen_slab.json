@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:medium_screen_slab"
+    ]
+  },
+  "criteria": {
+    "screen": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:medium_screen"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:medium_screen_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "screen",
+      "has_the_recipe"
+    ]
+  ]
+}

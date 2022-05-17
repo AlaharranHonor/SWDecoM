@@ -31,7 +31,7 @@ Decoration additions in support of SWEM (Star Worm Equestrian Mod).
 [[dependencies.swdm]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[36,)" #mandatory
+    versionRange="[36.2,)" #mandatory
     ordering="NONE"
     side="BOTH"
 [[dependencies.swdm]]

@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "orange_tinted_wool_carpet",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:orange_tinted_wool_carpet"
+        }
+      ]
+    }
+  ]
+}

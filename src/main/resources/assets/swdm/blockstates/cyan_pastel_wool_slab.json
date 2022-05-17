@@ -1,13 +1,13 @@
 {
   "variants": {
+    "type=top": {
+      "model": "swdm:block/cyan_pastel_wool_slab_top"
+    },
     "type=bottom": {
       "model": "swdm:block/cyan_pastel_wool_slab"
     },
     "type=double": {
       "model": "swdm:block/cyan_pastel_wool"
-    },
-    "type=top": {
-      "model": "swdm:block/cyan_pastel_wool_slab_top"
     }
   }
 }

@@ -1,0 +1,104 @@
+{
+  "variants": {
+    "axis=x,two_way=single,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_single",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,two_way=single,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_single"
+    },
+    "axis=z,two_way=single,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_single",
+      "x": 90
+    },
+    "axis=x,two_way=left,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_edge",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,two_way=left,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_edge"
+    },
+    "axis=z,two_way=left,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_edge",
+      "x": 90,
+      "y": 180
+    },
+    "axis=x,two_way=middle,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_middle",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,two_way=middle,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_middle"
+    },
+    "axis=z,two_way=middle,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_middle",
+      "x": 90
+    },
+    "axis=x,two_way=right,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_edge",
+      "x": 90,
+      "y": 270
+    },
+    "axis=y,two_way=right,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_edge",
+      "x": 180
+    },
+    "axis=z,two_way=right,waterlogged=false": {
+      "model": "swdm:block/coated_chain_pink_edge",
+      "x": 90
+    },
+    "axis=x,two_way=single,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_single",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,two_way=single,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_single"
+    },
+    "axis=z,two_way=single,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_single",
+      "x": 90
+    },
+    "axis=x,two_way=left,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_edge",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,two_way=left,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_edge"
+    },
+    "axis=z,two_way=left,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_edge",
+      "x": 90,
+      "y": 180
+    },
+    "axis=x,two_way=middle,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_middle",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,two_way=middle,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_middle"
+    },
+    "axis=z,two_way=middle,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_middle",
+      "x": 90
+    },
+    "axis=x,two_way=right,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_edge",
+      "x": 90,
+      "y": 270
+    },
+    "axis=y,two_way=right,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_edge",
+      "x": 180
+    },
+    "axis=z,two_way=right,waterlogged=true": {
+      "model": "swdm:block/coated_chain_pink_edge",
+      "x": 90
+    }
+  }
+}

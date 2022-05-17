@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:cyan_metal_roof_slab"
+    ]
+  },
+  "criteria": {
+    "metal_roof": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:cyan_metal_roof"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:cyan_metal_roof_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "metal_roof",
+      "has_the_recipe"
+    ]
+  ]
+}

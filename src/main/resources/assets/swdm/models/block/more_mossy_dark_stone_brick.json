@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "swdm:block/more_mossy_dark_stone_brick"
+  }
+}

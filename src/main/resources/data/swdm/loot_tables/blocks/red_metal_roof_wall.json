@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "red_metal_roof_wall",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:red_metal_roof_wall"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "dark_stone_brick_pressure_plate",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:dark_stone_brick_pressure_plate"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

@@ -17,5 +17,4 @@ public class SWDMTileEntities {
     }
 
     public static final RegistryObject<TileEntityType<SWDMSignTE>> SWDM_SIGN = TILE_ENTITY_TYPES.register("swdm_sign", () -> TileEntityType.Builder.of(SWDMSignTE::new, BlockInit.THATCH_SIGN.get(), BlockInit.THATCH_WALL_SIGN.get(), BlockInit.BAMBOO_SIGN.get(), BlockInit.BAMBOO_WALL_SIGN.get()).build(null));
-    public static final RegistryObject<TileEntityType<ClockTE>> CLOCK = TILE_ENTITY_TYPES.register("clock", () -> TileEntityType.Builder.of(ClockTE::new, BlockInit.CLOCK.get()).build(null));
 }

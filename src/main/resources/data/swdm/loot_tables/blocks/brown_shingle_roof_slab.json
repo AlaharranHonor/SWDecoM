@@ -1,29 +1,11 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "brown_shingle_roof_slab",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "swdm:brown_shingle_roof_slab",
-                  "properties": {
-                    "type": "double"
-                  }
-                }
-              ],
-              "count": 2
-            },
-            {
-              "function": "minecraft:explosion_decay"
-            }
-          ],
           "name": "swdm:brown_shingle_roof_slab"
         }
       ]

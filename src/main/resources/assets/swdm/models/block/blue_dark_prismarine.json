@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/blue_dark_prismarine"
+    "all": "swdm:block/blue_dark_prismarine"
   }
 }

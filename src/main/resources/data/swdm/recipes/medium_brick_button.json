@@ -1,14 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "group": "brick_button",
-  "pattern": [
-    "x  "
-  ],
-  "key": {
-    "x": {
-      "item": "swdm:medium_bricks"
+  "ingredients": [
+    {
+      "item": "swdm:medium_brick"
     }
-  },
+  ],
   "result": {
     "item": "swdm:medium_brick_button"
   }

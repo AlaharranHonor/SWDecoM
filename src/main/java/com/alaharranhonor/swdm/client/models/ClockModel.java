@@ -19,7 +19,7 @@ public class ClockModel extends AnimatedGeoModel<ClockTE> {
 
 	@Override
 	public ResourceLocation getTextureLocation(ClockTE object) {
-		return new ResourceLocation(SWDM.MOD_ID, "textures/blocks/clock.png");
+		return new ResourceLocation(SWDM.MOD_ID, "textures/block/clock.png");
 	}
 
 	@Override

@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "mossy_dark_stone_brick_wall",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:mossy_dark_stone_brick_wall"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

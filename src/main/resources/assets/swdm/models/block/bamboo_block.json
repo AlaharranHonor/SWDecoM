@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "swdm:blocks/bamboo_block_top",
-    "side": "swdm:blocks/bamboo_block"
+    "end": "swdm:block/bamboo_block_top",
+    "side": "swdm:block/bamboo_block"
   }
 }

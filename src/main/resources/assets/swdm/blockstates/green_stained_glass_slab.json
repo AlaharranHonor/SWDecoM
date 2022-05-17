@@ -1,13 +1,13 @@
 {
   "variants": {
+    "type=top": {
+      "model": "swdm:block/green_stained_glass_slab_top"
+    },
     "type=bottom": {
       "model": "swdm:block/green_stained_glass_slab"
     },
     "type=double": {
       "model": "minecraft:block/green_stained_glass"
-    },
-    "type=top": {
-      "model": "swdm:block/green_stained_glass_slab_top"
     }
   }
 }

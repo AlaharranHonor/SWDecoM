@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "swdm:light_stone_brick",
+    "swdm:medium_stone_brick",
+    "swdm:dark_stone_brick"
+  ]
+}

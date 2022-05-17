@@ -1,14 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "group": "concrete_button",
-  "pattern": [
-    "x  "
-  ],
-  "key": {
-    "x": {
+  "ingredients": [
+    {
       "item": "minecraft:light_blue_concrete"
     }
-  },
+  ],
   "result": {
     "item": "swdm:light_blue_concrete_button"
   }

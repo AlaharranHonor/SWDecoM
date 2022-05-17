@@ -1,8 +1,8 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "swdm:dark_bricks"
+    "item": "swdm:dark_brick"
   },
-  "result": "swdm:cracked_dark_bricks",
+  "result": "swdm:cracked_dark_brick",
   "count": 1
 }

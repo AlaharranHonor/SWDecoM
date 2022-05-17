@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "brown_tile_roof_stairs",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:brown_tile_roof_stairs"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

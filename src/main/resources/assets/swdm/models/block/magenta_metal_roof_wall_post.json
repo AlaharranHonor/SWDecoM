@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_post",
   "textures": {
-    "wall": "swdm:blocks/magenta_metal_roof"
+    "wall": "swdm:block/magenta_metal_roof"
   }
 }

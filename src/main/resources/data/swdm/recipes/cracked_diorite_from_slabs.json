@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:cracked_diorite_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:cracked_diorite"
+  }
+}

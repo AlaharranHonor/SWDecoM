@@ -1,12 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "cracked_brick_slab",
+  "group": "brick_slab",
   "pattern": [
-    "xxx"
+    "###"
   ],
   "key": {
-    "x": {
-      "item": "swdm:cracked_light_bricks"
+    "#": {
+      "item": "swdm:cracked_light_brick"
     }
   },
   "result": {

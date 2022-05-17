@@ -1,7 +1,7 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "swdm:dark_stone_bricks"
+    "item": "swdm:dark_stone_brick"
   },
   "result": "swdm:dark_stone_brick_slab",
   "count": 2

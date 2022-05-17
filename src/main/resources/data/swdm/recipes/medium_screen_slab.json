@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "group": "screen_slab",
   "pattern": [
-	"xxx"
+    "###"
   ],
   "key": {
-    "x": {
+    "#": {
       "item": "swdm:medium_screen"
     }
   },

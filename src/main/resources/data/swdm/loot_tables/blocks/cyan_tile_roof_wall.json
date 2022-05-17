@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "cyan_tile_roof_wall",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:cyan_tile_roof_wall"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/fence_side",
   "textures": {
-    "texture": "swdm:blocks/bamboo_block"
+    "texture": "swdm:block/bamboo_block"
   }
 }

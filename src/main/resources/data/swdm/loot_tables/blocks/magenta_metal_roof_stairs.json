@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "magenta_metal_roof_stairs",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:magenta_metal_roof_stairs"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side_tall",
   "textures": {
-    "wall": "swdm:blocks/blue_dark_prismarine"
+    "wall": "swdm:block/blue_dark_prismarine"
   }
 }

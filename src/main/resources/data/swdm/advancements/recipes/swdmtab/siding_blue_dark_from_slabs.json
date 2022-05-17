@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:siding_blue_dark_from_slabs"
+    ]
+  },
+  "criteria": {
+    "has_siding": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:siding_blue_dark_slab"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:siding_blue_dark_from_slabs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_siding",
+      "has_the_recipe"
+    ]
+  ]
+}

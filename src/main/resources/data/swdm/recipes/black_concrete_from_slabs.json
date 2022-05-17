@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:black_concrete_slab"
+    }
+  },
+  "result": {
+    "item": "minecraft:black_concrete"
+  }
+}

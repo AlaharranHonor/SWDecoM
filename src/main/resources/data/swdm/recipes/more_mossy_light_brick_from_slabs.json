@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:more_mossy_light_brick_slab"
+    }
+  },
+  "result": {
+    "item": "swdm:more_mossy_light_brick"
+  }
+}

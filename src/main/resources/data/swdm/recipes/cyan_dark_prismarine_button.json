@@ -1,14 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "group": "dark_prismarine_button",
-  "pattern": [
-    "x  "
-  ],
-  "key": {
-    "x": {
+  "ingredients": [
+    {
       "item": "swdm:cyan_dark_prismarine"
     }
-  },
+  ],
   "result": {
     "item": "swdm:cyan_dark_prismarine_button"
   }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tinted_wool_carpet",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:blue_tinted_wool"
+    }
+  },
+  "result": {
+    "item": "swdm:blue_tinted_wool_carpet",
+    "count": 3
+  }
+}

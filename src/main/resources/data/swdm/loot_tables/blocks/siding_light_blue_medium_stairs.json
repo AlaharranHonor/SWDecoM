@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "siding_light_blue_medium_stairs",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:siding_light_blue_medium_stairs"
+        }
+      ]
+    }
+  ]
+}

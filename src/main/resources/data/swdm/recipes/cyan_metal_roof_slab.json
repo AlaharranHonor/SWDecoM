@@ -1,19 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "metal_roof_slab",
-  "pattern":
-  [
-    "xxx"
+  "pattern": [
+    "###"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "#": {
       "item": "swdm:cyan_metal_roof"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:cyan_metal_roof_slab",
     "count": 6
   }

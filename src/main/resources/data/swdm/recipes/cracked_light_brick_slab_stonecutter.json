@@ -1,7 +1,7 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "swdm:cracked_light_bricks"
+    "item": "swdm:cracked_light_brick"
   },
   "result": "swdm:cracked_light_brick_slab",
   "count": 2

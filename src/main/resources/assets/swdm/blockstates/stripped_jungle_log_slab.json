@@ -1,13 +1,13 @@
 {
   "variants": {
+    "type=top": {
+      "model": "swdm:block/stripped_jungle_log_slab_top"
+    },
     "type=bottom": {
       "model": "swdm:block/stripped_jungle_log_slab"
     },
     "type=double": {
-      "model": "minecraft:block/stripped_jungle_wood"
-    },
-    "type=top": {
-      "model": "swdm:block/stripped_jungle_log_slab_top"
+      "model": "minecraft:block/stripped_jungle_log"
     }
   }
 }

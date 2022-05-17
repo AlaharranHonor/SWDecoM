@@ -1,7 +1,7 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "swdm:mossy_dark_bricks"
+    "item": "swdm:mossy_dark_brick"
   },
   "result": "swdm:mossy_dark_brick_wall",
   "count": 1

@@ -1,14 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "mossy_brick_button",
-  "pattern": [
-    "x  "
-  ],
-  "key": {
-    "x": {
-      "item": "swdm:mossy_light_stone_bricks"
+  "type": "minecraft:crafting_shapeless",
+  "group": "stone_brick_button",
+  "ingredients": [
+    {
+      "item": "swdm:mossy_light_stone_brick"
     }
-  },
+  ],
   "result": {
     "item": "swdm:mossy_light_stone_brick_button"
   }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:green_tinted_wool_slab"
+    ]
+  },
+  "criteria": {
+    "tinted_wool": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:green_tinted_wool"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:green_tinted_wool_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "tinted_wool",
+      "has_the_recipe"
+    ]
+  ]
+}

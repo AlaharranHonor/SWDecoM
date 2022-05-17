@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side_tall",
   "textures": {
-    "wall": "swdm:blocks/red_glass_bricks"
+    "wall": "swdm:block/red_glass_bricks"
   }
 }

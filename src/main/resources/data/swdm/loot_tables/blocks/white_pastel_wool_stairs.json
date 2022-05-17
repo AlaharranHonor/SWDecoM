@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "white_pastel_wool_stairs",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:white_pastel_wool_stairs"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

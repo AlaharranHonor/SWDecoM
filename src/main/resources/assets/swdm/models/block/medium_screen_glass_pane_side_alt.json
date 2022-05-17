@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/template_glass_pane_side_alt",
   "textures": {
-    "pane": "swdm:blocks/medium_screen",
-    "edge": "swdm:blocks/medium_screen"
+    "pane": "swdm:block/medium_screen",
+    "edge": "swdm:block/medium_screen"
   }
 }

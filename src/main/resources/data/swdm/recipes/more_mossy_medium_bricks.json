@@ -3,7 +3,7 @@
   "group": "more_mossy_brick",
   "ingredients": [
     {
-      "item": "minecraft:medium_bricks"
+      "item": "swdm:medium_brick"
     },
     {
       "item": "minecraft:vine"
@@ -13,6 +13,6 @@
     }
   ],
   "result": {
-    "item": "swdm:more_mossy_medium_bricks"
+    "item": "swdm:more_mossy_medium_brick"
   }
 }

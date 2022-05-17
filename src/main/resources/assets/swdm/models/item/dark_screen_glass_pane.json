@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "swdm:blocks/dark_screen"
+    "layer0": "swdm:block/dark_screen"
   }
 }

@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "golden_terracotta_pressure_plate",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "swdm:golden_terracotta_pressure_plate"
+        }
+      ]
+    }
+  ]
+}

@@ -1,20 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "wool_wall",
-  "pattern":
-  [
-    "xxx",
-	"xxx"
+  "pattern": [
+    "###",
+    "###"
   ],
-  "key":
-  {
-    "x":
-    {
+  "key": {
+    "#": {
       "item": "minecraft:red_wool"
     }
   },
-  "result":
-  {
+  "result": {
     "item": "swdm:red_wool_wall",
     "count": 6
   }

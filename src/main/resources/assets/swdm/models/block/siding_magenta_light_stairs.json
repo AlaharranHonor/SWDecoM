@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "side": "swdm:block/siding_magenta_light",
+    "bottom": "swdm:block/siding_magenta_light",
+    "top": "swdm:block/siding_magenta_light"
+  }
+}

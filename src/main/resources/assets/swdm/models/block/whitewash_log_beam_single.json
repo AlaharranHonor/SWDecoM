@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/whitewash_log_beam_single"
+    "all": "swdm:block/whitewash_log_beam_single"
   }
 }

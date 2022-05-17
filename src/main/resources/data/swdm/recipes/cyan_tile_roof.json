@@ -4,14 +4,14 @@
   "pattern": [
     "yyy",
     "yxy",
-	"yyy"
+    "yyy"
   ],
   "key": {
+    "x": {
+      "item": "minecraft:cyan_dye"
+    },
     "y": {
       "item": "minecraft:clay_ball"
-    },
-	"x": {
-      "item": "minecraft:cyan_dye"
     }
   },
   "result": {

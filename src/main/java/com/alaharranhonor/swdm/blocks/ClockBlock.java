@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.blocks;
 
+import com.alaharranhonor.swdm.util.ModEventBusSubscriber;
 import com.alaharranhonor.swdm.util.TimeUtil;
 import com.alaharranhonor.swdm.util.init.SWDMTileEntities;
 import net.minecraft.block.*;
@@ -68,7 +69,7 @@ public class ClockBlock extends HorizontalBlock {
 	@Nullable
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return SWDMTileEntities.CLOCK.get().create();
+		return ModEventBusSubscriber.CLOCK_TE.create();
 	}
 
 	@Override

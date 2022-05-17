@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/cracked_andesite"
+    "all": "swdm:block/cracked_andesite"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button_pressed",
   "textures": {
-    "texture": "swdm:blocks/thatch_block"
+    "texture": "swdm:block/thatch_block"
   }
 }

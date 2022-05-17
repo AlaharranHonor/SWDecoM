@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/template_glass_pane_post",
   "textures": {
-    "pane": "swdm:blocks/light_screen",
-    "edge": "swdm:blocks/light_screen"
+    "pane": "swdm:block/light_screen",
+    "edge": "swdm:block/light_screen"
   }
 }

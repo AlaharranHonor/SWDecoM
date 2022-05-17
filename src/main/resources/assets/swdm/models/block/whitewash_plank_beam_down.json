@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "swdm:blocks/whitewash_plank_beam_single",
-    "side": "swdm:blocks/whitewash_plank_beam_down"
+    "end": "swdm:block/whitewash_plank_beam_single",
+    "side": "swdm:block/whitewash_plank_beam_down"
   }
 }

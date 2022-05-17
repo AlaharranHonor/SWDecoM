@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "swdm:blocks/oak_beam_middle"
+    "all": "swdm:block/oak_beam_middle"
   }
 }

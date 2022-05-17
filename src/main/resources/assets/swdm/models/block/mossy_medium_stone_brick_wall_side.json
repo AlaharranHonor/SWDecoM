@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side",
   "textures": {
-    "wall": "swdm:blocks/mossy_medium_stone_brick"
+    "wall": "swdm:block/mossy_medium_stone_brick"
   }
 }

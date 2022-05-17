@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "swdm:golden_terracotta_slab"
+    ]
+  },
+  "criteria": {
+    "terracotta": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "swdm:golden_terracotta"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "swdm:golden_terracotta_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "terracotta",
+      "has_the_recipe"
+    ]
+  ]
+}

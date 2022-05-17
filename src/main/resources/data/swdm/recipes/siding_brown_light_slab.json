@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "siding_slab",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "swdm:siding_brown_light"
+    }
+  },
+  "result": {
+    "item": "swdm:siding_brown_light_slab",
+    "count": 6
+  }
+}

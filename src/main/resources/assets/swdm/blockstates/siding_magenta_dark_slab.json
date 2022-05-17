@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "swdm:block/siding_magenta_dark_slab_top"
+    },
+    "type=bottom": {
+      "model": "swdm:block/siding_magenta_dark_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/siding_magenta_dark"
+    }
+  }
+}

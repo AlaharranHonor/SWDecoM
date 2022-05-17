@@ -1,17 +1,12 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
+      "name": "sand_dusted_gray",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "swdm:sand_dusted_gray"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
         }
       ]
     }

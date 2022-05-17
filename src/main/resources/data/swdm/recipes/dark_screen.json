@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "group": "screen",
   "pattern": [
-    "xxx",
-    "xyx",
-	"xxx"
+    "yyy",
+    "yxy",
+    "yyy"
   ],
   "key": {
     "x": {
       "item": "minecraft:string"
     },
     "y": {
-      "item": "minecraft:white_dye"
+      "item": "minecraft:black_dye"
     }
   },
   "result": {

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "side": "swdm:block/golden_terracotta",
+    "bottom": "swdm:block/golden_terracotta",
+    "top": "swdm:block/golden_terracotta"
+  }
+}

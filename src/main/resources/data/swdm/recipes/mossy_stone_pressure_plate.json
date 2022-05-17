@@ -1,11 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "mossy_pressure_plate",
+  "group": "stone_pressure_plate",
   "pattern": [
-    "xx "
+    "##"
   ],
   "key": {
-    "x": {
+    "#": {
       "item": "swdm:mossy_stone"
     }
   },

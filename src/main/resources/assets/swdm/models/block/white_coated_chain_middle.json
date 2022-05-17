@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/chain",
+  "textures": {
+    "all": "swdm:block/white_coated_chain_single"
+  }
+}
