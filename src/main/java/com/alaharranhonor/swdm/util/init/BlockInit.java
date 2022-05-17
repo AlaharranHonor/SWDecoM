@@ -368,7 +368,7 @@ public class BlockInit {
 
         WoodType.values().forEach((wood) -> {
 
-            if (!wood.name().equals("crimson") && !wood.name().equals("warped") && !wood.name().contains(":")) {
+            if (!wood.name().equals("crimson") && !wood.name().equals("warped") && !wood.name().contains(":")) { // Vanilla wood types.
                 String sanitizedWoodName = wood.name().contains(":") ? wood.name().split(":")[1] : wood.name();
                 HashMap<String, List<RegistryObject<Block>>> beamMap = SSW_SET_BEAMS.getOrDefault("wv", new HashMap<>());
                 List<RegistryObject<Block>> beamList = beamMap.getOrDefault("wood", new ArrayList<>());
@@ -474,11 +474,12 @@ public class BlockInit {
             }
 
             if (wood.name().equals("crimson") || wood.name().equals("warped") || wood.name().contains("swdm:") || wood.name().contains("swem:")) {
-
+                // Special vanilla wood types, and swdm and swem wood types.
             } else {
-                LEAVES_TRAPDOORS.add(register(wood.name() + "_leaves_trapdoor", () -> new TrapDoorBlock(Block.Properties.of(Material.LEAVES).strength(0.2F).sound(SoundType.GRASS).noOcclusion())));
-                LADDERS.add(register(wood.name() + "_ladder", () -> new LadderBlock(AbstractBlock.Properties.copy(Blocks.LADDER))));
-
+                if (!wood.name().contains(":")) {
+                    LEAVES_TRAPDOORS.add(register(wood.name() + "_leaves_trapdoor", () -> new TrapDoorBlock(Block.Properties.of(Material.LEAVES).strength(0.2F).sound(SoundType.GRASS).noOcclusion())));
+                    LADDERS.add(register(wood.name() + "_ladder", () -> new LadderBlock(AbstractBlock.Properties.copy(Blocks.LADDER))));
+                }
             }
             // All other vanilla wood types.
 
