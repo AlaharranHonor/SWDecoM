@@ -212,7 +212,7 @@ curseforge {
             displayName = "${modname} - ${version}"
         }
         relations {
-            requiredDependency 'geckolib'
+            optionalDependency 'geckolib'
         }
     }
 }
