@@ -1,36 +1,35 @@
 package com.alaharranhonor.swdm.data;
 
 import com.alaharranhonor.swdm.SWDM;
-import com.alaharranhonor.swdm.blocks.CoatedChain;
+import com.alaharranhonor.swdm.block.CoatedChain;
 import com.alaharranhonor.swdm.util.init.BlockInit;
-import com.alaharranhonor.swdm.util.init.SWEMInit;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Tables;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.advancements.criterion.EnchantmentPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
-import net.minecraft.block.Block;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IDataProvider;
-import net.minecraft.data.LootTableProvider;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Items;
-import net.minecraft.loot.*;
-import net.minecraft.loot.conditions.*;
-import net.minecraft.loot.functions.ExplosionDecay;
-import net.minecraft.loot.functions.ILootFunction;
-import net.minecraft.loot.functions.SetCount;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.HashCache;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.IntRange;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
+import net.minecraft.world.level.storage.loot.functions.LimitCount;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.predicates.*;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.http.config.Registry;
-import software.bernie.example.registry.BlockRegistry;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -49,7 +48,7 @@ public class LootTables extends LootTableProvider {
 	}
 
 	@Override
-	protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {
+	protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
 		return ImmutableList.of(
 			Pair.of(ModLootTables::new, LootTable.DEFAULT_PARAM_SET)
 		);
@@ -61,13 +60,13 @@ public class LootTables extends LootTableProvider {
 	 * @param pCache
 	 */
 	@Override
-	public void run(DirectoryCache pCache) {
+	public void run(HashCache pCache) {
 		Path outputFolder = this.generator.getOutputFolder();
 		this.getTables().forEach((key) -> {
 			key.getFirst().get().accept((p_218437_2_, p_218437_3_) -> {
 				Path path = outputFolder.resolve("data/" + p_218437_2_.getNamespace() + "/loot_tables/" + p_218437_2_.getPath() + ".json");
 				try {
-					IDataProvider.save(GSON, pCache, LootTableManager.serialize(p_218437_3_.build()), path);
+					DataProvider.save(GSON, pCache, net.minecraft.world.level.storage.loot.LootTables.serialize(p_218437_3_.build()), path);
 				} catch (IOException e) {
 					SWDM.LOGGER.error("Couldn't write loot table {}", path, (Object) e);
 				}
@@ -90,8 +89,8 @@ public class LootTables extends LootTableProvider {
 				LootTable.lootTable().withPool(
 					LootPool.lootPool()
 						.name(chain.get().getRegistryName().getPath())
-						.setRolls(ConstantRange.exactly(1))
-						.add(ItemLootEntry.lootTableItem(chain.get()))
+						.setRolls(ConstantValue.exactly(1))
+						.add(LootItem.lootTableItem(chain.get()))
 				);
 			}
 
@@ -102,8 +101,8 @@ public class LootTables extends LootTableProvider {
 					 	LootTable.lootTable().withPool(
 					LootPool.lootPool()
 								.name(rb.get().getRegistryName().getPath())
-								.setRolls(ConstantRange.exactly(1))
-								.add(ItemLootEntry.lootTableItem(rb.get()))
+								.setRolls(ConstantValue.exactly(1))
+								.add(LootItem.lootTableItem(rb.get()))
 						  )
 						);
 					});
@@ -116,8 +115,8 @@ public class LootTables extends LootTableProvider {
 							LootTable.lootTable().withPool(
 								LootPool.lootPool()
 									.name(rb.get().getRegistryName().getPath())
-									.setRolls(ConstantRange.exactly(1))
-									.add(ItemLootEntry.lootTableItem(rb.get()))
+									.setRolls(ConstantValue.exactly(1))
+									.add(LootItem.lootTableItem(rb.get()))
 							)
 						);
 					});
@@ -130,8 +129,8 @@ public class LootTables extends LootTableProvider {
 							LootTable.lootTable().withPool(
 								LootPool.lootPool()
 									.name(rb.get().getRegistryName().getPath())
-									.setRolls(ConstantRange.exactly(1))
-									.add(ItemLootEntry.lootTableItem(rb.get()))
+									.setRolls(ConstantValue.exactly(1))
+									.add(LootItem.lootTableItem(rb.get()))
 							)
 						);
 					});
@@ -144,8 +143,8 @@ public class LootTables extends LootTableProvider {
 							LootTable.lootTable().withPool(
 								LootPool.lootPool()
 									.name(rb.get().getRegistryName().getPath())
-									.setRolls(ConstantRange.exactly(1))
-									.add(ItemLootEntry.lootTableItem(rb.get()))
+									.setRolls(ConstantValue.exactly(1))
+									.add(LootItem.lootTableItem(rb.get()))
 							)
 						);
 					});
@@ -158,8 +157,8 @@ public class LootTables extends LootTableProvider {
 							LootTable.lootTable().withPool(
 								LootPool.lootPool()
 									.name(rb.get().getRegistryName().getPath())
-									.setRolls(ConstantRange.exactly(1))
-									.add(ItemLootEntry.lootTableItem(rb.get()))
+									.setRolls(ConstantValue.exactly(1))
+									.add(LootItem.lootTableItem(rb.get()))
 							)
 						);
 					});
@@ -172,8 +171,8 @@ public class LootTables extends LootTableProvider {
 							LootTable.lootTable().withPool(
 								LootPool.lootPool()
 									.name(rb.get().getRegistryName().getPath())
-									.setRolls(ConstantRange.exactly(1))
-									.add(ItemLootEntry.lootTableItem(rb.get()))
+									.setRolls(ConstantValue.exactly(1))
+									.add(LootItem.lootTableItem(rb.get()))
 							)
 						);
 					});
@@ -186,8 +185,8 @@ public class LootTables extends LootTableProvider {
 							LootTable.lootTable().withPool(
 								LootPool.lootPool()
 									.name(rb.get().getRegistryName().getPath())
-									.setRolls(ConstantRange.exactly(1))
-									.add(ItemLootEntry.lootTableItem(rb.get()))
+									.setRolls(ConstantValue.exactly(1))
+									.add(LootItem.lootTableItem(rb.get()))
 							)
 						);
 					});
@@ -203,8 +202,8 @@ public class LootTables extends LootTableProvider {
 								LootTable.lootTable().withPool(
 									LootPool.lootPool()
 										.name(rb.get().getRegistryName().getPath())
-										.setRolls(ConstantRange.exactly(1))
-										.add(ItemLootEntry.lootTableItem(rb.get()))
+										.setRolls(ConstantValue.exactly(1))
+										.add(LootItem.lootTableItem(rb.get()))
 								)
 							);
 						}
@@ -221,8 +220,8 @@ public class LootTables extends LootTableProvider {
 								LootTable.lootTable().withPool(
 									LootPool.lootPool()
 										.name(rb.get().getRegistryName().getPath())
-										.setRolls(ConstantRange.exactly(1))
-										.add(ItemLootEntry.lootTableItem(rb.get()))
+										.setRolls(ConstantValue.exactly(1))
+										.add(LootItem.lootTableItem(rb.get()))
 								)
 							);
 						}
@@ -239,8 +238,8 @@ public class LootTables extends LootTableProvider {
 								LootTable.lootTable().withPool(
 									LootPool.lootPool()
 										.name(rb.get().getRegistryName().getPath())
-										.setRolls(ConstantRange.exactly(1))
-										.add(ItemLootEntry.lootTableItem(rb.get()))
+										.setRolls(ConstantValue.exactly(1))
+										.add(LootItem.lootTableItem(rb.get()))
 								)
 							);
 						}
@@ -254,8 +253,8 @@ public class LootTables extends LootTableProvider {
 							LootTable.lootTable().withPool(
 								LootPool.lootPool()
 									.name(rb.get().getRegistryName().getPath())
-									.setRolls(ConstantRange.exactly(1))
-									.add(ItemLootEntry.lootTableItem(rb.get()))
+									.setRolls(ConstantValue.exactly(1))
+									.add(LootItem.lootTableItem(rb.get()))
 							)
 						);
 					});
@@ -268,8 +267,8 @@ public class LootTables extends LootTableProvider {
 							LootTable.lootTable().withPool(
 								LootPool.lootPool()
 									.name(rb.get().getRegistryName().getPath())
-									.setRolls(ConstantRange.exactly(1))
-									.add(ItemLootEntry.lootTableItem(rb.get()))
+									.setRolls(ConstantValue.exactly(1))
+									.add(LootItem.lootTableItem(rb.get()))
 							)
 						);
 					});
@@ -282,8 +281,8 @@ public class LootTables extends LootTableProvider {
 							LootTable.lootTable().withPool(
 								LootPool.lootPool()
 									.name(rb.get().getRegistryName().getPath())
-									.setRolls(ConstantRange.exactly(1))
-									.add(ItemLootEntry.lootTableItem(rb.get()))
+									.setRolls(ConstantValue.exactly(1))
+									.add(LootItem.lootTableItem(rb.get()))
 							)
 						);
 					});
@@ -297,8 +296,8 @@ public class LootTables extends LootTableProvider {
 					LootTable.lootTable().withPool(
 						LootPool.lootPool()
 							.name(BlockInit.SAND_BLOCKS.get(i).get().getRegistryName().getPath())
-							.setRolls(ConstantRange.exactly(1))
-							.add(ItemLootEntry.lootTableItem(BlockInit.SAND_BLOCKS.get(i).get()))
+							.setRolls(ConstantValue.exactly(1))
+							.add(LootItem.lootTableItem(BlockInit.SAND_BLOCKS.get(i).get()))
 					)
 				);
 
@@ -306,8 +305,8 @@ public class LootTables extends LootTableProvider {
 					LootTable.lootTable().withPool(
 						LootPool.lootPool()
 							.name(BlockInit.SANDSTONE_BLOCKS.get(i).get().getRegistryName().getPath())
-							.setRolls(ConstantRange.exactly(1))
-							.add(ItemLootEntry.lootTableItem(BlockInit.SANDSTONE_BLOCKS.get(i).get()))
+							.setRolls(ConstantValue.exactly(1))
+							.add(LootItem.lootTableItem(BlockInit.SANDSTONE_BLOCKS.get(i).get()))
 					)
 				);
 
@@ -315,8 +314,8 @@ public class LootTables extends LootTableProvider {
 					LootTable.lootTable().withPool(
 						LootPool.lootPool()
 							.name(BlockInit.FIBER_CARPETS.get(i).get().getRegistryName().getPath())
-							.setRolls(ConstantRange.exactly(1))
-							.add(ItemLootEntry.lootTableItem(BlockInit.FIBER_CARPETS.get(i).get()))
+							.setRolls(ConstantValue.exactly(1))
+							.add(LootItem.lootTableItem(BlockInit.FIBER_CARPETS.get(i).get()))
 					)
 				);
 			}
@@ -328,18 +327,18 @@ public class LootTables extends LootTableProvider {
 			return LootTable.lootTable().withPool(
 				LootPool.lootPool()
 					.name(rb.getRegistryName().getPath())
-					.setRolls(ConstantRange.exactly(1))
-					.add(AlternativesLootEntry.alternatives(
-						ItemLootEntry.lootTableItem(rb).when( // Regular block LT
-							Alternative.alternative(
+					.setRolls(ConstantValue.exactly(1))
+					.add(AlternativesEntry.alternatives(
+						LootItem.lootTableItem(rb).when( // Regular block LT
+							AlternativeLootItemCondition.alternative(
 								MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS)),
-								MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))))
+								MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))))
 							)
 						),
-						ItemLootEntry.lootTableItem(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.getRegistryName().getPath().split("_")[0] + "_sapling"))).when( // Sapling LT
-							SurvivesExplosion.survivesExplosion()
+						LootItem.lootTableItem(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.getRegistryName().getPath().split("_")[0] + "_sapling"))).when( // Sapling LT
+							ExplosionCondition.survivesExplosion()
 						).when(
-							TableBonus.bonusLevelFlatChance(
+							BonusLevelTableCondition.bonusLevelFlatChance(
 								Enchantments.BLOCK_FORTUNE,
 								0.05f,
 								0.0625f,
@@ -350,11 +349,11 @@ public class LootTables extends LootTableProvider {
 					))
 			).withPool(
 				LootPool.lootPool()
-					.setRolls(ConstantRange.exactly(1))
+					.setRolls(ConstantValue.exactly(1))
 					.add(
-						ItemLootEntry.lootTableItem(ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", "stick")))
+						LootItem.lootTableItem(ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", "stick")))
 							.when( // Conditions
-								TableBonus.bonusLevelFlatChance(
+								BonusLevelTableCondition.bonusLevelFlatChance(
 									Enchantments.BLOCK_FORTUNE,
 									0.02f,
 									0.022222223f,
@@ -364,30 +363,30 @@ public class LootTables extends LootTableProvider {
 								)
 							)
 							.apply( // Functions
-								SetCount.setCount(RandomValueRange.between(1, 2))
+								LimitCount.limitCount(IntRange.range(1, 2))
 							)
 							.apply(
-								ExplosionDecay.explosionDecay()
+								ApplyExplosionDecay.explosionDecay()
 							)
 					)
 					.when(
-						Inverted.invert(
+						InvertedLootItemCondition.invert(
 							MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS))
 								.or(
 									MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(
-										new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))
+										new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))
 									))
 								)
 						)
 					)
 			).withPool(
 				LootPool.lootPool()
-					.setRolls(ConstantRange.exactly(1))
+					.setRolls(ConstantValue.exactly(1))
 					.add(
-						ItemLootEntry.lootTableItem(Items.APPLE).when(
-							SurvivesExplosion.survivesExplosion()
+						LootItem.lootTableItem(Items.APPLE).when(
+							ExplosionCondition.survivesExplosion()
 						).when(
-							TableBonus.bonusLevelFlatChance(
+							BonusLevelTableCondition.bonusLevelFlatChance(
 								Enchantments.BLOCK_FORTUNE,
 								0.005f,
 								0.0055555557f,
@@ -397,10 +396,10 @@ public class LootTables extends LootTableProvider {
 							)
 						)
 					).when(
-						Inverted.invert(
-							Alternative.alternative(
+						InvertedLootItemCondition.invert(
+							AlternativeLootItemCondition.alternative(
 								MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS)),
-								MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))))
+								MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))))
 							)
 						)
 					)

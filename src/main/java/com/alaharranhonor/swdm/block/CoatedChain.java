@@ -1,15 +1,16 @@
-package com.alaharranhonor.swdm.blocks;
+package com.alaharranhonor.swdm.block;
 
-import net.minecraft.block.AirBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ChainBlock;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.AirBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ChainBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 import javax.annotation.Nullable;
 
@@ -17,7 +18,7 @@ public class CoatedChain extends ChainBlock {
 
 	public static final EnumProperty<SWDMBlockstateProperties.TwoWay> PART = SWDMBlockstateProperties.TWO_WAY;
 
-	public CoatedChain(Properties p_i241175_1_) {
+	public CoatedChain(BlockBehaviour.Properties p_i241175_1_) {
 		super(p_i241175_1_);
 		this.registerDefaultState(this.defaultBlockState().setValue(PART, SWDMBlockstateProperties.TwoWay.SINGLE));
 	}
@@ -25,7 +26,7 @@ public class CoatedChain extends ChainBlock {
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext pContext) {
+	public BlockState getStateForPlacement(BlockPlaceContext pContext) {
 		// The state to be set for a coated chain.
 
 
@@ -46,6 +47,8 @@ public class CoatedChain extends ChainBlock {
 		return super.getStateForPlacement(pContext).setValue(PART, SWDMBlockstateProperties.TwoWay.SINGLE);
 	}
 
+
+
 	/**
 	 * Update the provided state given the provided neighbor facing and neighbor state, returning a new state.
 	 * For example, fences make their connections to the passed in state if possible, and wet concrete powder immediately
@@ -60,7 +63,7 @@ public class CoatedChain extends ChainBlock {
 	 * @param pFacingPos
 	 */
 	@Override
-	public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, IWorld pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+	public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
 		// Update an already existing coated chain.
 
 		BlockPos pos1 = pCurrentPos.relative(pState.getValue(AXIS), 1);
@@ -88,7 +91,7 @@ public class CoatedChain extends ChainBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> pBuilder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
 		super.createBlockStateDefinition(pBuilder);
 		pBuilder.add(PART);
 	}

@@ -24,7 +24,7 @@ apply plugin: "net.dumbcode.gradlehook"
 group = 'com.alaharranhonor.swdm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'swdm'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17) // MC 1.18.2 = Java 17
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -119,9 +119,9 @@ repositories {
 }
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${mc_version}:${geckolib_version}")
-    compileOnly fg.deobf("com.alaharranhonor.swem:swem:${mc_version}-${swem_version}")
-    implementation fg.deobf("curse.maven:swlm-381070:${swlm_slug}")
+    implementation fg.deobf("software.bernie.geckolib:geckolib-1.18-forge:${geckolib_version}")
+    //compileOnly fg.deobf("com.alaharranhonor.swem:swem:${mc_version}-${swem_version}")
+    //implementation fg.deobf("curse.maven:swlm-381070:${swlm_slug}")
 
 }
 

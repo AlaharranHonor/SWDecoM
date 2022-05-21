@@ -1,19 +1,22 @@
 package com.alaharranhonor.swdm;
 
 import com.alaharranhonor.swdm.util.init.BlockInit;
+import com.alaharranhonor.swdm.util.init.SWDMBlockEntities;
 import com.alaharranhonor.swdm.util.init.SWDMPaintings;
-import com.alaharranhonor.swdm.util.init.SWDMTileEntities;
 import com.alaharranhonor.swdm.util.init.SWEMInit;
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -24,7 +27,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 @Mod("swdm")
 public class SWDM
@@ -38,28 +44,28 @@ public class SWDM
     public static final List<String> LMD_TYPES = new ArrayList(Arrays.asList("light", "medium", "dark"));
     public static final List<String> CUSTOM_COLORS = new ArrayList<>(Arrays.asList("sage", "golden"));
     public static final List<String> NATURAL_TONES = new ArrayList<>(Arrays.asList("dark_brown", "brown", "muted_brown", "vivid_red", "tuscan", "golden", "pale", "white", "dusted_gray", "light_gray", "blue_gray", "gray", "black"));
-    public static final HashMap<String, HashMap<String, AbstractBlock.Properties>> STONE_SETS = new HashMap() {{
+    public static final HashMap<String, HashMap<String, Block.Properties>> STONE_SETS = new HashMap() {{
         put("color", new HashMap() {{
-            put("dark_prismarine", AbstractBlock.Properties.copy(Blocks.PRISMARINE_BRICKS));
-            put("glass_bricks", AbstractBlock.Properties.copy(Blocks.GLASS));
-            put("concrete", AbstractBlock.Properties.copy(Blocks.BLACK_CONCRETE));
-            put("terracotta", AbstractBlock.Properties.copy(Blocks.TERRACOTTA));
+            put("dark_prismarine", Block.Properties.copy(Blocks.PRISMARINE_BRICKS));
+            put("glass_bricks", Block.Properties.copy(Blocks.GLASS));
+            put("concrete", Block.Properties.copy(Blocks.BLACK_CONCRETE));
+            put("terracotta", Block.Properties.copy(Blocks.TERRACOTTA));
         }});
         put("color_custom", new HashMap() {{
-            put("terracotta", AbstractBlock.Properties.copy(Blocks.TERRACOTTA));
+            put("terracotta", Block.Properties.copy(Blocks.TERRACOTTA));
         }});
         put("standard", new HashMap() {{
-            put("stone", AbstractBlock.Properties.copy(Blocks.STONE));
-            put("andesite", AbstractBlock.Properties.copy(Blocks.ANDESITE));
-            put("granite", AbstractBlock.Properties.copy(Blocks.GRANITE));
-            put("diorite", AbstractBlock.Properties.copy(Blocks.DIORITE));
+            put("stone", Block.Properties.copy(Blocks.STONE));
+            put("andesite", Block.Properties.copy(Blocks.ANDESITE));
+            put("granite", Block.Properties.copy(Blocks.GRANITE));
+            put("diorite", Block.Properties.copy(Blocks.DIORITE));
         }});
         put("lmd", new HashMap() {{
-            put("brick", AbstractBlock.Properties.copy(Blocks.BRICKS));
-            put("stone_brick", AbstractBlock.Properties.copy(Blocks.BRICKS));
+            put("brick", Block.Properties.copy(Blocks.BRICKS));
+            put("stone_brick", Block.Properties.copy(Blocks.BRICKS));
         }});
         put("lmd-only", new HashMap() {{
-            put("stone", AbstractBlock.Properties.copy(Blocks.STONE));
+            put("stone", Block.Properties.copy(Blocks.STONE));
         }});
     }};
 
@@ -68,28 +74,28 @@ public class SWDM
     }};
 
     // Block, Stair, Slab, Wall.
-    public static final HashMap<String, HashMap<String, AbstractBlock.Properties>> SSW_SETS = new HashMap() {{
+    public static final HashMap<String, HashMap<String, Block.Properties>> SSW_SETS = new HashMap() {{
         put("color", new HashMap() {{
-            put("metal_roof", Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE));
-            put("tile_roof", AbstractBlock.Properties.copy(Blocks.CLAY));
-            put("shingle_roof", Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BLACK).strength(2.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.AXE));
-            put("stained_glass", AbstractBlock.Properties.copy(Blocks.BLACK_STAINED_GLASS));
-            put("wool", AbstractBlock.Properties.copy(Blocks.BLACK_WOOL));
-            put("pastel_wool", AbstractBlock.Properties.copy(Blocks.BLACK_WOOL));
-            put("tinted_wool", AbstractBlock.Properties.copy(Blocks.BLACK_WOOL));
+            put("metal_roof", Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL)); //.harvestTool(ToolType.PICKAXE)
+            put("tile_roof", Block.Properties.copy(Blocks.CLAY));
+            put("shingle_roof", Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BLACK).strength(2.0F, 3.0F).sound(SoundType.STONE)); //.harvestTool(ToolType.AXE)
+            put("stained_glass", Block.Properties.copy(Blocks.BLACK_STAINED_GLASS));
+            put("wool", Block.Properties.copy(Blocks.BLACK_WOOL));
+            put("pastel_wool", Block.Properties.copy(Blocks.BLACK_WOOL));
+            put("tinted_wool", Block.Properties.copy(Blocks.BLACK_WOOL));
         }});
         put("wv", new HashMap() {{
-            put("log", AbstractBlock.Properties.copy(Blocks.OAK_SLAB));
-            put("stripped_log", AbstractBlock.Properties.copy(Blocks.OAK_SLAB));
+            put("log", Block.Properties.copy(Blocks.OAK_SLAB));
+            put("stripped_log", Block.Properties.copy(Blocks.OAK_SLAB));
         }});
         put("wv-whitewash", new HashMap() {{
-            put("leaves", AbstractBlock.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn((p_235441_0_, p_235441_1_, p_235441_2_, p_235441_3_) -> p_235441_3_ == EntityType.OCELOT || p_235441_3_ == EntityType.PARROT).isSuffocating((p, p1, p2) -> false).isViewBlocking((p, p1, p2) -> false));
+            put("leaves", Block.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn((p_235441_0_, p_235441_1_, p_235441_2_, p_235441_3_) -> p_235441_3_ == EntityType.OCELOT || p_235441_3_ == EntityType.PARROT).isSuffocating((p, p1, p2) -> false).isViewBlocking((p, p1, p2) -> false));
         }});
         put("lmd", new HashMap() {{
-           put("screen", Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5.0F, 6.0F).harvestTool(ToolType.PICKAXE).noOcclusion());
+           put("screen", Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5.0F, 6.0F).noOcclusion()); //.harvestTool(ToolType.PICKAXE)
         }});
         put("lmd-color", new HashMap() {{
-            put("siding", AbstractBlock.Properties.copy(Blocks.OAK_PLANKS));
+            put("siding", Block.Properties.copy(Blocks.OAK_PLANKS));
         }});
     }};
 
@@ -101,7 +107,7 @@ public class SWDM
         modEventBus.addListener(this::setup);
 
         BlockInit.init();
-        SWDMTileEntities.init(modEventBus);
+        SWDMBlockEntities.init(modEventBus);
         SWDMPaintings.init(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -139,7 +145,7 @@ public class SWDM
         });
     }
 
-    public static final ItemGroup SWDMTAB = new ItemGroup("swdmtab") {
+    public static final CreativeModeTab SWDMTAB = new CreativeModeTab("swdmtab") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(BlockInit.STONE_WALL.get());

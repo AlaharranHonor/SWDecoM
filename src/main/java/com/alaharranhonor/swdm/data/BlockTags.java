@@ -1,17 +1,14 @@
 package com.alaharranhonor.swdm.data;
 
 import com.alaharranhonor.swdm.SWDM;
-import com.alaharranhonor.swdm.blocks.CoatedChain;
+import com.alaharranhonor.swdm.block.CoatedChain;
 import com.alaharranhonor.swdm.util.init.BlockInit;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.TagsProvider;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nullable;
 

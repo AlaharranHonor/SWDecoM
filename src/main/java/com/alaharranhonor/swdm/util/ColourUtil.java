@@ -1,6 +1,6 @@
 package com.alaharranhonor.swdm.util;
 
-import net.minecraft.item.DyeColor;
+import net.minecraft.world.item.DyeColor;
 
 import java.util.*;
 

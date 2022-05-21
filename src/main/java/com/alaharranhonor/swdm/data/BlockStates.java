@@ -1,22 +1,21 @@
 package com.alaharranhonor.swdm.data;
 
 import com.alaharranhonor.swdm.SWDM;
-import com.alaharranhonor.swdm.blocks.CoatedChain;
-import com.alaharranhonor.swdm.blocks.SWDMBlockstateProperties;
+import com.alaharranhonor.swdm.block.CoatedChain;
+import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
 import com.alaharranhonor.swdm.util.init.BlockInit;
-import com.alaharranhonor.swdm.util.init.SWEMInit;
-import com.alaharranhonor.swem.blocks.NonParallelBlock;
-import net.minecraft.block.*;
+import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.DyeColor;
-import net.minecraft.state.properties.AttachFace;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 
@@ -88,7 +87,7 @@ public class BlockStates extends BlockStateProvider {
 
 		BlockInit.STONE_SET_STAIRS.keySet().forEach((key) -> {
 			BlockInit.STONE_SET_STAIRS.get(key).keySet().forEach((key2) -> {
-				for (RegistryObject<StairsBlock> rb : BlockInit.STONE_SET_STAIRS.get(key).get(key2)) {
+				for (RegistryObject<StairBlock> rb : BlockInit.STONE_SET_STAIRS.get(key).get(key2)) {
 
 					ResourceLocation texture;
 					if (rb.get().getRegistryName().getPath().contains("concrete") || (rb.get().getRegistryName().getPath().contains("terracotta") && !key.equals("color_custom"))) {
@@ -173,7 +172,7 @@ public class BlockStates extends BlockStateProvider {
 			}
 
 
-			for (RegistryObject<StairsBlock> rb : BlockInit.SSW_SET_STAIRS.get("color").get(key)) {
+			for (RegistryObject<StairBlock> rb : BlockInit.SSW_SET_STAIRS.get("color").get(key)) {
 				ResourceLocation texture;
 				if (key.equals("wool") || rb.get().getRegistryName().getPath().contains("stained_glass")) {
 					texture = mcLoc("block/" + rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7));
@@ -219,7 +218,7 @@ public class BlockStates extends BlockStateProvider {
 			}
 
 
-			for (RegistryObject<StairsBlock> rb : BlockInit.SSW_SET_STAIRS.get("wv").get(key)) {
+			for (RegistryObject<StairBlock> rb : BlockInit.SSW_SET_STAIRS.get("wv").get(key)) {
 				ResourceLocation texture;
 				texture = mcLoc("block/" + rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7));
 				this.stairsBlock(rb.get(), texture);
@@ -265,7 +264,7 @@ public class BlockStates extends BlockStateProvider {
 			}
 
 
-			for (RegistryObject<StairsBlock> rb : BlockInit.SSW_SET_STAIRS.get("wv-whitewash").get(key)) {
+			for (RegistryObject<StairBlock> rb : BlockInit.SSW_SET_STAIRS.get("wv-whitewash").get(key)) {
 				ResourceLocation texture;
 				texture = mcLoc("block/" + rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7));
 
@@ -320,7 +319,7 @@ public class BlockStates extends BlockStateProvider {
 			}
 
 
-			for (RegistryObject<StairsBlock> rb : BlockInit.SSW_SET_STAIRS.get("lmd").get(key)) {
+			for (RegistryObject<StairBlock> rb : BlockInit.SSW_SET_STAIRS.get("lmd").get(key)) {
 				ResourceLocation texture;
 
 				texture = modLoc("block/" + rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7));
@@ -329,7 +328,7 @@ public class BlockStates extends BlockStateProvider {
 				this.itemModels().withExistingParent(rb.get().getRegistryName().getPath(), modLoc("block/" + rb.get().getRegistryName().getPath())); // Item model
 			}
 
-			for (RegistryObject<PaneBlock> rb : BlockInit.SSW_SET_GLASS_PANES.get("lmd").get(key)) {
+			for (RegistryObject<StainedGlassPaneBlock> rb : BlockInit.SSW_SET_GLASS_PANES.get("lmd").get(key)) {
 				ResourceLocation texture;
 
 				texture = modLoc("block/" + rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 11));
@@ -362,7 +361,7 @@ public class BlockStates extends BlockStateProvider {
 				this.itemModels().withExistingParent(rb.get().getRegistryName().getPath(), modLoc("block/" + rb.get().getRegistryName().getPath() + "_inventory")); // Item model
 			}
 
-			for (RegistryObject<StairsBlock> rb : BlockInit.SSW_SET_STAIRS.get("lmd-color").get(key)) {
+			for (RegistryObject<StairBlock> rb : BlockInit.SSW_SET_STAIRS.get("lmd-color").get(key)) {
 				ResourceLocation texture = modLoc("block/" + rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7));
 				this.stairsBlock(rb.get(), texture);
 				this.itemModels().withExistingParent(rb.get().getRegistryName().getPath(), modLoc("block/" + rb.get().getRegistryName().getPath())); // Item model
@@ -397,12 +396,12 @@ public class BlockStates extends BlockStateProvider {
 
 		for (String stoneType : SWDM.STONE_TYPES) {
 
-			for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.STONE_SETS.get("standard").entrySet()) {
+			for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("standard").entrySet()) {
 
 			}
 
 			for (String lmdType : SWDM.LMD_TYPES) {
-				for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.STONE_SETS.get("lmd").entrySet()) {
+				for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("lmd").entrySet()) {
 
 				}
 			}
@@ -411,11 +410,11 @@ public class BlockStates extends BlockStateProvider {
 
 		for (DyeColor color : DyeColor.values()) {
 
-			for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.SSW_SETS.get("color").entrySet()) {
+			for (Map.Entry<String, Block.Properties> blockType : SWDM.SSW_SETS.get("color").entrySet()) {
 
 			}
 
-			for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.STONE_SETS.get("color").entrySet()) {
+			for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("color").entrySet()) {
 
 			}
 
@@ -426,7 +425,7 @@ public class BlockStates extends BlockStateProvider {
 
 			if (!wood.name().equals("crimson") && !wood.name().equals("warped") && !wood.name().contains("swdm:")) {
 
-				for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.SSW_SETS.get("wv").entrySet()) {
+				for (Map.Entry<String, Block.Properties> blockType : SWDM.SSW_SETS.get("wv").entrySet()) {
 					String typeName;
 					if (blockType.getKey().equals("stripped_log")) {
 						typeName = "stripped_"+wood.name()+"_log";
@@ -436,7 +435,7 @@ public class BlockStates extends BlockStateProvider {
 
 				}
 
-				for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.SSW_SETS.get("wv-whitewash").entrySet()) {
+				for (Map.Entry<String, Block.Properties> blockType : SWDM.SSW_SETS.get("wv-whitewash").entrySet()) {
 					if (wood.name().contains("swem:")) break;
 
 
@@ -447,7 +446,7 @@ public class BlockStates extends BlockStateProvider {
 
 			} else {
 				//LEAVES_TRAPDOORS.add(register(wood.name() + "_leaves_trapdoor", () -> new TrapDoorBlock(Block.Properties.of(Material.LEAVES).strength(0.2F).sound(SoundType.GRASS).noOcclusion())));
-				//LADDERS.add(register(wood.name() + "_ladder", () -> new LadderBlock(AbstractBlock.Properties.copy(Blocks.LADDER))));
+				//LADDERS.add(register(wood.name() + "_ladder", () -> new LadderBlock(Block.Properties.copy(Blocks.LADDER))));
 
 			}
 			// All other vanilla wood types.
@@ -455,10 +454,10 @@ public class BlockStates extends BlockStateProvider {
 		});
 
 		SWDM.LMD_TYPES.forEach((lmdType) -> {
-			for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.SSW_SETS.get("lmd").entrySet()) {
+			for (Map.Entry<String, Block.Properties> blockType : SWDM.SSW_SETS.get("lmd").entrySet()) {
 			}
 
-			for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.STONE_SETS.get("lmd-only").entrySet()) {
+			for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("lmd-only").entrySet()) {
 
 			}
 		});
@@ -495,7 +494,7 @@ public class BlockStates extends BlockStateProvider {
 
 	}
 
-	public void button(AbstractButtonBlock block, ResourceLocation texture) {
+	public void button(ButtonBlock block, ResourceLocation texture) {
 		ModelFile button = models().singleTexture(block.getRegistryName().toString(), mcLoc("block/button"), texture);
 		ModelFile buttonPressed = models().singleTexture(block.getRegistryName().toString() + "_pressed", mcLoc("block/button_pressed"), texture);
 		models().singleTexture(block.getRegistryName().toString() + "_inventory", mcLoc("block/button_inventory"), texture);
@@ -504,13 +503,13 @@ public class BlockStates extends BlockStateProvider {
 			.forAllStates((state) -> {
 				int yRot = ((int) state.getValue(TrapDoorBlock.FACING).toYRot()) + 180;
 				int xRot = 0;
-				if (state.getValue(AbstractButtonBlock.FACE) == AttachFace.CEILING) {
+				if (state.getValue(ButtonBlock.FACE) == AttachFace.CEILING) {
 					xRot = 180;
-				} else if (state.getValue(AbstractButtonBlock.FACE) == AttachFace.WALL) {
+				} else if (state.getValue(ButtonBlock.FACE) == AttachFace.WALL) {
 					xRot = 90;
 				}
 
-				return ConfiguredModel.builder().modelFile(state.getValue(AbstractButtonBlock.POWERED) ? buttonPressed : button)
+				return ConfiguredModel.builder().modelFile(state.getValue(ButtonBlock.POWERED) ? buttonPressed : button)
 					.rotationX(xRot)
 					.rotationY(yRot)
 					.build();

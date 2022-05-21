@@ -1,11 +1,11 @@
 package com.alaharranhonor.swdm.util;
 
 import com.alaharranhonor.swdm.SWDM;
-import net.minecraft.block.Block;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.Util;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,7 +21,7 @@ public class ForgeEventBusSubscriber {
 		if (event.getItemStack().getItem() != Items.CLOCK) return;
 		int dayTime = (int) event.getPlayer().level.getDayTime() % 24000;
 
-		event.getPlayer().sendMessage(new StringTextComponent(TimeUtil.getRealLifeMessage(dayTime)), Util.NIL_UUID);
+		event.getPlayer().sendMessage(new TextComponent(TimeUtil.getRealLifeMessage(dayTime)), Util.NIL_UUID);
 	}
 
 	@SubscribeEvent

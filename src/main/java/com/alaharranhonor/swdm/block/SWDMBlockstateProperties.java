@@ -1,14 +1,13 @@
-package com.alaharranhonor.swdm.blocks;
+package com.alaharranhonor.swdm.block;
 
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 public class SWDMBlockstateProperties {
     public static final EnumProperty<Tileable> TILEABLE = EnumProperty.create("tile", Tileable.class);
     public static final EnumProperty<SWDMBlockstateProperties.TwoWay> TWO_WAY = EnumProperty.create("two_way", SWDMBlockstateProperties.TwoWay.class);
 
-    public enum Tileable implements IStringSerializable {
+    public enum Tileable implements StringRepresentable {
         SINGLE,
         BOTTOM,
         MIDDLE,
@@ -25,7 +24,7 @@ public class SWDMBlockstateProperties {
         }
     }
 
-    public enum TwoWay implements IStringSerializable {
+    public enum TwoWay implements StringRepresentable {
         SINGLE(0),
         LEFT(1),
         MIDDLE(2),

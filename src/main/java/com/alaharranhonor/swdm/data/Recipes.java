@@ -3,18 +3,18 @@ package com.alaharranhonor.swdm.data;
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.util.ColourUtil;
 import com.alaharranhonor.swdm.util.init.BlockInit;
-import net.minecraft.block.*;
-import net.minecraft.data.*;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
@@ -23,9 +23,11 @@ public class Recipes extends RecipeProvider {
 		super(p_i48262_1_);
 	}
 
+
+
 	@Override
-	protected void buildShapelessRecipes(Consumer<IFinishedRecipe> p_200404_1_) {
-		super.buildShapelessRecipes(p_200404_1_);
+	protected void buildCraftingRecipes(Consumer<FinishedRecipe> p_200404_1_) {
+		super.buildCraftingRecipes(p_200404_1_);
 
 		// Make all the basic blocks first, and then all their respective items.
 
@@ -102,7 +104,7 @@ public class Recipes extends RecipeProvider {
 		BlockInit.STONE_SET_STAIRS.keySet().forEach((key) -> {
 			BlockInit.STONE_SET_STAIRS.get(key).keySet().forEach((key2) -> {
 				for (int i = 0; i < BlockInit.STONE_SET_STAIRS.get(key).get(key2).size(); i++) {
-					RegistryObject<StairsBlock> rb = BlockInit.STONE_SET_STAIRS.get(key).get(key2).get(i);
+					RegistryObject<StairBlock> rb = BlockInit.STONE_SET_STAIRS.get(key).get(key2).get(i);
 					Block craftingItem;
 					if (rb.get().getRegistryName().getPath().contains("concrete") || (rb.get().getRegistryName().getPath().contains("terracotta") && !key.equals("color_custom"))) {
 						craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7)));
@@ -176,7 +178,7 @@ public class Recipes extends RecipeProvider {
 
 
 			for (int i = 0; i < BlockInit.SSW_SET_STAIRS.get("color").get(key).size(); i++) {
-				RegistryObject<StairsBlock> rb = BlockInit.SSW_SET_STAIRS.get("color").get(key).get(i);
+				RegistryObject<StairBlock> rb = BlockInit.SSW_SET_STAIRS.get("color").get(key).get(i);
 				Block craftingItem;
 				if (key.equals("wool") || rb.get().getRegistryName().getPath().contains("stained_glass")) {
 					craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7)));
@@ -215,7 +217,7 @@ public class Recipes extends RecipeProvider {
 
 
 			for (int i = 0; i < BlockInit.SSW_SET_STAIRS.get("wv").get(key).size(); i++) {
-				RegistryObject<StairsBlock> rb = BlockInit.SSW_SET_STAIRS.get("wv").get(key).get(i);
+				RegistryObject<StairBlock> rb = BlockInit.SSW_SET_STAIRS.get("wv").get(key).get(i);
 				Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7)));
 
 				stairs(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
@@ -243,7 +245,7 @@ public class Recipes extends RecipeProvider {
 
 
 			for (int i = 0; i < BlockInit.SSW_SET_STAIRS.get("wv-whitewash").get(key).size(); i++) {
-				RegistryObject<StairsBlock> rb = BlockInit.SSW_SET_STAIRS.get("wv-whitewash").get(key).get(i);
+				RegistryObject<StairBlock> rb = BlockInit.SSW_SET_STAIRS.get("wv-whitewash").get(key).get(i);
 				Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7)));
 
 				stairs(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
@@ -271,7 +273,7 @@ public class Recipes extends RecipeProvider {
 
 
 			for (int i = 0; i < BlockInit.SSW_SET_STAIRS.get("lmd").get(key).size(); i++) {
-				RegistryObject<StairsBlock> rb = BlockInit.SSW_SET_STAIRS.get("lmd").get(key).get(i);
+				RegistryObject<StairBlock> rb = BlockInit.SSW_SET_STAIRS.get("lmd").get(key).get(i);
 				Block craftingItem = BlockInit.SSW_SET_BLOCKS.get("lmd").get(key).get(i).get();
 
 				stairs(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
@@ -279,7 +281,7 @@ public class Recipes extends RecipeProvider {
 			}
 
 
-			for (RegistryObject<PaneBlock> rb : BlockInit.SSW_SET_GLASS_PANES.get("lmd").get(key)) {
+			for (RegistryObject<StainedGlassPaneBlock> rb : BlockInit.SSW_SET_GLASS_PANES.get("lmd").get(key)) {
 
 
 				glassPane(p_200404_1_, rb.get(), ForgeRegistries.BLOCKS.getValue(new ResourceLocation("swdm", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 11))), key + "_glass_pane");
@@ -363,7 +365,7 @@ public class Recipes extends RecipeProvider {
 
 
 			for (int i = 0; i < BlockInit.SSW_SET_STAIRS.get("lmd-color").get(key).size(); i++) {
-				RegistryObject<StairsBlock> rb = BlockInit.SSW_SET_STAIRS.get("lmd-color").get(key).get(i);
+				RegistryObject<StairBlock> rb = BlockInit.SSW_SET_STAIRS.get("lmd-color").get(key).get(i);
 				Block craftingItem = BlockInit.SSW_SET_BLOCKS.get("lmd-color").get(key).get(i).get();
 				stairs(p_200404_1_, rb.get(), craftingItem, key, "has_" + craftingItem.getRegistryName().getPath().split("_")[0]);
 			}
@@ -373,55 +375,55 @@ public class Recipes extends RecipeProvider {
 	}
 
 
-	private static void stairs(Consumer<IFinishedRecipe> p_240480_0_, IItemProvider resultItem, IItemProvider craftingItem, String group, String unlockedBy) {
+	private static void stairs(Consumer<FinishedRecipe> p_240480_0_, ItemLike resultItem, ItemLike craftingItem, String group, String unlockedBy) {
 		ShapedRecipeBuilder.shaped(resultItem, 4).define('#', craftingItem).pattern("#  ").pattern("## ").pattern("###").group(group + "_stairs").unlockedBy(unlockedBy, has(craftingItem)).save(p_240480_0_);
 	}
 
-	private static void stoneStairs(Consumer<IFinishedRecipe> p_240480_0_, IItemProvider resultItem, IItemProvider craftingItem, String group) {
+	private static void stoneStairs(Consumer<FinishedRecipe> p_240480_0_, ItemLike resultItem, ItemLike craftingItem, String group) {
 		stairs(p_240480_0_, resultItem, craftingItem, group, "has_stone");
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(craftingItem), resultItem).unlocks("has_stone", has(craftingItem)).save(p_240480_0_, resultItem.asItem().getRegistryName().getPath() + "_from_" + craftingItem.asItem().getRegistryName().getPath() + "_stonecutting");
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(craftingItem), resultItem).unlockedBy("has_stone", has(craftingItem)).save(p_240480_0_, resultItem.asItem().getRegistryName().getPath() + "_from_" + craftingItem.asItem().getRegistryName().getPath() + "_stonecutting");
 	}
 
-	private static void slab(Consumer<IFinishedRecipe> p_240479_0_, IItemProvider resultItem, IItemProvider craftingItem, String group, String unlockedBy) {
+	private static void slab(Consumer<FinishedRecipe> p_240479_0_, ItemLike resultItem, ItemLike craftingItem, String group, String unlockedBy) {
 		ShapedRecipeBuilder.shaped(resultItem, 6).define('#', craftingItem).pattern("###").group(group + "_slab").unlockedBy(group, has(craftingItem)).save(p_240479_0_);
 		ShapedRecipeBuilder.shaped(craftingItem).define('#', resultItem).pattern("#").pattern("#").unlockedBy(unlockedBy, has(resultItem)).save(p_240479_0_, new ResourceLocation(SWDM.MOD_ID, craftingItem.asItem() + "_from_slabs")); // Two slabs to block
 	}
 
-	private static void stoneSlab(Consumer<IFinishedRecipe> p_240479_0_, IItemProvider resultItem, IItemProvider craftingItem, String group) {
+	private static void stoneSlab(Consumer<FinishedRecipe> p_240479_0_, ItemLike resultItem, ItemLike craftingItem, String group) {
 		slab(p_240479_0_, resultItem, craftingItem, group, "has_stone");
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(craftingItem), resultItem, 2).unlocks("has_stone", has(craftingItem)).save(p_240479_0_, resultItem.asItem().getRegistryName().getPath() + "_from_" + craftingItem.asItem().getRegistryName().getPath() + "_stonecutting");
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(craftingItem), resultItem, 2).unlockedBy("has_stone", has(craftingItem)).save(p_240479_0_, resultItem.asItem().getRegistryName().getPath() + "_from_" + craftingItem.asItem().getRegistryName().getPath() + "_stonecutting");
 	}
 
-	private static void wall(Consumer<IFinishedRecipe> p_240479_0_, IItemProvider resultItem, IItemProvider craftingItem, String group, String unlockedBy) {
+	private static void wall(Consumer<FinishedRecipe> p_240479_0_, ItemLike resultItem, ItemLike craftingItem, String group, String unlockedBy) {
 		ShapedRecipeBuilder.shaped(resultItem, 6).define('#', craftingItem).pattern("###").pattern("###").group(group + "_wall").unlockedBy(unlockedBy, has(craftingItem)).save(p_240479_0_);
 	}
 
-	private static void stoneWall(Consumer<IFinishedRecipe> p_240479_0_, IItemProvider resultItem, IItemProvider craftingItem, String group) {
+	private static void stoneWall(Consumer<FinishedRecipe> p_240479_0_, ItemLike resultItem, ItemLike craftingItem, String group) {
 		wall(p_240479_0_, resultItem, craftingItem, group, "has_stone");
-		SingleItemRecipeBuilder.stonecutting(Ingredient.of(craftingItem), resultItem).unlocks("has_stone", has(craftingItem)).save(p_240479_0_, resultItem.asItem().getRegistryName().getPath() + "_from_" + craftingItem.asItem().getRegistryName().getPath() + "_stonecutting");
+		SingleItemRecipeBuilder.stonecutting(Ingredient.of(craftingItem), resultItem).unlockedBy("has_stone", has(craftingItem)).save(p_240479_0_, resultItem.asItem().getRegistryName().getPath() + "_from_" + craftingItem.asItem().getRegistryName().getPath() + "_stonecutting");
 	}
 
-	private static void pressurePlate(Consumer<IFinishedRecipe> p_240479_0_, IItemProvider resultItem, IItemProvider craftingItem, String group, String unlockedBy) {
+	private static void pressurePlate(Consumer<FinishedRecipe> p_240479_0_, ItemLike resultItem, ItemLike craftingItem, String group, String unlockedBy) {
 		ShapedRecipeBuilder.shaped(resultItem, 1).define('#', craftingItem).pattern("##").group(group + "_pressure_plate").unlockedBy(unlockedBy, has(craftingItem)).save(p_240479_0_);
 	}
 
-	private static void stonePressurePlate(Consumer<IFinishedRecipe> p_240479_0_, IItemProvider resultItem, IItemProvider craftingItem, String group) {
+	private static void stonePressurePlate(Consumer<FinishedRecipe> p_240479_0_, ItemLike resultItem, ItemLike craftingItem, String group) {
 		pressurePlate(p_240479_0_, resultItem, craftingItem, group, "has_stone");
 	}
 
-	private static void button(Consumer<IFinishedRecipe> p_240479_0_, IItemProvider resultItem, IItemProvider craftingItem, String group, String unlockedBy) {
+	private static void button(Consumer<FinishedRecipe> p_240479_0_, ItemLike resultItem, ItemLike craftingItem, String group, String unlockedBy) {
 		ShapelessRecipeBuilder.shapeless(resultItem, 1).requires(craftingItem).group(group + "_button").unlockedBy(unlockedBy, has(craftingItem)).save(p_240479_0_);
 	}
 
-	private static void stoneButton(Consumer<IFinishedRecipe> p_240479_0_, IItemProvider resultItem, IItemProvider craftingItem, String group) {
+	private static void stoneButton(Consumer<FinishedRecipe> p_240479_0_, ItemLike resultItem, ItemLike craftingItem, String group) {
 		button(p_240479_0_, resultItem, craftingItem, group, "has_stone");
 	}
 
-	private static void carpet(Consumer<IFinishedRecipe> p_240479_0_, IItemProvider resultItem, IItemProvider craftingItem, String group) {
+	private static void carpet(Consumer<FinishedRecipe> p_240479_0_, ItemLike resultItem, ItemLike craftingItem, String group) {
 		ShapedRecipeBuilder.shaped(resultItem, 3).define('#', craftingItem).pattern("##").group(group).unlockedBy("has_something", has(craftingItem)).save(p_240479_0_);
 	}
 
-	private static void glassPane(Consumer<IFinishedRecipe> p_240479_0_, IItemProvider resultItem, IItemProvider craftingItem, String group) {
+	private static void glassPane(Consumer<FinishedRecipe> p_240479_0_, ItemLike resultItem, ItemLike craftingItem, String group) {
 		ShapelessRecipeBuilder.shapeless(resultItem, 16).requires(craftingItem).group(group).unlockedBy("has_something", has(craftingItem)).save(p_240479_0_);
 	}
 }
