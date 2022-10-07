@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "side": "swdm:block/oak_leaves_variant1",
+    "bottom": "swdm:block/oak_leaves_variant1",
+    "top": "swdm:block/oak_leaves_variant1"
+  }
+}

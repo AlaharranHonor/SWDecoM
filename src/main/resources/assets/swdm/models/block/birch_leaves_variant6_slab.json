@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "swdm:block/birch_leaves_variant6",
+    "bottom": "swdm:block/birch_leaves_variant6",
+    "top": "swdm:block/birch_leaves_variant6"
+  }
+}

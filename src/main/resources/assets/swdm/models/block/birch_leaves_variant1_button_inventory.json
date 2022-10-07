@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_inventory",
+  "textures": {
+    "texture": "swdm:block/birch_leaves_variant1"
+  }
+}

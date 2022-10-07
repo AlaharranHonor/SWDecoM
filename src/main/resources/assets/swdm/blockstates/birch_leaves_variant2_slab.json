@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "swdm:block/birch_leaves_variant2_slab_top"
+    },
+    "type=bottom": {
+      "model": "swdm:block/birch_leaves_variant2_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/birch_leaves_variant2"
+    }
+  }
+}

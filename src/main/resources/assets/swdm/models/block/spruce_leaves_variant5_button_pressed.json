@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "swdm:block/spruce_leaves_variant5"
+  }
+}
