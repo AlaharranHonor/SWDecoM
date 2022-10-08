@@ -1,7 +1,7 @@
 package com.alaharranhonor.swdm.util;
 
 import com.alaharranhonor.swdm.SWDM;
-import com.alaharranhonor.swdm.client.renderers.ClockTileRenderer;
+import com.alaharranhonor.swdm.blocks.client.renderers.ClockTileRenderer;
 import com.alaharranhonor.swdm.util.init.BlockInit;
 import com.alaharranhonor.swdm.util.init.SWDMTileEntities;
 import com.alaharranhonor.swdm.util.init.SWEMInit;
@@ -47,6 +47,16 @@ public class ClientEventBusSubscriber {
             BlockInit.SSW_SET_STAIRS.get("lmd").get(type).forEach((b) -> RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout()));
             BlockInit.SSW_SET_WALLS.get("lmd").get(type).forEach((b) -> RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout()));
             BlockInit.SSW_SET_GLASS_PANES.get("lmd").get(type).forEach((b) -> RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout()));
+        });
+
+        SWDM.STONE_SETS.get("leaves").forEach((type, props) -> {
+            BlockInit.STONE_SET_BLOCKS.get("leaves").get(type).forEach((b) -> RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout()));
+            BlockInit.STONE_SET_SLABS.get("leaves").get(type).forEach((b) -> RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout()));
+            BlockInit.STONE_SET_STAIRS.get("leaves").get(type).forEach((b) -> RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout()));
+            BlockInit.STONE_SET_WALLS.get("leaves").get(type).forEach((b) -> RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout()));
+            BlockInit.STONE_SET_BUTTONS.get("leaves").get(type).forEach((b) -> RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout()));
+            BlockInit.STONE_SET_PRESSURE_PLATES.get("leaves").get(type).forEach((b) -> RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout()));
+            BlockInit.STONE_SET_TRAPDOORS.get("leaves").get(type).forEach((b) -> RenderTypeLookup.setRenderLayer(b.get(), RenderType.cutout()));
         });
 
         for (DyeColor color : DyeColor.values()) {

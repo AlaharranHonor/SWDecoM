@@ -1,3 +1,5 @@
-1.16.5-2.0.2:
+1.16.5-2.0.3:
+- Add more leaf variants (7 per woodtype)
+- Implement trapdoor datagen
 - Fixed a mod compatability crash, when they added wood types.
 - Added CurseForge publish script.

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "side": "swdm:block/dark_oak_leaves_variant2",
+    "bottom": "swdm:block/dark_oak_leaves_variant2",
+    "top": "swdm:block/dark_oak_leaves_variant2"
+  }
+}

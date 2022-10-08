@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "swdm:block/oak_leaves_variant1_pressure_plate"
+    },
+    "powered=true": {
+      "model": "swdm:block/oak_leaves_variant1_pressure_plate_down"
+    }
+  }
+}

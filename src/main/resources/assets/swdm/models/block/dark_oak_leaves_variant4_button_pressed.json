@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "swdm:block/dark_oak_leaves_variant4"
+  }
+}

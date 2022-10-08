@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "swdm:block/borderless_smooth_stone_slab_top"
+    },
+    "type=bottom": {
+      "model": "swdm:block/borderless_smooth_stone_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/borderless_smooth_stone"
+    }
+  }
+}

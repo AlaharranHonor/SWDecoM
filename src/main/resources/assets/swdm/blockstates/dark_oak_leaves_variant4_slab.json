@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "swdm:block/dark_oak_leaves_variant4_slab_top"
+    },
+    "type=bottom": {
+      "model": "swdm:block/dark_oak_leaves_variant4_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/dark_oak_leaves_variant4"
+    }
+  }
+}

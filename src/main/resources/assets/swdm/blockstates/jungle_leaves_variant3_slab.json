@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "swdm:block/jungle_leaves_variant3_slab_top"
+    },
+    "type=bottom": {
+      "model": "swdm:block/jungle_leaves_variant3_slab"
+    },
+    "type=double": {
+      "model": "swdm:block/jungle_leaves_variant3"
+    }
+  }
+}

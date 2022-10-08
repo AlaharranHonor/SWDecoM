@@ -10,6 +10,7 @@ import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.DyeColor;
 import net.minecraft.state.properties.AttachFace;
+import net.minecraft.state.properties.Half;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -133,6 +134,18 @@ public class BlockStates extends BlockStateProvider {
 				};
 			});
 		});
+
+		BlockInit.STONE_SET_TRAPDOORS.get("borderless").keySet().forEach((key) -> {
+				for (RegistryObject<TrapDoorBlock> rb : BlockInit.STONE_SET_TRAPDOORS.get("borderless").get(key)) {
+					ResourceLocation texture;
+					{
+						texture = modLoc("block/" + rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 9));
+					}
+					this.trapDoor(rb.get(), texture, true);
+					this.itemModels().withExistingParent(rb.get().getRegistryName().getPath(), modLoc("block/" + rb.get().getRegistryName().getPath() + "_bottom")); // Item model
+			}
+		});
+
 
 		BlockInit.SSW_SET_SLABS.get("color").keySet().forEach((key) -> {
 			for (RegistryObject<SlabBlock> rb : BlockInit.SSW_SET_SLABS.get("color").get(key)) {
@@ -492,6 +505,32 @@ public class BlockStates extends BlockStateProvider {
 				.modelForState().modelFile(pressurePlateDown).addModel()
 			.partialState().with(PressurePlateBlock.POWERED, false)
 				.modelForState().modelFile(pressurePlateUp).addModel();
+
+	}
+
+	public void trapDoor(TrapDoorBlock block, ResourceLocation texture, boolean orientable) {
+		ModelFile trapDoorBottom = orientable ? models().singleTexture(block.getRegistryName().toString() + "_bottom", mcLoc("block/template_orientable_trapdoor_bottom"), texture) : models().singleTexture(block.getRegistryName().toString() + "_bottom", mcLoc("block/template_trapdoor_bottom"), texture);
+		ModelFile trapDoorTop = orientable ? models().singleTexture(block.getRegistryName().toString() + "_top", mcLoc("block/template_orientable_trapdoor_top"), texture) : models().singleTexture(block.getRegistryName().toString() + "_top", mcLoc("block/template_trapdoor_top"), texture);
+		ModelFile trapDoorOpen = orientable ? models().singleTexture(block.getRegistryName().toString() + "_open", mcLoc("block/template_orientable_trapdoor_open"), texture) : models().singleTexture(block.getRegistryName().toString() + "_open", mcLoc("block/template_trapdoor_open"), texture);
+
+		this.getVariantBuilder(block)
+				.forAllStatesExcept(state -> {
+					int xRot = 0;
+					int yRot = ((int) state.getValue(TrapDoorBlock.FACING).toYRot()) + 180;
+					boolean isOpen = state.getValue(TrapDoorBlock.OPEN);
+					if (orientable && isOpen && state.getValue(TrapDoorBlock.HALF) == Half.TOP) {
+						xRot += 180;
+						yRot += 180;
+					}
+					if (!orientable && !isOpen) {
+						yRot = 0;
+					}
+					yRot %= 360;
+					return ConfiguredModel.builder().modelFile(isOpen ? trapDoorOpen : state.getValue(TrapDoorBlock.HALF) == Half.TOP ? trapDoorTop : trapDoorBottom)
+							.rotationX(xRot)
+							.rotationY(yRot)
+							.build();
+				});
 
 	}
 
