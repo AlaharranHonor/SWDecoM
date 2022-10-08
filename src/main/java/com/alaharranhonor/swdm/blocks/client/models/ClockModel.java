@@ -1,4 +1,4 @@
-package com.alaharranhonor.swdm.client.models;
+package com.alaharranhonor.swdm.blocks.client.models;
 
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.tileentity.ClockTE;

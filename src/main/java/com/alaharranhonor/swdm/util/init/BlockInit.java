@@ -175,6 +175,54 @@ public class BlockInit {
 
         }
 
+        for (String stoneType : SWDM.BORDERLESS) {
+            for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.STONE_SETS.get("borderless").entrySet()) {
+
+                HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = STONE_SET_SLABS.getOrDefault("borderless", new HashMap<>());
+                List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                slabList.add(register(stoneType + "_" + blockType.getKey() + "_slab", () -> new SlabBlock(blockType.getValue())));
+                slabMap.put(blockType.getKey(), slabList);
+                STONE_SET_SLABS.put("borderless", slabMap);
+
+                HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("borderless", new HashMap<>());
+                List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                blockList.add(register(stoneType + "_" + blockType.getKey(), () -> new Block(blockType.getValue())));
+                blockMap.put(blockType.getKey(), blockList);
+                STONE_SET_BLOCKS.put("borderless", blockMap);
+
+                HashMap<String, List<RegistryObject<StairsBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("borderless", new HashMap<>());
+                List<RegistryObject<StairsBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                stairList.add(register(stoneType + "_" + blockType.getKey() + "_stairs", () -> new StairsBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
+                stairMap.put(blockType.getKey(), stairList);
+                STONE_SET_STAIRS.put("borderless", stairMap);
+
+                HashMap<String, List<RegistryObject<WallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("borderless", new HashMap<>());
+                List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                wallList.add(register(stoneType + "_" + blockType.getKey() + "_wall", () -> new WallBlock(blockType.getValue())));
+                wallMap.put(blockType.getKey(), wallList);
+                STONE_SET_WALLS.put("borderless", wallMap);
+
+                HashMap<String, List<RegistryObject<StoneButtonBlock>>> buttonMap = STONE_SET_BUTTONS.getOrDefault("borderless", new HashMap<>());
+                List<RegistryObject<StoneButtonBlock>> buttonList = buttonMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                buttonList.add(register(stoneType + "_" + blockType.getKey() + "_button", () -> new StoneButtonBlock(blockType.getValue())));
+                buttonMap.put(blockType.getKey(), buttonList);
+                STONE_SET_BUTTONS.put("borderless", buttonMap);
+
+                HashMap<String, List<RegistryObject<PressurePlateBlock>>> pressurePlateMap = STONE_SET_PRESSURE_PLATES.getOrDefault("borderless", new HashMap<>());
+                List<RegistryObject<PressurePlateBlock>> pressurePlateList = pressurePlateMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                pressurePlateList.add(register(stoneType + "_" + blockType.getKey() + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
+                pressurePlateMap.put(blockType.getKey(), pressurePlateList);
+                STONE_SET_PRESSURE_PLATES.put("borderless", pressurePlateMap);
+
+                HashMap<String, List<RegistryObject<TrapDoorBlock>>> trapDoorMap = STONE_SET_TRAPDOORS.getOrDefault("borderless", new HashMap<>());
+                List<RegistryObject<TrapDoorBlock>> trapDoorList = trapDoorMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                trapDoorList.add(register(stoneType + "_" + blockType.getKey() + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
+                trapDoorMap.put(blockType.getKey(), trapDoorList);
+                STONE_SET_TRAPDOORS.put("borderless", trapDoorMap);
+
+            }
+        }
+
         for (String leafType : SWDM.CUSTOM_LEAF_TONES) {
             for (Map.Entry<String, AbstractBlock.Properties> blockType : SWDM.STONE_SETS.get("leaves").entrySet()) {
 

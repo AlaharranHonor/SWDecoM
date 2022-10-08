@@ -1,7 +1,7 @@
 package com.alaharranhonor.swdm.util;
 
 import com.alaharranhonor.swdm.SWDM;
-import com.alaharranhonor.swdm.client.renderers.ClockTileRenderer;
+import com.alaharranhonor.swdm.blocks.client.renderers.ClockTileRenderer;
 import com.alaharranhonor.swdm.util.init.BlockInit;
 import com.alaharranhonor.swdm.util.init.SWDMTileEntities;
 import com.alaharranhonor.swdm.util.init.SWEMInit;

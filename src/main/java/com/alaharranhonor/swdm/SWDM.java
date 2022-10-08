@@ -39,6 +39,7 @@ public class SWDM
     public static final List<String> CUSTOM_COLORS = new ArrayList<>(Arrays.asList("sage", "golden"));
     public static final List<String> NATURAL_TONES = new ArrayList<>(Arrays.asList("dark_brown", "brown", "muted_brown", "vivid_red", "tuscan", "golden", "pale", "white", "dusted_gray", "light_gray", "blue_gray", "gray", "black"));
     public static final List<String> CUSTOM_LEAF_TONES = new ArrayList<>(Arrays.asList("variant1", "variant2", "variant3", "variant4", "variant5", "variant6", "variant7"));
+    public static final List<String> BORDERLESS = new ArrayList<>(Arrays.asList("borderless"));
     public static final HashMap<String, HashMap<String, AbstractBlock.Properties>> STONE_SETS = new HashMap() {{
         put("color", new HashMap() {{
             put("dark_prismarine", AbstractBlock.Properties.copy(Blocks.PRISMARINE_BRICKS));
@@ -69,6 +70,9 @@ public class SWDM
             put("jungle_leaves", AbstractBlock.Properties.copy(Blocks.JUNGLE_LEAVES));
             put("oak_leaves", AbstractBlock.Properties.copy(Blocks.OAK_LEAVES));
             put("spruce_leaves", AbstractBlock.Properties.copy(Blocks.SPRUCE_LEAVES));
+        }});
+        put("borderless", new HashMap() {{
+            put("smooth_stone", AbstractBlock.Properties.copy(Blocks.SMOOTH_STONE));
         }});
     }};
 

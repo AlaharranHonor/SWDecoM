@@ -135,8 +135,8 @@ public class BlockStates extends BlockStateProvider {
 			});
 		});
 
-		BlockInit.STONE_SET_TRAPDOORS.get("leaves").keySet().forEach((key) -> {
-				for (RegistryObject<TrapDoorBlock> rb : BlockInit.STONE_SET_TRAPDOORS.get("leaves").get(key)) {
+		BlockInit.STONE_SET_TRAPDOORS.get("borderless").keySet().forEach((key) -> {
+				for (RegistryObject<TrapDoorBlock> rb : BlockInit.STONE_SET_TRAPDOORS.get("borderless").get(key)) {
 					ResourceLocation texture;
 					{
 						texture = modLoc("block/" + rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 9));

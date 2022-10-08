@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "side": "swdm:block/borderless_smooth_stone",
+    "bottom": "swdm:block/borderless_smooth_stone",
+    "top": "swdm:block/borderless_smooth_stone"
+  }
+}

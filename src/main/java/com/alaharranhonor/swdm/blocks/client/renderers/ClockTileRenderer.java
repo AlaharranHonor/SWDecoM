@@ -1,6 +1,6 @@
-package com.alaharranhonor.swdm.client.renderers;
+package com.alaharranhonor.swdm.blocks.client.renderers;
 
-import com.alaharranhonor.swdm.client.models.ClockModel;
+import com.alaharranhonor.swdm.blocks.client.models.ClockModel;
 import com.alaharranhonor.swdm.tileentity.ClockTE;
 import com.alaharranhonor.swdm.util.TimeUtil;
 import com.mojang.blaze3d.matrix.MatrixStack;
