@@ -1,4 +1,5 @@
-1.16.5-2.0.3:
+1.16.5-2.0.4:
+- Update leaf textures for vibrancy.
 - Add more leaf variants (7 per woodtype)
 - Implement trapdoor datagen
 - Fixed a mod compatability crash, when they added wood types.
