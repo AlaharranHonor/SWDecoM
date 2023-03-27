@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "side": "swdm:block/magenta_dark_prismarine",
-    "bottom": "swdm:block/magenta_dark_prismarine",
-    "top": "swdm:block/magenta_dark_prismarine"
-  }
-}

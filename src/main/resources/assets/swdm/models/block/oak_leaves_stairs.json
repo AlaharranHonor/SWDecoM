@@ -1,8 +1,0 @@
-{
-  "parent": "swdm:block/stairs",
-  "textures": {
-    "side": "minecraft:block/oak_leaves",
-    "bottom": "minecraft:block/oak_leaves",
-    "top": "minecraft:block/oak_leaves"
-  }
-}

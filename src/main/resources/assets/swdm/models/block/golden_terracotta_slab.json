@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "swdm:block/golden_terracotta",
-    "bottom": "swdm:block/golden_terracotta",
-    "top": "swdm:block/golden_terracotta"
-  }
-}

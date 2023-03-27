@@ -33,41 +33,44 @@ import java.util.HashMap;
 import java.util.List;
 
 @Mod("swdm")
-public class SWDM
-{
+public class SWDM {
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "swdm";
     public static WoodType THATCH_WT;
     public static WoodType BAMBOO_WT;
-    public static final List<String> STONE_TYPES = new ArrayList(Arrays.asList("mossy", "cracked", "more_mossy"));
+    public static final List<String> STONE_TYPES = new ArrayList(Arrays.asList("mossy", "cracked", "mossy_more"));
     public static final List<String> LMD_TYPES = new ArrayList(Arrays.asList("light", "medium", "dark"));
     public static final List<String> CUSTOM_COLORS = new ArrayList<>(Arrays.asList("sage", "golden"));
-    public static final List<String> NATURAL_TONES = new ArrayList<>(Arrays.asList("dark_brown", "brown", "muted_brown", "vivid_red", "tuscan", "golden", "pale", "white", "dusted_gray", "light_gray", "blue_gray", "gray", "black"));
-    public static final HashMap<String, HashMap<String, Block.Properties>> STONE_SETS = new HashMap() {{
-        put("color", new HashMap() {{
-            put("dark_prismarine", Block.Properties.copy(Blocks.PRISMARINE_BRICKS));
-            put("glass_bricks", Block.Properties.copy(Blocks.GLASS));
-            put("concrete", Block.Properties.copy(Blocks.BLACK_CONCRETE));
-            put("terracotta", Block.Properties.copy(Blocks.TERRACOTTA));
-        }});
-        put("color_custom", new HashMap() {{
-            put("terracotta", Block.Properties.copy(Blocks.TERRACOTTA));
-        }});
-        put("standard", new HashMap() {{
-            put("stone", Block.Properties.copy(Blocks.STONE));
-            put("andesite", Block.Properties.copy(Blocks.ANDESITE));
-            put("granite", Block.Properties.copy(Blocks.GRANITE));
-            put("diorite", Block.Properties.copy(Blocks.DIORITE));
-        }});
-        put("lmd", new HashMap() {{
-            put("brick", Block.Properties.copy(Blocks.BRICKS));
-            put("stone_brick", Block.Properties.copy(Blocks.BRICKS));
-        }});
-        put("lmd-only", new HashMap() {{
-            put("stone", Block.Properties.copy(Blocks.STONE));
-        }});
-    }};
+    public static final List<String> NATURAL_TONES = new ArrayList<>(Arrays.asList("tuscan", "peach", "thistle", "dark_brown", "mahogany", "brown", "muted_brown", "vivid_red", "orange", "golden", "pale", "yellow", "white", "pearl", "dusted_gray", "light_gray", "slate", "blue_gray", "gray", "royal_gray", "black"));
+    public static final HashMap<String, HashMap<String, Block.Properties>> STONE_SETS =
+        new HashMap() {{
+            put("color", new HashMap() {{ // 16 Colors
+                put("dark_prismarine", Block.Properties.copy(Blocks.PRISMARINE_BRICKS));
+                put("bricks_glass", Block.Properties.copy(Blocks.GLASS));
+                put("concrete", Block.Properties.copy(Blocks.BLACK_CONCRETE));
+                put("terracotta", Block.Properties.copy(Blocks.TERRACOTTA));
+            }});
+            put("color_custom", new HashMap() {{ // 2 Custom Colors
+                put("terracotta", Block.Properties.copy(Blocks.TERRACOTTA));
+            }});
+            put("standalone", new HashMap() {{ // Standalone vanilla blocks
+                put("terracotta", Block.Properties.copy(Blocks.TERRACOTTA));
+            }});
+            put("standard", new HashMap() {{ // Standard Stone Sets
+                put("stone", Block.Properties.copy(Blocks.STONE));
+                put("andesite", Block.Properties.copy(Blocks.ANDESITE));
+                put("granite", Block.Properties.copy(Blocks.GRANITE));
+                put("diorite", Block.Properties.copy(Blocks.DIORITE));
+            }});
+            put("lmd", new HashMap() {{ // LMD (3 variations)
+                put("brick", Block.Properties.copy(Blocks.BRICKS));
+                put("stone_brick", Block.Properties.copy(Blocks.BRICKS));
+            }});
+            put("lmd-only", new HashMap() {{ // Only LMD on the base block, no additional variations. LMD Stone but no LMD Stone Brick
+                put("stone", Block.Properties.copy(Blocks.STONE));
+            }});
+        }};
 
     public static final HashMap<String, List<String>> WOOD_SETS = new HashMap() {{
 
@@ -75,29 +78,37 @@ public class SWDM
 
     // Block, Stair, Slab, Wall.
     public static final HashMap<String, HashMap<String, Block.Properties>> SSW_SETS = new HashMap() {{
-        put("color", new HashMap() {{
-            put("metal_roof", Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL)); //.harvestTool(ToolType.PICKAXE)
-            put("tile_roof", Block.Properties.copy(Blocks.CLAY));
-            put("shingle_roof", Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BLACK).strength(2.0F, 3.0F).sound(SoundType.STONE)); //.harvestTool(ToolType.AXE)
+        put("color", new HashMap() {{ // 16 colors
+            put("roof_metal", Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL)); //.harvestTool(ToolType.PICKAXE)
+            put("roof_tile", Block.Properties.copy(Blocks.CLAY));
+            put("roof_shingle", Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BLACK).strength(2.0F, 3.0F).sound(SoundType.STONE)); //.harvestTool(ToolType.AXE)
             put("stained_glass", Block.Properties.copy(Blocks.BLACK_STAINED_GLASS));
             put("wool", Block.Properties.copy(Blocks.BLACK_WOOL));
-            put("pastel_wool", Block.Properties.copy(Blocks.BLACK_WOOL));
-            put("tinted_wool", Block.Properties.copy(Blocks.BLACK_WOOL));
+            put("wool_pastel", Block.Properties.copy(Blocks.BLACK_WOOL));
+            put("wool_tinted", Block.Properties.copy(Blocks.BLACK_WOOL));
         }});
-        put("wv", new HashMap() {{
+        put("standalone", new HashMap() {{ // Standard Sets
+            put("glass", Block.Properties.copy(Blocks.GLASS));
+        }});
+        put("wv", new HashMap() {{ // Wood variations
+            put("planks", Block.Properties.copy(Blocks.OAK_PLANKS));
             put("log", Block.Properties.copy(Blocks.OAK_SLAB));
             put("stripped_log", Block.Properties.copy(Blocks.OAK_SLAB));
         }});
-        put("wv-whitewash", new HashMap() {{
+        put("wv-whitewash", new HashMap() {{ // Half in swem (for now)
             put("leaves", Block.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn((p_235441_0_, p_235441_1_, p_235441_2_, p_235441_3_) -> p_235441_3_ == EntityType.OCELOT || p_235441_3_ == EntityType.PARROT).isSuffocating((p, p1, p2) -> false).isViewBlocking((p, p1, p2) -> false));
         }});
-        put("lmd", new HashMap() {{
-           put("screen", Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5.0F, 6.0F).noOcclusion()); //.harvestTool(ToolType.PICKAXE)
+        put("lmd", new HashMap() {{ // LMD only (3 variations)
+            put("screen", Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5.0F, 6.0F).noOcclusion()); //.harvestTool(ToolType.PICKAXE)
         }});
-        put("lmd-color", new HashMap() {{
+        put("lmd-color", new HashMap() {{ // LMD + 16 colors = 48 Variations
             put("siding", Block.Properties.copy(Blocks.OAK_PLANKS));
         }});
     }};
+
+    public static ResourceLocation res(String name) {
+        return new ResourceLocation(MOD_ID, name);
+    }
 
     public SWDM() {
         THATCH_WT = WoodType.register(WoodType.create("swdm:thatch"));
@@ -136,8 +147,8 @@ public class SWDM
             ComposterBlock.COMPOSTABLES.put(BlockInit.SPRUCE_LEAVES_WALL_ITEM.get(), 0.3F);*/
 
             if (ModList.get().isLoaded("swem")) {
-                for (int i = 0; i < NATURAL_TONES.size(); i++) {
-                    ShovelItem.FLATTENABLES.put(BlockInit.SANDSTONE_BLOCKS.get(i).get(), SWEMInit.METER_POINTS.get(i).defaultBlockState());
+                for (String tone : SWDM.NATURAL_TONES) {
+                    ShovelItem.FLATTENABLES.put(BlockInit.SANDSTONE_BLOCKS.get(tone).get(), SWEMInit.METER_POINTS.get(tone).defaultBlockState());
                 }
                 ShovelItem.FLATTENABLES.put(Blocks.RED_SANDSTONE, SWEMInit.METER_POINT_RED_SANDSTONE.defaultBlockState());
             }
@@ -150,6 +161,7 @@ public class SWDM
         public ItemStack makeIcon() {
             return new ItemStack(BlockInit.STONE_WALL.get());
         }
+
         @Override
         public boolean hasSearchBar() {
             return true;

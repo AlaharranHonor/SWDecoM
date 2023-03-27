@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/chain",
-  "textures": {
-    "all": "swdm:block/coated_chain_middle_yellow"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "side": "swdm:block/siding_pink_light",
-    "bottom": "swdm:block/siding_pink_light",
-    "top": "swdm:block/siding_pink_light"
-  }
-}

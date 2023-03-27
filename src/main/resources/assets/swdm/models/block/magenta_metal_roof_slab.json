@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "swdm:block/magenta_metal_roof",
-    "bottom": "swdm:block/magenta_metal_roof",
-    "top": "swdm:block/magenta_metal_roof"
-  }
-}

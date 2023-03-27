@@ -19,11 +19,6 @@ public class ClockBE extends BlockEntity implements IAnimatable {
 	}
 
 	@Override
-	public BlockEntityType<?> getType() {
-		return ModEventBusSubscriber.CLOCK_TE;
-	}
-
-	@Override
 	public void registerControllers(AnimationData data) {
 
 	}

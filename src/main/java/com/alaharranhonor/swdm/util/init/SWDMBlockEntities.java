@@ -15,5 +15,5 @@ public class SWDMBlockEntities {
         TILE_ENTITY_TYPES.register(modBus);
     }
 
-    public static final RegistryObject<BlockEntityType<SWDMSignBE>> SWDM_SIGN = TILE_ENTITY_TYPES.register("swdm_sign", () -> BlockEntityType.Builder.of(SWDMSignBE::new, BlockInit.THATCH_SIGN.get(), BlockInit.THATCH_WALL_SIGN.get(), BlockInit.BAMBOO_SIGN.get(), BlockInit.BAMBOO_WALL_SIGN.get()).build(null));
+    public static final RegistryObject<BlockEntityType<SWDMSignBE>> SWDM_SIGN = TILE_ENTITY_TYPES.register("swdm_sign", () -> BlockEntityType.Builder.of(SWDMSignBE::new/*BlockInit.THATCH_SIGN.get(), BlockInit.THATCH_WALL_SIGN.get(), BlockInit.BAMBOO_SIGN.get(), BlockInit.BAMBOO_WALL_SIGN.get()*/).build(null));
 }

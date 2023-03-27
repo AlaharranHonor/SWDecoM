@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "swdm:block/medium_screen",
-    "bottom": "swdm:block/medium_screen",
-    "top": "swdm:block/medium_screen"
-  }
-}

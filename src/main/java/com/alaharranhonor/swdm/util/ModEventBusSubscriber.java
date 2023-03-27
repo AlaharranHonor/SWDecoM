@@ -39,23 +39,23 @@ public class ModEventBusSubscriber {
     @SubscribeEvent
     public static void onBlockInitialization(RegistryEvent.Register<Block> event) {
         if (ModList.get().isLoaded("geckolib3")) {
-            CLOCK = (ClockBlock) new ClockBlock(Block.Properties.of(Material.WOOD).strength(1).noOcclusion()).setRegistryName(SWDM.MOD_ID, "clock");
-            event.getRegistry().register(CLOCK);
+            //CLOCK = (ClockBlock) new ClockBlock(Block.Properties.of(Material.WOOD).strength(1).noOcclusion()).setRegistryName(SWDM.MOD_ID, "clock");
+            //event.getRegistry().register(CLOCK);
         }
     }
 
     @SubscribeEvent
     public static void onItemRegistry(RegistryEvent.Register<Item> event) {
         if (ModList.get().isLoaded("geckolib3")) {
-            event.getRegistry().register(new BlockItem(CLOCK, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(CLOCK.getRegistryName()));
+            //event.getRegistry().register(new BlockItem(CLOCK, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(CLOCK.getRegistryName()));
         }
     }
 
     @SubscribeEvent
     public static void onBlockEntityRegistry(RegistryEvent.Register<BlockEntityType<?>> event) {
         if (ModList.get().isLoaded("geckolib3")) {
-            CLOCK_TE = BlockEntityType.Builder.of(ClockBE::new, CLOCK).build(null);
-            event.getRegistry().register(CLOCK_TE.setRegistryName(SWDM.MOD_ID, "clock"));
+            //CLOCK_TE = BlockEntityType.Builder.of(ClockBE::new, CLOCK).build(null);
+            //event.getRegistry().register(CLOCK_TE.setRegistryName(SWDM.MOD_ID, "clock"));
         }
     }
 
@@ -76,18 +76,21 @@ public class ModEventBusSubscriber {
                     },
                     stairs.get(3).get(), stairs.get(4).get(), stairs.get(5).get(), stairs.get(0).get(),
                     slabs.get(3).get(), slabs.get(4).get(), slabs.get(5).get(), slabs.get(0).get(),
-                    walls.get(3).get(), walls.get(4).get(), walls.get(5).get(), walls.get(0).get(),
-                    BlockInit.LEAVES_TRAPDOORS.get(3).get(), BlockInit.LEAVES_TRAPDOORS.get(4).get(), BlockInit.LEAVES_TRAPDOORS.get(5).get(), BlockInit.LEAVES_TRAPDOORS.get(0).get());
+                    walls.get(3).get(), walls.get(4).get(), walls.get(5).get(), walls.get(0).get()
+                    //BlockInit.LEAVES_TRAPDOORS.get(3).get(), BlockInit.LEAVES_TRAPDOORS.get(4).get(), BlockInit.LEAVES_TRAPDOORS.get(5).get(), BlockInit.LEAVES_TRAPDOORS.get(0).get()
+            );
 
             // Spruce wood type
             colors.register((state, reader, pos, color) -> {
                 return FoliageColor.getEvergreenColor();
-            }, stairs.get(1).get(), slabs.get(1).get(), walls.get(1).get(), BlockInit.LEAVES_TRAPDOORS.get(1).get());
+            }, stairs.get(1).get(), slabs.get(1).get(), walls.get(1).get()//, BlockInit.LEAVES_TRAPDOORS.get(1).get()
+            );
 
             // Birch wood type.
             colors.register((state, reader, pos, color) -> {
                 return FoliageColor.getBirchColor();
-            }, stairs.get(2).get(), slabs.get(2).get(),walls.get(2).get(), BlockInit.LEAVES_TRAPDOORS.get(2).get());
+            }, stairs.get(2).get(), slabs.get(2).get(),walls.get(2).get()//, BlockInit.LEAVES_TRAPDOORS.get(2).get()
+            );
 
 
             colors.register((p_228064_0_, p_228064_1_, p_228064_2_, p_228064_3_) -> {
@@ -103,7 +106,7 @@ public class ModEventBusSubscriber {
             stream = Stream.concat(stream, BlockInit.SSW_SET_STAIRS.get("wv-whitewash").get("leaves").stream());
             stream = Stream.concat(stream, BlockInit.SSW_SET_WALLS.get("wv-whitewash").get("leaves").stream());
             stream = Stream.concat(stream, BlockInit.SSW_SET_SLABS.get("wv-whitewash").get("leaves").stream());
-            stream = Stream.concat(stream, BlockInit.LEAVES_TRAPDOORS.stream());
+            //stream = Stream.concat(stream, BlockInit.LEAVES_TRAPDOORS.stream());
             stream = Stream.concat(stream, Stream.of(BlockInit.GRASS_SLAB));
 
             Stream<Block> blocks = stream.map(RegistryObject::get);

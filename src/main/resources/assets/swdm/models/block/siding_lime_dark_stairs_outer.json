@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "side": "swdm:block/siding_lime_dark",
-    "bottom": "swdm:block/siding_lime_dark",
-    "top": "swdm:block/siding_lime_dark"
-  }
-}

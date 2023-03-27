@@ -26,17 +26,14 @@ public class BlockTags extends BlockTagsProvider {
 			this.tag(net.minecraft.tags.BlockTags.WALLS).add(chain.get());
 		}
 
-		this.tag(net.minecraft.tags.BlockTags.WALLS).addOptional(new ResourceLocation(SWDM.MOD_ID, "whitewash_log_wall")).addOptional(new ResourceLocation(SWDM.MOD_ID, "whitewash_plank_wall"));
 		this.tag(net.minecraft.tags.BlockTags.WALLS)
-			.add(BlockInit.TERRACOTTA_WALL.get())
-			.add(BlockInit.ACACIA_PLANK_WALL.get())
-			.add(BlockInit.BIRCH_PLANK_WALL.get())
-			.add(BlockInit.DARK_OAK_PLANK_WALL.get())
-			.add(BlockInit.OAK_PLANK_WALL.get())
-			.add(BlockInit.SPRUCE_PLANK_WALL.get())
-			.add(BlockInit.JUNGLE_PLANK_WALL.get())
-			.add(BlockInit.GLASS_WALL.get())
+			.addOptional(new ResourceLocation(SWDM.MOD_ID, "whitewash_log_wall"))
+			.addOptional(new ResourceLocation(SWDM.MOD_ID, "whitewash_plank_wall"));
+
+		this.tag(net.minecraft.tags.BlockTags.WALLS)
+			//.add(BlockInit.TERRACOTTA_WALL.get())
 			.add(BlockInit.STONE_WALL.get());
+
 		BlockInit.STONE_SET_WALLS.keySet().forEach(key -> {
 			BlockInit.STONE_SET_WALLS.get(key).keySet().forEach(key2 -> {
 				BlockInit.STONE_SET_WALLS.get(key).get(key2).forEach(rb -> {

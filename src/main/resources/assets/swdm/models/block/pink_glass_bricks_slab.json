@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "swdm:block/pink_glass_bricks",
-    "bottom": "swdm:block/pink_glass_bricks",
-    "top": "swdm:block/pink_glass_bricks"
-  }
-}

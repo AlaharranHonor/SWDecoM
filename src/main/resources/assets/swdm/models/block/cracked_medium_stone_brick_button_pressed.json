@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/button_pressed",
-  "textures": {
-    "texture": "swdm:block/cracked_medium_stone_brick"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "swdm:block/stripped_dark_oak_log_beam_single",
-    "side": "swdm:block/stripped_dark_oak_log_beam_down"
-  }
-}

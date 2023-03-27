@@ -26,36 +26,36 @@ public class BeamBlock extends Block {
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
             if (pFacing == Direction.UP) {
                 if (pFacingState.getBlock() instanceof BeamBlock) {
-                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.SINGLE && pFacingState.getValue(TILE) == SWDMBlockstateProperties.Tileable.UPPER) {
-                        return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.BOTTOM);
+                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.SINGLE && pFacingState.getValue(TILE) == SWDMBlockstateProperties.Tileable.UP) {
+                        return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.DOWN);
                     }
-                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.UPPER && pFacingState.getValue(TILE) == SWDMBlockstateProperties.Tileable.UPPER) {
+                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.UP && pFacingState.getValue(TILE) == SWDMBlockstateProperties.Tileable.UP) {
                         return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.MIDDLE);
                     }
                 }
                 if (pFacingState.isAir()) {
-                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.BOTTOM) {
+                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.DOWN) {
                         return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.SINGLE);
                     }
                     if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.MIDDLE) {
-                        return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.UPPER);
+                        return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.UP);
                     }
                 }
             }
             else if (pFacing == Direction.DOWN) {
                 if (pFacingState.getBlock() instanceof BeamBlock) {
-                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.BOTTOM && pFacingState.getValue(TILE) == SWDMBlockstateProperties.Tileable.BOTTOM) {
+                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.DOWN && pFacingState.getValue(TILE) == SWDMBlockstateProperties.Tileable.DOWN) {
                         return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.MIDDLE);
                     }
-                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.SINGLE && pFacingState.getValue(TILE) == SWDMBlockstateProperties.Tileable.BOTTOM) {
-                        return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.UPPER);
+                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.SINGLE && pFacingState.getValue(TILE) == SWDMBlockstateProperties.Tileable.DOWN) {
+                        return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.UP);
                     }
                 }
                 if (pFacingState.isAir()) {
                     if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.MIDDLE) {
-                        return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.BOTTOM);
+                        return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.DOWN);
                     }
-                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.UPPER) {
+                    if (pState.getValue(TILE) == SWDMBlockstateProperties.Tileable.UP) {
                         return pState.setValue(TILE, SWDMBlockstateProperties.Tileable.SINGLE);
                     }
                 }
@@ -76,10 +76,10 @@ public class BeamBlock extends Block {
             return this.defaultBlockState().setValue(TILE, SWDMBlockstateProperties.Tileable.MIDDLE);
         }
         else if (state.getBlock() instanceof BeamBlock) {
-            return this.defaultBlockState().setValue(TILE, SWDMBlockstateProperties.Tileable.UPPER);
+            return this.defaultBlockState().setValue(TILE, SWDMBlockstateProperties.Tileable.UP);
         }
         else if (state1.getBlock() instanceof BeamBlock) {
-            return this.defaultBlockState().setValue(TILE, SWDMBlockstateProperties.Tileable.BOTTOM);
+            return this.defaultBlockState().setValue(TILE, SWDMBlockstateProperties.Tileable.DOWN);
         }
         return super.getStateForPlacement(pContext);
     }

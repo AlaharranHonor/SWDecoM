@@ -15,12 +15,13 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = SWDM.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SWEMInit {
 
-    public static List<Block> METER_POINTS = new ArrayList<>();
+    public static HashMap<String, Block> METER_POINTS = new HashMap<>();
     public static Block METER_POINT_RED_SANDSTONE;
     public static Block WHITEWASH_LADDER;
     public static Block WHITEWASH_PLANK_WALL;
@@ -42,10 +43,10 @@ public class SWEMInit {
     @SubscribeEvent
     public static void intializeModBlocks(RegistryEvent.Register<Block> item) {
         if (ModList.get().isLoaded("swem")) {
-            for (String natural : SWDM.NATURAL_TONES) {
-                Block meterPoint = new Block(Block.Properties.copy(Blocks.SANDSTONE)).setRegistryName("meter_point_" + natural);
+            for (String tone : SWDM.NATURAL_TONES) {
+                Block meterPoint = new Block(Block.Properties.copy(Blocks.SANDSTONE)).setRegistryName("meter_point_" + tone);
                 item.getRegistry().register(meterPoint);
-                METER_POINTS.add(meterPoint);
+                METER_POINTS.put(tone, meterPoint);
             }
             METER_POINT_RED_SANDSTONE = new Block(Block.Properties.copy(Blocks.SANDSTONE)).setRegistryName("meter_point_red_sandstone");
             item.getRegistry().register(METER_POINT_RED_SANDSTONE);
@@ -91,8 +92,8 @@ public class SWEMInit {
             //item.getRegistry().register(new MedicalItem(new Item.Properties().tab(SWDM.SWDMTAB), 20, 0).setRegistryName("test_item"));
 
             // Register block items.
-            for (int i = 0; i < SWDM.NATURAL_TONES.size(); i++) {
-                item.getRegistry().register(new BlockItem(METER_POINTS.get(i), new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(METER_POINTS.get(i).getRegistryName()));
+            for (String tone : SWDM.NATURAL_TONES) {
+                item.getRegistry().register(new BlockItem(METER_POINTS.get(tone), new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(METER_POINTS.get(tone).getRegistryName()));
             }
 
             item.getRegistry().register(new BlockItem(METER_POINT_RED_SANDSTONE, new Item.Properties().tab(SWDM.SWDMTAB)).setRegistryName(METER_POINT_RED_SANDSTONE.getRegistryName()));

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "swdm:block/sage_terracotta",
-    "bottom": "swdm:block/sage_terracotta",
-    "top": "swdm:block/sage_terracotta"
-  }
-}

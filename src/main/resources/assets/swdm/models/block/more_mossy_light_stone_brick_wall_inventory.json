@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/wall_inventory",
-  "textures": {
-    "wall": "swdm:block/more_mossy_light_stone_brick"
-  }
-}

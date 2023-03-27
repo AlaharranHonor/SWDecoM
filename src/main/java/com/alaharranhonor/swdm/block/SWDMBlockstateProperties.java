@@ -5,13 +5,14 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 public class SWDMBlockstateProperties {
     public static final EnumProperty<Tileable> TILEABLE = EnumProperty.create("tile", Tileable.class);
-    public static final EnumProperty<SWDMBlockstateProperties.TwoWay> TWO_WAY = EnumProperty.create("two_way", SWDMBlockstateProperties.TwoWay.class);
+    public static final EnumProperty<TwoWay> TWO_WAY = EnumProperty.create("two_way", TwoWay.class);
+    public static final EnumProperty<WallType> WALL = EnumProperty.create("wall", WallType.class);
 
     public enum Tileable implements StringRepresentable {
         SINGLE,
-        BOTTOM,
+        UP,
         MIDDLE,
-        UPPER;
+        DOWN;
 
         @Override
         public String toString() {
@@ -20,7 +21,7 @@ public class SWDMBlockstateProperties {
 
         @Override
         public String getSerializedName() {
-            return this == SINGLE ? "single" : this == BOTTOM ? "bottom" : this == MIDDLE ? "middle" : "upper";
+            return this == SINGLE ? "single" : this == DOWN ? "down" : this == MIDDLE ? "middle" : "up";
         }
     }
 
@@ -46,6 +47,15 @@ public class SWDMBlockstateProperties {
 
         public int getId() {
             return this.id;
+        }
+    }
+
+    public enum WallType implements StringRepresentable {
+        UPPER, LOWER, FULL;
+
+        @Override
+        public String getSerializedName() {
+            return this == UPPER ? "upper" : this == LOWER ? "lower" : "full";
         }
     }
 }

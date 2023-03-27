@@ -1,8 +1,0 @@
-{
-  "parent": "swem:block/meter_point_template",
-  "textures": {
-    "top": "swdm:block/meter_point_blue_gray",
-    "bottom": "swdm:block/sandstone_bottom_blue_gray",
-    "side": "swdm:block/sandstone_blue_gray"
-  }
-}

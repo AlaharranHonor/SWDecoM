@@ -39,8 +39,9 @@ public class ClientEventBusSubscriber {
 
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-        if (ModList.get().isLoaded("geckolib3"))
-            event.registerBlockEntityRenderer(ModEventBusSubscriber.CLOCK_TE, ClockTileRenderer::new);
+        if (ModList.get().isLoaded("geckolib3")) {
+            //event.registerBlockEntityRenderer(ModEventBusSubscriber.CLOCK_TE, ClockTileRenderer::new);
+        }
 
         event.registerBlockEntityRenderer(SWDMBlockEntities.SWDM_SIGN.get(), SignRenderer::new);
     }
@@ -60,50 +61,52 @@ public class ClientEventBusSubscriber {
 
         ItemBlockRenderTypes.setRenderLayer(BlockInit.GRASS_SLAB.get(), RenderType.cutoutMipped());
 
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.GLASS_STAIRS.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.GLASS_SLAB.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.GLASS_WALL.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.THATCH_DOOR.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.BAMBOO_DOOR.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.BAMBOO_LADDER.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.THATCH_LADDER.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.BAMBOO_TRAPDOOR.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.THATCH_TRAPDOOR.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_BIRCH.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_OAK.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_ACACIA.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_OAK.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_ACACIA.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_BIRCH.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_OAK.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_ACACIA.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_BIRCH.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_OAK.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_ACACIA.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_BIRCH.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_ACACIA.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_BIRCH.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_OAK.get(), RenderType.cutout());
-        for (int i = 0; i < SWDM.NATURAL_TONES.size(); i++) {
-            ItemBlockRenderTypes.setRenderLayer(BlockInit.FIBER_CARPETS.get(i).get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.GLASS_STAIRS.get(), RenderType.translucent());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.GLASS_SLAB.get(), RenderType.translucent());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.GLASS_WALL.get(), RenderType.translucent());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.THATCH_DOOR.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BAMBOO_DOOR.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BAMBOO_LADDER.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.THATCH_LADDER.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BAMBOO_TRAPDOOR.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.THATCH_TRAPDOOR.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_BIRCH.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_OAK.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_ACACIA.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_OAK.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_ACACIA.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_BIRCH.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_OAK.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_ACACIA.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_BIRCH.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_OAK.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_ACACIA.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_BIRCH.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_ACACIA.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_BIRCH.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_OAK.get(), RenderType.cutout());
+        for (String tone : SWDM.NATURAL_TONES) {
+            for (String lmdType : SWDM.LMD_TYPES) {
+                ItemBlockRenderTypes.setRenderLayer(BlockInit.FIBER_CARPETS.get(lmdType, tone).get(), RenderType.cutout());
+            }
         }
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.FIBER_CARPET_RED_SAND.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.FIBER_CARPET_SAND.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.FIBER_CARPET_RED_SAND.get(), RenderType.cutout());
+        //ItemBlockRenderTypes.setRenderLayer(BlockInit.FIBER_CARPET_SAND.get(), RenderType.cutout());
 
 
         BlockInit.SSW_SET_SLABS.get("wv-whitewash").get("leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
@@ -114,8 +117,8 @@ public class ClientEventBusSubscriber {
         // 6 includes oak, spruce, birch, acacia, jungle and dark_oak
 
         for (int i = 0; i < 6; i++) {
-            ItemBlockRenderTypes.setRenderLayer(BlockInit.LEAVES_TRAPDOORS.get(i).get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(BlockInit.LADDERS.get(i).get(), RenderType.cutout());
+            //ItemBlockRenderTypes.setRenderLayer(BlockInit.LEAVES_TRAPDOORS.get(i).get(), RenderType.cutout());
+            //ItemBlockRenderTypes.setRenderLayer(BlockInit.LADDERS.get(i).get(), RenderType.cutout());
         }
 
         // Dye Colours
@@ -124,6 +127,10 @@ public class ClientEventBusSubscriber {
             ItemBlockRenderTypes.setRenderLayer(BlockInit.SSW_SET_STAIRS.get("color").get("stained_glass").get(i).get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(BlockInit.SSW_SET_WALLS.get("color").get("stained_glass").get(i).get(), RenderType.translucent());
         }
+
+        BlockInit.SSW_SET_SLABS.get("standalone").get("glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
+        BlockInit.SSW_SET_STAIRS.get("standalone").get("glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
+        BlockInit.SSW_SET_WALLS.get("standalone").get("glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
     }
 
     public static void SWEMonClientSetup(FMLClientSetupEvent event) {

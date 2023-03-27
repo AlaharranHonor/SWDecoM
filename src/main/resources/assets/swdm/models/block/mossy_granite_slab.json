@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "swdm:block/mossy_granite",
-    "bottom": "swdm:block/mossy_granite",
-    "top": "swdm:block/mossy_granite"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "swdm:block/mossy_light_stone_brick",
-    "bottom": "swdm:block/mossy_light_stone_brick",
-    "top": "swdm:block/mossy_light_stone_brick"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "side": "swdm:block/cracked_granite",
-    "bottom": "swdm:block/cracked_granite",
-    "top": "swdm:block/cracked_granite"
-  }
-}
