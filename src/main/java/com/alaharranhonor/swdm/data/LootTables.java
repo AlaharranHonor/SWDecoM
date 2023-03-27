@@ -1,7 +1,6 @@
 package com.alaharranhonor.swdm.data;
 
 import com.alaharranhonor.swdm.SWDM;
-import com.alaharranhonor.swdm.block.CoatedChain;
 import com.alaharranhonor.swdm.util.init.BlockInit;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
@@ -18,7 +17,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -96,15 +94,25 @@ public class LootTables extends LootTableProvider {
             // Sets
             BlockInit.COATED_CHAINS.values().forEach(rb -> register.accept(rb.getId(), simpleBlockDrop(rb.get())));
 
-            BlockInit.STONE_SET_SLABS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
-            BlockInit.STONE_SET_STAIRS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
-            BlockInit.STONE_SET_WALLS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
             BlockInit.STONE_SET_BLOCKS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.STONE_SET_STAIRS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.STONE_SET_SLABS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.STONE_SET_WALLS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.STONE_SET_TRAPDOORS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
             BlockInit.STONE_SET_BUTTONS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
             BlockInit.STONE_SET_PRESSURE_PLATES.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
 
-            BlockInit.SSW_SET_BLOCKS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
-            BlockInit.SSW_SET_SLABS.cellSet().forEach((cell) -> {
+            BlockInit.SSWT_SET_BLOCKS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.SSWT_SET_STAIRS.cellSet().forEach((cell) -> {
+                cell.getValue().forEach((rb) -> {
+                    if (cell.getColumnKey().equals("leaves")) {
+                        register.accept(rb.get().getRegistryName(), leavesLootTable(rb.get()));
+                    } else {
+                        register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
+                    }
+                });
+            });
+            BlockInit.SSWT_SET_SLABS.cellSet().forEach((cell) -> {
                 cell.getValue().forEach(rb -> {
                     if (cell.getColumnKey().equals("leaves")) {
                         register.accept(rb.get().getRegistryName(), leavesLootTable(rb.get()));
@@ -113,16 +121,7 @@ public class LootTables extends LootTableProvider {
                     }
                 });
             });
-            BlockInit.SSW_SET_STAIRS.cellSet().forEach((cell) -> {
-                cell.getValue().forEach((rb) -> {
-                    if (cell.getColumnKey().equals("leaves")) {
-                        register.accept(rb.get().getRegistryName(), leavesLootTable(rb.get()));
-                    } else {
-                        register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                    }
-                });
-            });
-            BlockInit.SSW_SET_WALLS.cellSet().forEach((cell) -> {
+            BlockInit.SSWT_SET_WALLS.cellSet().forEach((cell) -> {
                 cell.getValue().forEach((rb) -> {
                     if (cell.getColumnKey().equals("leaves")) {
                         register.accept(rb.get().getRegistryName(), leavesLootTable(rb.get()));
@@ -132,9 +131,9 @@ public class LootTables extends LootTableProvider {
                 });
             });
 
-            BlockInit.SSW_SET_CARPETS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
-            BlockInit.SSW_SET_GLASS_PANES.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
-            BlockInit.SSW_SET_BEAMS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.SSWT_SET_CARPETS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.SSWT_SET_GLASS_PANES.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.SSWT_SET_BEAMS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
             BlockInit.SAND_BLOCKS.values().forEach(rb -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
             BlockInit.SANDSTONE_BLOCKS.values().forEach(rb -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
             BlockInit.FIBER_CARPETS.values().forEach(rb -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));

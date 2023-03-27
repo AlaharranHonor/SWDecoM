@@ -16,10 +16,8 @@ import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -66,9 +64,9 @@ public class ModEventBusSubscriber {
         @SubscribeEvent
         public static void RegisterBlockColors(ColorHandlerEvent.Block event) {
             BlockColors colors = event.getBlockColors();
-            List<RegistryObject<StairBlock>> stairs = BlockInit.SSW_SET_STAIRS.get("wv-whitewash", "leaves");
-            List<RegistryObject<SlabBlock>> slabs = BlockInit.SSW_SET_SLABS.get("wv-whitewash", "leaves");
-            List<RegistryObject<HalfWallBlock>> walls = BlockInit.SSW_SET_WALLS.get("wv-whitewash", "leaves");
+            List<RegistryObject<StairBlock>> stairs = BlockInit.SSWT_SET_STAIRS.get("wv-whitewash", "leaves");
+            List<RegistryObject<SlabBlock>> slabs = BlockInit.SSWT_SET_SLABS.get("wv-whitewash", "leaves");
+            List<RegistryObject<HalfWallBlock>> walls = BlockInit.SSWT_SET_WALLS.get("wv-whitewash", "leaves");
 
             // Rest vanilla wood types.
             // oak, acacia, jungle, dark_oak
@@ -104,9 +102,9 @@ public class ModEventBusSubscriber {
             ItemColors colors = event.getItemColors();
 
             Stream<RegistryObject<? extends Block>> stream = Stream.empty();
-            stream = Stream.concat(stream, BlockInit.SSW_SET_STAIRS.get("wv-whitewash", "leaves").stream());
-            stream = Stream.concat(stream, BlockInit.SSW_SET_WALLS.get("wv-whitewash", "leaves").stream());
-            stream = Stream.concat(stream, BlockInit.SSW_SET_SLABS.get("wv-whitewash", "leaves").stream());
+            stream = Stream.concat(stream, BlockInit.SSWT_SET_STAIRS.get("wv-whitewash", "leaves").stream());
+            stream = Stream.concat(stream, BlockInit.SSWT_SET_WALLS.get("wv-whitewash", "leaves").stream());
+            stream = Stream.concat(stream, BlockInit.SSWT_SET_SLABS.get("wv-whitewash", "leaves").stream());
             //stream = Stream.concat(stream, BlockInit.LEAVES_TRAPDOORS.stream());
             stream = Stream.concat(stream, Stream.of(BlockInit.GRASS_SLAB));
 

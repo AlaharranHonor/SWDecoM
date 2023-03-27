@@ -1,7 +1,6 @@
 package com.alaharranhonor.swdm.util;
 
 import com.alaharranhonor.swdm.SWDM;
-import com.alaharranhonor.swdm.client.renderers.ClockTileRenderer;
 import com.alaharranhonor.swdm.util.init.BlockInit;
 import com.alaharranhonor.swdm.util.init.SWDMBlockEntities;
 import com.alaharranhonor.swdm.util.init.SWEMInit;
@@ -47,12 +46,12 @@ public class ClientEventBusSubscriber {
     }
 
     public static void setRenderLayers() {
-        SWDM.SSW_SETS.get("lmd").forEach((type, props) -> {
-            BlockInit.SSW_SET_BLOCKS.get("lmd", type).forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
-            BlockInit.SSW_SET_SLABS.get("lmd", type).forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
-            BlockInit.SSW_SET_STAIRS.get("lmd", type).forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
-            BlockInit.SSW_SET_WALLS.get("lmd", type).forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
-            BlockInit.SSW_SET_GLASS_PANES.get("lmd", type).forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+        SWDM.SSWT_SETS.get("lmd").forEach((type, props) -> {
+            BlockInit.SSWT_SET_BLOCKS.get("lmd", type).forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+            BlockInit.SSWT_SET_SLABS.get("lmd", type).forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+            BlockInit.SSWT_SET_STAIRS.get("lmd", type).forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+            BlockInit.SSWT_SET_WALLS.get("lmd", type).forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+            BlockInit.SSWT_SET_GLASS_PANES.get("lmd", type).forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
         });
 
         for (DyeColor color : DyeColor.values()) {
@@ -109,9 +108,9 @@ public class ClientEventBusSubscriber {
         //ItemBlockRenderTypes.setRenderLayer(BlockInit.FIBER_CARPET_SAND.get(), RenderType.cutout());
 
 
-        BlockInit.SSW_SET_SLABS.get("wv-whitewash", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
-        BlockInit.SSW_SET_STAIRS.get("wv-whitewash", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
-        BlockInit.SSW_SET_WALLS.get("wv-whitewash", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+        BlockInit.SSWT_SET_SLABS.get("wv-whitewash", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+        BlockInit.SSWT_SET_STAIRS.get("wv-whitewash", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+        BlockInit.SSWT_SET_WALLS.get("wv-whitewash", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
 
         List<WoodType> woodTypes = WoodType.values().collect(Collectors.toList());
         // 6 includes oak, spruce, birch, acacia, jungle and dark_oak
@@ -123,14 +122,14 @@ public class ClientEventBusSubscriber {
 
         // Dye Colours
         for (int i = 0; i < DyeColor.values().length; i++) {
-            ItemBlockRenderTypes.setRenderLayer(BlockInit.SSW_SET_SLABS.get("color", "stained_glass").get(i).get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(BlockInit.SSW_SET_STAIRS.get("color", "stained_glass").get(i).get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(BlockInit.SSW_SET_WALLS.get("color", "stained_glass").get(i).get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockInit.SSWT_SET_SLABS.get("color", "stained_glass").get(i).get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockInit.SSWT_SET_STAIRS.get("color", "stained_glass").get(i).get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockInit.SSWT_SET_WALLS.get("color", "stained_glass").get(i).get(), RenderType.translucent());
         }
 
-        BlockInit.SSW_SET_SLABS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
-        BlockInit.SSW_SET_STAIRS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
-        BlockInit.SSW_SET_WALLS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
+        BlockInit.SSWT_SET_SLABS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
+        BlockInit.SSWT_SET_STAIRS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
+        BlockInit.SSWT_SET_WALLS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
     }
 
     public static void SWEMonClientSetup(FMLClientSetupEvent event) {

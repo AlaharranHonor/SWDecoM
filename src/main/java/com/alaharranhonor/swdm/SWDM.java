@@ -54,6 +54,10 @@ public class SWDM {
             put("color_custom", new HashMap() {{ // 2 Custom Colors
                 put("terracotta", Block.Properties.copy(Blocks.TERRACOTTA));
             }});
+            put("natural_tones", new HashMap() {{ // 21 Natural Tones
+                put("bricks_cottage", Block.Properties.copy(Blocks.BRICKS));
+                put("sandcotta", Block.Properties.copy(Blocks.SANDSTONE));
+            }});
             put("standalone", new HashMap() {{ // Standalone vanilla blocks
                 put("terracotta", Block.Properties.copy(Blocks.TERRACOTTA));
             }});
@@ -76,8 +80,8 @@ public class SWDM {
 
     }};
 
-    // Block, Stair, Slab, Wall.
-    public static final HashMap<String, HashMap<String, Block.Properties>> SSW_SETS = new HashMap() {{
+    // Block, Stair, Slab, Wall, Trapdoor.
+    public static final HashMap<String, HashMap<String, Block.Properties>> SSWT_SETS = new HashMap() {{
         put("color", new HashMap() {{ // 16 colors
             put("roof_metal", Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL)); //.harvestTool(ToolType.PICKAXE)
             put("roof_tile", Block.Properties.copy(Blocks.CLAY));

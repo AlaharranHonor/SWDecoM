@@ -19,7 +19,7 @@ public class BlockTags extends BlockTagsProvider {
 
     @Override
     protected void addTags() {
-        super.addTags();
+        //super.addTags();
 
         this.tag(net.minecraft.tags.BlockTags.WALLS).add(Blocks.CHAIN);
         for (RegistryObject<CoatedChain> chain : BlockInit.COATED_CHAINS.values()) {
@@ -38,8 +38,14 @@ public class BlockTags extends BlockTagsProvider {
             this.tag(net.minecraft.tags.BlockTags.WALLS).add(rb.get());
         });
 
-        BlockInit.SSW_SET_WALLS.items().forEach(rb -> {
+        BlockInit.STONE_SET_TRAPDOORS.items().forEach(rb -> {
+            this.tag(net.minecraft.tags.BlockTags.TRAPDOORS).add(rb.get());
+        });
+
+        BlockInit.SSWT_SET_WALLS.items().forEach(rb -> {
             this.tag(net.minecraft.tags.BlockTags.WALLS).add(rb.get());
         });
+
+        // TODO add blocks to 'mineable' tag
     }
 }
