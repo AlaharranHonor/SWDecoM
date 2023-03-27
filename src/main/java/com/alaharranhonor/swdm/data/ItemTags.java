@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.data;
 
+import com.alaharranhonor.swdm.util.init.BlockInit;
 import com.alaharranhonor.swdm.util.init.SWDMTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -15,6 +16,6 @@ public class ItemTags extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
-        this.tag(SWDMTags.STATE_CYCLER).add(Items.STICK);
+        this.tag(SWDMTags.STATE_CYCLER).add(BlockInit.CHANGE_TOOL.get());
     }
 }

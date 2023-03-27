@@ -73,7 +73,6 @@ public class LootTables extends LootTableProvider {
                     SWDM.LOGGER.error("Couldn't write loot table {}", path, (Object) e);
                 }
             });
-
         });
     }
 
@@ -120,12 +119,8 @@ public class LootTables extends LootTableProvider {
                     });
                 });
             });
-            BlockInit.STONE_SET_BLOCKS.keySet().forEach((key) -> {
-                BlockInit.STONE_SET_BLOCKS.get(key).keySet().forEach((key2) -> {
-                    BlockInit.STONE_SET_BLOCKS.get(key).get(key2).forEach((rb) -> {
-                        register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                    });
-                });
+            BlockInit.STONE_SET_BLOCKS.items().forEach((rb) -> {
+                register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
             });
             BlockInit.STONE_SET_BUTTONS.keySet().forEach((key) -> {
                 BlockInit.STONE_SET_BUTTONS.get(key).keySet().forEach((key2) -> {

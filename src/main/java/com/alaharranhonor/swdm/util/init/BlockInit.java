@@ -2,6 +2,7 @@ package com.alaharranhonor.swdm.util.init;
 
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.block.*;
+import com.alaharranhonor.swdm.util.MultiTable;
 import com.google.common.collect.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
@@ -54,12 +55,13 @@ public class BlockInit {
 
     // Stone sets 16 colours.
     // Stone set -> List of the 16 colours
-    public static final HashMap<String, HashMap<String, List<RegistryObject<Block>>>> STONE_SET_BLOCKS = new HashMap<>();
+    public static final MultiTable<String, String, RegistryObject<Block>> STONE_SET_BLOCKS = MultiTable.create();
     public static final HashMap<String, HashMap<String, List<RegistryObject<StairBlock>>>> STONE_SET_STAIRS = new HashMap<>();
     public static final HashMap<String, HashMap<String, List<RegistryObject<SlabBlock>>>> STONE_SET_SLABS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<WallBlock>>>> STONE_SET_WALLS = new HashMap<>();
+    public static final HashMap<String, HashMap<String, List<RegistryObject<HalfWallBlock>>>> STONE_SET_WALLS = new HashMap<>();
     public static final HashMap<String, HashMap<String, List<RegistryObject<StoneButtonBlock>>>> STONE_SET_BUTTONS = new HashMap<>();
     public static final HashMap<String, HashMap<String, List<RegistryObject<PressurePlateBlock>>>> STONE_SET_PRESSURE_PLATES = new HashMap<>();
+    public static final HashMap<String, HashMap<String, List<RegistryObject<TrapDoorBlock>>>> STONE_SET_TRAPDOORS = new HashMap<>();
 
 
     // Vanilla Wood types
@@ -72,7 +74,7 @@ public class BlockInit {
     public static final HashMap<String, HashMap<String, List<RegistryObject<Block>>>> SSW_SET_BLOCKS = new HashMap<>();
     public static final HashMap<String, HashMap<String, List<RegistryObject<StairBlock>>>> SSW_SET_STAIRS = new HashMap<>();
     public static final HashMap<String, HashMap<String, List<RegistryObject<SlabBlock>>>> SSW_SET_SLABS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<WallBlock>>>> SSW_SET_WALLS = new HashMap<>();
+    public static final HashMap<String, HashMap<String, List<RegistryObject<HalfWallBlock>>>> SSW_SET_WALLS = new HashMap<>();
     public static final HashMap<String, HashMap<String, List<RegistryObject<CarpetBlock>>>> SSW_SET_CARPETS = new HashMap<>();
     public static final HashMap<String, HashMap<String, List<RegistryObject<Block>>>> SSW_SET_BEAMS = new HashMap<>();
     public static final HashMap<String, HashMap<String, List<RegistryObject<StainedGlassPaneBlock>>>> SSW_SET_GLASS_PANES = new HashMap<>();
@@ -89,6 +91,15 @@ public class BlockInit {
         for (String stoneType : SWDM.STONE_TYPES) {
             for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("standard").entrySet()) {
                 String name = blockType.getKey() + "_" + stoneType;
+
+                STONE_SET_BLOCKS.add("standard", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+
+                //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("standard", new HashMap<>());
+                //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                //blockList.add();
+                //blockMap.put(blockType.getKey(), blockList);
+                //STONE_SET_BLOCKS.put("standard", blockMap);
+
                 HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = STONE_SET_SLABS.getOrDefault("standard", new HashMap<>());
                 List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
                 slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
@@ -97,14 +108,6 @@ public class BlockInit {
 
                 Supplier<Block> stairBlock = () -> new Block(blockType.getValue());
 
-
-                HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("standard", new HashMap<>());
-                List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                blockList.add(register(name, () -> new Block(blockType.getValue())));
-                blockMap.put(blockType.getKey(), blockList);
-                STONE_SET_BLOCKS.put("standard", blockMap);
-
-
                 HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("standard", new HashMap<>());
                 List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
                 Supplier<Block> finalStairBlock = stairBlock;
@@ -112,9 +115,9 @@ public class BlockInit {
                 stairMap.put(blockType.getKey(), stairList);
                 STONE_SET_STAIRS.put("standard", stairMap);
 
-                HashMap<String, List<RegistryObject<WallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("standard", new HashMap<>());
-                List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("standard", new HashMap<>());
+                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 wallMap.put(blockType.getKey(), wallList);
                 STONE_SET_WALLS.put("standard", wallMap);
 
@@ -140,11 +143,13 @@ public class BlockInit {
                     slabMap.put(blockType.getKey(), slabList);
                     STONE_SET_SLABS.put("lmd", slabMap);
 
-                    HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("lmd", new HashMap<>());
-                    List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    blockList.add(register(name, () -> new Block(blockType.getValue())));
-                    blockMap.put(blockType.getKey(), blockList);
-                    STONE_SET_BLOCKS.put("lmd", blockMap);
+                    //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("lmd", new HashMap<>());
+                    //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                    //blockList.add(register(name, () -> new Block(blockType.getValue())));
+                    //blockMap.put(blockType.getKey(), blockList);
+                    //STONE_SET_BLOCKS.put("lmd", blockMap);
+
+                    STONE_SET_BLOCKS.add("lmd", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
 
 
                     HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("lmd", new HashMap<>());
@@ -153,9 +158,9 @@ public class BlockInit {
                     stairMap.put(blockType.getKey(), stairList);
                     STONE_SET_STAIRS.put("lmd", stairMap);
 
-                    HashMap<String, List<RegistryObject<WallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("lmd", new HashMap<>());
-                    List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+                    HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("lmd", new HashMap<>());
+                    List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                    wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                     wallMap.put(blockType.getKey(), wallList);
                     STONE_SET_WALLS.put("lmd", wallMap);
 
@@ -189,9 +194,9 @@ public class BlockInit {
             stairMap.put(blockType.getKey(), stairList);
             STONE_SET_STAIRS.put("standalone", stairMap);
 
-            HashMap<String, List<RegistryObject<WallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("standalone", new HashMap<>());
-            List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-            wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+            HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("standalone", new HashMap<>());
+            List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+            wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
             wallMap.put(blockType.getKey(), wallList);
             STONE_SET_WALLS.put("standalone", wallMap);
 
@@ -217,11 +222,14 @@ public class BlockInit {
                 slabMap.put(blockType.getKey(), slabList);
                 STONE_SET_SLABS.put("lmd-only", slabMap);
 
-                HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("lmd-only", new HashMap<>());
-                List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                blockList.add(register(blockType.getKey() + "_" + lmdType, () -> new Block(blockType.getValue())));
-                blockMap.put(blockType.getKey(), blockList);
-                STONE_SET_BLOCKS.put("lmd-only", blockMap);
+
+                STONE_SET_BLOCKS.add("lmd-only", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+
+                //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("lmd-only", new HashMap<>());
+                //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                //blockList.add(register(blockType.getKey() + "_" + lmdType, () -> new Block(blockType.getValue())));
+                //blockMap.put(blockType.getKey(), blockList);
+                //STONE_SET_BLOCKS.put("lmd-only", blockMap);
 
 
                 HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("lmd-only", new HashMap<>());
@@ -230,9 +238,9 @@ public class BlockInit {
                 stairMap.put(blockType.getKey(), stairList);
                 STONE_SET_STAIRS.put("lmd-only", stairMap);
 
-                HashMap<String, List<RegistryObject<WallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("lmd-only", new HashMap<>());
-                List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("lmd-only", new HashMap<>());
+                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 wallMap.put(blockType.getKey(), wallList);
                 STONE_SET_WALLS.put("lmd-only", wallMap);
 
@@ -295,9 +303,9 @@ public class BlockInit {
                 stairMap.put(blockType.getKey(), stairList);
                 SSW_SET_STAIRS.put("color", stairMap);
 
-                HashMap<String, List<RegistryObject<WallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("color", new HashMap<>());
-                List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("color", new HashMap<>());
+                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 wallMap.put(blockType.getKey(), wallList);
                 SSW_SET_WALLS.put("color", wallMap);
 
@@ -324,12 +332,14 @@ public class BlockInit {
                 Supplier<Block> stairBlock = null;
                 if (!blockType.getKey().equals("concrete") && !blockType.getKey().equals("terracotta")) {
 
-                    HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("color", new HashMap<>());
-                    List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    stairBlock = () -> new Block(blockType.getValue());
-                    blockList.add(register(name, () -> new Block(blockType.getValue())));
-                    blockMap.put(blockType.getKey(), blockList);
-                    STONE_SET_BLOCKS.put("color", blockMap);
+                    STONE_SET_BLOCKS.add("color", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+
+                    //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("color", new HashMap<>());
+                    //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                    //stairBlock = () -> new Block(blockType.getValue());
+                    //blockList.add(register(name, () -> new Block(blockType.getValue())));
+                    //blockMap.put(blockType.getKey(), blockList);
+                    //STONE_SET_BLOCKS.put("color", blockMap);
                 }
 
                 if (stairBlock == null) {
@@ -344,9 +354,9 @@ public class BlockInit {
                 stairMap.put(blockType.getKey(), stairList);
                 STONE_SET_STAIRS.put("color", stairMap);
 
-                HashMap<String, List<RegistryObject<WallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("color", new HashMap<>());
-                List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("color", new HashMap<>());
+                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 wallMap.put(blockType.getKey(), wallList);
                 STONE_SET_WALLS.put("color", wallMap);
 
@@ -377,13 +387,14 @@ public class BlockInit {
                 STONE_SET_SLABS.put("color_custom", slabMap);
 
 
-                Supplier<Block> stairBlock = null;
-                HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("color_custom", new HashMap<>());
-                List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                stairBlock = () -> new Block(blockType.getValue());
-                blockList.add(register(name, () -> new Block(blockType.getValue())));
-                blockMap.put(blockType.getKey(), blockList);
-                STONE_SET_BLOCKS.put("color_custom", blockMap);
+                Supplier<Block> stairBlock = () -> new Block(blockType.getValue());
+                //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("color_custom", new HashMap<>());
+                //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                //blockList.add(register(name, () -> new Block(blockType.getValue())));
+                //blockMap.put(blockType.getKey(), blockList);
+                //STONE_SET_BLOCKS.put("color_custom", blockMap);
+
+                STONE_SET_BLOCKS.add("color_custom", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
 
                 HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("color_custom", new HashMap<>());
                 List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
@@ -392,9 +403,9 @@ public class BlockInit {
                 stairMap.put(blockType.getKey(), stairList);
                 STONE_SET_STAIRS.put("color_custom", stairMap);
 
-                HashMap<String, List<RegistryObject<WallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("color_custom", new HashMap<>());
-                List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("color_custom", new HashMap<>());
+                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 wallMap.put(blockType.getKey(), wallList);
                 STONE_SET_WALLS.put("color_custom", wallMap);
 
@@ -456,9 +467,9 @@ public class BlockInit {
                     stairMap.put(blockType.getKey(), stairList);
                     SSW_SET_STAIRS.put("wv", stairMap);
 
-                    HashMap<String, List<RegistryObject<WallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("wv", new HashMap<>());
-                    List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+                    HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("wv", new HashMap<>());
+                    List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                    wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                     wallMap.put(blockType.getKey(), wallList);
                     SSW_SET_WALLS.put("wv", wallMap);
                 }
@@ -498,9 +509,9 @@ public class BlockInit {
                     stairMap.put(blockType.getKey(), stairList);
                     SSW_SET_STAIRS.put("wv-whitewash", stairMap);
 
-                    HashMap<String, List<RegistryObject<WallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("wv-whitewash", new HashMap<>());
-                    List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    wallList.add(register(wood.name() + "_" + blockType.getKey() + "_wall", () -> new WallBlock(blockType.getValue())));
+                    HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("wv-whitewash", new HashMap<>());
+                    List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                    wallList.add(register(wood.name() + "_" + blockType.getKey() + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                     wallMap.put(blockType.getKey(), wallList);
                     SSW_SET_WALLS.put("wv-whitewash", wallMap);
 
@@ -551,9 +562,9 @@ public class BlockInit {
                 stairMap.put(blockType.getKey(), stairList);
                 SSW_SET_STAIRS.put("lmd", stairMap);
 
-                HashMap<String, List<RegistryObject<WallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("lmd", new HashMap<>());
+                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 wallMap.put(blockType.getKey(), wallList);
                 SSW_SET_WALLS.put("lmd", wallMap);
 
@@ -574,11 +585,13 @@ public class BlockInit {
                 slabMap.put(blockType.getKey(), slabList);
                 STONE_SET_SLABS.put("lmd", slabMap);
 
-                HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                blockList.add(register(name, () -> new Block(blockType.getValue())));
-                blockMap.put(blockType.getKey(), blockList);
-                STONE_SET_BLOCKS.put("lmd", blockMap);
+                STONE_SET_BLOCKS.add("lmd", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+
+                //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("lmd", new HashMap<>());
+                //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                //blockList.add(register(name, () -> new Block(blockType.getValue())));
+                //blockMap.put(blockType.getKey(), blockList);
+                //STONE_SET_BLOCKS.put("lmd", blockMap);
 
 
                 HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("lmd", new HashMap<>());
@@ -587,9 +600,9 @@ public class BlockInit {
                 stairMap.put(blockType.getKey(), stairList);
                 STONE_SET_STAIRS.put("lmd", stairMap);
 
-                HashMap<String, List<RegistryObject<WallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("lmd", new HashMap<>());
+                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 wallMap.put(blockType.getKey(), wallList);
                 STONE_SET_WALLS.put("lmd", wallMap);
 
@@ -644,9 +657,9 @@ public class BlockInit {
                     stairMap.put(blockType.getKey(), stairList);
                     SSW_SET_STAIRS.put("lmd-color", stairMap);
 
-                    HashMap<String, List<RegistryObject<WallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("lmd-color", new HashMap<>());
-                    List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+                    HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("lmd-color", new HashMap<>());
+                    List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+                    wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                     wallMap.put(blockType.getKey(), wallList);
                     SSW_SET_WALLS.put("lmd-color", wallMap);
                 }
@@ -677,9 +690,9 @@ public class BlockInit {
             stairMap.put(blockType.getKey(), stairList);
             SSW_SET_STAIRS.put("standalone", stairMap);
 
-            HashMap<String, List<RegistryObject<WallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("standalone", new HashMap<>());
-            List<RegistryObject<WallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-            wallList.add(register(name + "_wall", () -> new WallBlock(blockType.getValue())));
+            HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("standalone", new HashMap<>());
+            List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
+            wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
             wallMap.put(blockType.getKey(), wallList);
             SSW_SET_WALLS.put("standalone", wallMap);
         }
@@ -693,6 +706,8 @@ public class BlockInit {
     public static final RegistryObject<SlabBlock> DIRT_SLAB = register("dirt_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.DIRT)));
 
     //Items
+    public static final RegistryObject<Item> CHANGE_TOOL = ITEMS.register("change_tool", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
+
     //public static final RegistryObject<Item> ACACIA_STICK = ITEMS.register("acacia_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
     //public static final RegistryObject<Item> BIRCH_STICK = ITEMS.register("birch_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
     //public static final RegistryObject<Item> DARK_OAK_STICK = ITEMS.register("dark_oak_stick", () -> new Item(new Item.Properties().tab(SWDM.SWDMTAB)));
@@ -709,12 +724,12 @@ public class BlockInit {
     //public static final RegistryObject<Block> TERRACOTTA_SLAB = register("terracotta_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.TERRACOTTA)));
     //public static final RegistryObject<Block> TERRACOTTA_PRESSURE_PLATE = register("terracotta_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.TERRACOTTA)));
     //public static final RegistryObject<Block> TERRACOTTA_STAIRS = register("terracotta_stairs", () -> new StairBlock(() -> Blocks.TERRACOTTA.defaultBlockState(), Block.Properties.copy(Blocks.TERRACOTTA)));
-    //public static final RegistryObject<Block> TERRACOTTA_WALL = register("terracotta_wall", () -> new WallBlock(Block.Properties.copy(Blocks.TERRACOTTA)));
+    //public static final RegistryObject<Block> TERRACOTTA_WALL = register("terracotta_wall", () -> new HalfWallBlock(Block.Properties.copy(Blocks.TERRACOTTA)));
     //public static final RegistryObject<CarpetBlock> FIBER_CARPET_RED_SAND = register("fiber_carpet_red_sand", () -> new CarpetBlock(Block.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
     //public static final RegistryObject<CarpetBlock> FIBER_CARPET_SAND = register("fiber_carpet_sand", () -> new CarpetBlock(Block.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion()));
     //public static final RegistryObject<Block> GLASS_STAIRS = register("glass_stairs", () -> new StairBlock(Blocks.GLASS.defaultBlockState(), Block.Properties.copy(Blocks.GLASS)));
     //public static final RegistryObject<Block> GLASS_SLAB = register("glass_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.GLASS)));
-    //public static final RegistryObject<Block> GLASS_WALL = register("glass_wall", () -> new WallBlock(Block.Properties.copy(Blocks.GLASS)));
+    //public static final RegistryObject<Block> GLASS_WALL = register("glass_wall", () -> new HalfWallBlock(Block.Properties.copy(Blocks.GLASS)));
     //public static final RegistryObject<Block> THATCH_BLOCK = register("thatch_block", () -> new RotatedPillarBlock(Block.Properties.of(Material.PLANT).sound(SoundType.WET_GRASS).strength(0.5F, 0.5F))); // .harvestTool(ToolType.HOE)
     //public static final RegistryObject<Block> THATCH_BUTTON = register("thatch_button", () -> new WoodButtonBlock(Block.Properties.of(Material.PLANT).sound(SoundType.WET_GRASS).strength(0.5F, 0.5F))); //.harvestTool(ToolType.HOE)
     //public static final RegistryObject<Block> THATCH_FENCE = register("thatch_fence", () -> new FenceBlock(Block.Properties.of(Material.PLANT).sound(SoundType.WET_GRASS).strength(0.5F, 0.5F))); //.harvestTool(ToolType.HOE)
@@ -739,12 +754,12 @@ public class BlockInit {
     //public static final RegistryObject<Block> BAMBOO_TRAPDOOR = register("bamboo_trapdoor", () -> new TrapDoorBlock(Block.Properties.of(Material.BAMBOO).sound(SoundType.BAMBOO_SAPLING).strength(0.5F, 0.5F).noOcclusion()));
     //public static final RegistryObject<ModdedStandingSignBlock> BAMBOO_SIGN = registerNoItem("bamboo_sign", () -> new ModdedStandingSignBlock(Block.Properties.of(Material.BAMBOO).noCollission().strength(0.5F).sound(SoundType.BAMBOO_SAPLING), SWDM.BAMBOO_WT));
     //public static final RegistryObject<ModdedWallSignBlock> BAMBOO_WALL_SIGN = registerNoItem("bamboo_wall_sign", () -> new ModdedWallSignBlock(Block.Properties.of(Material.BAMBOO).noCollission().strength(0.5F).sound(SoundType.BAMBOO_SAPLING).lootFrom(() -> BAMBOO_SIGN.get()), SWDM.BAMBOO_WT));
-    //public static final RegistryObject<Block> ACACIA_PLANK_WALL = register("acacia_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.ACACIA_PLANKS)));
-    //public static final RegistryObject<Block> BIRCH_PLANK_WALL = register("birch_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.BIRCH_PLANKS)));
-    //public static final RegistryObject<Block> DARK_OAK_PLANK_WALL = register("dark_oak_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.DARK_OAK_PLANKS)));
-    //public static final RegistryObject<Block> JUNGLE_PLANK_WALL = register("jungle_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.JUNGLE_PLANKS)));
-    //public static final RegistryObject<Block> OAK_PLANK_WALL = register("oak_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.OAK_PLANKS)));
-    //public static final RegistryObject<Block> SPRUCE_PLANK_WALL = register("spruce_plank_wall", () -> new WallBlock(Block.Properties.copy(Blocks.SPRUCE_PLANKS)));
+    //public static final RegistryObject<Block> ACACIA_PLANK_WALL = register("acacia_plank_wall", () -> new HalfWallBlock(Block.Properties.copy(Blocks.ACACIA_PLANKS)));
+    //public static final RegistryObject<Block> BIRCH_PLANK_WALL = register("birch_plank_wall", () -> new HalfWallBlock(Block.Properties.copy(Blocks.BIRCH_PLANKS)));
+    //public static final RegistryObject<Block> DARK_OAK_PLANK_WALL = register("dark_oak_plank_wall", () -> new HalfWallBlock(Block.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+    //public static final RegistryObject<Block> JUNGLE_PLANK_WALL = register("jungle_plank_wall", () -> new HalfWallBlock(Block.Properties.copy(Blocks.JUNGLE_PLANKS)));
+    //public static final RegistryObject<Block> OAK_PLANK_WALL = register("oak_plank_wall", () -> new HalfWallBlock(Block.Properties.copy(Blocks.OAK_PLANKS)));
+    //public static final RegistryObject<Block> SPRUCE_PLANK_WALL = register("spruce_plank_wall", () -> new HalfWallBlock(Block.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
     //public static final RegistryObject<Block> ACACIA_TRAPDOOR_BIRCH = register("acacia_trapdoor_birch", () -> new TrapDoorBlock(Block.Properties.copy(Blocks.BIRCH_TRAPDOOR)));
     //public static final RegistryObject<Block> ACACIA_TRAPDOOR_DARK_OAK = register("acacia_trapdoor_dark_oak", () -> new TrapDoorBlock(Block.Properties.copy(Blocks.DARK_OAK_TRAPDOOR)));

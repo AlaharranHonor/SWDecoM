@@ -25,7 +25,7 @@ public class DataGenerators {
 		if (event.includeClient()) {
 			data.addProvider(new Languages(data, SWDM.MOD_ID, "en_us"));
 			data.addProvider(new BlockStates(data, SWDM.MOD_ID, event.getExistingFileHelper()));
-			data.addProvider(new Items(data, SWDM.MOD_ID, event.getExistingFileHelper()));
+			data.addProvider(new ItemModels(data, SWDM.MOD_ID, event.getExistingFileHelper()));
 		}
 	}
 }

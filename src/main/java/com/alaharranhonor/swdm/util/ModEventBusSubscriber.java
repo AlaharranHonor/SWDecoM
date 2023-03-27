@@ -2,6 +2,7 @@ package com.alaharranhonor.swdm.util;
 
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.block.ClockBlock;
+import com.alaharranhonor.swdm.block.HalfWallBlock;
 import com.alaharranhonor.swdm.block.entity.ClockBE;
 import com.alaharranhonor.swdm.util.init.BlockInit;
 import net.minecraft.client.color.block.BlockColors;
@@ -67,7 +68,7 @@ public class ModEventBusSubscriber {
             BlockColors colors = event.getBlockColors();
             List<RegistryObject<StairBlock>> stairs = BlockInit.SSW_SET_STAIRS.get("wv-whitewash").get("leaves");
             List<RegistryObject<SlabBlock>> slabs = BlockInit.SSW_SET_SLABS.get("wv-whitewash").get("leaves");
-            List<RegistryObject<WallBlock>> walls = BlockInit.SSW_SET_WALLS.get("wv-whitewash").get("leaves");
+            List<RegistryObject<HalfWallBlock>> walls = BlockInit.SSW_SET_WALLS.get("wv-whitewash").get("leaves");
 
             // Rest vanilla wood types.
             // oak, acacia, jungle, dark_oak

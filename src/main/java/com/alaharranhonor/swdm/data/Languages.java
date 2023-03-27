@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.data;
 
 import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.util.init.BlockInit;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,6 +27,8 @@ public class Languages extends LanguageProvider {
 		this.add("block.swdm.whitewash_plank_beam", "Whitewash Beam");
 		this.add("block.swdm.whitewash_log_beam", "Whitewash Log Beam");
 		this.add("block.swdm.meter_point_red_sandstone", "Meter Point Red Sandstone");
+
+		this.add(BlockInit.CHANGE_TOOL.get(), "Change Tool");
 
 		for (String tone : SWDM.NATURAL_TONES) {
 			String[] nameParts = tone.split("_");

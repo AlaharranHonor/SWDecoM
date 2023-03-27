@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.data;
 
 import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.block.HalfWallBlock;
 import com.alaharranhonor.swdm.util.ColourUtil;
 import com.alaharranhonor.swdm.util.init.BlockInit;
 import net.minecraft.data.DataGenerator;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -25,22 +27,35 @@ public class Recipes extends RecipeProvider {
 
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> p_200404_1_) {
-        super.buildCraftingRecipes(p_200404_1_);
+    protected void buildCraftingRecipes(Consumer<FinishedRecipe> recipe) {
+        super.buildCraftingRecipes(recipe);
 
-        // Make all the basic blocks first, and then all their respective items.
+        this.sets(recipe);
+        this.misc(recipe);
+    }
 
+    private void misc(Consumer<FinishedRecipe> recipe) {
+        ShapedRecipeBuilder.shaped(BlockInit.CHANGE_TOOL.get())
+            .define('N', Tags.Items.NUGGETS_IRON)
+            .define('S', Tags.Items.RODS_WOODEN)
+            .pattern("NN ")
+            .pattern(" SN")
+            .pattern(" S ")
+            .unlockedBy("has_iron_nugget", has(Tags.Items.NUGGETS_IRON));
+    }
+
+    private void sets(Consumer<FinishedRecipe> recipe) {
         for (DyeColor color : DyeColor.values()) {
-            ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("color").get("dark_prismarine").get(color.getId()).get()).requires(Blocks.DARK_PRISMARINE).requires(ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).group("dark_prismarine").unlockedBy("has_dark_prismarine", has(Blocks.DARK_PRISMARINE)).save(p_200404_1_);
-            ShapedRecipeBuilder.shaped(BlockInit.STONE_SET_BLOCKS.get("color").get("bricks_glass").get(color.getId()).get(), 8).define('x', Blocks.BRICKS).define('y', ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.getName() + "_stained_glass"))).pattern("yyy").pattern("yxy").pattern("yyy").group("bricks_glass").unlockedBy("has_bricks", has(Blocks.BRICKS)).save(p_200404_1_);
+            ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("color", "dark_prismarine").get(color.getId()).get()).requires(Blocks.DARK_PRISMARINE).requires(ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).group("dark_prismarine").unlockedBy("has_dark_prismarine", has(Blocks.DARK_PRISMARINE)).save(recipe);
+            ShapedRecipeBuilder.shaped(BlockInit.STONE_SET_BLOCKS.get("color", "bricks_glass").get(color.getId()).get(), 8).define('x', Blocks.BRICKS).define('y', ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.getName() + "_stained_glass"))).pattern("yyy").pattern("yxy").pattern("yyy").group("bricks_glass").unlockedBy("has_bricks", has(Blocks.BRICKS)).save(recipe);
 
-            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("color").get("roof_metal").get(color.getId()).get(), 16).define('x', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).define('y', Items.IRON_INGOT).pattern("yyy").pattern("yxy").pattern("yyy").group("metal_roof").unlockedBy("has_iron_ingots", has(Items.IRON_INGOT)).save(p_200404_1_);
-            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("color").get("roof_tile").get(color.getId()).get(), 16).define('x', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).define('y', Items.CLAY_BALL).pattern("yyy").pattern("yxy").pattern("yyy").group("tile_roof").unlockedBy("has_clay_ball", has(Items.CLAY_BALL)).save(p_200404_1_);
-            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("color").get("roof_shingle").get(color.getId()).get(), 16).define('x', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).define('y', ItemTags.PLANKS).pattern("yyy").pattern("yxy").pattern("yyy").group("shingle_roof").unlockedBy("has_planks", has(ItemTags.PLANKS)).save(p_200404_1_);
-            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("color").get("wool_pastel").get(color.getId()).get(), 8).define('x', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).define('y', ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.getName() + "_wool"))).pattern("yyy").pattern("yxy").pattern("yyy").group("wool_pastel").unlockedBy("has_pastel_wool", has(ItemTags.WOOL)).save(p_200404_1_);
-            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("color").get("wool_tinted").get(color.getId()).get(), 8).define('x', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).define('y', ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.getName() + "_wool"))).pattern("yyy").pattern("yxy").pattern("yyy").group("wool_tinted").unlockedBy("has_tinted_wool", has(ItemTags.WOOL)).save(p_200404_1_);
+            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("color").get("roof_metal").get(color.getId()).get(), 16).define('x', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).define('y', Items.IRON_INGOT).pattern("yyy").pattern("yxy").pattern("yyy").group("metal_roof").unlockedBy("has_iron_ingots", has(Items.IRON_INGOT)).save(recipe);
+            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("color").get("roof_tile").get(color.getId()).get(), 16).define('x', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).define('y', Items.CLAY_BALL).pattern("yyy").pattern("yxy").pattern("yyy").group("tile_roof").unlockedBy("has_clay_ball", has(Items.CLAY_BALL)).save(recipe);
+            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("color").get("roof_shingle").get(color.getId()).get(), 16).define('x', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).define('y', ItemTags.PLANKS).pattern("yyy").pattern("yxy").pattern("yyy").group("shingle_roof").unlockedBy("has_planks", has(ItemTags.PLANKS)).save(recipe);
+            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("color").get("wool_pastel").get(color.getId()).get(), 8).define('x', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).define('y', ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.getName() + "_wool"))).pattern("yyy").pattern("yxy").pattern("yyy").group("wool_pastel").unlockedBy("has_pastel_wool", has(ItemTags.WOOL)).save(recipe);
+            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("color").get("wool_tinted").get(color.getId()).get(), 8).define('x', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).define('y', ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", color.getName() + "_wool"))).pattern("yyy").pattern("yxy").pattern("yyy").group("wool_tinted").unlockedBy("has_tinted_wool", has(ItemTags.WOOL)).save(recipe);
 
-            ShapedRecipeBuilder.shaped(BlockInit.COATED_CHAINS.get(color.getId()).get(), 6).define('N', Items.IRON_NUGGET).define('D', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).pattern("N").pattern("D").pattern("N").group("coated_chain").unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET)).save(p_200404_1_);
+            ShapedRecipeBuilder.shaped(BlockInit.COATED_CHAINS.get(color.getId()).get(), 6).define('N', Items.IRON_NUGGET).define('D', ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye"))).pattern("N").pattern("D").pattern("N").group("coated_chain").unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET)).save(recipe);
         }
 
         for (int i = 0; i < SWDM.STONE_TYPES.size(); i++) {
@@ -48,12 +63,12 @@ public class Recipes extends RecipeProvider {
             int finalI = i;
             SWDM.STONE_SETS.get("standard").forEach((stone, block) -> {
                 if (type.equals("mossy")) {
-                    ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("standard").get(stone).get(finalI).get()).requires(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", stone))).requires(Blocks.VINE).group("mossy_variants").unlockedBy("has_stone", has(Blocks.STONE)).save(p_200404_1_);
+                    ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("standard", stone).get(finalI).get()).requires(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", stone))).requires(Blocks.VINE).group("mossy_variants").unlockedBy("has_stone", has(Blocks.STONE)).save(recipe);
                 } else if (type.equals("cracked")) {
-                    SingleItemRecipeBuilder.stonecutting(Ingredient.of(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", stone))), BlockInit.STONE_SET_BLOCKS.get("standard").get(stone).get(finalI).get());
+                    SingleItemRecipeBuilder.stonecutting(Ingredient.of(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", stone))), BlockInit.STONE_SET_BLOCKS.get("standard", stone).get(finalI).get());
                 } else if (type.equals("more_mossy")) {
-                    ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("standard").get(stone).get(finalI).get()).requires(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", stone))).requires(Blocks.VINE).requires(Blocks.VINE).group("mossy_variants").unlockedBy("has_stone", has(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", stone)))).save(p_200404_1_);
-                    ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("standard").get(stone).get(finalI).get()).requires(BlockInit.STONE_SET_BLOCKS.get("standard").get(stone).get(0).get()).requires(Blocks.VINE).group("mossy_variants").unlockedBy("has_stone", has(Blocks.STONE)).save(p_200404_1_, new ResourceLocation("swdm", BlockInit.STONE_SET_BLOCKS.get("standard").get(stone).get(finalI).get().getRegistryName().getPath() + "_by_swdm_block"));
+                    ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("standard", stone).get(finalI).get()).requires(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", stone))).requires(Blocks.VINE).requires(Blocks.VINE).group("mossy_variants").unlockedBy("has_stone", has(ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", stone)))).save(recipe);
+                    ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("standard", stone).get(finalI).get()).requires(BlockInit.STONE_SET_BLOCKS.get("standard", stone).get(0).get()).requires(Blocks.VINE).group("mossy_variants").unlockedBy("has_stone", has(Blocks.STONE)).save(recipe, new ResourceLocation("swdm", BlockInit.STONE_SET_BLOCKS.get("standard", stone).get(finalI).get().getRegistryName().getPath() + "_by_swdm_block"));
                 }
             });
         }
@@ -61,10 +76,10 @@ public class Recipes extends RecipeProvider {
         for (int i = 0; i < SWDM.LMD_TYPES.size(); i++) {
             String lmd = SWDM.LMD_TYPES.get(i);
             Item dyeItem = lmd.equals("light") ? Items.WHITE_DYE : lmd.equals("medium") ? Items.GRAY_DYE : Items.BLACK_DYE;
-            ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("lmd").get("brick").get(i).get()).requires(Blocks.BRICKS).requires(dyeItem).group(lmd + "_brick").unlockedBy("has_bricks", has(Blocks.BRICKS));
-            ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("lmd").get("stone_brick").get(i).get()).requires(Blocks.STONE_BRICKS).requires(dyeItem).group(lmd + "_stone_brick").unlockedBy("has_stone_bricks", has(Blocks.STONE_BRICKS));
+            ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("lmd", "brick").get(i).get()).requires(Blocks.BRICKS).requires(dyeItem).group(lmd + "_brick").unlockedBy("has_bricks", has(Blocks.BRICKS));
+            ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("lmd", "stone_brick").get(i).get()).requires(Blocks.STONE_BRICKS).requires(dyeItem).group(lmd + "_stone_brick").unlockedBy("has_stone_bricks", has(Blocks.STONE_BRICKS));
 
-            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("lmd").get("screen").get(i).get(), 8).define('x', Items.STRING).define('y', dyeItem).pattern("yyy").pattern("yxy").pattern("yyy").group("screen").unlockedBy("has_string", has(Items.STRING)).save(p_200404_1_);
+            ShapedRecipeBuilder.shaped(BlockInit.SSW_SET_BLOCKS.get("lmd").get("screen").get(i).get(), 8).define('x', Items.STRING).define('y', dyeItem).pattern("yyy").pattern("yxy").pattern("yyy").group("screen").unlockedBy("has_string", has(Items.STRING)).save(recipe);
         }
 
         BlockInit.STONE_SET_SLABS.keySet().forEach((type) -> {
@@ -75,9 +90,10 @@ public class Recipes extends RecipeProvider {
                     if (rb.get().getRegistryName().getPath().contains("concrete") || (rb.get().getRegistryName().getPath().contains("terracotta") && !type.equals("color_custom"))) {
                         craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 5)));
                     } else {
-                        craftingItem = BlockInit.STONE_SET_BLOCKS.get(type).get(color).get(i).get();
+                        System.out.println(rb.getId());
+                        craftingItem = BlockInit.STONE_SET_BLOCKS.get(type, color).get(i).get();
                     }
-                    stoneSlab(p_200404_1_, rb.get(), craftingItem, color);
+                    stoneSlab(recipe, rb.get(), craftingItem, color);
                 }
 
             });
@@ -86,14 +102,14 @@ public class Recipes extends RecipeProvider {
         BlockInit.STONE_SET_WALLS.keySet().forEach((key) -> {
             BlockInit.STONE_SET_WALLS.get(key).keySet().forEach((key2) -> {
                 for (int i = 0; i < BlockInit.STONE_SET_WALLS.get(key).get(key2).size(); i++) {
-                    RegistryObject<WallBlock> rb = BlockInit.STONE_SET_WALLS.get(key).get(key2).get(i);
+                    RegistryObject<HalfWallBlock> rb = BlockInit.STONE_SET_WALLS.get(key).get(key2).get(i);
                     Block craftingItem;
                     if (rb.get().getRegistryName().getPath().contains("concrete") || (rb.get().getRegistryName().getPath().contains("terracotta") && !key.equals("color_custom"))) {
                         craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 5)));
                     } else {
-                        craftingItem = BlockInit.STONE_SET_BLOCKS.get(key).get(key2).get(i).get();
+                        craftingItem = BlockInit.STONE_SET_BLOCKS.get(key, key2).get(i).get();
                     }
-                    stoneWall(p_200404_1_, rb.get(), craftingItem, key2);
+                    stoneWall(recipe, rb.get(), craftingItem, key2);
 
                 }
             });
@@ -107,9 +123,9 @@ public class Recipes extends RecipeProvider {
                     if (rb.get().getRegistryName().getPath().contains("concrete") || (rb.get().getRegistryName().getPath().contains("terracotta") && !key.equals("color_custom"))) {
                         craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7)));
                     } else {
-                        craftingItem = BlockInit.STONE_SET_BLOCKS.get(key).get(key2).get(i).get();
+                        craftingItem = BlockInit.STONE_SET_BLOCKS.get(key, key2).get(i).get();
                     }
-                    stoneStairs(p_200404_1_, rb.get(), craftingItem, key2);
+                    stoneStairs(recipe, rb.get(), craftingItem, key2);
                 }
             });
         });
@@ -123,9 +139,9 @@ public class Recipes extends RecipeProvider {
                     if (rb.get().getRegistryName().getPath().contains("concrete") || (rb.get().getRegistryName().getPath().contains("terracotta") && !key.equals("color_custom"))) {
                         craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 15)));
                     } else {
-                        craftingItem = BlockInit.STONE_SET_BLOCKS.get(key).get(key2).get(i).get();
+                        craftingItem = BlockInit.STONE_SET_BLOCKS.get(key, key2).get(i).get();
                     }
-                    stonePressurePlate(p_200404_1_, rb.get(), craftingItem, key2);
+                    stonePressurePlate(recipe, rb.get(), craftingItem, key2);
 
                 }
             });
@@ -139,9 +155,9 @@ public class Recipes extends RecipeProvider {
                     if (rb.get().getRegistryName().getPath().contains("concrete") || (rb.get().getRegistryName().getPath().contains("terracotta") && !key.equals("custom_color"))) {
                         craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7)));
                     } else {
-                        craftingItem = BlockInit.STONE_SET_BLOCKS.get(key).get(key2).get(i).get();
+                        craftingItem = BlockInit.STONE_SET_BLOCKS.get(key, key2).get(i).get();
                     }
-                    stoneButton(p_200404_1_, rb.get(), craftingItem, key2);
+                    stoneButton(recipe, rb.get(), craftingItem, key2);
 
                 }
             });
@@ -157,20 +173,20 @@ public class Recipes extends RecipeProvider {
                 } else {
                     craftingItem = BlockInit.SSW_SET_BLOCKS.get("color").get(color).get(i).get();
                 }
-                slab(p_200404_1_, rb.get(), craftingItem, color, "has_planks");
+                slab(recipe, rb.get(), craftingItem, color, "has_planks");
 
             }
 
 
             for (int i = 0; i < BlockInit.SSW_SET_WALLS.get("color").get(color).size(); i++) {
-                RegistryObject<WallBlock> rb = BlockInit.SSW_SET_WALLS.get("color").get(color).get(i);
+                RegistryObject<HalfWallBlock> rb = BlockInit.SSW_SET_WALLS.get("color").get(color).get(i);
                 Block craftingItem;
                 if (color.equals("wool") || rb.get().getRegistryName().getPath().contains("stained_glass")) {
                     craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 5)));
                 } else {
                     craftingItem = BlockInit.SSW_SET_BLOCKS.get("color").get(color).get(i).get();
                 }
-                wall(p_200404_1_, rb.get(), craftingItem, color, "has_planks");
+                wall(recipe, rb.get(), craftingItem, color, "has_planks");
 
             }
 
@@ -183,14 +199,14 @@ public class Recipes extends RecipeProvider {
                 } else {
                     craftingItem = BlockInit.SSW_SET_BLOCKS.get("color").get(color).get(i).get();
                 }
-                stairs(p_200404_1_, rb.get(), craftingItem, color, "has_planks");
+                stairs(recipe, rb.get(), craftingItem, color, "has_planks");
 
             }
 
 
             if (color.equals("wool_pastel") || color.equals("wool_tinted")) {
                 for (RegistryObject<CarpetBlock> rb : BlockInit.SSW_SET_CARPETS.get("color").get(color)) {
-                    carpet(p_200404_1_, rb.get(), ForgeRegistries.BLOCKS.getValue(new ResourceLocation("swdm", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7))), color + "_carpet");
+                    carpet(recipe, rb.get(), ForgeRegistries.BLOCKS.getValue(new ResourceLocation("swdm", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7))), color + "_carpet");
                 }
             }
 
@@ -205,14 +221,14 @@ public class Recipes extends RecipeProvider {
                 }
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", blockName));
 
-                slab(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                slab(recipe, rb.get(), craftingItem, key, "has_planks");
             }
 
             for (int i = 0; i < BlockInit.SSW_SET_WALLS.get("wv").get(key).size(); i++) {
-                RegistryObject<WallBlock> rb = BlockInit.SSW_SET_WALLS.get("wv").get(key).get(i);
+                RegistryObject<HalfWallBlock> rb = BlockInit.SSW_SET_WALLS.get("wv").get(key).get(i);
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 5)));
 
-                wall(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                wall(recipe, rb.get(), craftingItem, key, "has_planks");
 
             }
 
@@ -221,7 +237,7 @@ public class Recipes extends RecipeProvider {
                 RegistryObject<StairBlock> rb = BlockInit.SSW_SET_STAIRS.get("wv").get(key).get(i);
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7)));
 
-                stairs(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                stairs(recipe, rb.get(), craftingItem, key, "has_planks");
 
             }
 
@@ -232,15 +248,15 @@ public class Recipes extends RecipeProvider {
                 RegistryObject<SlabBlock> rb = BlockInit.SSW_SET_SLABS.get("wv-whitewash").get(key).get(i);
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 5)));
 
-                slab(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                slab(recipe, rb.get(), craftingItem, key, "has_planks");
 
             }
 
             for (int i = 0; i < BlockInit.SSW_SET_WALLS.get("wv-whitewash").get(key).size(); i++) {
-                RegistryObject<WallBlock> rb = BlockInit.SSW_SET_WALLS.get("wv-whitewash").get(key).get(i);
+                RegistryObject<HalfWallBlock> rb = BlockInit.SSW_SET_WALLS.get("wv-whitewash").get(key).get(i);
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 5)));
 
-                wall(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                wall(recipe, rb.get(), craftingItem, key, "has_planks");
 
             }
 
@@ -249,7 +265,7 @@ public class Recipes extends RecipeProvider {
                 RegistryObject<StairBlock> rb = BlockInit.SSW_SET_STAIRS.get("wv-whitewash").get(key).get(i);
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7)));
 
-                stairs(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                stairs(recipe, rb.get(), craftingItem, key, "has_planks");
 
             }
 
@@ -261,15 +277,15 @@ public class Recipes extends RecipeProvider {
                 RegistryObject<SlabBlock> rb = BlockInit.SSW_SET_SLABS.get("lmd").get(key).get(i);
                 Block craftingItem = BlockInit.SSW_SET_BLOCKS.get("lmd").get(key).get(i).get();
 
-                slab(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                slab(recipe, rb.get(), craftingItem, key, "has_planks");
 
             }
 
             for (int i = 0; i < BlockInit.SSW_SET_WALLS.get("lmd").get(key).size(); i++) {
-                RegistryObject<WallBlock> rb = BlockInit.SSW_SET_WALLS.get("lmd").get(key).get(i);
+                RegistryObject<HalfWallBlock> rb = BlockInit.SSW_SET_WALLS.get("lmd").get(key).get(i);
                 Block craftingItem = BlockInit.SSW_SET_BLOCKS.get("lmd").get(key).get(i).get();
 
-                wall(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                wall(recipe, rb.get(), craftingItem, key, "has_planks");
             }
 
 
@@ -277,12 +293,12 @@ public class Recipes extends RecipeProvider {
                 RegistryObject<StairBlock> rb = BlockInit.SSW_SET_STAIRS.get("lmd").get(key).get(i);
                 Block craftingItem = BlockInit.SSW_SET_BLOCKS.get("lmd").get(key).get(i).get();
 
-                stairs(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                stairs(recipe, rb.get(), craftingItem, key, "has_planks");
             }
 
 
             for (RegistryObject<StainedGlassPaneBlock> rb : BlockInit.SSW_SET_GLASS_PANES.get("lmd").get(key)) {
-                glassPane(p_200404_1_, rb.get(), ForgeRegistries.BLOCKS.getValue(new ResourceLocation("swdm", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 11))), key + "_glass_pane");
+                glassPane(recipe, rb.get(), ForgeRegistries.BLOCKS.getValue(new ResourceLocation("swdm", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 11))), key + "_glass_pane");
             }
         });
 
@@ -291,9 +307,9 @@ public class Recipes extends RecipeProvider {
             for (DyeColor color : ColourUtil.NATURAL_TO_DYE.get(tone)) {
                 sand.requires(ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye")));
             }
-            sand.save(p_200404_1_);
+            sand.save(recipe);
 
-            ShapedRecipeBuilder.shaped(BlockInit.SANDSTONE_BLOCKS.get(tone).get(), 4).define('#', BlockInit.SAND_BLOCKS.get(tone).get()).pattern("##").pattern("##").group("sand").unlockedBy("has_sand", has(Blocks.SAND)).save(p_200404_1_);
+            ShapedRecipeBuilder.shaped(BlockInit.SANDSTONE_BLOCKS.get(tone).get(), 4).define('#', BlockInit.SAND_BLOCKS.get(tone).get()).pattern("##").pattern("##").group("sand").unlockedBy("has_sand", has(Blocks.SAND)).save(recipe);
 
             // TODO add LMD
             ShapedRecipeBuilder fiberCarpet = ShapedRecipeBuilder.shaped(BlockInit.FIBER_CARPETS.get("medium", tone).get(), 8).group("fiber_carpets").unlockedBy("has_carpet", has(ItemTags.CARPETS));
@@ -304,7 +320,7 @@ public class Recipes extends RecipeProvider {
             } else {
                 fiberCarpet.pattern("###").pattern("# #").pattern("###");
             }
-            fiberCarpet.save(p_200404_1_);
+            fiberCarpet.save(recipe);
         }
 
         for (RegistryObject<Block> rb : BlockInit.SSW_SET_BLOCKS.get("lmd-color").get("siding")) {
@@ -314,48 +330,48 @@ public class Recipes extends RecipeProvider {
             if (parts[2].equals("light")) {
                 siding.define('T', Items.WHITE_DYE);
                 siding.pattern("PT").pattern("PD").pattern("P ");
-                siding.save(p_200404_1_);
+                siding.save(recipe);
 
-                ShapelessRecipeBuilder.shapeless(rb.get(), 8).requires(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(SWDM.MOD_ID, parts[0] + "_" + parts[1] + "_medium"))).requires(Items.WHITE_DYE).group("siding").unlockedBy("has_slabs", has(ItemTags.WOODEN_SLABS)).save(p_200404_1_, rb.get().getRegistryName().getPath() + "_from_medium");
+                ShapelessRecipeBuilder.shapeless(rb.get(), 8).requires(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(SWDM.MOD_ID, parts[0] + "_" + parts[1] + "_medium"))).requires(Items.WHITE_DYE).group("siding").unlockedBy("has_slabs", has(ItemTags.WOODEN_SLABS)).save(recipe, rb.get().getRegistryName().getPath() + "_from_medium");
             } else if (parts[2].equals("medium")) {
                 siding.pattern("P ").pattern("PD").pattern("P ");
-                siding.save(p_200404_1_);
+                siding.save(recipe);
             } else if (parts[2].equals("dark")) {
                 siding.define('T', Items.BLACK_DYE);
                 siding.pattern("PT").pattern("PD").pattern("P ");
-                siding.save(p_200404_1_);
+                siding.save(recipe);
 
-                ShapelessRecipeBuilder.shapeless(rb.get(), 8).requires(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(SWDM.MOD_ID, parts[0] + "_" + parts[1] + "_medium"))).requires(Items.BLACK_DYE).group("siding").unlockedBy("has_slabs", has(ItemTags.WOODEN_SLABS)).save(p_200404_1_, rb.get().getRegistryName().getPath() + "_from_medium");
+                ShapelessRecipeBuilder.shapeless(rb.get(), 8).requires(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(SWDM.MOD_ID, parts[0] + "_" + parts[1] + "_medium"))).requires(Items.BLACK_DYE).group("siding").unlockedBy("has_slabs", has(ItemTags.WOODEN_SLABS)).save(recipe, rb.get().getRegistryName().getPath() + "_from_medium");
             }
         }
 
-        for (RegistryObject<Block> rb : BlockInit.STONE_SET_BLOCKS.get("color_custom").get("terracotta")) {
+        for (RegistryObject<Block> rb : BlockInit.STONE_SET_BLOCKS.get("color_custom", "terracotta")) {
             ShapelessRecipeBuilder shapeless = ShapelessRecipeBuilder.shapeless(rb.get(), 8).requires(Blocks.TERRACOTTA).group("terracotta").unlockedBy("has_terracotta", has(Blocks.TERRACOTTA));
             for (DyeColor color : ColourUtil.CUSTOM_COLORS_TO_DYE.get(rb.get().getRegistryName().getPath().split("_")[1])) {
                 shapeless.requires(ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", color.getName() + "_dye")));
             }
-            shapeless.save(p_200404_1_);
+            shapeless.save(recipe);
         }
 
         for (int i = 0; i < SWDM.LMD_TYPES.size(); i++) {
             String lmd = SWDM.LMD_TYPES.get(i);
             String dye = lmd.equals("light") ? "white" : lmd.equals("medium") ? "gray" : "black";
-            ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("lmd-only").get("stone").get(i).get(), 8).requires(Blocks.STONE).requires(ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", dye + "_dye"))).group("stone").unlockedBy("has_stone", has(Blocks.STONE)).save(p_200404_1_);
+            ShapelessRecipeBuilder.shapeless(BlockInit.STONE_SET_BLOCKS.get("lmd-only", "stone").get(i).get(), 8).requires(Blocks.STONE).requires(ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft", dye + "_dye"))).group("stone").unlockedBy("has_stone", has(Blocks.STONE)).save(recipe);
         }
 
         BlockInit.SSW_SET_SLABS.get("lmd-color").keySet().forEach((key) -> {
             for (int i = 0; i < BlockInit.SSW_SET_SLABS.get("lmd-color").get(key).size(); i++) {
                 RegistryObject<SlabBlock> rb = BlockInit.SSW_SET_SLABS.get("lmd-color").get(key).get(i);
                 Block craftingItem = BlockInit.SSW_SET_BLOCKS.get("lmd-color").get(key).get(i).get();
-                slab(p_200404_1_, rb.get(), craftingItem, key, "has_" + craftingItem.getRegistryName().getPath().split("_")[0]);
+                slab(recipe, rb.get(), craftingItem, key, "has_" + craftingItem.getRegistryName().getPath().split("_")[0]);
 
             }
 
 
             for (int i = 0; i < BlockInit.SSW_SET_WALLS.get("lmd-color").get(key).size(); i++) {
-                RegistryObject<WallBlock> rb = BlockInit.SSW_SET_WALLS.get("lmd-color").get(key).get(i);
+                RegistryObject<HalfWallBlock> rb = BlockInit.SSW_SET_WALLS.get("lmd-color").get(key).get(i);
                 Block craftingItem = BlockInit.SSW_SET_BLOCKS.get("lmd-color").get(key).get(i).get();
-                wall(p_200404_1_, rb.get(), craftingItem, key, "has_" + craftingItem.getRegistryName().getPath().split("_")[0]);
+                wall(recipe, rb.get(), craftingItem, key, "has_" + craftingItem.getRegistryName().getPath().split("_")[0]);
 
             }
 
@@ -363,7 +379,7 @@ public class Recipes extends RecipeProvider {
             for (int i = 0; i < BlockInit.SSW_SET_STAIRS.get("lmd-color").get(key).size(); i++) {
                 RegistryObject<StairBlock> rb = BlockInit.SSW_SET_STAIRS.get("lmd-color").get(key).get(i);
                 Block craftingItem = BlockInit.SSW_SET_BLOCKS.get("lmd-color").get(key).get(i).get();
-                stairs(p_200404_1_, rb.get(), craftingItem, key, "has_" + craftingItem.getRegistryName().getPath().split("_")[0]);
+                stairs(recipe, rb.get(), craftingItem, key, "has_" + craftingItem.getRegistryName().getPath().split("_")[0]);
             }
 
         });
@@ -373,15 +389,15 @@ public class Recipes extends RecipeProvider {
                 RegistryObject<SlabBlock> rb = BlockInit.SSW_SET_SLABS.get("standalone").get(key).get(i);
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 5)));
 
-                slab(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                slab(recipe, rb.get(), craftingItem, key, "has_planks");
 
             }
 
             for (int i = 0; i < BlockInit.SSW_SET_WALLS.get("standalone").get(key).size(); i++) {
-                RegistryObject<WallBlock> rb = BlockInit.SSW_SET_WALLS.get("standalone").get(key).get(i);
+                RegistryObject<HalfWallBlock> rb = BlockInit.SSW_SET_WALLS.get("standalone").get(key).get(i);
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 5)));
 
-                wall(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                wall(recipe, rb.get(), craftingItem, key, "has_planks");
             }
 
 
@@ -389,7 +405,7 @@ public class Recipes extends RecipeProvider {
                 RegistryObject<StairBlock> rb = BlockInit.SSW_SET_STAIRS.get("standalone").get(key).get(i);
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 5)));
 
-                stairs(p_200404_1_, rb.get(), craftingItem, key, "has_planks");
+                stairs(recipe, rb.get(), craftingItem, key, "has_planks");
             }
         });
 
