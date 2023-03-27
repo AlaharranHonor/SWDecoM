@@ -13,41 +13,33 @@ import net.minecraftforge.registries.RegistryObject;
 import javax.annotation.Nullable;
 
 public class BlockTags extends BlockTagsProvider {
-	public BlockTags(DataGenerator pGenerator, String modId, @Nullable ExistingFileHelper existingFileHelper) {
-		super(pGenerator, modId, existingFileHelper);
-	}
+    public BlockTags(DataGenerator pGenerator, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+        super(pGenerator, modId, existingFileHelper);
+    }
 
-	@Override
-	protected void addTags() {
-		super.addTags();
+    @Override
+    protected void addTags() {
+        super.addTags();
 
-		this.tag(net.minecraft.tags.BlockTags.WALLS).add(Blocks.CHAIN);
-		for (RegistryObject<CoatedChain> chain : BlockInit.COATED_CHAINS) {
-			this.tag(net.minecraft.tags.BlockTags.WALLS).add(chain.get());
-		}
+        this.tag(net.minecraft.tags.BlockTags.WALLS).add(Blocks.CHAIN);
+        for (RegistryObject<CoatedChain> chain : BlockInit.COATED_CHAINS.values()) {
+            this.tag(net.minecraft.tags.BlockTags.WALLS).add(chain.get());
+        }
 
-		this.tag(net.minecraft.tags.BlockTags.WALLS)
-			.addOptional(new ResourceLocation(SWDM.MOD_ID, "whitewash_log_wall"))
-			.addOptional(new ResourceLocation(SWDM.MOD_ID, "whitewash_plank_wall"));
+        this.tag(net.minecraft.tags.BlockTags.WALLS)
+            .addOptional(new ResourceLocation(SWDM.MOD_ID, "whitewash_log_wall"))
+            .addOptional(new ResourceLocation(SWDM.MOD_ID, "whitewash_plank_wall"));
 
-		this.tag(net.minecraft.tags.BlockTags.WALLS)
-			//.add(BlockInit.TERRACOTTA_WALL.get())
-			.add(BlockInit.STONE_WALL.get());
+        this.tag(net.minecraft.tags.BlockTags.WALLS)
+            //.add(BlockInit.TERRACOTTA_WALL.get())
+            .add(BlockInit.STONE_WALL.get());
 
-		BlockInit.STONE_SET_WALLS.keySet().forEach(key -> {
-			BlockInit.STONE_SET_WALLS.get(key).keySet().forEach(key2 -> {
-				BlockInit.STONE_SET_WALLS.get(key).get(key2).forEach(rb -> {
-					this.tag(net.minecraft.tags.BlockTags.WALLS).add(rb.get());
-				});
-			});
-		});
+        BlockInit.STONE_SET_WALLS.items().forEach(rb -> {
+            this.tag(net.minecraft.tags.BlockTags.WALLS).add(rb.get());
+        });
 
-		BlockInit.SSW_SET_WALLS.keySet().forEach(key -> {
-			BlockInit.SSW_SET_WALLS.get(key).keySet().forEach(key2 -> {
-				BlockInit.SSW_SET_WALLS.get(key).get(key2).forEach(rb -> {
-					this.tag(net.minecraft.tags.BlockTags.WALLS).add(rb.get());
-				});
-			});
-		});
-	}
+        BlockInit.SSW_SET_WALLS.items().forEach(rb -> {
+            this.tag(net.minecraft.tags.BlockTags.WALLS).add(rb.get());
+        });
+    }
 }

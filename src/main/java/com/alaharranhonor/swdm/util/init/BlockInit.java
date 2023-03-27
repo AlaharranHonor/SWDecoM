@@ -56,30 +56,28 @@ public class BlockInit {
     // Stone sets 16 colours.
     // Stone set -> List of the 16 colours
     public static final MultiTable<String, String, RegistryObject<Block>> STONE_SET_BLOCKS = MultiTable.create();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<StairBlock>>>> STONE_SET_STAIRS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<SlabBlock>>>> STONE_SET_SLABS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<HalfWallBlock>>>> STONE_SET_WALLS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<StoneButtonBlock>>>> STONE_SET_BUTTONS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<PressurePlateBlock>>>> STONE_SET_PRESSURE_PLATES = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<TrapDoorBlock>>>> STONE_SET_TRAPDOORS = new HashMap<>();
-
+    public static final MultiTable<String, String, RegistryObject<StairBlock>> STONE_SET_STAIRS = MultiTable.create();
+    public static final MultiTable<String, String, RegistryObject<SlabBlock>> STONE_SET_SLABS = MultiTable.create();
+    public static final MultiTable<String, String, RegistryObject<HalfWallBlock>> STONE_SET_WALLS = MultiTable.create();
+    public static final MultiTable<String, String, RegistryObject<StoneButtonBlock>> STONE_SET_BUTTONS = MultiTable.create();
+    public static final MultiTable<String, String, RegistryObject<PressurePlateBlock>> STONE_SET_PRESSURE_PLATES = MultiTable.create();
+    public static final MultiTable<String, String, RegistryObject<TrapDoorBlock>> STONE_SET_TRAPDOORS = MultiTable.create();
 
     // Vanilla Wood types
-    public static final List<RegistryObject<Block>> LEAVES_TRAPDOORS = new ArrayList<>();
-    public static final List<RegistryObject<Block>> LADDERS = new ArrayList<>();
-
+    //public static final List<RegistryObject<Block>> LEAVES_TRAPDOORS = new ArrayList<>();
+    //public static final List<RegistryObject<Block>> LADDERS = new ArrayList<>();
 
     // SSW_SET
-    // Type of set -> Map<BlockTypes> -> List<Blocks>'
-    public static final HashMap<String, HashMap<String, List<RegistryObject<Block>>>> SSW_SET_BLOCKS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<StairBlock>>>> SSW_SET_STAIRS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<SlabBlock>>>> SSW_SET_SLABS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<HalfWallBlock>>>> SSW_SET_WALLS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<CarpetBlock>>>> SSW_SET_CARPETS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<Block>>>> SSW_SET_BEAMS = new HashMap<>();
-    public static final HashMap<String, HashMap<String, List<RegistryObject<StainedGlassPaneBlock>>>> SSW_SET_GLASS_PANES = new HashMap<>();
+    // (SetType, BlockType) -> List<Block>
+    public static final MultiTable<String, String, RegistryObject<Block>> SSW_SET_BLOCKS = MultiTable.create();
+    public static final MultiTable<String, String, RegistryObject<StairBlock>> SSW_SET_STAIRS = MultiTable.create();
+    public static final MultiTable<String, String, RegistryObject<SlabBlock>> SSW_SET_SLABS = MultiTable.create();
+    public static final MultiTable<String, String, RegistryObject<HalfWallBlock>> SSW_SET_WALLS = MultiTable.create();
+    public static final MultiTable<String, String, RegistryObject<CarpetBlock>> SSW_SET_CARPETS = MultiTable.create();
+    public static final MultiTable<String, String, RegistryObject<Block>> SSW_SET_BEAMS = MultiTable.create();
+    public static final MultiTable<String, String, RegistryObject<StainedGlassPaneBlock>> SSW_SET_GLASS_PANES = MultiTable.create();
 
-    public static final List<RegistryObject<CoatedChain>> COATED_CHAINS = new ArrayList<>();
+    public static final HashMap<String, RegistryObject<CoatedChain>> COATED_CHAINS = new HashMap<>(); // Color -> Block
     public static final HashMap<String, RegistryObject<SandBlock>> SAND_BLOCKS = new HashMap<>(); // Tone -> Block
     public static final HashMap<String, RegistryObject<Block>> SANDSTONE_BLOCKS = new HashMap<>(); // Tone -> Block
 
@@ -92,89 +90,24 @@ public class BlockInit {
             for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("standard").entrySet()) {
                 String name = blockType.getKey() + "_" + stoneType;
 
-                STONE_SET_BLOCKS.add("standard", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-
-                //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("standard", new HashMap<>());
-                //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                //blockList.add();
-                //blockMap.put(blockType.getKey(), blockList);
-                //STONE_SET_BLOCKS.put("standard", blockMap);
-
-                HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = STONE_SET_SLABS.getOrDefault("standard", new HashMap<>());
-                List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-                slabMap.put(blockType.getKey(), slabList);
-                STONE_SET_SLABS.put("standard", slabMap);
-
                 Supplier<Block> stairBlock = () -> new Block(blockType.getValue());
-
-                HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("standard", new HashMap<>());
-                List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                Supplier<Block> finalStairBlock = stairBlock;
-                stairList.add(register(name + "_stairs", () -> new StairBlock(() -> finalStairBlock.get().defaultBlockState(), blockType.getValue())));
-                stairMap.put(blockType.getKey(), stairList);
-                STONE_SET_STAIRS.put("standard", stairMap);
-
-                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("standard", new HashMap<>());
-                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-                wallMap.put(blockType.getKey(), wallList);
-                STONE_SET_WALLS.put("standard", wallMap);
-
-                HashMap<String, List<RegistryObject<StoneButtonBlock>>> buttonMap = STONE_SET_BUTTONS.getOrDefault("standard", new HashMap<>());
-                List<RegistryObject<StoneButtonBlock>> buttonList = buttonMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                buttonList.add(register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
-                buttonMap.put(blockType.getKey(), buttonList);
-                STONE_SET_BUTTONS.put("standard", buttonMap);
-
-                HashMap<String, List<RegistryObject<PressurePlateBlock>>> pressurePlateMap = STONE_SET_PRESSURE_PLATES.getOrDefault("standard", new HashMap<>());
-                List<RegistryObject<PressurePlateBlock>> pressurePlateList = pressurePlateMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                pressurePlateList.add(register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
-                pressurePlateMap.put(blockType.getKey(), pressurePlateList);
-                STONE_SET_PRESSURE_PLATES.put("standard", pressurePlateMap);
+                STONE_SET_BLOCKS.putSingle("standard", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                STONE_SET_SLABS.putSingle("standard", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
+                STONE_SET_STAIRS.putSingle("standard", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                STONE_SET_WALLS.putSingle("standard", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
+                STONE_SET_BUTTONS.putSingle("standard", blockType.getKey(), register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
+                STONE_SET_PRESSURE_PLATES.putSingle("standard", blockType.getKey(), register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
             }
 
             for (String lmdType : SWDM.LMD_TYPES) {
                 for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("lmd").entrySet()) {
                     String name = blockType.getKey() + "_" + lmdType + "_" + stoneType;
-                    HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = STONE_SET_SLABS.getOrDefault("lmd", new HashMap<>());
-                    List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-                    slabMap.put(blockType.getKey(), slabList);
-                    STONE_SET_SLABS.put("lmd", slabMap);
-
-                    //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("lmd", new HashMap<>());
-                    //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    //blockList.add(register(name, () -> new Block(blockType.getValue())));
-                    //blockMap.put(blockType.getKey(), blockList);
-                    //STONE_SET_BLOCKS.put("lmd", blockMap);
-
-                    STONE_SET_BLOCKS.add("lmd", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-
-
-                    HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("lmd", new HashMap<>());
-                    List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    stairList.add(register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
-                    stairMap.put(blockType.getKey(), stairList);
-                    STONE_SET_STAIRS.put("lmd", stairMap);
-
-                    HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("lmd", new HashMap<>());
-                    List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-                    wallMap.put(blockType.getKey(), wallList);
-                    STONE_SET_WALLS.put("lmd", wallMap);
-
-                    HashMap<String, List<RegistryObject<StoneButtonBlock>>> buttonMap = STONE_SET_BUTTONS.getOrDefault("lmd", new HashMap<>());
-                    List<RegistryObject<StoneButtonBlock>> buttonList = buttonMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    buttonList.add(register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
-                    buttonMap.put(blockType.getKey(), buttonList);
-                    STONE_SET_BUTTONS.put("lmd", buttonMap);
-
-                    HashMap<String, List<RegistryObject<PressurePlateBlock>>> pressurePlateMap = STONE_SET_PRESSURE_PLATES.getOrDefault("lmd", new HashMap<>());
-                    List<RegistryObject<PressurePlateBlock>> pressurePlateList = pressurePlateMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    pressurePlateList.add(register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
-                    pressurePlateMap.put(blockType.getKey(), pressurePlateList);
-                    STONE_SET_PRESSURE_PLATES.put("lmd", pressurePlateMap);
+                    STONE_SET_BLOCKS.putSingle("lmd", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                    STONE_SET_SLABS.putSingle("lmd", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
+                    STONE_SET_STAIRS.putSingle("lmd", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
+                    STONE_SET_WALLS.putSingle("lmd", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
+                    STONE_SET_BUTTONS.putSingle("lmd", blockType.getKey(), register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
+                    STONE_SET_PRESSURE_PLATES.putSingle("lmd", blockType.getKey(), register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
                 }
             }
 
@@ -182,86 +115,29 @@ public class BlockInit {
 
         for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("standalone").entrySet()) {
             String name = blockType.getKey();
-            HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = STONE_SET_SLABS.getOrDefault("standalone", new HashMap<>());
-            List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-            slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-            slabMap.put(blockType.getKey(), slabList);
-            STONE_SET_SLABS.put("standalone", slabMap);
-
-            HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("standalone", new HashMap<>());
-            List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-            stairList.add(register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
-            stairMap.put(blockType.getKey(), stairList);
-            STONE_SET_STAIRS.put("standalone", stairMap);
-
-            HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("standalone", new HashMap<>());
-            List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-            wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-            wallMap.put(blockType.getKey(), wallList);
-            STONE_SET_WALLS.put("standalone", wallMap);
-
-            HashMap<String, List<RegistryObject<StoneButtonBlock>>> buttonMap = STONE_SET_BUTTONS.getOrDefault("standalone", new HashMap<>());
-            List<RegistryObject<StoneButtonBlock>> buttonList = buttonMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-            buttonList.add(register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
-            buttonMap.put(blockType.getKey(), buttonList);
-            STONE_SET_BUTTONS.put("standalone", buttonMap);
-
-            HashMap<String, List<RegistryObject<PressurePlateBlock>>> pressurePlateMap = STONE_SET_PRESSURE_PLATES.getOrDefault("standalone", new HashMap<>());
-            List<RegistryObject<PressurePlateBlock>> pressurePlateList = pressurePlateMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-            pressurePlateList.add(register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
-            pressurePlateMap.put(blockType.getKey(), pressurePlateList);
-            STONE_SET_PRESSURE_PLATES.put("standalone", pressurePlateMap);
+            STONE_SET_SLABS.putSingle("standalone", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
+            STONE_SET_STAIRS.putSingle("standalone", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
+            STONE_SET_WALLS.putSingle("standalone", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
+            STONE_SET_BUTTONS.putSingle("standalone", blockType.getKey(), register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
+            STONE_SET_PRESSURE_PLATES.putSingle("standalone", blockType.getKey(), register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
         }
 
         for (String lmdType : SWDM.LMD_TYPES) {
             for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("lmd-only").entrySet()) {
                 String name = blockType.getKey() + "_" + lmdType;
-                HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = STONE_SET_SLABS.getOrDefault("lmd-only", new HashMap<>());
-                List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-                slabMap.put(blockType.getKey(), slabList);
-                STONE_SET_SLABS.put("lmd-only", slabMap);
-
-
-                STONE_SET_BLOCKS.add("lmd-only", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-
-                //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("lmd-only", new HashMap<>());
-                //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                //blockList.add(register(blockType.getKey() + "_" + lmdType, () -> new Block(blockType.getValue())));
-                //blockMap.put(blockType.getKey(), blockList);
-                //STONE_SET_BLOCKS.put("lmd-only", blockMap);
-
-
-                HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("lmd-only", new HashMap<>());
-                List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                stairList.add(register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
-                stairMap.put(blockType.getKey(), stairList);
-                STONE_SET_STAIRS.put("lmd-only", stairMap);
-
-                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("lmd-only", new HashMap<>());
-                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-                wallMap.put(blockType.getKey(), wallList);
-                STONE_SET_WALLS.put("lmd-only", wallMap);
-
-                HashMap<String, List<RegistryObject<StoneButtonBlock>>> buttonMap = STONE_SET_BUTTONS.getOrDefault("lmd-only", new HashMap<>());
-                List<RegistryObject<StoneButtonBlock>> buttonList = buttonMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                buttonList.add(register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
-                buttonMap.put(blockType.getKey(), buttonList);
-                STONE_SET_BUTTONS.put("lmd-only", buttonMap);
-
-                HashMap<String, List<RegistryObject<PressurePlateBlock>>> pressurePlateMap = STONE_SET_PRESSURE_PLATES.getOrDefault("lmd-only", new HashMap<>());
-                List<RegistryObject<PressurePlateBlock>> pressurePlateList = pressurePlateMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                pressurePlateList.add(register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
-                pressurePlateMap.put(blockType.getKey(), pressurePlateList);
-                STONE_SET_PRESSURE_PLATES.put("lmd-only", pressurePlateMap);
+                STONE_SET_BLOCKS.putSingle("lmd-only", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                STONE_SET_SLABS.putSingle("lmd-only", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
+                STONE_SET_STAIRS.putSingle("lmd-only", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
+                STONE_SET_WALLS.putSingle("lmd-only", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
+                STONE_SET_BUTTONS.putSingle("lmd-only", blockType.getKey(), register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
+                STONE_SET_PRESSURE_PLATES.putSingle("lmd-only", blockType.getKey(), register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
             }
         }
 
 
         for (DyeColor color : DyeColor.values()) {
 
-            COATED_CHAINS.add(register("chain_coated_" + color.getName(), () -> new CoatedChain(Block.Properties.of(Material.METAL, MaterialColor.NONE).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.CHAIN).noOcclusion())));
+            COATED_CHAINS.put(color.getName(), register("chain_coated_" + color.getName(), () -> new CoatedChain(Block.Properties.of(Material.METAL, MaterialColor.NONE).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.CHAIN).noOcclusion())));
 
             for (Map.Entry<String, Block.Properties> blockType : SWDM.SSW_SETS.get("color").entrySet()) {
                 String name;
@@ -270,156 +146,62 @@ public class BlockInit {
                 } else {
                     name = blockType.getKey() + "_" + color;
                 }
-                HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = SSW_SET_SLABS.getOrDefault("color", new HashMap<>());
-                List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-                slabMap.put(blockType.getKey(), slabList);
-                SSW_SET_SLABS.put("color", slabMap);
 
-
-                Supplier<Block> stairBlock = null;
+                Supplier<Block> stairBlock;
                 if (!blockType.getKey().equals("wool") && !blockType.getKey().equals("stained_glass")) {
-
-                    HashMap<String, List<RegistryObject<Block>>> blockMap = SSW_SET_BLOCKS.getOrDefault("color", new HashMap<>());
-                    List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
                     stairBlock = () -> new Block(blockType.getValue());
-                    blockList.add(register(name, () -> new Block(blockType.getValue())));
-                    blockMap.put(blockType.getKey(), blockList);
-                    SSW_SET_BLOCKS.put("color", blockMap);
-
-                }
-
-                if (stairBlock == null) {
+                    SSW_SET_BLOCKS.putSingle("color", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                } else {
                     stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + name));
                 }
 
-
-                HashMap<String, List<RegistryObject<StairBlock>>> stairMap = SSW_SET_STAIRS.getOrDefault("color", new HashMap<>());
-                List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                Supplier<Block> finalStairBlock = stairBlock;
-
-                stairList.add(register(name + "_stairs", () -> new StairBlock(() -> finalStairBlock.get().defaultBlockState(), blockType.getValue())));
-
-                stairMap.put(blockType.getKey(), stairList);
-                SSW_SET_STAIRS.put("color", stairMap);
-
-                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("color", new HashMap<>());
-                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-                wallMap.put(blockType.getKey(), wallList);
-                SSW_SET_WALLS.put("color", wallMap);
+                SSW_SET_SLABS.putSingle("color", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
+                SSW_SET_STAIRS.putSingle("color", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                SSW_SET_WALLS.putSingle("color", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
 
                 if (blockType.getKey().equals("wool_pastel") || blockType.getKey().equals("wool_tinted")) {
-                    HashMap<String, List<RegistryObject<CarpetBlock>>> carpetMap = SSW_SET_CARPETS.getOrDefault("color", new HashMap<>());
-                    List<RegistryObject<CarpetBlock>> carpetList = carpetMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    carpetList.add(register(name + "_carpet", () -> new CarpetBlock(blockType.getValue())));
-                    carpetMap.put(blockType.getKey(), carpetList);
-                    SSW_SET_CARPETS.put("color", carpetMap);
+                    SSW_SET_CARPETS.putSingle("color", blockType.getKey(), register(name + "_carpet", () -> new CarpetBlock(blockType.getValue())));
                 }
             }
 
             for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("color").entrySet()) {
-                String name = blockType.getKey() + "_" + color.getName();
+                final String name;
+
+                // Vanilla items are reversed to what we use
                 if (blockType.getKey().contains("concrete") || blockType.getKey().contains("terracotta")) {
                     name = color.getName() + "_" + blockType.getKey();
+                } else {
+                    name = blockType.getKey() + "_" + color.getName();
                 }
-                HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = STONE_SET_SLABS.getOrDefault("color", new HashMap<>());
-                List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-                slabMap.put(blockType.getKey(), slabList);
-                STONE_SET_SLABS.put("color", slabMap);
 
-                Supplier<Block> stairBlock = null;
+                Supplier<Block> stairBlock;
+                // We don't want to add terracotta or concrete as they already exist in vanilla
                 if (!blockType.getKey().equals("concrete") && !blockType.getKey().equals("terracotta")) {
-
-                    STONE_SET_BLOCKS.add("color", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-
-                    //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("color", new HashMap<>());
-                    //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    //stairBlock = () -> new Block(blockType.getValue());
-                    //blockList.add(register(name, () -> new Block(blockType.getValue())));
-                    //blockMap.put(blockType.getKey(), blockList);
-                    //STONE_SET_BLOCKS.put("color", blockMap);
+                    STONE_SET_BLOCKS.putSingle("color", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                    stairBlock = () -> new Block(blockType.getValue());
+                } else {
+                    stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + name));
                 }
 
-                if (stairBlock == null) {
-                    String n = name; // To be used in lambda
-                    stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + n));
-                }
-
-                HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("color", new HashMap<>());
-                List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                Supplier<Block> finalStairBlock = stairBlock;
-                stairList.add(register(name + "_stairs", () -> new StairBlock(() -> finalStairBlock.get().defaultBlockState(), blockType.getValue())));
-                stairMap.put(blockType.getKey(), stairList);
-                STONE_SET_STAIRS.put("color", stairMap);
-
-                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("color", new HashMap<>());
-                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-                wallMap.put(blockType.getKey(), wallList);
-                STONE_SET_WALLS.put("color", wallMap);
-
-                HashMap<String, List<RegistryObject<StoneButtonBlock>>> buttonMap = STONE_SET_BUTTONS.getOrDefault("color", new HashMap<>());
-                List<RegistryObject<StoneButtonBlock>> buttonList = buttonMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                buttonList.add(register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
-                buttonMap.put(blockType.getKey(), buttonList);
-                STONE_SET_BUTTONS.put("color", buttonMap);
-
-                HashMap<String, List<RegistryObject<PressurePlateBlock>>> pressurePlateMap = STONE_SET_PRESSURE_PLATES.getOrDefault("color", new HashMap<>());
-                List<RegistryObject<PressurePlateBlock>> pressurePlateList = pressurePlateMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                pressurePlateList.add(register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
-                pressurePlateMap.put(blockType.getKey(), pressurePlateList);
-                STONE_SET_PRESSURE_PLATES.put("color", pressurePlateMap);
+                STONE_SET_SLABS.putSingle("color", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
+                STONE_SET_STAIRS.putSingle("color", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                STONE_SET_WALLS.putSingle("color", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
+                STONE_SET_BUTTONS.putSingle("color", blockType.getKey(), register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
+                STONE_SET_PRESSURE_PLATES.putSingle("color", blockType.getKey(), register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
             }
 
         }
 
         for (String color : SWDM.CUSTOM_COLORS) {
-
             for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("color_custom").entrySet()) {
                 String name = blockType.getKey() + "_" + color;
-
-                HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = STONE_SET_SLABS.getOrDefault("color_custom", new HashMap<>());
-                List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-                slabMap.put(blockType.getKey(), slabList);
-                STONE_SET_SLABS.put("color_custom", slabMap);
-
-
                 Supplier<Block> stairBlock = () -> new Block(blockType.getValue());
-                //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("color_custom", new HashMap<>());
-                //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                //blockList.add(register(name, () -> new Block(blockType.getValue())));
-                //blockMap.put(blockType.getKey(), blockList);
-                //STONE_SET_BLOCKS.put("color_custom", blockMap);
-
-                STONE_SET_BLOCKS.add("color_custom", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-
-                HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("color_custom", new HashMap<>());
-                List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                Supplier<Block> finalStairBlock = stairBlock;
-                stairList.add(register(name + "_stairs", () -> new StairBlock(() -> finalStairBlock.get().defaultBlockState(), blockType.getValue())));
-                stairMap.put(blockType.getKey(), stairList);
-                STONE_SET_STAIRS.put("color_custom", stairMap);
-
-                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("color_custom", new HashMap<>());
-                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-                wallMap.put(blockType.getKey(), wallList);
-                STONE_SET_WALLS.put("color_custom", wallMap);
-
-                HashMap<String, List<RegistryObject<StoneButtonBlock>>> buttonMap = STONE_SET_BUTTONS.getOrDefault("color_custom", new HashMap<>());
-                List<RegistryObject<StoneButtonBlock>> buttonList = buttonMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                buttonList.add(register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
-                buttonMap.put(blockType.getKey(), buttonList);
-                STONE_SET_BUTTONS.put("color_custom", buttonMap);
-
-                HashMap<String, List<RegistryObject<PressurePlateBlock>>> pressurePlateMap = STONE_SET_PRESSURE_PLATES.getOrDefault("color_custom", new HashMap<>());
-                List<RegistryObject<PressurePlateBlock>> pressurePlateList = pressurePlateMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                pressurePlateList.add(register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
-                pressurePlateMap.put(blockType.getKey(), pressurePlateList);
-                STONE_SET_PRESSURE_PLATES.put("color_custom", pressurePlateMap);
+                STONE_SET_SLABS.putSingle("color_custom", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
+                STONE_SET_BLOCKS.putSingle("color_custom", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                STONE_SET_STAIRS.putSingle("color_custom", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                STONE_SET_WALLS.putSingle("color_custom", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
+                STONE_SET_BUTTONS.putSingle("color_custom", blockType.getKey(), register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
+                STONE_SET_PRESSURE_PLATES.putSingle("color_custom", blockType.getKey(), register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
             }
         }
 
@@ -431,89 +213,36 @@ public class BlockInit {
 
                 for (Map.Entry<String, Block.Properties> blockType : SWDM.SSW_SETS.get("wv").entrySet()) {
                     String name = sanitizedWoodName + "_" + blockType.getKey();
+                    SSW_SET_BEAMS.putSingle("wv", blockType.getKey(), register("beam_" + name, () -> new BeamBlock(blockType.getValue())));
+                    SSW_SET_SLABS.putSingle("wv", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
 
-                    HashMap<String, List<RegistryObject<Block>>> beamMap = SSW_SET_BEAMS.getOrDefault("wv", new HashMap<>());
-                    List<RegistryObject<Block>> beamList = beamMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    beamList.add(register("beam_" + name, () -> new BeamBlock(blockType.getValue())));
-                    beamMap.put(blockType.getKey(), beamList);
-                    SSW_SET_BEAMS.put("wv", beamMap);
-
-                    HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = SSW_SET_SLABS.getOrDefault("wv", new HashMap<>());
-                    List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-                    slabMap.put(blockType.getKey(), slabList);
-                    SSW_SET_SLABS.put("wv", slabMap);
-
-                    Supplier<Block> stairBlock = null;
+                    Supplier<Block> stairBlock;
                     // Is this really needed? planks, log and stripped_log are the only variants anyways.
                     if (!blockType.getKey().equals("planks") && !blockType.getKey().equals("log") && !blockType.getKey().equals("stripped_log")) {
-                        HashMap<String, List<RegistryObject<Block>>> blockMap = SSW_SET_BLOCKS.getOrDefault("wv", new HashMap<>());
-                        List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
                         stairBlock = () -> new Block(blockType.getValue());
-                        blockList.add(register(name, () -> new Block(blockType.getValue())));
-                        blockMap.put(blockType.getKey(), blockList);
-                        SSW_SET_BLOCKS.put("wv", blockMap);
-                    }
-
-                    if (stairBlock == null) {
+                        SSW_SET_BLOCKS.putSingle("wv", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                    } else {
                         stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + sanitizedWoodName + "_" + blockType.getKey()));
                     }
 
-
-                    HashMap<String, List<RegistryObject<StairBlock>>> stairMap = SSW_SET_STAIRS.getOrDefault("wv", new HashMap<>());
-                    List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    Supplier<Block> finalStairBlock = stairBlock;
-                    stairList.add(register(name + "_stairs", () -> new StairBlock(() -> finalStairBlock.get().defaultBlockState(), blockType.getValue())));
-                    stairMap.put(blockType.getKey(), stairList);
-                    SSW_SET_STAIRS.put("wv", stairMap);
-
-                    HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("wv", new HashMap<>());
-                    List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-                    wallMap.put(blockType.getKey(), wallList);
-                    SSW_SET_WALLS.put("wv", wallMap);
+                    SSW_SET_STAIRS.putSingle("wv", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                    SSW_SET_WALLS.putSingle("wv", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 }
 
                 for (Map.Entry<String, Block.Properties> blockType : SWDM.SSW_SETS.get("wv-whitewash").entrySet()) {
                     if (wood.name().contains("swem:")) break;
+                    SSW_SET_SLABS.putSingle("wv-whitewash", blockType.getKey(), register(wood.name() + "_" + blockType.getKey() + "_slab", () -> new SlabBlock(blockType.getValue())));
 
 
-                    HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = SSW_SET_SLABS.getOrDefault("wv-whitewash", new HashMap<>());
-                    List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    slabList.add(register(wood.name() + "_" + blockType.getKey() + "_slab", () -> new SlabBlock(blockType.getValue())));
-                    slabMap.put(blockType.getKey(), slabList);
-                    SSW_SET_SLABS.put("wv-whitewash", slabMap);
-
-
-                    Supplier<Block> stairBlock = null;
+                    Supplier<Block> stairBlock;
                     if (!blockType.getKey().equals("leaves")) {
-
-                        HashMap<String, List<RegistryObject<Block>>> blockMap = SSW_SET_BLOCKS.getOrDefault("wv-whitewash", new HashMap<>());
-                        List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
                         stairBlock = () -> new Block(blockType.getValue());
-                        blockList.add(register(wood.name() + "_" + blockType.getKey(), () -> new Block(blockType.getValue())));
-                        blockMap.put(blockType.getKey(), blockList);
-                        SSW_SET_BLOCKS.put("wv-whitewash", blockMap);
-
-                    }
-
-                    if (stairBlock == null) {
+                        SSW_SET_BLOCKS.putSingle("wv-whitewash", blockType.getKey(), register(wood.name() + "_" + blockType.getKey(), () -> new Block(blockType.getValue())));
+                    } else {
                         stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + wood.name() + "_planks"));
                     }
-
-
-                    HashMap<String, List<RegistryObject<StairBlock>>> stairMap = SSW_SET_STAIRS.getOrDefault("wv-whitewash", new HashMap<>());
-                    List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    Supplier<Block> finalStairBlock = stairBlock;
-                    stairList.add(register(wood.name() + "_" + blockType.getKey() + "_stairs", () -> new StairBlock(() -> finalStairBlock.get().defaultBlockState(), blockType.getValue())));
-                    stairMap.put(blockType.getKey(), stairList);
-                    SSW_SET_STAIRS.put("wv-whitewash", stairMap);
-
-                    HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("wv-whitewash", new HashMap<>());
-                    List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    wallList.add(register(wood.name() + "_" + blockType.getKey() + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-                    wallMap.put(blockType.getKey(), wallList);
-                    SSW_SET_WALLS.put("wv-whitewash", wallMap);
+                    SSW_SET_STAIRS.putSingle("wv-whitewash", blockType.getKey(), register(wood.name() + "_" + blockType.getKey() + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                    SSW_SET_WALLS.putSingle("wv-whitewash", blockType.getKey(), register(wood.name() + "_" + blockType.getKey() + "_wall", () -> new HalfWallBlock(blockType.getValue())));
 
                 }
             }
@@ -533,91 +262,26 @@ public class BlockInit {
         SWDM.LMD_TYPES.forEach((lmdType) -> {
             for (Map.Entry<String, Block.Properties> blockType : SWDM.SSW_SETS.get("lmd").entrySet()) {
                 String name = blockType.getKey() + "_" + lmdType;
-                HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = SSW_SET_SLABS.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-                slabMap.put(blockType.getKey(), slabList);
-                SSW_SET_SLABS.put("lmd", slabMap);
 
-
-                Supplier<Block> stairBlock = null;
-
-                HashMap<String, List<RegistryObject<Block>>> blockMap = SSW_SET_BLOCKS.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                stairBlock = () -> new Block(blockType.getValue());
-                blockList.add(register(name, () -> new Block(blockType.getValue())));
-                blockMap.put(blockType.getKey(), blockList);
-                SSW_SET_BLOCKS.put("lmd", blockMap);
-
-
-                if (stairBlock == null) {
-                    stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + name));
-                }
-
-
-                HashMap<String, List<RegistryObject<StairBlock>>> stairMap = SSW_SET_STAIRS.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                Supplier<Block> finalStairBlock = stairBlock;
-                stairList.add(register(name + "_stairs", () -> new StairBlock(() -> finalStairBlock.get().defaultBlockState(), blockType.getValue())));
-                stairMap.put(blockType.getKey(), stairList);
-                SSW_SET_STAIRS.put("lmd", stairMap);
-
-                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-                wallMap.put(blockType.getKey(), wallList);
-                SSW_SET_WALLS.put("lmd", wallMap);
+                Supplier<Block> stairBlock = () -> new Block(blockType.getValue());
+                SSW_SET_BLOCKS.putSingle("lmd", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                SSW_SET_SLABS.putSingle("lmd", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
+                SSW_SET_STAIRS.putSingle("lmd", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                SSW_SET_WALLS.putSingle("lmd", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
 
                 if (blockType.getKey().equals("screen")) {
-                    HashMap<String, List<RegistryObject<StainedGlassPaneBlock>>> beamMap = SSW_SET_GLASS_PANES.getOrDefault("lmd", new HashMap<>());
-                    List<RegistryObject<StainedGlassPaneBlock>> beamList = beamMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    beamList.add(register(name + "_glass_pane", () -> new StainedGlassPaneBlock(DyeColor.BLACK, blockType.getValue())));
-                    beamMap.put(blockType.getKey(), beamList);
-                    SSW_SET_GLASS_PANES.put("lmd", beamMap);
+                    SSW_SET_GLASS_PANES.putSingle("lmd", blockType.getKey(), register(name + "_glass_pane", () -> new StainedGlassPaneBlock(DyeColor.BLACK, blockType.getValue())));
                 }
             }
 
             for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("lmd").entrySet()) {
                 String name = blockType.getKey() + "_" + lmdType;
-                HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = STONE_SET_SLABS.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-                slabMap.put(blockType.getKey(), slabList);
-                STONE_SET_SLABS.put("lmd", slabMap);
-
-                STONE_SET_BLOCKS.add("lmd", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-
-                //HashMap<String, List<RegistryObject<Block>>> blockMap = STONE_SET_BLOCKS.getOrDefault("lmd", new HashMap<>());
-                //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                //blockList.add(register(name, () -> new Block(blockType.getValue())));
-                //blockMap.put(blockType.getKey(), blockList);
-                //STONE_SET_BLOCKS.put("lmd", blockMap);
-
-
-                HashMap<String, List<RegistryObject<StairBlock>>> stairMap = STONE_SET_STAIRS.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                stairList.add(register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
-                stairMap.put(blockType.getKey(), stairList);
-                STONE_SET_STAIRS.put("lmd", stairMap);
-
-                HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = STONE_SET_WALLS.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-                wallMap.put(blockType.getKey(), wallList);
-                STONE_SET_WALLS.put("lmd", wallMap);
-
-                HashMap<String, List<RegistryObject<StoneButtonBlock>>> buttonMap = STONE_SET_BUTTONS.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<StoneButtonBlock>> buttonList = buttonMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                buttonList.add(register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
-                buttonMap.put(blockType.getKey(), buttonList);
-                STONE_SET_BUTTONS.put("lmd", buttonMap);
-                STONE_SET_BUTTONS.put("lmd", buttonMap);
-
-                HashMap<String, List<RegistryObject<PressurePlateBlock>>> pressurePlateMap = STONE_SET_PRESSURE_PLATES.getOrDefault("lmd", new HashMap<>());
-                List<RegistryObject<PressurePlateBlock>> pressurePlateList = pressurePlateMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                pressurePlateList.add(register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
-                pressurePlateMap.put(blockType.getKey(), pressurePlateList);
-                STONE_SET_PRESSURE_PLATES.put("lmd", pressurePlateMap);
+                STONE_SET_SLABS.putSingle("lmd", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
+                STONE_SET_BLOCKS.putSingle("lmd", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                STONE_SET_STAIRS.putSingle("lmd", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
+                STONE_SET_WALLS.putSingle("lmd", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
+                STONE_SET_BUTTONS.putSingle("lmd", blockType.getKey(), register(name + "_button", () -> new StoneButtonBlock(blockType.getValue())));
+                STONE_SET_PRESSURE_PLATES.putSingle("lmd", blockType.getKey(), register(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, blockType.getValue())));
             }
 
             FIBER_CARPETS.put(lmdType, "sand", register("fiber_carpet_" + lmdType + "_sand", () -> new CarpetBlock(Block.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BLACK).strength(0.1F).sound(SoundType.WOOL).noOcclusion())));
@@ -636,65 +300,24 @@ public class BlockInit {
             for (String lmdType : SWDM.LMD_TYPES) {
                 for (Map.Entry<String, Block.Properties> blockType : SWDM.SSW_SETS.get("lmd-color").entrySet()) {
                     String name = blockType.getKey() + "_" + lmdType + "_" + color.getName();
-                    HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = SSW_SET_SLABS.getOrDefault("lmd-color", new HashMap<>());
-                    List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-                    slabMap.put(blockType.getKey(), slabList);
-                    SSW_SET_SLABS.put("lmd-color", slabMap);
 
-                    Supplier<Block> stairBlock = null;
-                    HashMap<String, List<RegistryObject<Block>>> blockMap = SSW_SET_BLOCKS.getOrDefault("lmd-color", new HashMap<>());
-                    List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    stairBlock = () -> new Block(blockType.getValue());
-                    blockList.add(register(name, () -> new Block(blockType.getValue())));
-                    blockMap.put(blockType.getKey(), blockList);
-                    SSW_SET_BLOCKS.put("lmd-color", blockMap);
-
-                    HashMap<String, List<RegistryObject<StairBlock>>> stairMap = SSW_SET_STAIRS.getOrDefault("lmd-color", new HashMap<>());
-                    List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    Supplier<Block> finalStairBlock = stairBlock;
-                    stairList.add(register(name + "_stairs", () -> new StairBlock(() -> finalStairBlock.get().defaultBlockState(), blockType.getValue())));
-                    stairMap.put(blockType.getKey(), stairList);
-                    SSW_SET_STAIRS.put("lmd-color", stairMap);
-
-                    HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("lmd-color", new HashMap<>());
-                    List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-                    wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-                    wallMap.put(blockType.getKey(), wallList);
-                    SSW_SET_WALLS.put("lmd-color", wallMap);
+                    Supplier<Block> stairBlock = () -> new Block(blockType.getValue());
+                    SSW_SET_BLOCKS.putSingle("lmd-color", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                    SSW_SET_SLABS.putSingle("lmd-color", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
+                    SSW_SET_STAIRS.putSingle("lmd-color", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                    SSW_SET_WALLS.putSingle("lmd-color", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 }
             }
         }
 
+        // Vanilla sets
         for (Map.Entry<String, Block.Properties> blockType : SWDM.SSW_SETS.get("standalone").entrySet()) {
             String name = blockType.getKey();
 
-            HashMap<String, List<RegistryObject<SlabBlock>>> slabMap = SSW_SET_SLABS.getOrDefault("standalone", new HashMap<>());
-            List<RegistryObject<SlabBlock>> slabList = slabMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-            slabList.add(register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-            slabMap.put(blockType.getKey(), slabList);
-            SSW_SET_SLABS.put("standalone", slabMap);
-
-            //HashMap<String, List<RegistryObject<Block>>> blockMap = SSW_SET_BLOCKS.getOrDefault("standard", new HashMap<>());
-            //List<RegistryObject<Block>> blockList = blockMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-            //blockList.add(register(name, () -> new Block(blockType.getValue())));
-            //blockMap.put(blockType.getKey(), blockList);
-            //SSW_SET_BLOCKS.put("standard", blockMap);
-
             Supplier<Block> stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + name));
-
-            HashMap<String, List<RegistryObject<StairBlock>>> stairMap = SSW_SET_STAIRS.getOrDefault("standalone", new HashMap<>());
-            List<RegistryObject<StairBlock>> stairList = stairMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-            Supplier<Block> finalStairBlock = stairBlock;
-            stairList.add(register(name + "_stairs", () -> new StairBlock(() -> finalStairBlock.get().defaultBlockState(), blockType.getValue())));
-            stairMap.put(blockType.getKey(), stairList);
-            SSW_SET_STAIRS.put("standalone", stairMap);
-
-            HashMap<String, List<RegistryObject<HalfWallBlock>>> wallMap = SSW_SET_WALLS.getOrDefault("standalone", new HashMap<>());
-            List<RegistryObject<HalfWallBlock>> wallList = wallMap.getOrDefault(blockType.getKey(), new ArrayList<>());
-            wallList.add(register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
-            wallMap.put(blockType.getKey(), wallList);
-            SSW_SET_WALLS.put("standalone", wallMap);
+            SSW_SET_SLABS.putSingle("standalone", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
+            SSW_SET_STAIRS.putSingle("standalone", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+            SSW_SET_WALLS.putSingle("standalone", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
         }
     }
 

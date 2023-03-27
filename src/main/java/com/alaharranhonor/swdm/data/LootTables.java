@@ -94,119 +94,50 @@ public class LootTables extends LootTableProvider {
             registerSimpleBlockDrop(register, BlockInit.DIRT_SLAB);
 
             // Sets
-            for (RegistryObject<CoatedChain> chain : BlockInit.COATED_CHAINS) {
-                register.accept(chain.getId(), simpleBlockDrop(chain.get()));
-            }
+            BlockInit.COATED_CHAINS.values().forEach(rb -> register.accept(rb.getId(), simpleBlockDrop(rb.get())));
 
-            BlockInit.STONE_SET_SLABS.keySet().forEach((key) -> {
-                BlockInit.STONE_SET_SLABS.get(key).keySet().forEach((key2) -> {
-                    BlockInit.STONE_SET_SLABS.get(key).get(key2).forEach((rb) -> {
+            BlockInit.STONE_SET_SLABS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.STONE_SET_STAIRS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.STONE_SET_WALLS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.STONE_SET_BLOCKS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.STONE_SET_BUTTONS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.STONE_SET_PRESSURE_PLATES.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+
+            BlockInit.SSW_SET_BLOCKS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.SSW_SET_SLABS.cellSet().forEach((cell) -> {
+                cell.getValue().forEach(rb -> {
+                    if (cell.getColumnKey().equals("leaves")) {
+                        register.accept(rb.get().getRegistryName(), leavesLootTable(rb.get()));
+                    } else {
                         register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                    });
+                    }
                 });
             });
-            BlockInit.STONE_SET_STAIRS.keySet().forEach((key) -> {
-                BlockInit.STONE_SET_STAIRS.get(key).keySet().forEach((key2) -> {
-                    BlockInit.STONE_SET_STAIRS.get(key).get(key2).forEach((rb) -> {
+            BlockInit.SSW_SET_STAIRS.cellSet().forEach((cell) -> {
+                cell.getValue().forEach((rb) -> {
+                    if (cell.getColumnKey().equals("leaves")) {
+                        register.accept(rb.get().getRegistryName(), leavesLootTable(rb.get()));
+                    } else {
                         register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                    });
+                    }
                 });
             });
-            BlockInit.STONE_SET_WALLS.keySet().forEach((key) -> {
-                BlockInit.STONE_SET_WALLS.get(key).keySet().forEach((key2) -> {
-                    BlockInit.STONE_SET_WALLS.get(key).get(key2).forEach((rb) -> {
+            BlockInit.SSW_SET_WALLS.cellSet().forEach((cell) -> {
+                cell.getValue().forEach((rb) -> {
+                    if (cell.getColumnKey().equals("leaves")) {
+                        register.accept(rb.get().getRegistryName(), leavesLootTable(rb.get()));
+                    } else {
                         register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                    });
-                });
-            });
-            BlockInit.STONE_SET_BLOCKS.items().forEach((rb) -> {
-                register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-            });
-            BlockInit.STONE_SET_BUTTONS.keySet().forEach((key) -> {
-                BlockInit.STONE_SET_BUTTONS.get(key).keySet().forEach((key2) -> {
-                    BlockInit.STONE_SET_BUTTONS.get(key).get(key2).forEach((rb) -> {
-                        register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                    });
-                });
-            });
-            BlockInit.STONE_SET_PRESSURE_PLATES.keySet().forEach((key) -> {
-                BlockInit.STONE_SET_PRESSURE_PLATES.get(key).keySet().forEach((key2) -> {
-                    BlockInit.STONE_SET_PRESSURE_PLATES.get(key).get(key2).forEach((rb) -> {
-                        register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                    });
-                });
-            });
-            BlockInit.SSW_SET_BLOCKS.keySet().forEach((key) -> {
-                BlockInit.SSW_SET_BLOCKS.get(key).keySet().forEach((key2) -> {
-                    BlockInit.SSW_SET_BLOCKS.get(key).get(key2).forEach((rb) -> {
-                        register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                    });
-                });
-            });
-            BlockInit.SSW_SET_SLABS.keySet().forEach((key) -> {
-                BlockInit.SSW_SET_SLABS.get(key).keySet().forEach((key2) -> {
-                    BlockInit.SSW_SET_SLABS.get(key).get(key2).forEach((rb) -> {
-                        if (key2.equals("leaves")) {
-                            register.accept(rb.get().getRegistryName(), leavesLootTable(rb.get()));
-                        } else {
-                            register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                        }
-                    });
-                });
-            });
-            BlockInit.SSW_SET_STAIRS.keySet().forEach((key) -> {
-                BlockInit.SSW_SET_STAIRS.get(key).keySet().forEach((key2) -> {
-                    BlockInit.SSW_SET_STAIRS.get(key).get(key2).forEach((rb) -> {
-                        if (key2.equals("leaves")) {
-                            register.accept(rb.get().getRegistryName(), leavesLootTable(rb.get()));
-                        } else {
-                            register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                        }
-                    });
-                });
-            });
-            BlockInit.SSW_SET_WALLS.keySet().forEach((key) -> {
-                BlockInit.SSW_SET_WALLS.get(key).keySet().forEach((key2) -> {
-                    BlockInit.SSW_SET_WALLS.get(key).get(key2).forEach((rb) -> {
-                        if (key2.equals("leaves")) {
-                            register.accept(rb.get().getRegistryName(), leavesLootTable(rb.get()));
-                        } else {
-                            register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                        }
-                    });
-                });
-            });
-            BlockInit.SSW_SET_CARPETS.keySet().forEach((key) -> {
-                BlockInit.SSW_SET_CARPETS.get(key).keySet().forEach((key2) -> {
-                    BlockInit.SSW_SET_CARPETS.get(key).get(key2).forEach((rb) -> {
-                        register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                    });
-                });
-            });
-            BlockInit.SSW_SET_GLASS_PANES.keySet().forEach((key) -> {
-                BlockInit.SSW_SET_GLASS_PANES.get(key).keySet().forEach((key2) -> {
-                    BlockInit.SSW_SET_GLASS_PANES.get(key).get(key2).forEach((rb) -> {
-                        register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                    });
-                });
-            });
-            BlockInit.SSW_SET_BEAMS.keySet().forEach((key) -> {
-                BlockInit.SSW_SET_BEAMS.get(key).keySet().forEach((key2) -> {
-                    BlockInit.SSW_SET_BEAMS.get(key).get(key2).forEach((rb) -> {
-                        register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get()));
-                    });
+                    }
                 });
             });
 
-            for (String tone : SWDM.NATURAL_TONES) {
-                register.accept(BlockInit.SAND_BLOCKS.get(tone).get().getRegistryName(), simpleBlockDrop(BlockInit.SAND_BLOCKS.get(tone).get()));
-                register.accept(BlockInit.SANDSTONE_BLOCKS.get(tone).get().getRegistryName(), simpleBlockDrop(BlockInit.SANDSTONE_BLOCKS.get(tone).get()));
-
-                for (String lmdType : SWDM.LMD_TYPES) {
-                    CarpetBlock carpet = BlockInit.FIBER_CARPETS.get(lmdType, tone).get();
-                    register.accept(carpet.getRegistryName(), simpleBlockDrop(carpet));
-                }
-            }
+            BlockInit.SSW_SET_CARPETS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.SSW_SET_GLASS_PANES.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.SSW_SET_BEAMS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.SAND_BLOCKS.values().forEach(rb -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.SANDSTONE_BLOCKS.values().forEach(rb -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
+            BlockInit.FIBER_CARPETS.values().forEach(rb -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
         }
 
         private static void registerSimpleBlockDrop(BiConsumer<ResourceLocation, LootTable.Builder> register, RegistryObject<? extends Block> block) {

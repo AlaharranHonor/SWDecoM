@@ -7,6 +7,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Table wrapper for a list of values. Similar to a {@link com.google.common.collect.Multimap}
+ * Uses a {@link HashBasedTable} for its internal table.
+ * @param <R> Row Type
+ * @param <C> Column Type
+ * @param <V> Value Type
+ */
 public class MultiTable<R, C, V> implements Table<R, C, List<V>> {
 
     public static <R, C, V> MultiTable<R, C, V> create() {
@@ -71,7 +78,7 @@ public class MultiTable<R, C, V> implements Table<R, C, List<V>> {
         return this.table.put(rowKey, columnKey, values);
     }
 
-    public boolean add(R rowKey, C columnKey, V value) {
+    public boolean putSingle(R rowKey, C columnKey, V value) {
         if (this.contains(rowKey, columnKey)) {
             this.get(rowKey, columnKey).add(value);
             return false;

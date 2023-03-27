@@ -66,9 +66,9 @@ public class ModEventBusSubscriber {
         @SubscribeEvent
         public static void RegisterBlockColors(ColorHandlerEvent.Block event) {
             BlockColors colors = event.getBlockColors();
-            List<RegistryObject<StairBlock>> stairs = BlockInit.SSW_SET_STAIRS.get("wv-whitewash").get("leaves");
-            List<RegistryObject<SlabBlock>> slabs = BlockInit.SSW_SET_SLABS.get("wv-whitewash").get("leaves");
-            List<RegistryObject<HalfWallBlock>> walls = BlockInit.SSW_SET_WALLS.get("wv-whitewash").get("leaves");
+            List<RegistryObject<StairBlock>> stairs = BlockInit.SSW_SET_STAIRS.get("wv-whitewash", "leaves");
+            List<RegistryObject<SlabBlock>> slabs = BlockInit.SSW_SET_SLABS.get("wv-whitewash", "leaves");
+            List<RegistryObject<HalfWallBlock>> walls = BlockInit.SSW_SET_WALLS.get("wv-whitewash", "leaves");
 
             // Rest vanilla wood types.
             // oak, acacia, jungle, dark_oak
@@ -104,9 +104,9 @@ public class ModEventBusSubscriber {
             ItemColors colors = event.getItemColors();
 
             Stream<RegistryObject<? extends Block>> stream = Stream.empty();
-            stream = Stream.concat(stream, BlockInit.SSW_SET_STAIRS.get("wv-whitewash").get("leaves").stream());
-            stream = Stream.concat(stream, BlockInit.SSW_SET_WALLS.get("wv-whitewash").get("leaves").stream());
-            stream = Stream.concat(stream, BlockInit.SSW_SET_SLABS.get("wv-whitewash").get("leaves").stream());
+            stream = Stream.concat(stream, BlockInit.SSW_SET_STAIRS.get("wv-whitewash", "leaves").stream());
+            stream = Stream.concat(stream, BlockInit.SSW_SET_WALLS.get("wv-whitewash", "leaves").stream());
+            stream = Stream.concat(stream, BlockInit.SSW_SET_SLABS.get("wv-whitewash", "leaves").stream());
             //stream = Stream.concat(stream, BlockInit.LEAVES_TRAPDOORS.stream());
             stream = Stream.concat(stream, Stream.of(BlockInit.GRASS_SLAB));
 
