@@ -78,17 +78,17 @@ public class MultiTable<R, C, V> implements Table<R, C, List<V>> {
         return this.table.put(rowKey, columnKey, values);
     }
 
-    public boolean putSingle(R rowKey, C columnKey, V value) {
+    public V putSingle(R rowKey, C columnKey, V value) {
         if (this.contains(rowKey, columnKey)) {
             this.get(rowKey, columnKey).add(value);
-            return false;
+            return value;
         }
 
         List<V> values = new ArrayList<>() {{
             add(value);
         }};
         this.put(rowKey, columnKey, values);
-        return true;
+        return value;
     }
 
     @Override

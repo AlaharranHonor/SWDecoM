@@ -91,9 +91,9 @@ public class BlockInit {
             for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("standard").entrySet()) {
                 String name = blockType.getKey() + "_" + stoneType;
 
-                Supplier<Block> stairBlock = () -> new Block(blockType.getValue());
-                STONE_SET_BLOCKS.putSingle("standard", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-                STONE_SET_STAIRS.putSingle("standard", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                RegistryObject<Block> baseBlock = register(name, () -> new Block(blockType.getValue()));
+                STONE_SET_BLOCKS.putSingle("standard", blockType.getKey(), baseBlock);
+                STONE_SET_STAIRS.putSingle("standard", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                 STONE_SET_SLABS.putSingle("standard", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
                 STONE_SET_WALLS.putSingle("standard", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 STONE_SET_TRAPDOORS.putSingle("standard", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
@@ -104,8 +104,9 @@ public class BlockInit {
             for (String lmdType : SWDM.LMD_TYPES) {
                 for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("lmd").entrySet()) {
                     String name = blockType.getKey() + "_" + lmdType + "_" + stoneType;
-                    STONE_SET_BLOCKS.putSingle("lmd", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-                    STONE_SET_STAIRS.putSingle("lmd", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
+                    RegistryObject<Block> baseBlock = register(name, () -> new Block(blockType.getValue()));
+                    STONE_SET_BLOCKS.putSingle("lmd", blockType.getKey(), baseBlock);
+                    STONE_SET_STAIRS.putSingle("lmd", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                     STONE_SET_SLABS.putSingle("lmd", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
                     STONE_SET_WALLS.putSingle("lmd", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                     STONE_SET_TRAPDOORS.putSingle("lmd", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
@@ -118,7 +119,8 @@ public class BlockInit {
 
         for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("standalone").entrySet()) {
             String name = blockType.getKey();
-            STONE_SET_STAIRS.putSingle("standalone", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
+            Block baseBlock = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name));
+            STONE_SET_STAIRS.putSingle("standalone", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.defaultBlockState(), blockType.getValue())));
             STONE_SET_SLABS.putSingle("standalone", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
             STONE_SET_WALLS.putSingle("standalone", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
             STONE_SET_TRAPDOORS.putSingle("standalone", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
@@ -129,8 +131,9 @@ public class BlockInit {
         for (String lmdType : SWDM.LMD_TYPES) {
             for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("lmd-only").entrySet()) {
                 String name = blockType.getKey() + "_" + lmdType;
-                STONE_SET_BLOCKS.putSingle("lmd-only", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-                STONE_SET_STAIRS.putSingle("lmd-only", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
+                RegistryObject<Block> baseBlock = register(name, () -> new Block(blockType.getValue()));
+                STONE_SET_BLOCKS.putSingle("lmd-only", blockType.getKey(), baseBlock);
+                STONE_SET_STAIRS.putSingle("lmd-only", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                 STONE_SET_SLABS.putSingle("lmd-only", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
                 STONE_SET_WALLS.putSingle("lmd-only", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 STONE_SET_TRAPDOORS.putSingle("lmd-only", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
@@ -140,8 +143,9 @@ public class BlockInit {
 
             for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("lmd").entrySet()) {
                 String name = blockType.getKey() + "_" + lmdType;
-                STONE_SET_BLOCKS.putSingle("lmd", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-                STONE_SET_STAIRS.putSingle("lmd", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
+                RegistryObject<Block> baseBlock = register(name, () -> new Block(blockType.getValue()));
+                STONE_SET_BLOCKS.putSingle("lmd", blockType.getKey(), baseBlock);
+                STONE_SET_STAIRS.putSingle("lmd", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                 STONE_SET_SLABS.putSingle("lmd", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
                 STONE_SET_WALLS.putSingle("lmd", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 STONE_SET_TRAPDOORS.putSingle("lmd", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
@@ -153,8 +157,9 @@ public class BlockInit {
         for (String tone : SWDM.NATURAL_TONES) {
             for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("natural_tones").entrySet()) {
                 String name = blockType.getKey() + "_" + tone;
-                STONE_SET_BLOCKS.putSingle("natural_tones", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-                STONE_SET_STAIRS.putSingle("natural_tones", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> new Block(blockType.getValue()).defaultBlockState(), blockType.getValue())));
+                RegistryObject<Block> baseBlock = register(name, () -> new Block(blockType.getValue()));
+                STONE_SET_BLOCKS.putSingle("natural_tones", blockType.getKey(), baseBlock);
+                STONE_SET_STAIRS.putSingle("natural_tones", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                 STONE_SET_SLABS.putSingle("natural_tones", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
                 STONE_SET_WALLS.putSingle("natural_tones", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 STONE_SET_TRAPDOORS.putSingle("natural_tones", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
@@ -176,15 +181,14 @@ public class BlockInit {
                     name = blockType.getKey() + "_" + color;
                 }
 
-                Supplier<Block> stairBlock;
+                Supplier<Block> baseBlock;
                 if (!blockType.getKey().equals("wool") && !blockType.getKey().equals("stained_glass")) {
-                    stairBlock = () -> new Block(blockType.getValue());
-                    SSWT_SET_BLOCKS.putSingle("color", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                    baseBlock = SSWT_SET_BLOCKS.putSingle("color", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
                 } else {
-                    stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + name));
+                    baseBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name));
                 }
 
-                SSWT_SET_STAIRS.putSingle("color", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                SSWT_SET_STAIRS.putSingle("color", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                 SSWT_SET_SLABS.putSingle("color", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
                 SSWT_SET_WALLS.putSingle("color", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 SSWT_SET_TRAPDOORS.putSingle("color", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
@@ -204,16 +208,15 @@ public class BlockInit {
                     name = blockType.getKey() + "_" + color.getName();
                 }
 
-                Supplier<Block> stairBlock;
+                Supplier<Block> baseBlock;
                 // We don't want to add terracotta or concrete as they already exist in vanilla
                 if (!blockType.getKey().equals("concrete") && !blockType.getKey().equals("terracotta")) {
-                    STONE_SET_BLOCKS.putSingle("color", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-                    stairBlock = () -> new Block(blockType.getValue());
+                    baseBlock = STONE_SET_BLOCKS.putSingle("color", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
                 } else {
-                    stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + name));
+                    baseBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name));
                 }
 
-                STONE_SET_STAIRS.putSingle("color", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                STONE_SET_STAIRS.putSingle("color", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                 STONE_SET_SLABS.putSingle("color", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
                 STONE_SET_WALLS.putSingle("color", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 STONE_SET_TRAPDOORS.putSingle("color", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
@@ -226,9 +229,9 @@ public class BlockInit {
         for (String color : SWDM.CUSTOM_COLORS) {
             for (Map.Entry<String, Block.Properties> blockType : SWDM.STONE_SETS.get("color_custom").entrySet()) {
                 String name = blockType.getKey() + "_" + color;
-                Supplier<Block> stairBlock = () -> new Block(blockType.getValue());
-                STONE_SET_BLOCKS.putSingle("color_custom", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-                STONE_SET_STAIRS.putSingle("color_custom", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                RegistryObject<Block> baseBlock = register(name, () -> new Block(blockType.getValue()));
+                STONE_SET_BLOCKS.putSingle("color_custom", blockType.getKey(), baseBlock);
+                STONE_SET_STAIRS.putSingle("color_custom", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                 STONE_SET_SLABS.putSingle("color_custom", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
                 STONE_SET_WALLS.putSingle("color_custom", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 STONE_SET_TRAPDOORS.putSingle("color_custom", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
@@ -245,15 +248,14 @@ public class BlockInit {
 
                 for (Map.Entry<String, Block.Properties> blockType : SWDM.SSWT_SETS.get("wv").entrySet()) {
                     String name = sanitizedWoodName + "_" + blockType.getKey();
-                    Supplier<Block> stairBlock;
+                    Supplier<Block> baseBlock;
                     // Is this really needed? planks, log and stripped_log are the only variants anyways.
                     if (!blockType.getKey().equals("planks") && !blockType.getKey().equals("log") && !blockType.getKey().equals("stripped_log")) {
-                        stairBlock = () -> new Block(blockType.getValue());
-                        SSWT_SET_BLOCKS.putSingle("wv", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                        baseBlock = SSWT_SET_BLOCKS.putSingle("wv", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
                     } else {
-                        stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + sanitizedWoodName + "_" + blockType.getKey()));
+                        baseBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(sanitizedWoodName + "_" + blockType.getKey()));
                     }
-                    SSWT_SET_STAIRS.putSingle("wv", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                    SSWT_SET_STAIRS.putSingle("wv", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                     SSWT_SET_SLABS.putSingle("wv", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
                     SSWT_SET_WALLS.putSingle("wv", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                     SSWT_SET_TRAPDOORS.putSingle("wv", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
@@ -262,15 +264,14 @@ public class BlockInit {
 
                 for (Map.Entry<String, Block.Properties> blockType : SWDM.SSWT_SETS.get("wv-whitewash").entrySet()) {
                     if (wood.name().contains("swem:")) break;
-                    Supplier<Block> stairBlock;
+                    Supplier<Block> baseBlock;
                     if (!blockType.getKey().equals("leaves")) {
-                        stairBlock = () -> new Block(blockType.getValue());
-                        SSWT_SET_BLOCKS.putSingle("wv-whitewash", blockType.getKey(), register(wood.name() + "_" + blockType.getKey(), () -> new Block(blockType.getValue())));
+                        baseBlock = SSWT_SET_BLOCKS.putSingle("wv-whitewash", blockType.getKey(), register(wood.name() + "_" + blockType.getKey(), () -> new Block(blockType.getValue())));
                     } else {
-                        stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + wood.name() + "_planks"));
+                        baseBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(wood.name() + "_planks"));
                     }
                     SSWT_SET_SLABS.putSingle("wv-whitewash", blockType.getKey(), register(wood.name() + "_" + blockType.getKey() + "_slab", () -> new SlabBlock(blockType.getValue())));
-                    SSWT_SET_STAIRS.putSingle("wv-whitewash", blockType.getKey(), register(wood.name() + "_" + blockType.getKey() + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                    SSWT_SET_STAIRS.putSingle("wv-whitewash", blockType.getKey(), register(wood.name() + "_" + blockType.getKey() + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                     SSWT_SET_WALLS.putSingle("wv-whitewash", blockType.getKey(), register(wood.name() + "_" + blockType.getKey() + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                     SSWT_SET_TRAPDOORS.putSingle("wv-whitewash", blockType.getKey(), register(wood.name() + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
                 }
@@ -292,9 +293,9 @@ public class BlockInit {
             for (Map.Entry<String, Block.Properties> blockType : SWDM.SSWT_SETS.get("lmd").entrySet()) {
                 String name = blockType.getKey() + "_" + lmdType;
 
-                Supplier<Block> stairBlock = () -> new Block(blockType.getValue());
-                SSWT_SET_BLOCKS.putSingle("lmd", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
-                SSWT_SET_STAIRS.putSingle("lmd", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                RegistryObject<Block> baseBlock = register(name, () -> new Block(blockType.getValue()));
+                SSWT_SET_BLOCKS.putSingle("lmd", blockType.getKey(), baseBlock);
+                SSWT_SET_STAIRS.putSingle("lmd", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                 SSWT_SET_SLABS.putSingle("lmd", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
                 SSWT_SET_WALLS.putSingle("lmd", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                 SSWT_SET_TRAPDOORS.putSingle("lmd", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
@@ -320,10 +321,10 @@ public class BlockInit {
                 for (Map.Entry<String, Block.Properties> blockType : SWDM.SSWT_SETS.get("lmd-color").entrySet()) {
                     String name = blockType.getKey() + "_" + lmdType + "_" + color.getName();
 
-                    Supplier<Block> stairBlock = () -> new Block(blockType.getValue());
-                    SSWT_SET_BLOCKS.putSingle("lmd-color", blockType.getKey(), register(name, () -> new Block(blockType.getValue())));
+                    RegistryObject<Block> baseBlock = register(name, () -> new Block(blockType.getValue()));
+                    SSWT_SET_BLOCKS.putSingle("lmd-color", blockType.getKey(), baseBlock);
                     SSWT_SET_SLABS.putSingle("lmd-color", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-                    SSWT_SET_STAIRS.putSingle("lmd-color", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+                    SSWT_SET_STAIRS.putSingle("lmd-color", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
                     SSWT_SET_WALLS.putSingle("lmd-color", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
                     SSWT_SET_TRAPDOORS.putSingle("lmd-color", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
                 }
@@ -334,9 +335,9 @@ public class BlockInit {
         for (Map.Entry<String, Block.Properties> blockType : SWDM.SSWT_SETS.get("standalone").entrySet()) {
             String name = blockType.getKey();
 
-            Supplier<Block> stairBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft:" + name));
+            Supplier<Block> baseBlock = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name));
             SSWT_SET_SLABS.putSingle("standalone", blockType.getKey(), register(name + "_slab", () -> new SlabBlock(blockType.getValue())));
-            SSWT_SET_STAIRS.putSingle("standalone", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> stairBlock.get().defaultBlockState(), blockType.getValue())));
+            SSWT_SET_STAIRS.putSingle("standalone", blockType.getKey(), register(name + "_stairs", () -> new StairBlock(() -> baseBlock.get().defaultBlockState(), blockType.getValue())));
             SSWT_SET_WALLS.putSingle("standalone", blockType.getKey(), register(name + "_wall", () -> new HalfWallBlock(blockType.getValue())));
             SSWT_SET_TRAPDOORS.putSingle("standalone", blockType.getKey(), register(name + "_trapdoor", () -> new TrapDoorBlock(blockType.getValue())));
         }
