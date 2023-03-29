@@ -209,21 +209,21 @@ public class Recipes extends RecipeProvider {
             });
         });
 
-        BlockInit.SSW_SET_SLABS.row("wv-whitewash").entrySet().forEach((entry) -> {
+        BlockInit.SSW_SET_SLABS.row("wv-extra").entrySet().forEach((entry) -> {
             entry.getValue().forEach(rb -> {
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 5)));
                 slab(recipe, rb.get(), craftingItem, entry.getKey(), "has_planks");
             });
         });
 
-        BlockInit.SSW_SET_WALLS.row("wv-whitewash").entrySet().forEach((entry) -> {
+        BlockInit.SSW_SET_WALLS.row("wv-extra").entrySet().forEach((entry) -> {
             entry.getValue().forEach(rb -> {
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 5)));
                 wall(recipe, rb.get(), craftingItem, entry.getKey(), "has_planks");
             });
         });
 
-        BlockInit.SSW_SET_STAIRS.row("wv-whitewash").entrySet().forEach((entry) -> {
+        BlockInit.SSW_SET_STAIRS.row("wv-extra").entrySet().forEach((entry) -> {
             entry.getValue().forEach(rb -> {
                 Block craftingItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("minecraft", rb.get().getRegistryName().getPath().substring(0, rb.get().getRegistryName().getPath().length() - 7)));
                 stairs(recipe, rb.get(), craftingItem, entry.getKey(), "has_planks");

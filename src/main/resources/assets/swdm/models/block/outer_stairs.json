@@ -1,4 +1,5 @@
 {
+  "__comment": "Copy of vanilla model but with 'tintindex' so that leaves get proper color",
   "textures": {
     "particle": "#side"
   },

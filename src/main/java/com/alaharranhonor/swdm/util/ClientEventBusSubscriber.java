@@ -54,82 +54,29 @@ public class ClientEventBusSubscriber {
             BlockInit.SSWT_SET_GLASS_PANES.get("lmd", type).forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
         });
 
-        for (DyeColor color : DyeColor.values()) {
-            ItemBlockRenderTypes.setRenderLayer(BlockInit.COATED_CHAINS.get(color.getName()).get(), RenderType.cutout());
-        }
+        BlockInit.COATED_CHAINS.values().forEach(rb -> ItemBlockRenderTypes.setRenderLayer(rb.get(), RenderType.cutout()));
+        BlockInit.PYLONS.values().forEach(rb -> ItemBlockRenderTypes.setRenderLayer(rb.get(), RenderType.cutout()));
+        BlockInit.FIBER_CARPETS.values().forEach(rb -> ItemBlockRenderTypes.setRenderLayer(rb.get(), RenderType.cutout()));
 
-        ItemBlockRenderTypes.setRenderLayer(BlockInit.GRASS_SLAB.get(), RenderType.cutoutMipped());
+        BlockInit.SSWT_SET_SLABS.get("wv-extra", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+        BlockInit.SSWT_SET_STAIRS.get("wv-extra", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+        BlockInit.SSWT_SET_WALLS.get("wv-extra", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+        BlockInit.SSWT_SET_TRAPDOORS.get("wv-extra", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
 
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.GLASS_STAIRS.get(), RenderType.translucent());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.GLASS_SLAB.get(), RenderType.translucent());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.GLASS_WALL.get(), RenderType.translucent());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.THATCH_DOOR.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BAMBOO_DOOR.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BAMBOO_LADDER.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.THATCH_LADDER.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BAMBOO_TRAPDOOR.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.THATCH_TRAPDOOR.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_BIRCH.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_OAK.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.ACACIA_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_ACACIA.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_OAK.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.BIRCH_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_ACACIA.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_BIRCH.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_OAK.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.DARK_OAK_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_ACACIA.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_BIRCH.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_OAK.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.JUNGLE_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_ACACIA.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_BIRCH.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.OAK_TRAPDOOR_SPRUCE.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_ACACIA.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_BIRCH.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_DARK_OAK.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_JUNGLE.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.SPRUCE_TRAPDOOR_OAK.get(), RenderType.cutout());
-        for (String tone : SWDM.NATURAL_TONES) {
-            for (String lmdType : SWDM.LMD_TYPES) {
-                ItemBlockRenderTypes.setRenderLayer(BlockInit.FIBER_CARPETS.get(lmdType, tone).get(), RenderType.cutout());
-            }
-        }
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.FIBER_CARPET_RED_SAND.get(), RenderType.cutout());
-        //ItemBlockRenderTypes.setRenderLayer(BlockInit.FIBER_CARPET_SAND.get(), RenderType.cutout());
+        BlockInit.SSWT_SET_SLABS.get("color", "stained_glass").forEach(rb -> ItemBlockRenderTypes.setRenderLayer(rb.get(), RenderType.translucent()));
+        BlockInit.SSWT_SET_STAIRS.get("color", "stained_glass").forEach(rb -> ItemBlockRenderTypes.setRenderLayer(rb.get(), RenderType.translucent()));
+        BlockInit.SSWT_SET_WALLS.get("color", "stained_glass").forEach(rb -> ItemBlockRenderTypes.setRenderLayer(rb.get(), RenderType.translucent()));
+        BlockInit.SSWT_SET_TRAPDOORS.get("color", "stained_glass").forEach(rb -> ItemBlockRenderTypes.setRenderLayer(rb.get(), RenderType.translucent()));
 
+        BlockInit.SSWT_SET_SLABS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+        BlockInit.SSWT_SET_STAIRS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+        BlockInit.SSWT_SET_WALLS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
+        BlockInit.SSWT_SET_TRAPDOORS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
 
-        BlockInit.SSWT_SET_SLABS.get("wv-whitewash", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
-        BlockInit.SSWT_SET_STAIRS.get("wv-whitewash", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
-        BlockInit.SSWT_SET_WALLS.get("wv-whitewash", "leaves").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
-
-        List<WoodType> woodTypes = WoodType.values().collect(Collectors.toList());
-        // 6 includes oak, spruce, birch, acacia, jungle and dark_oak
-
-        for (int i = 0; i < 6; i++) {
-            //ItemBlockRenderTypes.setRenderLayer(BlockInit.LEAVES_TRAPDOORS.get(i).get(), RenderType.cutout());
-            //ItemBlockRenderTypes.setRenderLayer(BlockInit.LADDERS.get(i).get(), RenderType.cutout());
-        }
-
-        // Dye Colours
-        for (int i = 0; i < DyeColor.values().length; i++) {
-            ItemBlockRenderTypes.setRenderLayer(BlockInit.SSWT_SET_SLABS.get("color", "stained_glass").get(i).get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(BlockInit.SSWT_SET_STAIRS.get("color", "stained_glass").get(i).get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(BlockInit.SSWT_SET_WALLS.get("color", "stained_glass").get(i).get(), RenderType.translucent());
-        }
-
-        BlockInit.SSWT_SET_SLABS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
-        BlockInit.SSWT_SET_STAIRS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
-        BlockInit.SSWT_SET_WALLS.get("standalone", "glass").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
+        BlockInit.SSWT_SET_SLABS.get("standalone", "grass_block").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutoutMipped()));
+        BlockInit.SSWT_SET_STAIRS.get("standalone", "grass_block").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutoutMipped()));
+        BlockInit.SSWT_SET_WALLS.get("standalone", "grass_block").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutoutMipped()));
+        BlockInit.SSWT_SET_TRAPDOORS.get("standalone", "grass_block").forEach((b) -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutoutMipped()));
     }
 
     public static void SWEMonClientSetup(FMLClientSetupEvent event) {

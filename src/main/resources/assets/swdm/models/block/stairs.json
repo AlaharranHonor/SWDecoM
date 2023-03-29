@@ -1,4 +1,6 @@
-{   "parent": "block/block",
+{
+  "__comment": "Copy of vanilla model but with 'tintindex' so that leaves get proper color",
+  "parent": "block/block",
   "display": {
     "gui": {
       "rotation": [ 30, 135, 0 ],

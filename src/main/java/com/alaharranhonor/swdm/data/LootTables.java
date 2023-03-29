@@ -88,11 +88,12 @@ public class LootTables extends LootTableProvider {
             registerSimpleBlockDrop(register, BlockInit.CLAY_BLOCK_LIGHT);
             registerSimpleBlockDrop(register, BlockInit.CLAY_BLOCK_MEDIUM);
             registerSimpleBlockDrop(register, BlockInit.CLAY_BLOCK_DARK);
-            registerSimpleBlockDrop(register, BlockInit.GRASS_SLAB);
-            registerSimpleBlockDrop(register, BlockInit.DIRT_SLAB);
+            //registerSimpleBlockDrop(register, BlockInit.GRASS_SLAB);
+            //registerSimpleBlockDrop(register, BlockInit.DIRT_SLAB);
 
             // Sets
             BlockInit.COATED_CHAINS.values().forEach(rb -> register.accept(rb.getId(), simpleBlockDrop(rb.get())));
+            BlockInit.PYLONS.values().forEach(rb -> register.accept(rb.getId(), simpleBlockDrop(rb.get())));
 
             BlockInit.STONE_SET_BLOCKS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));
             BlockInit.STONE_SET_STAIRS.items().forEach((rb) -> register.accept(rb.get().getRegistryName(), simpleBlockDrop(rb.get())));

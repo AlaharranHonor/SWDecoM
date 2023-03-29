@@ -16,6 +16,7 @@ import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
@@ -64,9 +65,10 @@ public class ModEventBusSubscriber {
         @SubscribeEvent
         public static void RegisterBlockColors(ColorHandlerEvent.Block event) {
             BlockColors colors = event.getBlockColors();
-            List<RegistryObject<StairBlock>> stairs = BlockInit.SSWT_SET_STAIRS.get("wv-whitewash", "leaves");
-            List<RegistryObject<SlabBlock>> slabs = BlockInit.SSWT_SET_SLABS.get("wv-whitewash", "leaves");
-            List<RegistryObject<HalfWallBlock>> walls = BlockInit.SSWT_SET_WALLS.get("wv-whitewash", "leaves");
+            List<RegistryObject<StairBlock>> stairs = BlockInit.SSWT_SET_STAIRS.get("wv-extra", "leaves");
+            List<RegistryObject<SlabBlock>> slabs = BlockInit.SSWT_SET_SLABS.get("wv-extra", "leaves");
+            List<RegistryObject<HalfWallBlock>> walls = BlockInit.SSWT_SET_WALLS.get("wv-extra", "leaves");
+            List<RegistryObject<TrapDoorBlock>> trapdoors = BlockInit.SSWT_SET_TRAPDOORS.get("wv-extra", "leaves");
 
             // Rest vanilla wood types.
             // oak, acacia, jungle, dark_oak
@@ -75,26 +77,26 @@ public class ModEventBusSubscriber {
                     },
                     stairs.get(3).get(), stairs.get(4).get(), stairs.get(5).get(), stairs.get(0).get(),
                     slabs.get(3).get(), slabs.get(4).get(), slabs.get(5).get(), slabs.get(0).get(),
-                    walls.get(3).get(), walls.get(4).get(), walls.get(5).get(), walls.get(0).get()
-                    //BlockInit.LEAVES_TRAPDOORS.get(3).get(), BlockInit.LEAVES_TRAPDOORS.get(4).get(), BlockInit.LEAVES_TRAPDOORS.get(5).get(), BlockInit.LEAVES_TRAPDOORS.get(0).get()
+                    walls.get(3).get(), walls.get(4).get(), walls.get(5).get(), walls.get(0).get(),
+                    trapdoors.get(3).get(), trapdoors.get(4).get(), trapdoors.get(5).get(), trapdoors.get(0).get()
             );
 
             // Spruce wood type
             colors.register((state, reader, pos, color) -> {
                 return FoliageColor.getEvergreenColor();
-            }, stairs.get(1).get(), slabs.get(1).get(), walls.get(1).get()//, BlockInit.LEAVES_TRAPDOORS.get(1).get()
+            }, stairs.get(1).get(), slabs.get(1).get(), walls.get(1).get(), trapdoors.get(1).get()
             );
 
             // Birch wood type.
             colors.register((state, reader, pos, color) -> {
                 return FoliageColor.getBirchColor();
-            }, stairs.get(2).get(), slabs.get(2).get(),walls.get(2).get()//, BlockInit.LEAVES_TRAPDOORS.get(2).get()
+            }, stairs.get(2).get(), slabs.get(2).get(),walls.get(2).get(), trapdoors.get(2).get()
             );
 
-
-            colors.register((p_228064_0_, p_228064_1_, p_228064_2_, p_228064_3_) -> {
-                return p_228064_1_ != null && p_228064_2_ != null ? BiomeColors.getAverageGrassColor(p_228064_1_, p_228064_2_) : GrassColor.get(0.5D, 1.0D);
-            }, BlockInit.GRASS_SLAB.get());
+            BlockInit.SSWT_SET_STAIRS.get("standalone", "grass_block").forEach(rb -> colors.register((state, level, pos, color) -> level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.get(0.5D, 1.0D), rb.get()));
+            BlockInit.SSWT_SET_SLABS.get("standalone", "grass_block").forEach(rb -> colors.register((state, level, pos, color) -> level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.get(0.5D, 1.0D), rb.get()));
+            BlockInit.SSWT_SET_WALLS.get("standalone", "grass_block").forEach(rb -> colors.register((state, level, pos, color) -> level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.get(0.5D, 1.0D), rb.get()));
+            BlockInit.SSWT_SET_TRAPDOORS.get("standalone", "grass_block").forEach(rb -> colors.register((state, level, pos, color) -> level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.get(0.5D, 1.0D), rb.get()));
         }
 
         @SubscribeEvent
@@ -102,11 +104,14 @@ public class ModEventBusSubscriber {
             ItemColors colors = event.getItemColors();
 
             Stream<RegistryObject<? extends Block>> stream = Stream.empty();
-            stream = Stream.concat(stream, BlockInit.SSWT_SET_STAIRS.get("wv-whitewash", "leaves").stream());
-            stream = Stream.concat(stream, BlockInit.SSWT_SET_WALLS.get("wv-whitewash", "leaves").stream());
-            stream = Stream.concat(stream, BlockInit.SSWT_SET_SLABS.get("wv-whitewash", "leaves").stream());
-            //stream = Stream.concat(stream, BlockInit.LEAVES_TRAPDOORS.stream());
-            stream = Stream.concat(stream, Stream.of(BlockInit.GRASS_SLAB));
+            stream = Stream.concat(stream, BlockInit.SSWT_SET_STAIRS.get("wv-extra", "leaves").stream());
+            stream = Stream.concat(stream, BlockInit.SSWT_SET_SLABS.get("wv-extra", "leaves").stream());
+            stream = Stream.concat(stream, BlockInit.SSWT_SET_WALLS.get("wv-extra", "leaves").stream());
+            stream = Stream.concat(stream, BlockInit.SSWT_SET_TRAPDOORS.get("wv-extra", "leaves").stream());
+            stream = Stream.concat(stream, BlockInit.SSWT_SET_STAIRS.get("standalone", "grass_block").stream());
+            stream = Stream.concat(stream, BlockInit.SSWT_SET_SLABS.get("standalone", "grass_block").stream());
+            stream = Stream.concat(stream, BlockInit.SSWT_SET_WALLS.get("standalone", "grass_block").stream());
+            stream = Stream.concat(stream, BlockInit.SSWT_SET_TRAPDOORS.get("standalone", "grass_block").stream());
 
             Stream<Block> blocks = stream.map(RegistryObject::get);
 

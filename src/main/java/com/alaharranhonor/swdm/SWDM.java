@@ -42,7 +42,7 @@ public class SWDM {
     public static final List<String> STONE_TYPES = new ArrayList(Arrays.asList("mossy", "cracked", "mossy_more"));
     public static final List<String> LMD_TYPES = new ArrayList(Arrays.asList("light", "medium", "dark"));
     public static final List<String> CUSTOM_COLORS = new ArrayList<>(Arrays.asList("sage", "golden"));
-    public static final List<String> NATURAL_TONES = new ArrayList<>(Arrays.asList("tuscan", "peach", "thistle", "dark_brown", "mahogany", "brown", "muted_brown", "vivid_red", "orange", "golden", "pale", "yellow", "white", "pearl", "dusted_gray", "light_gray", "slate", "blue_gray", "gray", "royal_gray", "black"));
+    public static final List<String> NATURAL_TONES = new ArrayList<>(Arrays.asList("tuscan", "peach", "thistle", "dark_brown", "brown", "mahogany", "muted_brown", "vivid_red", "orange", "golden", "pale", "yellow", "white", "pearl", "dusted_gray", "light_gray", "slate", "blue_gray", "gray", "royal_gray", "black"));
     public static final HashMap<String, HashMap<String, Block.Properties>> STONE_SETS =
         new HashMap() {{
             put("color", new HashMap() {{ // 16 Colors
@@ -57,9 +57,12 @@ public class SWDM {
             put("natural_tones", new HashMap() {{ // 21 Natural Tones
                 put("bricks_cottage", Block.Properties.copy(Blocks.BRICKS));
                 put("sandcotta", Block.Properties.copy(Blocks.SANDSTONE));
+                put("paver", Block.Properties.copy(Blocks.TERRACOTTA));
+                put("bricks_paver", Block.Properties.copy(Blocks.TERRACOTTA));
             }});
             put("standalone", new HashMap() {{ // Standalone vanilla blocks
                 put("terracotta", Block.Properties.copy(Blocks.TERRACOTTA));
+                put("smooth_stone_borderless", Block.Properties.copy(Blocks.SMOOTH_STONE));
             }});
             put("standard", new HashMap() {{ // Standard Stone Sets
                 put("stone", Block.Properties.copy(Blocks.STONE));
@@ -84,7 +87,7 @@ public class SWDM {
     public static final HashMap<String, HashMap<String, Block.Properties>> SSWT_SETS = new HashMap() {{
         put("color", new HashMap() {{ // 16 colors
             put("roof_metal", Block.Properties.of(Material.METAL, MaterialColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL)); //.harvestTool(ToolType.PICKAXE)
-            put("roof_tile", Block.Properties.copy(Blocks.CLAY));
+            put("roof_tile", Block.Properties.copy(Blocks.TERRACOTTA));
             put("roof_shingle", Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_BLACK).strength(2.0F, 3.0F).sound(SoundType.STONE)); //.harvestTool(ToolType.AXE)
             put("stained_glass", Block.Properties.copy(Blocks.BLACK_STAINED_GLASS));
             put("wool", Block.Properties.copy(Blocks.BLACK_WOOL));
@@ -92,6 +95,11 @@ public class SWDM {
             put("wool_tinted", Block.Properties.copy(Blocks.BLACK_WOOL));
         }});
         put("standalone", new HashMap() {{ // Standard Sets
+            put("dirt", Block.Properties.copy(Blocks.DIRT));
+            put("coarse_dirt", Block.Properties.copy(Blocks.COARSE_DIRT));
+            put("grass_block", Block.Properties.copy(Blocks.GRASS_BLOCK));
+            put("podzol", Block.Properties.copy(Blocks.PODZOL));
+            put("mycelium", Block.Properties.copy(Blocks.MYCELIUM));
             put("glass", Block.Properties.copy(Blocks.GLASS));
         }});
         put("wv", new HashMap() {{ // Wood variations
@@ -99,7 +107,7 @@ public class SWDM {
             put("log", Block.Properties.copy(Blocks.OAK_SLAB));
             put("stripped_log", Block.Properties.copy(Blocks.OAK_SLAB));
         }});
-        put("wv-whitewash", new HashMap() {{ // Half in swem (for now)
+        put("wv-extra", new HashMap() {{ // Wood variants with extras
             put("leaves", Block.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn((p_235441_0_, p_235441_1_, p_235441_2_, p_235441_3_) -> p_235441_3_ == EntityType.OCELOT || p_235441_3_ == EntityType.PARROT).isSuffocating((p, p1, p2) -> false).isViewBlocking((p, p1, p2) -> false));
         }});
         put("lmd", new HashMap() {{ // LMD only (3 variations)
@@ -131,7 +139,8 @@ public class SWDM {
     private void setup(final FMLCommonSetupEvent event) {
 
         event.enqueueWork(() -> {
-            ComposterBlock.COMPOSTABLES.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation("swdm", "acacia_leaves_slab")), 0.3F);
+            // TODO
+            //ComposterBlock.COMPOSTABLES.put(ForgeRegistries.ITEMS.getValue(new ResourceLocation("swdm", "acacia_leaves_slab")), 0.3F);
             /*ComposterBlock.COMPOSTABLES.put(BlockInit.ACACIA_LEAVES_STAIRS_ITEM.get(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(BlockInit.ACACIA_LEAVES_WALL_ITEM.get(), 0.3F);
             ComposterBlock.COMPOSTABLES.put(BlockInit.BIRCH_LEAVES_SLAB_ITEM.get(), 0.3F);

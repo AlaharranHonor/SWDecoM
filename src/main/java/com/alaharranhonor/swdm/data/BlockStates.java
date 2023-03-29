@@ -2,7 +2,7 @@ package com.alaharranhonor.swdm.data;
 
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.block.BeamBlock;
-import com.alaharranhonor.swdm.block.CoatedChain;
+import com.alaharranhonor.swdm.block.TwoWayBlock;
 import com.alaharranhonor.swdm.block.HalfWallBlock;
 import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
 import com.alaharranhonor.swdm.util.init.BlockInit;
@@ -14,11 +14,11 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.WallSide;
-import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -41,21 +41,18 @@ public class BlockStates extends BlockStateProvider {
         this.simpleBlock(BlockInit.CLAY_BLOCK_DARK.get());
         this.halfWallBlock(BlockInit.STONE_WALL.get(), this.mcLoc("block/stone"));
         this.models().wallInventory(BlockInit.STONE_WALL.getId().getPath() + "_inventory", this.mcLoc("block/stone"));
-        this.slabBlock(BlockInit.GRASS_SLAB.get(), this.mcLoc("block/grass"), this.mcLoc("block/grass"));
-        this.slabBlock(BlockInit.DIRT_SLAB.get(), this.mcLoc("block/grass"), this.mcLoc("block/grass"));
 
         this.itemModels().withExistingParent(BlockInit.CLAY_BLOCK_LIGHT.getId().getPath(), this.modLoc("block/" + BlockInit.CLAY_BLOCK_LIGHT.getId().getPath()));
         this.itemModels().withExistingParent(BlockInit.CLAY_BLOCK_MEDIUM.getId().getPath(), this.modLoc("block/" + BlockInit.CLAY_BLOCK_MEDIUM.getId().getPath()));
         this.itemModels().withExistingParent(BlockInit.CLAY_BLOCK_DARK.getId().getPath(), this.modLoc("block/" + BlockInit.CLAY_BLOCK_DARK.getId().getPath()));
         this.itemModels().withExistingParent(BlockInit.STONE_WALL.getId().getPath(), this.modLoc("block/" + BlockInit.STONE_WALL.getId().getPath() + "_inventory"));
-        this.itemModels().withExistingParent(BlockInit.GRASS_SLAB.getId().getPath(), this.modLoc("block/" + BlockInit.GRASS_SLAB.getId().getPath() + "_top"));
-        this.itemModels().withExistingParent(BlockInit.DIRT_SLAB.getId().getPath(), this.modLoc("block/" + BlockInit.DIRT_SLAB.getId().getPath()));
     }
 
     private void sets() {
 
         for (DyeColor color : DyeColor.values()) {
-            coatedChain(color);
+            twoWayBlock(BlockInit.COATED_CHAINS.get(color.getName()).get(), color);
+            twoWayBlock(BlockInit.PYLONS.get(color.getName()).get(), color);
         }
 
         BlockInit.STONE_SET_BLOCKS.items().forEach((rb) -> {
@@ -100,11 +97,14 @@ public class BlockStates extends BlockStateProvider {
 
         BlockInit.STONE_SET_WALLS.cellSet().forEach(cell -> {
             cell.getValue().forEach((rb) -> {
+                String name = rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5);
+                String[] vanillaTypes = new String[] {"stone", "andesite", "granite", "diorite", "concrete"};
+                boolean isVanilla = Arrays.stream(vanillaTypes).anyMatch(name::equals);
                 ResourceLocation texture;
-                if (rb.getId().getPath().contains("concrete") || (rb.getId().getPath().contains("terracotta") && !cell.getRowKey().equals("color_custom"))) {
-                    texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
+                if (isVanilla || name.contains("concrete") || name.contains("terracotta") && !cell.getRowKey().equals("color_custom")) {
+                    texture = mcLoc("block/" + name);
                 } else {
-                    texture = modLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
+                    texture = modLoc("block/" + name);
                 }
                 this.halfWallBlock(rb.get(), texture);
                 models().wallInventory(rb.getId().getPath() + "_inventory", texture);
@@ -114,11 +114,14 @@ public class BlockStates extends BlockStateProvider {
 
         BlockInit.STONE_SET_TRAPDOORS.cellSet().forEach(cell -> {
             cell.getValue().forEach((rb) -> {
+                String name = rb.getId().getPath().substring(0, rb.getId().getPath().length() - 9);
+                String[] vanillaTypes = new String[] {"stone", "andesite", "granite", "diorite", "concrete"};
+                boolean isVanilla = Arrays.stream(vanillaTypes).anyMatch(name::equals);
                 ResourceLocation texture;
-                if (rb.getId().getPath().contains("concrete") || (rb.getId().getPath().contains("terracotta") && !cell.getRowKey().equals("color_custom"))) {
-                    texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 9));
+                if (isVanilla || name.contains("concrete") || name.contains("terracotta") && !cell.getRowKey().equals("color_custom")) {
+                    texture = mcLoc("block/" + name);
                 } else {
-                    texture = modLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 9));
+                    texture = modLoc("block/" + name);
                 }
                 this.trapdoorBlock(rb.get(), texture, true);
                 this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath() + "_bottom")); // Item model
@@ -127,11 +130,14 @@ public class BlockStates extends BlockStateProvider {
 
         BlockInit.STONE_SET_PRESSURE_PLATES.cellSet().forEach(cell -> {
             cell.getValue().forEach((rb) -> {
+                String name = rb.getId().getPath().substring(0, rb.getId().getPath().length() - 15);
+                String[] vanillaTypes = new String[] {"stone", "andesite", "granite", "diorite", "concrete"};
+                boolean isVanilla = Arrays.stream(vanillaTypes).anyMatch(name::equals);
                 ResourceLocation texture;
-                if (rb.getId().getPath().contains("concrete") || (rb.getId().getPath().contains("terracotta") && !cell.getRowKey().equals("color_custom"))) {
-                    texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 15));
+                if (isVanilla || name.contains("concrete") || name.contains("terracotta") && !cell.getRowKey().equals("color_custom")) {
+                    texture = mcLoc("block/" + name);
                 } else {
-                    texture = modLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 15));
+                    texture = modLoc("block/" + name);
                 }
                 this.pressurePlate(rb.get(), texture);
                 this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath())); // Item model
@@ -140,11 +146,14 @@ public class BlockStates extends BlockStateProvider {
 
         BlockInit.STONE_SET_BUTTONS.cellSet().forEach(cell -> {
             cell.getValue().forEach((rb) -> {
+                String name = rb.getId().getPath().substring(0, rb.getId().getPath().length() - 7);
+                String[] vanillaTypes = new String[] {"stone", "andesite", "granite", "diorite", "concrete"};
+                boolean isVanilla = Arrays.stream(vanillaTypes).anyMatch(name::equals);
                 ResourceLocation texture;
-                if (rb.getId().getPath().contains("concrete") || (rb.getId().getPath().contains("terracotta") && !cell.getRowKey().equals("color_custom"))) {
-                    texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 7));
+                if (isVanilla || name.contains("concrete") || name.contains("terracotta") && !cell.getRowKey().equals("color_custom")) {
+                    texture = mcLoc("block/" + name);
                 } else {
-                    texture = modLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 7));
+                    texture = modLoc("block/" + name);
                 }
                 this.button(rb.get(), texture);
                 this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath() + "_inventory")); // Item model
@@ -277,94 +286,48 @@ public class BlockStates extends BlockStateProvider {
 
         });
 
-        BlockInit.SSWT_SET_SLABS.row("wv-whitewash").keySet().forEach((key) -> {
-            for (RegistryObject<SlabBlock> rb : BlockInit.SSWT_SET_SLABS.get("wv-whitewash", key)) {
-                ResourceLocation doubleSlab;
-                ResourceLocation texture;
-                doubleSlab = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
-                texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
+        BlockInit.SSWT_SET_SLABS.row("wv-extra").keySet().forEach((key) -> {
+            for (RegistryObject<SlabBlock> rb : BlockInit.SSWT_SET_SLABS.get("wv-extra", key)) {
+                ResourceLocation doubleSlab = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
+                ResourceLocation texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
 
-
-                this.slabBlock(rb.get(), models().withExistingParent(rb.getId().getPath(), modLoc("block/slab"))
-                        .texture("side", texture)
-                        .texture("bottom", texture)
-                        .texture("top", texture),
-                    models().withExistingParent(rb.getId().getPath() + "_top", modLoc("block/slab_top"))
-                        .texture("side", texture)
-                        .texture("bottom", texture)
-                        .texture("top", texture), models().getExistingFile(doubleSlab));
-                this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath())); // Item model
-
-            }
-
-            for (RegistryObject<HalfWallBlock> rb : BlockInit.SSWT_SET_WALLS.get("wv-whitewash", key)) {
-                ResourceLocation texture;
-                texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
-
-                if (key.equals("leaves")) {
-                    halfWallBlock(rb.get(), texture);
-                    this.models().singleTexture(rb.getId().getPath() + "_inventory", modLoc("block/wall_inventory"), "wall", texture);
-                    this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath() + "_inventory")); // Item model
-                } else {
-                    this.halfWallBlock(rb.get(), texture);
-                    this.models().wallInventory(rb.getId().getPath() + "_inventory", texture);
-                    this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath() + "_inventory")); // Item model
-                }
-            }
-
-
-            for (RegistryObject<StairBlock> rb : BlockInit.SSWT_SET_STAIRS.get("wv-whitewash", key)) {
-                ResourceLocation texture;
-                texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 7));
-
-                ModelFile stairs = models().withExistingParent(rb.getId().toString(), modLoc("block/stairs"))
-                    .texture("side", texture)
-                    .texture("bottom", texture)
-                    .texture("top", texture);
-                ModelFile stairsInner = models().withExistingParent(rb.getId().toString() + "_inner", modLoc("block/inner_stairs"))
-                    .texture("side", texture)
-                    .texture("bottom", texture)
-                    .texture("top", texture);
-                ModelFile stairsOuter = models().withExistingParent(rb.getId().toString() + "_outer", modLoc("block/outer_stairs"))
-                    .texture("side", texture)
-                    .texture("bottom", texture)
-                    .texture("top", texture);
-
-                this.stairsBlock(rb.get(), stairs, stairsInner, stairsOuter);
+                this.tintedSlab(rb.get(), texture, doubleSlab);
                 this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath())); // Item model
             }
 
-            for (RegistryObject<TrapDoorBlock> rb : BlockInit.SSWT_SET_TRAPDOORS.get("wv-whitewash", key)) {
-                //ResourceLocation texture;
-                //texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 9));
-                //this.trapdoorBlock(rb.get(), texture, true);
-                //this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath() + "_bottom")); // Item model
+            for (RegistryObject<HalfWallBlock> rb : BlockInit.SSWT_SET_WALLS.get("wv-extra", key)) {
+                ResourceLocation texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
+                this.tintedHalfWall(rb.get(), texture);
+                this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath() + "_inventory")); // Item model
             }
 
+            for (RegistryObject<StairBlock> rb : BlockInit.SSWT_SET_STAIRS.get("wv-extra", key)) {
+                ResourceLocation texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 7));
+                this.tintedStairs(rb.get(), texture);
+                this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath())); // Item model
+            }
+
+            for (RegistryObject<TrapDoorBlock> rb : BlockInit.SSWT_SET_TRAPDOORS.get("wv-extra", key)) {
+                ResourceLocation texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 9));
+                this.tintedTrapdoor(rb.get(), texture);
+                this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath() + "_bottom")); // Item model
+            }
         });
 
         BlockInit.SSWT_SET_SLABS.row("lmd").keySet().forEach((key) -> {
             for (RegistryObject<Block> rb : BlockInit.SSWT_SET_BLOCKS.get("lmd", key)) {
-                ResourceLocation texture;
-
-                texture = modLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
+                ResourceLocation texture = modLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
                 this.simpleBlock(rb.get());
                 this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath())); // Item model
             }
 
-
             for (RegistryObject<SlabBlock> rb : BlockInit.SSWT_SET_SLABS.get("lmd", key)) {
-                ResourceLocation doubleSlab;
-                ResourceLocation texture;
-
-                doubleSlab = modLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
-                texture = modLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
+                ResourceLocation doubleSlab = modLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
+                ResourceLocation texture = modLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
 
                 this.slabBlock(rb.get(), doubleSlab, texture);
                 this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath())); // Item model
-
             }
-
 
             for (RegistryObject<HalfWallBlock> rb : BlockInit.SSWT_SET_WALLS.get("lmd", key)) {
                 ResourceLocation texture;
@@ -445,7 +408,7 @@ public class BlockStates extends BlockStateProvider {
 
             for (String lmdType : SWDM.LMD_TYPES) {
                 CarpetBlock carpet = BlockInit.FIBER_CARPETS.get(lmdType, tone).get();
-                this.carpet(carpet, modLoc("block/" + carpet.getRegistryName().getPath()));
+                this.horizontalCarpet(carpet, modLoc("block/" + carpet.getRegistryName().getPath()));
                 this.itemModels().withExistingParent(carpet.getRegistryName().getPath(), modLoc("block/" + carpet.getRegistryName().getPath()));
             }
         }
@@ -453,34 +416,52 @@ public class BlockStates extends BlockStateProvider {
         List.of("sand", "red_sand").forEach(sand -> {
             for (String lmdType : SWDM.LMD_TYPES) {
                 CarpetBlock carpet = BlockInit.FIBER_CARPETS.get(lmdType, sand).get();
-                this.carpet(carpet, modLoc("block/" + carpet.getRegistryName().getPath()));
+                this.horizontalCarpet(carpet, modLoc("block/" + carpet.getRegistryName().getPath()));
                 this.itemModels().withExistingParent(carpet.getRegistryName().getPath(), modLoc("block/" + carpet.getRegistryName().getPath()));
             }
         });
 
         BlockInit.SSWT_SET_SLABS.row("standalone").keySet().forEach((key) -> {
+            boolean isGrassyBlock = key.contains("grass_block") || key.contains("podzol") || key.contains("mycelium");
+
+            for (RegistryObject<StairBlock> rb : BlockInit.SSWT_SET_STAIRS.get("standalone", key)) {
+                String name = rb.getId().getPath().substring(0, rb.getId().getPath().length() - 7);
+                if (isGrassyBlock) {
+                    this.tintedStairs(rb.get(), mcLoc("block/" + name + "_side"), mcLoc("block/dirt"), mcLoc("block/" + name + "_top"));
+                } else {
+                    this.tintedStairs(rb.get(), mcLoc("block/" + name));
+                }
+                this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath())); // Item model
+            }
+
             for (RegistryObject<SlabBlock> rb : BlockInit.SSWT_SET_SLABS.get("standalone", key)) {
-                ResourceLocation texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
-                this.slabBlock(rb.get(), texture, texture);
+                String name = rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5);
+                ResourceLocation blockModel = mcLoc("block/" + name);
+                if (isGrassyBlock) {
+                    this.tintedSlab(rb.get(), mcLoc("block/" + name + "_side"), mcLoc("block/dirt"), mcLoc("block/" + name + "_top"), blockModel);
+                } else {
+                    this.tintedSlab(rb.get(), blockModel, blockModel);
+                }
                 this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath())); // Item model
             }
 
             for (RegistryObject<HalfWallBlock> rb : BlockInit.SSWT_SET_WALLS.get("standalone", key)) {
-                ResourceLocation texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5));
-                this.halfWallBlock(rb.get(), texture);
-                this.models().wallInventory(rb.getId().getPath() + "_inventory", texture);
+                String name = rb.getId().getPath().substring(0, rb.getId().getPath().length() - 5);
+                if (isGrassyBlock) {
+                    this.tintedHalfWall(rb.get(), mcLoc("block/" + name + "_side"), mcLoc("block/dirt"), mcLoc("block/" + name + "_top"));
+                } else {
+                    this.tintedHalfWall(rb.get(), mcLoc("block/" + name));
+                }
                 this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath() + "_inventory")); // Item model
             }
 
-            for (RegistryObject<StairBlock> rb : BlockInit.SSWT_SET_STAIRS.get("standalone", key)) {
-                ResourceLocation texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 7));
-                this.stairsBlock(rb.get(), texture);
-                this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath())); // Item model
-            }
-
             for (RegistryObject<TrapDoorBlock> rb : BlockInit.SSWT_SET_TRAPDOORS.get("standalone", key)) {
-                ResourceLocation texture = mcLoc("block/" + rb.getId().getPath().substring(0, rb.getId().getPath().length() - 9));
-                this.trapdoorBlock(rb.get(), texture, true);
+                String name = rb.getId().getPath().substring(0, rb.getId().getPath().length() - 9);
+                if (isGrassyBlock) {
+                    this.tintedTrapdoor(rb.get(), mcLoc("block/" + name + "_side"), mcLoc("block/dirt"), mcLoc("block/" + name + "_top"));
+                } else {
+                    this.tintedTrapdoor(rb.get(), mcLoc("block/" + name));
+                }
                 this.itemModels().withExistingParent(rb.getId().getPath(), modLoc("block/" + rb.getId().getPath() + "_bottom")); // Item model
             }
         });
@@ -501,18 +482,99 @@ public class BlockStates extends BlockStateProvider {
         });
     }
 
+    public void tintedStairs(StairBlock block, ResourceLocation texture) {
+        this.tintedStairs(block, texture, texture, texture);
+    }
+
+    public void tintedStairs(StairBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        ModelFile stairs = models().withExistingParent(block.getRegistryName().toString(), modLoc("block/stairs"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
+        ModelFile stairsInner = models().withExistingParent(block.getRegistryName().toString() + "_inner", modLoc("block/inner_stairs"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
+        ModelFile stairsOuter = models().withExistingParent(block.getRegistryName().toString() + "_outer", modLoc("block/outer_stairs"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
+
+        this.stairsBlock(block, stairs, stairsInner, stairsOuter);
+    }
+
+    public void tintedSlab(SlabBlock block, ResourceLocation texture, ResourceLocation doubleSlab) {
+        tintedSlab(block, texture, texture, texture, doubleSlab);
+    }
+
+    public void tintedSlab(SlabBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top, ResourceLocation doubleSlab) {
+        this.slabBlock(block,
+            models().withExistingParent(block.getRegistryName().getPath(), modLoc("block/slab"))
+                .texture("side", side)
+                .texture("bottom", bottom)
+                .texture("top", top),
+            models().withExistingParent(block.getRegistryName().getPath() + "_top", modLoc("block/slab_top"))
+                .texture("side", side)
+                .texture("bottom", bottom)
+                .texture("top", top),
+            models().getExistingFile(doubleSlab)
+        );
+    }
+
+    public void tintedHalfWall(HalfWallBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        this.halfWallBlock(block, side, bottom, top);
+        this.halfWallBlockItem(block, side, bottom, top);
+    }
+
+    public void tintedHalfWall(HalfWallBlock block, ResourceLocation texture) {
+        this.halfWallBlock(block, texture);
+        this.halfWallBlockItem(block, texture);
+    }
+
+
+    public void tintedTrapdoor(TrapDoorBlock block, ResourceLocation texture) {
+        tintedTrapdoor(block, texture, texture, texture);
+    }
+
+    public void tintedTrapdoor(TrapDoorBlock block, ResourceLocation side, ResourceLocation top, ResourceLocation bottom) {
+        ModelFile openModel = models().withExistingParent(block.getRegistryName().toString() + "_open", modLoc("block/template_orientable_trapdoor_open"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
+        ModelFile topModel = models().withExistingParent(block.getRegistryName().toString() + "top", modLoc("block/template_orientable_trapdoor_top"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
+        ModelFile bottomModel = models().withExistingParent(block.getRegistryName().toString() + "_bottom", modLoc("block/template_orientable_trapdoor_bottom"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
+        this.trapdoorBlock(block, bottomModel, topModel, openModel, true);
+    }
+
+    public void halfWallBlockItem(HalfWallBlock block, ResourceLocation texture) {
+        halfWallBlockItem(block, texture, texture, texture);
+    }
+
+    public void halfWallBlockItem(HalfWallBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        this.models().withExistingParent(block.getRegistryName().getPath() + "_inventory", modLoc("block/wall_inventory"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
+    }
+
+    public void halfWallBlock(HalfWallBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        halfWallBlockInternal(block, block.getRegistryName().toString(), side, bottom, top);
+    }
+
     public void halfWallBlock(HalfWallBlock block, ResourceLocation texture) {
-        halfWallBlockInternal(block, block.getRegistryName().toString(), texture);
+        halfWallBlockInternal(block, block.getRegistryName().toString(), texture, texture, texture);
     }
 
-    public void halfWallBlock(HalfWallBlock block, String name, ResourceLocation texture) {
-        halfWallBlockInternal(block, name + "_wall", texture);
-    }
-
-    private void halfWallBlockInternal(HalfWallBlock block, String baseName, ResourceLocation texture) {
+    private void halfWallBlockInternal(HalfWallBlock block, String baseName, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
         halfWallBlock(block,
-            wallPost(baseName + "_post", texture), wallSide(baseName + "_side", texture), wallSideTall(baseName + "_side_tall", texture),
-            halfWallPost(baseName + "_half_post", texture), halfWallSide(baseName + "_half_side", texture)
+            wallPost(baseName + "_post", side, bottom, top), wallSide(baseName + "_side", side, bottom, top), wallSideTall(baseName + "_side_tall", side, bottom, top),
+            halfWallPost(baseName + "_half_post", side, bottom, top), halfWallSide(baseName + "_half_side", side, bottom, top)
         );
     }
 
@@ -552,29 +614,46 @@ public class BlockStates extends BlockStateProvider {
             .condition(HalfWallBlock.WALL_TYPE, type);
     }
 
-    public BlockModelBuilder wallPost(String name, ResourceLocation wall) {
-        return models().singleTexture(name, this.modLoc("block/template_wall_post"), "wall", wall);
+    public BlockModelBuilder wallPost(String name, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        return models().withExistingParent(name, this.modLoc("block/template_wall_post"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
     }
 
-    public BlockModelBuilder wallSide(String name, ResourceLocation wall) {
-        return models().singleTexture(name, this.modLoc("block/template_wall_side"), "wall", wall);
+    public BlockModelBuilder wallSide(String name, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        return models().withExistingParent(name, this.modLoc("block/template_wall_side"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
     }
 
-    public BlockModelBuilder wallSideTall(String name, ResourceLocation wall) {
-        return models().singleTexture(name, this.modLoc("block/template_wall_side_tall"), "wall", wall);
+    public BlockModelBuilder wallSideTall(String name, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        return models().withExistingParent(name, this.modLoc("block/template_wall_side_tall"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
     }
 
-    public BlockModelBuilder halfWallPost(String name, ResourceLocation wall) {
-        return models().singleTexture(name, this.modLoc("block/template_half_wall_post"), "wall", wall);
+    public BlockModelBuilder halfWallPost(String name, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        return models().withExistingParent(name, this.modLoc("block/template_half_wall_post"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
     }
 
-    public BlockModelBuilder halfWallSide(String name, ResourceLocation wall) {
-        return models().singleTexture(name, this.modLoc("block/template_half_wall_side"), "wall", wall);
+    public BlockModelBuilder halfWallSide(String name, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        return models().withExistingParent(name, this.modLoc("block/template_half_wall_side"))
+            .texture("side", side)
+            .texture("bottom", bottom)
+            .texture("top", top);
     }
 
-    /*public BlockModelBuilder halfWallSideTall(String name, ResourceLocation wall) {
-        return models().singleTexture(name, this.modLoc("block/template_half_wall_side_tall"), "wall", wall);
-    }*/
+
+    public void horizontalCarpet(CarpetBlock block, ResourceLocation wool) {
+        ModelFile carpetModel = models().carpet(block.getRegistryName().toString(), wool);
+        this.horizontalBlock(block, carpetModel);
+    }
 
     public void carpet(CarpetBlock block, ResourceLocation wool) {
         ModelFile carpetModel = models().carpet(block.getRegistryName().toString(), wool);
@@ -616,24 +695,23 @@ public class BlockStates extends BlockStateProvider {
             });
     }
 
-    public void coatedChain(DyeColor color) {
-        CoatedChain coatedChain = BlockInit.COATED_CHAINS.get(color.getName()).get();
-        ModelFile single = models().singleTexture(coatedChain.getRegistryName().getPath() + "_single", mcLoc("block/chain"), "all", modLoc("block/" + coatedChain.getRegistryName().getPath().substring(0, coatedChain.getRegistryName().getPath().length() - (color.getName().length() + 1)) + "_single_" + color.getName()));
-        ModelFile edge = models().singleTexture(coatedChain.getRegistryName().getPath() + "_edge", mcLoc("block/chain"), "all", modLoc("block/" + coatedChain.getRegistryName().getPath().substring(0, coatedChain.getRegistryName().getPath().length() - (color.getName().length() + 1)) + "_edge_" + color.getName()));
-        ModelFile middle = models().singleTexture(coatedChain.getRegistryName().getPath() + "_middle", mcLoc("block/chain"), "all", modLoc("block/" + coatedChain.getRegistryName().getPath().substring(0, coatedChain.getRegistryName().getPath().length() - (color.getName().length() + 1)) + "_middle_" + color.getName()));
+    public void twoWayBlock(TwoWayBlock block, DyeColor color) {
+        ModelFile single = models().singleTexture(block.getRegistryName().getPath() + "_single", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath().substring(0, block.getRegistryName().getPath().length() - (color.getName().length() + 1)) + "_single_" + color.getName()));
+        ModelFile edge = models().singleTexture(block.getRegistryName().getPath() + "_edge", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath().substring(0, block.getRegistryName().getPath().length() - (color.getName().length() + 1)) + "_edge_" + color.getName()));
+        ModelFile middle = models().singleTexture(block.getRegistryName().getPath() + "_middle", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath().substring(0, block.getRegistryName().getPath().length() - (color.getName().length() + 1)) + "_middle_" + color.getName()));
 
-        this.itemModels().singleTexture(coatedChain.getRegistryName().getPath(), mcLoc("item/generated"), "layer0", new ResourceLocation("swdm", "item/" + coatedChain.getRegistryName().getPath()));
+        this.itemModels().singleTexture(block.getRegistryName().getPath(), mcLoc("item/generated"), "layer0", new ResourceLocation("swdm", "item/" + block.getRegistryName().getPath()));
 
-        this.getVariantBuilder(coatedChain).forAllStates((state) -> {
-            ModelFile fileToUse = state.getValue(CoatedChain.PART) == SWDMBlockstateProperties.TwoWay.SINGLE
+        this.getVariantBuilder(block).forAllStates((state) -> {
+            ModelFile fileToUse = state.getValue(TwoWayBlock.PART) == SWDMBlockstateProperties.TwoWay.SINGLE
                 ? single
-                : state.getValue(CoatedChain.PART) == SWDMBlockstateProperties.TwoWay.MIDDLE
+                : state.getValue(TwoWayBlock.PART) == SWDMBlockstateProperties.TwoWay.MIDDLE
                 ? middle
                 : edge;
 
             return ConfiguredModel.builder().modelFile(fileToUse)
-                .rotationX(state.getValue(CoatedChain.AXIS).isHorizontal() ? 90 : (state.getValue(CoatedChain.PART) == SWDMBlockstateProperties.TwoWay.RIGHT ? 180 : 0))
-                .rotationY((state.getValue(CoatedChain.AXIS) == Direction.Axis.X ? 90 : 0) + (state.getValue(CoatedChain.PART) == SWDMBlockstateProperties.TwoWay.RIGHT && state.getValue(CoatedChain.AXIS) == Direction.Axis.X ? 180 : state.getValue(CoatedChain.PART) == SWDMBlockstateProperties.TwoWay.LEFT && state.getValue(CoatedChain.AXIS) == Direction.Axis.Z ? 180 : 0))
+                .rotationX(state.getValue(TwoWayBlock.AXIS).isHorizontal() ? 90 : (state.getValue(TwoWayBlock.PART) == SWDMBlockstateProperties.TwoWay.RIGHT ? 180 : 0))
+                .rotationY((state.getValue(TwoWayBlock.AXIS) == Direction.Axis.X ? 90 : 0) + (state.getValue(TwoWayBlock.PART) == SWDMBlockstateProperties.TwoWay.RIGHT && state.getValue(TwoWayBlock.AXIS) == Direction.Axis.X ? 180 : state.getValue(TwoWayBlock.PART) == SWDMBlockstateProperties.TwoWay.LEFT && state.getValue(TwoWayBlock.AXIS) == Direction.Axis.Z ? 180 : 0))
                 .build();
         });
     }

@@ -1,17 +1,18 @@
 {
+  "__comment": "Copy of vanilla model but with 'tintindex' so that leaves get proper color",
   "textures": {
-    "particle": "#wall"
+    "particle": "#top"
   },
   "elements": [
     {
       "from": [ 5, 0, 0 ],
       "to": [ 11, 14, 8 ],
       "faces": {
-        "down":  { "texture": "#wall","tintindex": 0 },
-        "up":    { "texture": "#wall","tintindex": 0 },
-        "north": { "texture": "#wall","tintindex": 0 },
-        "west":  { "texture": "#wall","tintindex": 0 },
-        "east":  { "texture": "#wall","tintindex": 0 }
+        "down":  { "texture": "#bottom","tintindex": 0 },
+        "up":    { "texture": "#top","tintindex": 0 },
+        "north": { "texture": "#side","tintindex": 0 },
+        "west":  { "texture": "#side","tintindex": 0 },
+        "east":  { "texture": "#side","tintindex": 0 }
       }
     }
   ]

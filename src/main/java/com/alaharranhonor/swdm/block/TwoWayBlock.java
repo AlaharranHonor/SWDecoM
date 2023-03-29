@@ -14,11 +14,11 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 import javax.annotation.Nullable;
 
-public class CoatedChain extends ChainBlock {
+public class TwoWayBlock extends ChainBlock {
 
 	public static final EnumProperty<SWDMBlockstateProperties.TwoWay> PART = SWDMBlockstateProperties.TWO_WAY;
 
-	public CoatedChain(BlockBehaviour.Properties p_i241175_1_) {
+	public TwoWayBlock(BlockBehaviour.Properties p_i241175_1_) {
 		super(p_i241175_1_);
 		this.registerDefaultState(this.defaultBlockState().setValue(PART, SWDMBlockstateProperties.TwoWay.SINGLE));
 	}
@@ -35,11 +35,11 @@ public class CoatedChain extends ChainBlock {
 
 		BlockState state1 = pContext.getLevel().getBlockState(pos1);
 		BlockState state2 = pContext.getLevel().getBlockState(pos2);
-		if (state1.getBlock() instanceof CoatedChain && state2.getBlock() instanceof CoatedChain) {
+		if (state1.getBlock() instanceof TwoWayBlock && state2.getBlock() instanceof TwoWayBlock) {
 			return super.getStateForPlacement(pContext).setValue(PART, SWDMBlockstateProperties.TwoWay.MIDDLE);
-		} else if (state1.getBlock() instanceof CoatedChain && !(state2.getBlock() instanceof CoatedChain)) {
+		} else if (state1.getBlock() instanceof TwoWayBlock && !(state2.getBlock() instanceof TwoWayBlock)) {
 			return super.getStateForPlacement(pContext).setValue(PART, SWDMBlockstateProperties.TwoWay.RIGHT);
-		} else if (state2.getBlock() instanceof CoatedChain) {
+		} else if (state2.getBlock() instanceof TwoWayBlock) {
 			return super.getStateForPlacement(pContext).setValue(PART, SWDMBlockstateProperties.TwoWay.LEFT);
 		}
 
@@ -71,18 +71,18 @@ public class CoatedChain extends ChainBlock {
 
 		BlockState state1 = pLevel.getBlockState(pos1);
 		BlockState state2 = pLevel.getBlockState(pos2);
-		if (state1.getBlock() instanceof CoatedChain && state2.getBlock() instanceof CoatedChain) {
+		if (state1.getBlock() instanceof TwoWayBlock && state2.getBlock() instanceof TwoWayBlock) {
 			return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos).setValue(PART, SWDMBlockstateProperties.TwoWay.MIDDLE);
-		} else if (state1.getBlock() instanceof CoatedChain && !(state2.getBlock() instanceof CoatedChain)) {
+		} else if (state1.getBlock() instanceof TwoWayBlock && !(state2.getBlock() instanceof TwoWayBlock)) {
 			return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos).setValue(PART, SWDMBlockstateProperties.TwoWay.RIGHT);
-		} else if (state2.getBlock() instanceof CoatedChain) {
+		} else if (state2.getBlock() instanceof TwoWayBlock) {
 			return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos).setValue(PART, SWDMBlockstateProperties.TwoWay.LEFT);
 		}
 		if (state1.getBlock() instanceof AirBlock && state2.getBlock() instanceof AirBlock) {
 			return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos).setValue(PART, SWDMBlockstateProperties.TwoWay.SINGLE);
-		} else if (state1.getBlock() instanceof AirBlock && state2.getBlock() instanceof CoatedChain) {
+		} else if (state1.getBlock() instanceof AirBlock && state2.getBlock() instanceof TwoWayBlock) {
 			return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos).setValue(PART, SWDMBlockstateProperties.TwoWay.LEFT);
-		} else if (state1.getBlock() instanceof CoatedChain && state2.getBlock() instanceof AirBlock) {
+		} else if (state1.getBlock() instanceof TwoWayBlock && state2.getBlock() instanceof AirBlock) {
 			return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos).setValue(PART, SWDMBlockstateProperties.TwoWay.RIGHT);
 		}
 
