@@ -1,6 +1,6 @@
-package com.alaharranhonor.swdm.block;
+package com.alaharranhonor.swdm.old.block;
 
-import com.alaharranhonor.swdm.registry.SWDMTags;
+import com.alaharranhonor.swdm.old.util.init.SWDMTags;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;

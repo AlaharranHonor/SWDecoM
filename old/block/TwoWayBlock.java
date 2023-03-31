@@ -1,4 +1,4 @@
-package com.alaharranhonor.swdm.block;
+package com.alaharranhonor.swdm.old.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -7,7 +7,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChainBlock;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -19,7 +18,7 @@ public class TwoWayBlock extends ChainBlock {
 
 	public static final EnumProperty<SWDMBlockstateProperties.TwoWay> PART = SWDMBlockstateProperties.TWO_WAY;
 
-	public TwoWayBlock(Properties p_i241175_1_) {
+	public TwoWayBlock(BlockBehaviour.Properties p_i241175_1_) {
 		super(p_i241175_1_);
 		this.registerDefaultState(this.defaultBlockState().setValue(PART, SWDMBlockstateProperties.TwoWay.SINGLE));
 	}

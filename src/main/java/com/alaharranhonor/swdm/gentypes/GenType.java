@@ -1,0 +1,40 @@
+package com.alaharranhonor.swdm.gentypes;
+
+import com.alaharranhonor.swdm.datagen.*;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.DeferredRegister;
+
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+public abstract class GenType<T> implements Supplier<T> {
+
+    protected final Supplier<Block> baseBlock;
+    protected T generated;
+    protected String registeredName;
+
+    public GenType(Supplier<Block> baseBlock) {
+        this.baseBlock = baseBlock;
+    }
+
+    public T get() {
+        if (this.generated == null) {
+            this.generated = this.generate();
+        }
+
+        return this.generated;
+    }
+
+    protected abstract T generate();
+    public abstract void register(String name, DeferredRegister<Block> blocks, DeferredRegister<Item> items);
+    public abstract void addRecipes(Recipes gen, Consumer<FinishedRecipe> recipe);
+    public abstract void addBlockStates(BlockStates gen);
+    public abstract void addItemModels(ItemModels gen);
+    public abstract void addItemTags(ItemTags gen);
+    public abstract void addBlockTags(BlockTags gen);
+    public abstract void addLang(Languages gen);
+    public abstract void addLootTables(LootTables.ModLootTables gen);
+    public abstract String getSuffix();
+}
