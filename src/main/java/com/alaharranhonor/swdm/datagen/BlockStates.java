@@ -1,15 +1,15 @@
 package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.block.BeamBlock;
 import com.alaharranhonor.swdm.block.HalfWallBlock;
 import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
 import com.alaharranhonor.swdm.block.TwoWayBlock;
+import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -28,9 +28,14 @@ public class BlockStates extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        BlockSetup.BLOCKS_BY_NAME.values().forEach(block -> {
+            this.simpleBlock(block.get());
+            this.itemModels().withExistingParent(block.getId().getPath(), new ResourceLocation(block.getId().getNamespace(), "block/" + block.getId().getPath()));
+        });
+
         for (GenSet set : SetSetup.SETS) {
             set.genTypes.forEach(genType -> {
-                genType.addBlockStates(this);
+                genType.addBlockStates(this, set.getTextures());
             });
         }
     }
@@ -54,6 +59,31 @@ public class BlockStates extends BlockStateProvider {
             .texture("top", top);
 
         this.stairsBlock(block, stairs, stairsInner, stairsOuter);
+    }
+
+    public void ladder(LadderBlock block, ResourceLocation texture) {
+        this.getVariantBuilder(block)
+            .forAllStates(state -> {
+                Direction facing = state.getValue(LadderBlock.FACING);
+                return ConfiguredModel.builder().modelFile(
+                    this.models().withExistingParent(block.getRegistryName().getPath(), this.mcLoc("block/ladder")).texture("texture", texture)
+                ).rotationY((int) (facing.toYRot() + 180) % 360).build();
+            });
+    }
+
+    public void beamBlock(BeamBlock block) {
+        String name = block.getRegistryName().getPath();
+        this.getVariantBuilder(block).forAllStates(state -> {
+            SWDMBlockstateProperties.Tileable tile = state.getValue(BeamBlock.TILE);
+            return ConfiguredModel.builder()
+                .modelFile(this.models().cubeColumn(
+                    name + "_" + tile.getSerializedName(),
+                    this.modLoc("block/" + name + "_" + tile.getSerializedName()),
+                    this.modLoc("block/" + name + "_single")
+                )).build();
+        });
+
+        this.itemModels().withExistingParent(name, modLoc("block/" + name + "_single")); // Item model
     }
 
     public void tintedSlab(SlabBlock block, ResourceLocation texture, ResourceLocation doubleSlab) {
@@ -248,10 +278,10 @@ public class BlockStates extends BlockStateProvider {
             });
     }
 
-    public void twoWayBlock(TwoWayBlock block, DyeColor color) {
-        ModelFile single = models().singleTexture(block.getRegistryName().getPath() + "_single", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath().substring(0, block.getRegistryName().getPath().length() - (color.getName().length() + 1)) + "_single_" + color.getName()));
-        ModelFile edge = models().singleTexture(block.getRegistryName().getPath() + "_edge", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath().substring(0, block.getRegistryName().getPath().length() - (color.getName().length() + 1)) + "_edge_" + color.getName()));
-        ModelFile middle = models().singleTexture(block.getRegistryName().getPath() + "_middle", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath().substring(0, block.getRegistryName().getPath().length() - (color.getName().length() + 1)) + "_middle_" + color.getName()));
+    public void twoWayBlock(TwoWayBlock block) {
+        ModelFile single = models().singleTexture(block.getRegistryName().getPath() + "_single", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath() + "_single"));
+        ModelFile middle = models().singleTexture(block.getRegistryName().getPath() + "_middle", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath() + "_middle"));
+        ModelFile edge = models().singleTexture(block.getRegistryName().getPath() + "_edge", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath() + "_edge"));
 
         this.itemModels().singleTexture(block.getRegistryName().getPath(), mcLoc("item/generated"), "layer0", new ResourceLocation("swdm", "item/" + block.getRegistryName().getPath()));
 
@@ -275,15 +305,15 @@ public class BlockStates extends BlockStateProvider {
 
 
 
-		/*for (DyeColor color : DyeColor.values()) {
+        /*for (DyeColor color : DyeColor.values()) {
 
 
 
-			//this.stairsBlock(BlockInit.WOOL_STAIRS.get(color.getId()).get(), mcLoc("block/" + color.getName() + "_wool")); // Blockstate and models
-			//this.models().stairs(color.getName() + "_wool_stairs", mcLoc("block/" + color.getName() + "_wool"), mcLoc("block/" + color.getName() + "_wool"), mcLoc("block/" + color.getName() + "_wool")); // Block Model
-			this.itemModels().withExistingParent(color.getName() + "_wool_stairs", modLoc("block/" + color.getName() + "_wool_stairs")); // Item model
-		}
-	}*/
+            //this.stairsBlock(BlockInit.WOOL_STAIRS.get(color.getId()).get(), mcLoc("block/" + color.getName() + "_wool")); // Blockstate and models
+            //this.models().stairs(color.getName() + "_wool_stairs", mcLoc("block/" + color.getName() + "_wool"), mcLoc("block/" + color.getName() + "_wool"), mcLoc("block/" + color.getName() + "_wool")); // Block Model
+            this.itemModels().withExistingParent(color.getName() + "_wool_stairs", modLoc("block/" + color.getName() + "_wool_stairs")); // Item model
+        }
+    }*/
 
 
 }

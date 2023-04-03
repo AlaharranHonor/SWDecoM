@@ -1,14 +1,21 @@
 package com.alaharranhonor.swdm;
 
 import com.alaharranhonor.swdm.gentypes.GenType;
+import com.alaharranhonor.swdm.util.TextureSet;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -19,19 +26,35 @@ public class GenSet {
     private final List<List<String>> modifierSets;
     private final List<Function<Supplier<Block>, GenType<?>>> genTypeFactories;
     private final Function<Supplier<Block>, GenType<Block>> baseGenerator;
+    private final TextureSet textures;
+    private final RenderType renderType;
+    private final BlockColor blockColors;
+    private final ItemColor itemColors;
 
     // TODO Set Block/Item Tags
 
     public final List<GenType<?>> genTypes = new ArrayList<>();
     private Supplier<Block> generatedBaseBlock;
 
-    private GenSet(Supplier<Block> baseBlock, String baseName, List<List<String>> modifierSets, List<Function<Supplier<Block>, GenType<?>>> genTypeFactories, Function<Supplier<Block>, GenType<Block>> baseGenerator) {
+    private GenSet(Supplier<Block> baseBlock,
+                   String baseName,
+                   List<List<String>> modifierSets,
+                   List<Function<Supplier<Block>, GenType<?>>> genTypeFactories,
+                   Function<Supplier<Block>, GenType<Block>> baseGenerator,
+                   TextureSet textures,
+                   RenderType renderType,
+                   BlockColor blockColors,
+                   ItemColor itemColors) {
         this.baseBlock = baseBlock;
         this.generatedBaseBlock = baseBlock;
         this.baseName = baseName;
         this.modifierSets = modifierSets;
         this.genTypeFactories = genTypeFactories;
         this.baseGenerator = baseGenerator;
+        this.textures = textures;
+        this.renderType = renderType;
+        this.blockColors = blockColors;
+        this.itemColors = itemColors;
     }
 
     public void register(DeferredRegister<Block> blocks, DeferredRegister<Item> items) {
@@ -75,12 +98,32 @@ public class GenSet {
         }
     }
 
+    public TextureSet getTextures() {
+        return this.textures;
+    }
+
+    public static Builder builder(RegistryObject<Block> base) {
+        return new Builder(base);
+    }
+
     public static Builder builder(Supplier<Block> base) {
         return new Builder(base);
     }
 
     public static Builder builder(Supplier<Block> baseBlock, String baseName) {
         return new Builder(baseBlock, baseName);
+    }
+
+    public RenderType getRenderType() {
+        return this.renderType;
+    }
+
+    public BlockColor getBlockColors() {
+        return this.blockColors;
+    }
+
+    public ItemColor getItemColors() {
+        return this.itemColors;
     }
 
     public static class Builder {
@@ -90,6 +133,10 @@ public class GenSet {
         private final List<List<String>> modifierSets = new ArrayList<>();
         private final List<Function<Supplier<Block>, GenType<?>>> genTypes = new ArrayList<>();
         private Function<Supplier<Block>, GenType<Block>> baseGenerator;
+        private final TextureSet.Builder textures = TextureSet.builder(TextureSet.DEFAULT_TEXTURE_SET);
+        private RenderType renderType = RenderType.solid();
+        private BlockColor blockColor;
+        private ItemColor itemColor;
 
         private Builder(Supplier<Block> baseBlock, String baseName) {
             this.baseBlock = baseBlock;
@@ -98,6 +145,10 @@ public class GenSet {
 
         private Builder(Supplier<Block> base) {
             this(base, base.get().getRegistryName().getPath());
+        }
+
+        private Builder(RegistryObject<Block> base) {
+            this(base, base.getId().getPath());
         }
 
         public Builder withBase(Function<Supplier<Block>, GenType<Block>> type) {
@@ -132,12 +183,42 @@ public class GenSet {
             return this;
         }
 
+        public final Builder textures(Consumer<TextureSet.Builder> textures) {
+            textures.accept(this.textures);
+            return this;
+        }
+
+        public final Builder renderType(RenderType renderType) {
+            this.renderType = renderType;
+            return this;
+        }
+
+        public final Builder blockColors(BlockColor color) {
+            this.blockColor = color;
+            return this;
+        }
+
+        public final Builder itemColors(ItemColor color) {
+            this.itemColor = color;
+            return this;
+        }
+
         public GenSet build() {
             if (this.modifierSets.isEmpty()) {
                 this.set("");
             }
 
-            return new GenSet(this.baseBlock, this.baseName, this.modifierSets, this.genTypes, this.baseGenerator);
+            return new GenSet(
+                this.baseBlock,
+                this.baseName,
+                this.modifierSets,
+                this.genTypes,
+                this.baseGenerator,
+                this.textures.build(),
+                this.renderType,
+                this.blockColor,
+                this.itemColor
+            );
         }
     }
 }

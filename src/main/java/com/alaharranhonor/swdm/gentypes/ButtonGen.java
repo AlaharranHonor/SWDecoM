@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes;
 
+import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
 import com.alaharranhonor.swdm.datagen.ItemModels;
@@ -21,21 +22,21 @@ public class ButtonGen extends BasicBlockGen<ButtonBlock> {
     @Override
     protected ButtonBlock generate() {
         if (this.isStone) {
-            return new StoneButtonBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).noCollission());
+            return new StoneButtonBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()).noCollission());
         }
 
-        return new WoodButtonBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).noCollission());
+        return new WoodButtonBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()).noCollission());
     }
 
     @Override
-    public void addBlockStates(BlockStates gen) {
+    public void addBlockStates(BlockStates gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        ResourceLocation location = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), "block/" + path.substring(0, path.length() - 7));
-        gen.button(this.generated, location);
+        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 7));
+        gen.button(this.generated, textures.get("top", basePath));
     }
 
     @Override
-    public void addItemModels(ItemModels gen) {
+    public void addItemModels(ItemModels gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
         gen.withExistingParent(path, gen.modLoc("block/" + path + "_inventory")); // Item model
     }

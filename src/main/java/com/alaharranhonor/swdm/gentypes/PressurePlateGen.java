@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes;
 
+import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
 import com.alaharranhonor.swdm.datagen.ItemModels;
@@ -22,18 +23,18 @@ public class PressurePlateGen extends BasicBlockGen<PressurePlateBlock> {
 
     @Override
     protected PressurePlateBlock generate() {
-        return new PressurePlateBlock(this.sensitivity, BlockBehaviour.Properties.copy(this.baseBlock.get()).noCollission());
+        return new PressurePlateBlock(this.sensitivity, BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()).noCollission());
     }
 
     @Override
-    public void addBlockStates(BlockStates gen) {
+    public void addBlockStates(BlockStates gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        ResourceLocation location = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), "block/" + path.substring(0, path.length() - 15));
-        gen.pressurePlate(this.generated, location);
+        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 15));
+        gen.pressurePlate(this.generated, textures.get("top", basePath));
     }
 
     @Override
-    public void addItemModels(ItemModels gen) {
+    public void addItemModels(ItemModels gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
         gen.withExistingParent(path, gen.modLoc("block/" + path)); // Item model
     }

@@ -1,15 +1,12 @@
 package com.alaharranhonor.swdm.gentypes;
 
+import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.datagen.*;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class SlabGen extends BasicBlockGen<SlabBlock> {
@@ -20,19 +17,18 @@ public class SlabGen extends BasicBlockGen<SlabBlock> {
 
     @Override
     protected SlabBlock generate() {
-        return new SlabBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()));
+        return new SlabBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
     }
 
-
     @Override
-    public void addBlockStates(BlockStates gen) {
+    public void addBlockStates(BlockStates gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        ResourceLocation location = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), "block/" + path.substring(0, path.length() - 5));
-        gen.slabBlock(this.generated, location, location);
+        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 5));
+        gen.tintedSlab(this.generated, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath), basePath);
     }
 
     @Override
-    public void addItemModels(ItemModels gen) {
+    public void addItemModels(ItemModels gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
         gen.withExistingParent(path, gen.modLoc("block/" + path)); // Item model
     }

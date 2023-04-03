@@ -4,6 +4,11 @@ import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.datagen.Languages;
 import com.alaharranhonor.swdm.datagen.LootTables;
 import com.alaharranhonor.swdm.datagen.Recipes;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.world.item.BlockItem;
@@ -43,5 +48,15 @@ public abstract class BasicBlockGen<T extends Block> extends GenType<T> {
     @Override
     public void addLootTables(LootTables.ModLootTables gen) {
         gen.dropSelf(this.generated);
+    }
+
+    @Override
+    public void setRenderType(RenderType renderType) {
+        ItemBlockRenderTypes.setRenderLayer(this.generated, renderType);
+    }
+
+    @Override
+    public void registerBlockColors(BlockColors reg, BlockColor color) {
+        reg.register(color, this.generated);
     }
 }

@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes;
 
+import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
 import com.alaharranhonor.swdm.datagen.ItemModels;
@@ -17,17 +18,17 @@ public class BlockGen extends BasicBlockGen<Block> {
 
     @Override
     protected Block generate() {
-        return new Block(BlockBehaviour.Properties.copy(this.baseBlock.get()));
+        return new Block(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
     }
 
 
     @Override
-    public void addBlockStates(BlockStates gen) {
+    public void addBlockStates(BlockStates gen, TextureSet textures) {
         gen.simpleBlock(this.generated);
     }
 
     @Override
-    public void addItemModels(ItemModels gen) {
+    public void addItemModels(ItemModels gen, TextureSet textures) {
         gen.withExistingParent(this.generated.getRegistryName().getPath(), gen.modLoc("block/" + this.generated.getRegistryName().getPath())); // Item model
     }
 

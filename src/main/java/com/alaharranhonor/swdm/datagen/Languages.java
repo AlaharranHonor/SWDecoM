@@ -2,6 +2,8 @@ package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.registry.BlockSetup;
+import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -14,12 +16,17 @@ public class Languages extends LanguageProvider {
     @Override
     protected void addTranslations() {
         this.add("itemGroup.swdmtab", "SWDM");
+        this.add(ItemSetup.CHANGE_TOOL.get(), "Change Tool");
 
         for (GenSet set : SetSetup.SETS) {
             set.genTypes.forEach(genType -> {
                 genType.addLang(this);
             });
         }
+
+        BlockSetup.BLOCKS_BY_NAME.values().forEach(block -> {
+            this.add(block.get(), this.sanitizedName(block.getId().getPath()));
+        });
 
         /*/this.add("item.swdm.tatch", "Thatch");
         //this.add("item.swdm.acacia_stick", "Acacia Stick");

@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes;
 
+import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.block.HalfWallBlock;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
@@ -7,7 +8,6 @@ import com.alaharranhonor.swdm.datagen.ItemModels;
 import com.alaharranhonor.swdm.datagen.ItemTags;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Supplier;
@@ -20,19 +20,18 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
 
     @Override
     protected HalfWallBlock generate() {
-        return new HalfWallBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()));
+        return new HalfWallBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
     }
 
     @Override
-    public void addBlockStates(BlockStates gen) {
+    public void addBlockStates(BlockStates gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        ResourceLocation location = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), "block/" + path.substring(0, path.length() - 5));
-        gen.halfWallBlock(this.generated, location);
-        gen.models().wallInventory(path + "_inventory", location);
+        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 5));
+        gen.tintedHalfWall(this.generated, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
     }
 
     @Override
-    public void addItemModels(ItemModels gen) {
+    public void addItemModels(ItemModels gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
         gen.withExistingParent(path, gen.modLoc("block/" + path + "_inventory")); // Item model
     }

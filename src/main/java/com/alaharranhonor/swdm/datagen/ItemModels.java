@@ -1,7 +1,6 @@
 package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import net.minecraft.data.DataGenerator;
@@ -19,7 +18,7 @@ public class ItemModels extends ItemModelProvider {
 
 		for (GenSet set : SetSetup.SETS) {
 			set.genTypes.forEach(genType -> {
-				genType.addItemModels(this);
+				genType.addItemModels(this, set.getTextures());
 			});
 		}
 	}

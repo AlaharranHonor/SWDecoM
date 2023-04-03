@@ -1,6 +1,6 @@
 package com.alaharranhonor.swdm.gentypes;
 
-import com.alaharranhonor.swdm.block.HalfWallBlock;
+import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
 import com.alaharranhonor.swdm.datagen.ItemModels;
@@ -20,18 +20,18 @@ public class TrapDoorGen extends BasicBlockGen<TrapDoorBlock> {
 
     @Override
     protected TrapDoorBlock generate() {
-        return new TrapDoorBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()));
+        return new TrapDoorBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
     }
 
     @Override
-    public void addBlockStates(BlockStates gen) {
+    public void addBlockStates(BlockStates gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        ResourceLocation location = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), "block/" + path.substring(0, path.length() - 9));
-        gen.trapdoorBlock(this.generated, location, true);
+        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 9));
+        gen.tintedTrapdoor(this.generated, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
     }
 
     @Override
-    public void addItemModels(ItemModels gen) {
+    public void addItemModels(ItemModels gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
         gen.withExistingParent(path, gen.modLoc("block/" + path + "_bottom")); // Item model
     }

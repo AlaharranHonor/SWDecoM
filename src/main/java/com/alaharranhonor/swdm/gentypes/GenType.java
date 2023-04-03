@@ -1,6 +1,12 @@
 package com.alaharranhonor.swdm.gentypes;
 
+import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.datagen.*;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -30,11 +36,15 @@ public abstract class GenType<T> implements Supplier<T> {
     protected abstract T generate();
     public abstract void register(String name, DeferredRegister<Block> blocks, DeferredRegister<Item> items);
     public abstract void addRecipes(Recipes gen, Consumer<FinishedRecipe> recipe);
-    public abstract void addBlockStates(BlockStates gen);
-    public abstract void addItemModels(ItemModels gen);
+    public abstract void addBlockStates(BlockStates gen, TextureSet textures);
+    public abstract void addItemModels(ItemModels gen, TextureSet textures);
     public abstract void addItemTags(ItemTags gen);
     public abstract void addBlockTags(BlockTags gen);
     public abstract void addLang(Languages gen);
     public abstract void addLootTables(LootTables.ModLootTables gen);
     public abstract String getSuffix();
+    public void setRenderType(RenderType renderType) {};
+
+    public void registerBlockColors(BlockColors reg, BlockColor color) {}
+    public void registerItemColors(ItemColors reg, ItemColor color) {}
 }
