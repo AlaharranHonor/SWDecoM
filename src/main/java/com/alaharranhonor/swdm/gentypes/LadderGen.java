@@ -34,7 +34,8 @@ public class LadderGen extends BasicBlockGen<LadderBlock> {
     @Override
     public void addItemModels(ItemModels gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        gen.withExistingParent(path, gen.modLoc("block/" + path)); // Item model
+        ResourceLocation basePath = new ResourceLocation(this.generated.getRegistryName().getNamespace(), path.substring(0, path.length() - 7));
+        gen.singleTexture(path, gen.mcLoc("item/generated"), "layer0", textures.get("ladder", basePath));
     }
 
     @Override

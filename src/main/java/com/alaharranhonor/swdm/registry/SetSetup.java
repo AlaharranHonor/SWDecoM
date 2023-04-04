@@ -108,7 +108,7 @@ public class SetSetup {
             Block log = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_log"));
             Block strippedLog = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("stripped_" + name + "_log"));
             SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).textures(ladders()).renderType(RenderType.cutout()).build());
-            SETS.add(GenSet.builder(() -> planks).types(woodenTypes()).build());
+            SETS.add(GenSet.builder(() -> planks).types(woodenPlanksTypes()).build());
             SETS.add(GenSet.builder(() -> log, name + "_log").types(woodenTypes()).build());
             SETS.add(GenSet.builder(() -> strippedLog, "stripped_" + name + "_log").types(woodenTypes()).build());
 
@@ -122,7 +122,7 @@ public class SetSetup {
             Block stem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_stem"));
             Block strippedStem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("stripped_" + name + "_stem"));
             SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).textures(ladders()).renderType(RenderType.cutout()).build());
-            SETS.add(GenSet.builder(() -> planks).types(woodenTypes()).build());
+            SETS.add(GenSet.builder(() -> planks).types(woodenPlanksTypes()).build());
             SETS.add(GenSet.builder(() -> stem).types(woodenTypes()).build());
             SETS.add(GenSet.builder(() -> strippedStem).types(woodenTypes()).build());
         });
@@ -153,6 +153,10 @@ public class SetSetup {
 
     private static List<Function<Supplier<Block>, GenType<?>>> woodenTypes() {
         return List.of(StairGen::new, SlabGen::new, HalfWallGen::new, TrapDoorGen::new, b -> new ButtonGen(b, false), b -> new PressurePlateGen(b, PressurePlateBlock.Sensitivity.EVERYTHING), FenceGateGen::new);
+    }
+
+    private static List<Function<Supplier<Block>, GenType<?>>> woodenPlanksTypes() {
+        return List.of(HalfWallGen::new, TrapDoorGen::new);
     }
 
     private static Consumer<TextureSet.Builder> grassyTextureSet() {

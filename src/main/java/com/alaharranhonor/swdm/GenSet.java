@@ -80,8 +80,9 @@ public class GenSet {
             }
             for (Function<Supplier<Block>, GenType<?>> factory : this.genTypeFactories) {
                 GenType<?> genType = factory.apply(this.generatedBaseBlock);
-                genType.register(nameBuilder.toString(), blocks, items);
-                this.genTypes.add(genType);
+                if (genType.register(nameBuilder.toString(), blocks, items)) {
+                    this.genTypes.add(genType);
+                }
             }
 
             int setId = sets.size() - 1;
@@ -102,18 +103,6 @@ public class GenSet {
         return this.textures;
     }
 
-    public static Builder builder(RegistryObject<Block> base) {
-        return new Builder(base);
-    }
-
-    public static Builder builder(Supplier<Block> base) {
-        return new Builder(base);
-    }
-
-    public static Builder builder(Supplier<Block> baseBlock, String baseName) {
-        return new Builder(baseBlock, baseName);
-    }
-
     public RenderType getRenderType() {
         return this.renderType;
     }
@@ -124,6 +113,18 @@ public class GenSet {
 
     public ItemColor getItemColors() {
         return this.itemColors;
+    }
+
+    public static Builder builder(RegistryObject<Block> base) {
+        return new Builder(base);
+    }
+
+    public static Builder builder(Supplier<Block> base) {
+        return new Builder(base);
+    }
+
+    public static Builder builder(Supplier<Block> baseBlock, String baseName) {
+        return new Builder(baseBlock, baseName);
     }
 
     public static class Builder {
