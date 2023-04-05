@@ -178,11 +178,11 @@ public class SetSetup {
     }
 
     private static List<Function<Supplier<Block>, GenType<?>>> woodenTypes() {
-        return List.of(StairGen::new, SlabGen::new, HalfWallGen::new, TrapDoorGen::new, b -> new ButtonGen(b, false), b -> new PressurePlateGen(b, PressurePlateBlock.Sensitivity.EVERYTHING), FenceGateGen::new);
+        return List.of(StairGen::new, SlabGen::new, HalfWallGen::new, HalfFenceGen::new, TrapDoorGen::new, b -> new ButtonGen(b, false), b -> new PressurePlateGen(b, PressurePlateBlock.Sensitivity.EVERYTHING), FenceGateGen::new);
     }
 
     private static List<Function<Supplier<Block>, GenType<?>>> woodenPlanksTypes() {
-        return List.of(HalfWallGen::new, TrapDoorGen::new);
+        return List.of(HalfWallGen::new, HalfFenceGen::new, TrapDoorGen::new);
     }
 
     private static Consumer<TextureSet.Builder> grassyTextureSet() {

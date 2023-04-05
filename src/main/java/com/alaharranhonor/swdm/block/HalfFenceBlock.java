@@ -24,14 +24,9 @@ public class HalfFenceBlock extends FenceBlock {
 
     public static final EnumProperty<SWDMBlockstateProperties.WallType> WALL_TYPE = SWDMBlockstateProperties.WALL;
 
-    //private final Map<BlockState, VoxelShape> shapeByIndex;
-    //private final Map<BlockState, VoxelShape> collisionShapeByIndex;
-
     public HalfFenceBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WALL_TYPE, SWDMBlockstateProperties.WallType.FULL));
-        //this.shapeByIndex = this.makeShapes(4.0F, 3.0F, 16.0F, 0.0F, 14.0F, 16.0F);
-        //this.collisionShapeByIndex = this.makeShapes(4.0F, 3.0F, 24.0F, 0.0F, 24.0F, 24.0F);
     }
 
     @Override
