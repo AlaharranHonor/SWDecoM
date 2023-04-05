@@ -1,6 +1,6 @@
-package com.alaharranhonor.swdm.gentypes;
+package com.alaharranhonor.swdm.gentypes.block;
 
-import com.alaharranhonor.swdm.block.TwoWayBlock;
+import com.alaharranhonor.swdm.block.BeamBlock;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
 import com.alaharranhonor.swdm.datagen.ItemModels;
@@ -11,20 +11,20 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Supplier;
 
-public class TwoWayGen extends BasicBlockGen<TwoWayBlock> {
+public class BeamGen extends BasicBlockGen<BeamBlock> {
 
-    public TwoWayGen(Supplier<Block> baseBlock) {
+    public BeamGen(Supplier<Block> baseBlock) {
         super(baseBlock);
     }
 
     @Override
-    protected TwoWayBlock generate() {
-        return new TwoWayBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()));
+    protected BeamBlock generate() {
+        return new BeamBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
     }
 
     @Override
     public void addBlockStates(BlockStates gen, TextureSet textures) {
-        gen.twoWayBlock(this.generated);
+        gen.beamBlock(this.generated);
     }
 
     @Override

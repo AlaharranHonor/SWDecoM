@@ -1,0 +1,44 @@
+{
+  "__comment": "Copy of vanilla model but with 'tintindex' so that leaves get proper color",
+  "parent": "block/block",
+  "display": {
+    "gui": {
+      "rotation": [ 30, 135, 0 ],
+      "translation": [ 0, 0, 0],
+      "scale":[ 0.4, 0.4, 0.4 ]
+    },
+    "fixed": {
+      "rotation": [ 0, 90, 0 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 0.25, 0.25, 0.25 ]
+    }
+  },
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#top"
+  },
+  "elements": [
+    {
+      "from": [ 0, 16, 0 ],
+      "to": [ 3, 32, 16 ],
+      "faces": {
+        "up":    { "uv": [  0,  3, 16,  0 ], "texture": "#top" },
+        "north": { "uv": [  3,  0,  0, 16 ], "texture": "#top" },
+        "south": { "uv": [  0,  0,  3, 16 ], "texture": "#top" },
+        "west":  { "uv": [  0,  0, 16, 16 ], "texture": "#top" },
+        "east":  { "uv": [ 16,  0,  0, 16 ], "texture": "#top" }
+      }
+    },
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 3, 16, 16 ],
+      "faces": {
+        "up":    { "uv": [  0,  3, 16,  0 ], "texture": "#bottom" },
+        "north": { "uv": [  3,  0,  0, 16 ], "texture": "#bottom" },
+        "south": { "uv": [  0,  0,  3, 16 ], "texture": "#bottom" },
+        "west":  { "uv": [  0,  0, 16, 16 ], "texture": "#bottom" },
+        "east":  { "uv": [ 16,  0,  0, 16 ], "texture": "#bottom" }
+      }
+    }
+  ]
+}

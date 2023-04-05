@@ -4,7 +4,6 @@ import com.alaharranhonor.swdm.gentypes.GenType;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.Item;
@@ -26,7 +25,8 @@ public class GenSet {
     private final List<List<String>> modifierSets;
     private final List<Function<Supplier<Block>, GenType<?>>> genTypeFactories;
     private final Function<Supplier<Block>, GenType<Block>> baseGenerator;
-    private final TextureSet textures;
+    private final TextureSet blockTextures;
+    private final TextureSet itemTextures;
     private final RenderType renderType;
     private final BlockColor blockColors;
     private final ItemColor itemColors;
@@ -41,7 +41,8 @@ public class GenSet {
                    List<List<String>> modifierSets,
                    List<Function<Supplier<Block>, GenType<?>>> genTypeFactories,
                    Function<Supplier<Block>, GenType<Block>> baseGenerator,
-                   TextureSet textures,
+                   TextureSet blockTextures,
+                   TextureSet itemTextures,
                    RenderType renderType,
                    BlockColor blockColors,
                    ItemColor itemColors) {
@@ -51,7 +52,8 @@ public class GenSet {
         this.modifierSets = modifierSets;
         this.genTypeFactories = genTypeFactories;
         this.baseGenerator = baseGenerator;
-        this.textures = textures;
+        this.blockTextures = blockTextures;
+        this.itemTextures = itemTextures;
         this.renderType = renderType;
         this.blockColors = blockColors;
         this.itemColors = itemColors;
@@ -99,8 +101,12 @@ public class GenSet {
         }
     }
 
-    public TextureSet getTextures() {
-        return this.textures;
+    public TextureSet getBlockTextures() {
+        return this.blockTextures;
+    }
+
+    public TextureSet getItemTextures() {
+        return this.itemTextures;
     }
 
     public RenderType getRenderType() {
@@ -134,7 +140,8 @@ public class GenSet {
         private final List<List<String>> modifierSets = new ArrayList<>();
         private final List<Function<Supplier<Block>, GenType<?>>> genTypes = new ArrayList<>();
         private Function<Supplier<Block>, GenType<Block>> baseGenerator;
-        private final TextureSet.Builder textures = TextureSet.builder(TextureSet.DEFAULT_TEXTURE_SET);
+        private final TextureSet.Builder blockTextures = TextureSet.builder(TextureSet.DEFAULT_BLOCK_TEXTURE_SET);
+        private final TextureSet.Builder itemTextures = TextureSet.builder(TextureSet.DEFAULT_ITEM_TEXTURE_SET);
         private RenderType renderType = RenderType.solid();
         private BlockColor blockColor;
         private ItemColor itemColor;
@@ -184,8 +191,13 @@ public class GenSet {
             return this;
         }
 
-        public final Builder textures(Consumer<TextureSet.Builder> textures) {
-            textures.accept(this.textures);
+        public final Builder blockTextures(Consumer<TextureSet.Builder> textures) {
+            textures.accept(this.blockTextures);
+            return this;
+        }
+
+        public final Builder itemTextures(Consumer<TextureSet.Builder> textures) {
+            textures.accept(this.itemTextures);
             return this;
         }
 
@@ -215,7 +227,8 @@ public class GenSet {
                 this.modifierSets,
                 this.genTypes,
                 this.baseGenerator,
-                this.textures.build(),
+                this.blockTextures.build(),
+                this.itemTextures.build(),
                 this.renderType,
                 this.blockColor,
                 this.itemColor

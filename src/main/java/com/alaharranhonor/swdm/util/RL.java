@@ -2,7 +2,7 @@ package com.alaharranhonor.swdm.util;
 
 import net.minecraft.resources.ResourceLocation;
 
-public class ResourceLocationUtil {
+public class RL {
 
     public static ResourceLocation suffix(ResourceLocation base, String suffix) {
         return new ResourceLocation(base.getNamespace(), base.getPath() + suffix);

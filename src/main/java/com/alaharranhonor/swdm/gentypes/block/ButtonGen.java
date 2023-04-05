@@ -1,4 +1,4 @@
-package com.alaharranhonor.swdm.gentypes;
+package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.datagen.BlockStates;

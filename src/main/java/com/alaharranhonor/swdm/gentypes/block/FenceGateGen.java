@@ -1,30 +1,33 @@
-package com.alaharranhonor.swdm.gentypes;
+package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.datagen.BlockStates;
+import com.alaharranhonor.swdm.datagen.BlockTags;
+import com.alaharranhonor.swdm.datagen.ItemModels;
+import com.alaharranhonor.swdm.datagen.ItemTags;
 import com.alaharranhonor.swdm.util.TextureSet;
-import com.alaharranhonor.swdm.datagen.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Supplier;
 
-public class StairGen extends BasicBlockGen<StairBlock> {
+public class FenceGateGen extends BasicBlockGen<FenceGateBlock> {
 
-    public StairGen(Supplier<Block> baseBlock) {
+    public FenceGateGen(Supplier<Block> baseBlock) {
         super(baseBlock);
     }
 
     @Override
-    protected StairBlock generate() {
-        return new StairBlock(() -> this.baseBlock.get().defaultBlockState(), BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
+    protected FenceGateBlock generate() {
+        return new FenceGateBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
     }
 
     @Override
     public void addBlockStates(BlockStates gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 7));
-        gen.tintedStairs(this.generated, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
+        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 11));
+        gen.fenceGateBlock(this.generated, textures.get("top", basePath));
     }
 
     @Override
@@ -40,11 +43,10 @@ public class StairGen extends BasicBlockGen<StairBlock> {
 
     @Override
     public void addBlockTags(BlockTags gen) {
-
     }
 
     @Override
     public String getSuffix() {
-        return "_stairs";
+        return "_fence_gate";
     }
 }

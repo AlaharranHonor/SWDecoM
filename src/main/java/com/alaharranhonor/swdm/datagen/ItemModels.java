@@ -18,7 +18,7 @@ public class ItemModels extends ItemModelProvider {
 
 		for (GenSet set : SetSetup.SETS) {
 			set.genTypes.forEach(genType -> {
-				genType.addItemModels(this, set.getTextures());
+				genType.addItemModels(this, set.getBlockTextures());
 			});
 		}
 	}

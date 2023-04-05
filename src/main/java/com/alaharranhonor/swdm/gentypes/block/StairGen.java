@@ -1,30 +1,30 @@
-package com.alaharranhonor.swdm.gentypes;
+package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.datagen.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Supplier;
 
-public class SlabGen extends BasicBlockGen<SlabBlock> {
+public class StairGen extends BasicBlockGen<StairBlock> {
 
-    public SlabGen(Supplier<Block> baseBlock) {
+    public StairGen(Supplier<Block> baseBlock) {
         super(baseBlock);
     }
 
     @Override
-    protected SlabBlock generate() {
-        return new SlabBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
+    protected StairBlock generate() {
+        return new StairBlock(() -> this.baseBlock.get().defaultBlockState(), BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
     }
 
     @Override
     public void addBlockStates(BlockStates gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 5));
-        gen.tintedSlab(this.generated, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath), basePath);
+        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 7));
+        gen.tintedStairs(this.generated, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
     }
 
     @Override
@@ -45,6 +45,6 @@ public class SlabGen extends BasicBlockGen<SlabBlock> {
 
     @Override
     public String getSuffix() {
-        return "_slab";
+        return "_stairs";
     }
 }

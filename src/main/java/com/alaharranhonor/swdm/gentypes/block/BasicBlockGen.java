@@ -1,9 +1,10 @@
-package com.alaharranhonor.swdm.gentypes;
+package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.datagen.Languages;
 import com.alaharranhonor.swdm.datagen.LootTables;
 import com.alaharranhonor.swdm.datagen.Recipes;
+import com.alaharranhonor.swdm.gentypes.GenType;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;

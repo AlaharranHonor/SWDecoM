@@ -1,33 +1,30 @@
-package com.alaharranhonor.swdm.gentypes;
+package com.alaharranhonor.swdm.gentypes.block;
 
-import com.alaharranhonor.swdm.datagen.BlockStates;
-import com.alaharranhonor.swdm.datagen.BlockTags;
-import com.alaharranhonor.swdm.datagen.ItemModels;
-import com.alaharranhonor.swdm.datagen.ItemTags;
 import com.alaharranhonor.swdm.util.TextureSet;
+import com.alaharranhonor.swdm.datagen.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Supplier;
 
-public class FenceGateGen extends BasicBlockGen<FenceGateBlock> {
+public class SlabGen extends BasicBlockGen<SlabBlock> {
 
-    public FenceGateGen(Supplier<Block> baseBlock) {
+    public SlabGen(Supplier<Block> baseBlock) {
         super(baseBlock);
     }
 
     @Override
-    protected FenceGateBlock generate() {
-        return new FenceGateBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
+    protected SlabBlock generate() {
+        return new SlabBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
     }
 
     @Override
     public void addBlockStates(BlockStates gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 11));
-        gen.fenceGateBlock(this.generated, textures.get("top", basePath));
+        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 5));
+        gen.tintedSlab(this.generated, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath), basePath);
     }
 
     @Override
@@ -43,10 +40,11 @@ public class FenceGateGen extends BasicBlockGen<FenceGateBlock> {
 
     @Override
     public void addBlockTags(BlockTags gen) {
+
     }
 
     @Override
     public String getSuffix() {
-        return "_fence_gate";
+        return "_slab";
     }
 }

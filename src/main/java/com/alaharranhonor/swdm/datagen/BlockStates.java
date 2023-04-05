@@ -30,7 +30,7 @@ public class BlockStates extends BlockStateProvider {
 
         for (GenSet set : SetSetup.SETS) {
             set.genTypes.forEach(genType -> {
-                genType.addBlockStates(this, set.getTextures());
+                genType.addBlockStates(this, set.getBlockTextures());
             });
         }
     }
@@ -185,6 +185,27 @@ public class BlockStates extends BlockStateProvider {
             wallPost(baseName + "_post", side, bottom, top), wallSide(baseName + "_side", side, bottom, top), wallSideTall(baseName + "_side_tall", side, bottom, top),
             halfWallPost(baseName + "_half_post", side, bottom, top), halfWallSide(baseName + "_half_side", side, bottom, top)
         );
+    }
+
+    public void fourWayBlock(CrossCollisionBlock block, ModelFile post, ModelFile side) {
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(block)
+            .part().modelFile(post).addModel().end();
+        fourWayMultipart(builder, side);
+    }
+
+    public void fourWayMultipart(MultiPartBlockStateBuilder builder, ModelFile side) {
+        PipeBlock.PROPERTY_BY_DIRECTION.entrySet().forEach(e -> {
+            Direction dir = e.getKey();
+            if (dir.getAxis().isHorizontal()) {
+                builder.part().modelFile(side).rotationY((((int) dir.toYRot()) + 180) % 360).uvLock(true).addModel()
+                    .condition(e.getValue(), true);
+            }
+        });
+    }
+
+    public void fenceBlock(FenceBlock block, ResourceLocation texture) {
+        String baseName = block.getRegistryName().toString();
+        fourWayBlock(block, models().fencePost(baseName + "_post", texture), models().fenceSide(baseName + "_side", texture));
     }
 
     public void halfWallBlock(HalfWallBlock block,

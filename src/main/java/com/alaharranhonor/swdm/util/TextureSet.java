@@ -8,26 +8,28 @@ import java.util.function.Function;
 
 public class TextureSet {
 
-    public static final TextureSet DEFAULT_TEXTURE_SET = TextureSet.builder()
-        .with("side", TextureSet.Builder::block)
-        .with("top", TextureSet.Builder::block)
-        .with("bottom", TextureSet.Builder::block)
-        .with("front", TextureSet.Builder::block)
-        .with("back", TextureSet.Builder::block)
+    public static final TextureSet DEFAULT_BLOCK_TEXTURE_SET = TextureSet.builder(TextureSet.Builder::block)
+        .with("item", TextureSet.Builder::item)
         .build();
+    
+    public static final TextureSet DEFAULT_ITEM_TEXTURE_SET = TextureSet.builder(TextureSet.Builder::item).build();
 
     private final Map<String, Function<ResourceLocation, ResourceLocation>> textures;
 
     public ResourceLocation get(String path, ResourceLocation base) {
-        return this.textures.get(path).apply(base);
+        if (textures.containsKey(path)) {
+            return this.textures.get(path).apply(base);
+        }
+
+        return this.textures.get("").apply(base);
     }
 
     private TextureSet(Map<String, Function<ResourceLocation, ResourceLocation>> textures) {
         this.textures = textures;
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public static Builder builder(Function<ResourceLocation, ResourceLocation> def) {
+        return new Builder(def);
     }
 
     public static Builder builder(TextureSet copy) {
@@ -38,8 +40,9 @@ public class TextureSet {
 
         private final Map<String, Function<ResourceLocation, ResourceLocation>> textures;
 
-        public Builder() {
-            this(new HashMap<>());
+        public Builder(Function<ResourceLocation, ResourceLocation> def) {
+            this.textures = new HashMap<>();
+            this.with("", def);
         }
 
         public Builder(Map<String, Function<ResourceLocation, ResourceLocation>> textures) {
@@ -56,7 +59,11 @@ public class TextureSet {
         }
 
         public static ResourceLocation block(ResourceLocation res) {
-            return ResourceLocationUtil.prefix(res, "block/");
+            return RL.prefix(res, "block/");
+        }
+
+        public static ResourceLocation item(ResourceLocation res) {
+            return RL.prefix(res, "item/");
         }
 
     }

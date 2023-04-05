@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class LootTables extends LootTableProvider {
@@ -72,6 +73,11 @@ public class LootTables extends LootTableProvider {
         @Override
         protected Iterable<Block> getKnownBlocks() {
             return BlockSetup.BLOCKS.getEntries().stream().flatMap(RegistryObject::stream)::iterator;
+        }
+
+        @Override
+        public void add(Block pBlock, Function<Block, LootTable.Builder> pFactory) {
+            super.add(pBlock, pFactory);
         }
 
         public void registerSimpleBlockDrop(BiConsumer<ResourceLocation, LootTable.Builder> register, RegistryObject<? extends Block> block) {

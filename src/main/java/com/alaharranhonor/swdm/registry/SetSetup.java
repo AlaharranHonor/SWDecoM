@@ -4,8 +4,11 @@ import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.block.TwoWayBlock;
 import com.alaharranhonor.swdm.gentypes.*;
-import com.alaharranhonor.swdm.util.ResourceLocationUtil;
+import com.alaharranhonor.swdm.gentypes.block.*;
+import com.alaharranhonor.swdm.gentypes.item.StickGen;
+import com.alaharranhonor.swdm.util.RL;
 import com.alaharranhonor.swdm.util.TextureSet;
+import com.google.common.collect.Streams;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
@@ -20,6 +23,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -35,8 +39,9 @@ public class SetSetup {
 
     public static final List<String> WOODS = List.of(WoodType.OAK.name(), WoodType.BIRCH.name(), WoodType.SPRUCE.name(), WoodType.JUNGLE.name(), WoodType.ACACIA.name(), WoodType.DARK_OAK.name());
     public static final List<String> STEMS = List.of(WoodType.CRIMSON.name(), WoodType.WARPED.name());
-
+    public static final List<String> VANILLA_WOODS = Streams.concat(WOODS.stream(), STEMS.stream()).toList();
     public static final List<String> MODDED_WOODS = List.of("whitewash", "bamboo", "thatch");
+    public static final List<String> ALL_WOODS = Streams.concat(VANILLA_WOODS.stream(), MODDED_WOODS.stream()).toList();
 
     public static final List<GenSet> SETS = new ArrayList<>();
 
@@ -72,8 +77,8 @@ public class SetSetup {
         //    .itemColors((pStack, pTintIndex) -> GrassColor.get(0.5, 1.0))
         //    .build());
 
-        SETS.add(GenSet.builder(() -> Blocks.MYCELIUM).types(stoneTypes()).textures(grassyTextureSet()).build());
-        SETS.add(GenSet.builder(() -> Blocks.PODZOL).types(stoneTypes()).textures(grassyTextureSet()).build());
+        SETS.add(GenSet.builder(() -> Blocks.MYCELIUM).types(stoneTypes()).blockTextures(grassyTextureSet()).build());
+        SETS.add(GenSet.builder(() -> Blocks.PODZOL).types(stoneTypes()).blockTextures(grassyTextureSet()).build());
         SETS.add(GenSet.builder(() -> Blocks.GLASS).types(stoneTypes()).renderType(RenderType.cutout()).build());
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA).types(stoneTypes()).build());
         SETS.add(GenSet.builder(() -> Blocks.SMOOTH_STONE, "smooth_stone_borderless").withBase(BlockGen::new).types(stoneTypes()).build());
@@ -111,9 +116,10 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> planks).types(woodenPlanksTypes()).build());
             SETS.add(GenSet.builder(() -> log, name + "_log").types(woodenTypes()).build());
             SETS.add(GenSet.builder(() -> strippedLog, "stripped_" + name + "_log").types(woodenTypes()).build());
-
-            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).textures(ladders()).renderType(RenderType.cutout()).build());
             SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).renderType(RenderType.cutout()).build());
+
+            SETS.add(GenSet.builder(() -> planks, name).types(StickGen::new).build());
+            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderType.cutout()).build());
         });
 
         STEMS.forEach(name -> {
@@ -124,9 +130,10 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> planks).types(woodenPlanksTypes()).build());
             SETS.add(GenSet.builder(() -> stem).types(woodenTypes()).build());
             SETS.add(GenSet.builder(() -> strippedStem).types(woodenTypes()).build());
-
-            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).textures(ladders()).renderType(RenderType.cutout()).build());
             SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).build());
+
+            SETS.add(GenSet.builder(() -> planks, name).types(StickGen::new).build());
+            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderType.cutout()).build());
         });
 
 
@@ -138,8 +145,23 @@ public class SetSetup {
             SETS.add(GenSet.builder(log).types(woodenTypes()).build());
             SETS.add(GenSet.builder(strippedLog).types(woodenTypes()).build());
 
-            SETS.add(GenSet.builder(planks, name).types(LadderGen::new).textures(ladders()).renderType(RenderType.cutout()).build());
-            SETS.add(GenSet.builder(planks, name + "_trapdoor").withBase(b -> cast(new TrapDoorGen(b))).types(ShutterGen::new).renderType(RenderType.cutout()).build());
+            SETS.add(GenSet.builder(planks, name).types(StickGen::new).build());
+            SETS.add(GenSet.builder(planks, name).types(DoorGen::new).blockTextures(doors()).renderType(RenderType.cutout()).build());
+            SETS.add(GenSet.builder(planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderType.cutout()).build());
+            SETS.add(GenSet.builder(planks, name).withBase(b -> cast(new TrapDoorGen(b))).types(ShutterGen::new).blockTextures(trapdoors()).renderType(RenderType.cutout()).build());
+        });
+
+        // Trapdoor/Door variations (wood_trapdoor_variation and wood_door_variation)
+        VANILLA_WOODS.forEach(variation -> {
+            VANILLA_WOODS.forEach(wood -> {
+                if (wood.equals(variation)) return;
+                Block planks = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(wood + "_planks"));
+                SETS.add(GenSet.builder(() -> planks, wood).types(b -> new TrapdoorVariationGen(b, variation), b -> new DoorVariationGen(b, variation)).blockTextures(variationDoors()).renderType(RenderType.cutout()).build());
+            });
+            MODDED_WOODS.forEach(wood -> {
+                RegistryObject<Block> planks = BlockSetup.BLOCKS_BY_NAME.get(SWDM.res(wood + "_planks"));
+                SETS.add(GenSet.builder(planks, wood).types(b -> new TrapdoorVariationGen(b, variation), b -> new DoorVariationGen(b, variation)).blockTextures(variationDoors()).renderType(RenderType.cutout()).build());
+            });
         });
 
         for (GenSet set : SETS) {
@@ -165,17 +187,39 @@ public class SetSetup {
 
     private static Consumer<TextureSet.Builder> grassyTextureSet() {
         return textures -> {
-            textures.with("top", base -> TextureSet.Builder.block(ResourceLocationUtil.suffix(base, "_top")));
-            textures.with("side", base -> TextureSet.Builder.block(ResourceLocationUtil.suffix(base, "_side")));
+            textures.with("top", base -> TextureSet.Builder.block(RL.suffix(base, "_top")));
+            textures.with("side", base -> TextureSet.Builder.block(RL.suffix(base, "_side")));
             textures.with("bottom", base -> new ResourceLocation("block/dirt"));
         };
     }
 
     private static Consumer<TextureSet.Builder> ladders() {
         return textures -> {
-            textures.with("ladder", base -> TextureSet.Builder.block(ResourceLocationUtil.suffix(base, "_ladder")));
+            textures.with("ladder", base -> TextureSet.Builder.block(RL.suffix(base, "_ladder")));
         };
     }
+
+    private static Consumer<TextureSet.Builder> trapdoors() {
+        return tex -> tex.with("", base -> TextureSet.Builder.block(RL.suffix(base, "_trapdoor")));
+    }
+
+    private static Consumer<TextureSet.Builder> doors() {
+        return tex -> tex
+            .with("top", base -> TextureSet.Builder.block(RL.suffix(base, "_door_top")))
+            .with("bottom", base -> TextureSet.Builder.block(RL.suffix(base, "_door_bottom")));
+    }
+
+
+    private static Consumer<TextureSet.Builder> variationDoors() {
+        BiFunction<String, String, String> transform = (name, type) -> {
+            int splitIndex = name.lastIndexOf("door");
+            return name.substring(0, splitIndex) + "door_" + type + name.substring(splitIndex + 4);
+        };
+        return tex -> tex
+            .with("top", base -> TextureSet.Builder.block(new ResourceLocation(base.getNamespace(), transform.apply(base.getPath(), "top"))))
+            .with("bottom", base -> TextureSet.Builder.block(new ResourceLocation(base.getNamespace(), transform.apply(base.getPath(), "bottom"))));
+    }
+
 
     private static <T, R extends Object> T cast(R o) {
         return (T) o;
