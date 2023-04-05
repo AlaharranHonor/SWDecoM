@@ -36,7 +36,7 @@ public class SetSetup {
     public static final List<String> WOODS = List.of(WoodType.OAK.name(), WoodType.BIRCH.name(), WoodType.SPRUCE.name(), WoodType.JUNGLE.name(), WoodType.ACACIA.name(), WoodType.DARK_OAK.name());
     public static final List<String> STEMS = List.of(WoodType.CRIMSON.name(), WoodType.WARPED.name());
 
-    public static final List<String> MODDED_WOODS = List.of("mangrove", "whitewash", "bamboo", "thatch");
+    public static final List<String> MODDED_WOODS = List.of("whitewash", "bamboo", "thatch");
 
     public static final List<GenSet> SETS = new ArrayList<>();
 
@@ -107,24 +107,26 @@ public class SetSetup {
             Block planks = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_planks"));
             Block log = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_log"));
             Block strippedLog = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("stripped_" + name + "_log"));
-            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).textures(ladders()).renderType(RenderType.cutout()).build());
+            Block trapdoor = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_trapdoor"));
             SETS.add(GenSet.builder(() -> planks).types(woodenPlanksTypes()).build());
             SETS.add(GenSet.builder(() -> log, name + "_log").types(woodenTypes()).build());
             SETS.add(GenSet.builder(() -> strippedLog, "stripped_" + name + "_log").types(woodenTypes()).build());
 
-            //SETS.add(GenSet.builder(() -> planks, "beam_" + name + "_planks").types(woodenTypes()).build());
-            //SETS.add(GenSet.builder(() -> log, "beam_" + name + "_log").types(woodenTypes()).build());
-            //SETS.add(GenSet.builder(() -> strippedLog, "beam_stripped_" + name + "_log").types(woodenTypes()).build());
+            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).textures(ladders()).renderType(RenderType.cutout()).build());
+            SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).renderType(RenderType.cutout()).build());
         });
 
         STEMS.forEach(name -> {
             Block planks = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_planks"));
             Block stem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_stem"));
             Block strippedStem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("stripped_" + name + "_stem"));
-            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).textures(ladders()).renderType(RenderType.cutout()).build());
+            Block trapdoor = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_trapdoor"));
             SETS.add(GenSet.builder(() -> planks).types(woodenPlanksTypes()).build());
             SETS.add(GenSet.builder(() -> stem).types(woodenTypes()).build());
             SETS.add(GenSet.builder(() -> strippedStem).types(woodenTypes()).build());
+
+            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).textures(ladders()).renderType(RenderType.cutout()).build());
+            SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).build());
         });
 
 
@@ -132,10 +134,12 @@ public class SetSetup {
             RegistryObject<Block> planks = BlockSetup.BLOCKS_BY_NAME.get(SWDM.res(name + "_planks"));
             RegistryObject<Block> log = BlockSetup.BLOCKS_BY_NAME.get(SWDM.res(name + "_log"));
             RegistryObject<Block> strippedLog = BlockSetup.BLOCKS_BY_NAME.get(SWDM.res(name + "_stripped_log"));
-            SETS.add(GenSet.builder(planks, name).types(LadderGen::new).textures(ladders()).renderType(RenderType.cutout()).build());
             SETS.add(GenSet.builder(planks).types(woodenTypes()).build());
             SETS.add(GenSet.builder(log).types(woodenTypes()).build());
             SETS.add(GenSet.builder(strippedLog).types(woodenTypes()).build());
+
+            SETS.add(GenSet.builder(planks, name).types(LadderGen::new).textures(ladders()).renderType(RenderType.cutout()).build());
+            SETS.add(GenSet.builder(planks, name + "_trapdoor").withBase(b -> cast(new TrapDoorGen(b))).types(ShutterGen::new).renderType(RenderType.cutout()).build());
         });
 
         for (GenSet set : SETS) {
@@ -173,7 +177,7 @@ public class SetSetup {
         };
     }
 
-    private static <T> T cast(Object o) {
+    private static <T, R extends Object> T cast(R o) {
         return (T) o;
     }
 }

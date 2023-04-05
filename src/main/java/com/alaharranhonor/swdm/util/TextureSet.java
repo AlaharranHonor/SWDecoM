@@ -9,9 +9,11 @@ import java.util.function.Function;
 public class TextureSet {
 
     public static final TextureSet DEFAULT_TEXTURE_SET = TextureSet.builder()
-        .with("top", TextureSet.Builder::block)
         .with("side", TextureSet.Builder::block)
+        .with("top", TextureSet.Builder::block)
         .with("bottom", TextureSet.Builder::block)
+        .with("front", TextureSet.Builder::block)
+        .with("back", TextureSet.Builder::block)
         .build();
 
     private final Map<String, Function<ResourceLocation, ResourceLocation>> textures;

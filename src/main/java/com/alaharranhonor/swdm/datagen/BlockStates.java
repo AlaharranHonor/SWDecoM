@@ -1,19 +1,14 @@
 package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.block.BeamBlock;
-import com.alaharranhonor.swdm.block.HalfWallBlock;
-import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
-import com.alaharranhonor.swdm.block.TwoWayBlock;
+import com.alaharranhonor.swdm.block.*;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.world.level.block.state.properties.WallSide;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -117,6 +112,37 @@ public class BlockStates extends BlockStateProvider {
 
     public void tintedTrapdoor(TrapDoorBlock block, ResourceLocation texture) {
         tintedTrapdoor(block, texture, texture, texture);
+    }
+
+    public void shutter(ShutterBlock block, ResourceLocation side, ResourceLocation top, ResourceLocation bottom) {
+        ModelFile model = models().withExistingParent(block.getRegistryName().toString(), modLoc("block/template_shutter"))
+            .texture("side", side)
+            .texture("front", bottom)
+            .texture("back", top);
+        this.shutterBlock(block, model);
+    }
+
+    public void shutterBlock(ShutterBlock block, ModelFile model) {
+        this.shutterBlock(block, model, model);
+    }
+
+    public void shutterBlock(ShutterBlock block, ModelFile leftModel, ModelFile rightModel) {
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            int yRot = ((int) state.getValue(ShutterBlock.FACING).toYRot()) + 90;
+            boolean rh = state.getValue(ShutterBlock.HINGE) == DoorHingeSide.RIGHT;
+            boolean open = state.getValue(ShutterBlock.OPEN);
+            boolean right = rh ^ open;
+            if (open) {
+                yRot += 90;
+            }
+            if (rh && open) {
+                yRot += 180;
+            }
+            yRot %= 360;
+            return ConfiguredModel.builder().modelFile(right ? rightModel : leftModel)
+                .rotationY(yRot)
+                .build();
+        }, ShutterBlock.POWERED);
     }
 
     public void tintedTrapdoor(TrapDoorBlock block, ResourceLocation side, ResourceLocation top, ResourceLocation bottom) {
