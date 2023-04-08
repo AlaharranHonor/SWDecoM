@@ -31,13 +31,8 @@ public class StickGen extends BasicItemGen<Item> {
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> recipe) {
-        ShapedRecipeBuilder.shaped(this.generated, 4)
-            .pattern("P")
-            .pattern("P")
-            .define('P', this.baseBlock.get())
-            .unlockedBy("has_" + this.baseBlock.get().getRegistryName().getPath(), gen.hasItem(this.baseBlock.get()))
-            .save(recipe);
+    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+        gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 32);
     }
 
     @Override

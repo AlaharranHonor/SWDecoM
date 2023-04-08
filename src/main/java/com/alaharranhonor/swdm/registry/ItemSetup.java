@@ -15,7 +15,7 @@ public class ItemSetup {
     public static final RegistryObject<Item> CHANGE_TOOL = ITEMS.register("change_tool", () -> new Item(new Item.Properties().tab(SWDM.TAB)));
 
     public static void init(IEventBus modBus) {
-        BlockSetup.BLOCKS_BY_NAME.values().forEach(block -> {
+        BlockSetup.MANUAL_BLOCKS.values().forEach(block -> {
             ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(SWDM.TAB)));
         });
 

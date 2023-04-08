@@ -29,10 +29,8 @@ public abstract class BasicBlockGen<T extends Block> extends GenType<T> {
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> recipe) {
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(this.baseBlock.get()), this.generated)
-            .unlockedBy("has_block", gen.hasItem(this.baseBlock.get()))
-            .save(recipe);
+    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+        gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 1);
     }
 
     @Override

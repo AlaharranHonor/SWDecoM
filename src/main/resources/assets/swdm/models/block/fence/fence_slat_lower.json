@@ -1,0 +1,55 @@
+{
+	"credit": "Made with Blockbench",
+	"elements": [
+		{
+			"from": [6, 0, 6],
+			"to": [10, 8, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [17, 8, 14]},
+			"color": 5,
+			"faces": {
+				"north": {"uv": [0, 0, 4, 8], "texture": "#texture"},
+				"east": {"uv": [0, 0, 4, 8], "texture": "#texture"},
+				"south": {"uv": [0, 0, 4, 8], "texture": "#texture"},
+				"west": {"uv": [0, 0, 4, 8], "texture": "#texture"},
+				"up": {"uv": [0, 0, 4, 4], "texture": "#texture"},
+				"down": {"uv": [0, 0, 4, 4], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [0, 0, 6.5],
+			"to": [6, 3, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13, -8, 13.5]},
+			"color": 5,
+			"faces": {
+				"north": {"uv": [0, 0, 6, 3], "texture": "#texture"},
+				"east": {"uv": [0, 0, 3, 3], "texture": "#texture"},
+				"south": {"uv": [0, 0, 6, 3], "texture": "#texture"},
+				"west": {"uv": [0, 0, 3, 3], "texture": "#texture"},
+				"up": {"uv": [0, 0, 6, 3], "texture": "#texture"},
+				"down": {"uv": [0, 0, 6, 3], "texture": "#texture"}
+			}
+		},
+		{
+			"from": [0, 4, 6.5],
+			"to": [6, 7, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13, -8, 13.5]},
+			"color": 5,
+			"faces": {
+				"north": {"uv": [0, 0, 6, 3], "texture": "#texture"},
+				"east": {"uv": [0, 0, 3, 3], "texture": "#texture"},
+				"south": {"uv": [0, 0, 6, 3], "texture": "#texture"},
+				"west": {"uv": [0, 0, 3, 3], "texture": "#texture"},
+				"up": {"uv": [0, 0, 6, 3], "texture": "#texture"},
+				"down": {"uv": [0, 0, 6, 3], "texture": "#texture"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "Slat_Lower",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
+}

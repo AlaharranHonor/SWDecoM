@@ -59,7 +59,7 @@ public class LootTables extends LootTableProvider {
 
         @Override
         protected void addTables() {
-            BlockSetup.BLOCKS_BY_NAME.values().forEach(block -> {
+            BlockSetup.MANUAL_BLOCKS.values().forEach(block -> {
                 this.add(block.get(), this.simpleBlockDrop(block.get()));
             });
 

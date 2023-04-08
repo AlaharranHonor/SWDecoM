@@ -35,7 +35,7 @@ public abstract class GenType<T> implements Supplier<T> {
 
     protected abstract T generate();
     public abstract boolean register(String name, DeferredRegister<Block> blocks, DeferredRegister<Item> items);
-    public abstract void addRecipes(Recipes gen, Consumer<FinishedRecipe> recipe);
+    public abstract void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder);
     public abstract void addBlockStates(BlockStates gen, TextureSet textures);
     public abstract void addItemModels(ItemModels gen, TextureSet textures);
     public abstract void addItemTags(ItemTags gen);

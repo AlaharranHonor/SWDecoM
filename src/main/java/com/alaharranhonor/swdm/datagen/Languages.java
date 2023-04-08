@@ -1,7 +1,6 @@
 package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
@@ -24,7 +23,7 @@ public class Languages extends LanguageProvider {
             });
         }
 
-        BlockSetup.BLOCKS_BY_NAME.values().forEach(block -> {
+        BlockSetup.MANUAL_BLOCKS.values().forEach(block -> {
             this.add(block.get(), this.sanitizedName(block.getId().getPath()));
         });
 

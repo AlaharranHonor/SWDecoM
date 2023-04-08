@@ -3,7 +3,10 @@ package com.alaharranhonor.swdm.datagen;
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
+import com.alaharranhonor.swdm.util.RL;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -21,5 +24,9 @@ public class ItemModels extends ItemModelProvider {
 				genType.addItemModels(this, set.getBlockTextures());
 			});
 		}
+	}
+
+	public ItemModelBuilder existingBlock(Block block) {
+		return this.withExistingParent(block.getRegistryName().getPath(), RL.prefix(block.getRegistryName(), "block/"));
 	}
 }

@@ -1,15 +1,14 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.block.HorizontalCarpetBlock;
-import com.alaharranhonor.swdm.datagen.BlockStates;
-import com.alaharranhonor.swdm.datagen.BlockTags;
-import com.alaharranhonor.swdm.datagen.ItemModels;
-import com.alaharranhonor.swdm.datagen.ItemTags;
+import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class HorizontalCarpetGen extends BasicBlockGen<HorizontalCarpetBlock> {
@@ -18,9 +17,15 @@ public class HorizontalCarpetGen extends BasicBlockGen<HorizontalCarpetBlock> {
         super(baseBlock);
     }
 
+
     @Override
     protected HorizontalCarpetBlock generate() {
         return new HorizontalCarpetBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()).noOcclusion());
+    }
+
+    @Override
+    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+        gen.defaultDecoBench(builder, this.generated, net.minecraft.tags.ItemTags.CARPETS, 8);
     }
 
     @Override
@@ -37,7 +42,7 @@ public class HorizontalCarpetGen extends BasicBlockGen<HorizontalCarpetBlock> {
 
     @Override
     public void addItemTags(ItemTags gen) {
-
+        gen.tag(net.minecraft.tags.ItemTags.CARPETS).add(this.generated.asItem());
     }
 
     @Override

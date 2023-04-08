@@ -2,6 +2,7 @@ package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -21,8 +22,33 @@ public class BlockTags extends BlockTagsProvider {
         for (GenSet set : SetSetup.SETS) {
             set.genTypes.forEach(genType -> {
                 genType.addBlockTags(this);
+                set.getBlockTags().forEach(tag -> {
+                    if (genType.get() instanceof Block block) {
+                        this.tag(tag).add(block);
+                    }
+                });
             });
         }
+
+        this.tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE).add(
+            BlockSetup.BAMBOO_PLANKS.get(),
+            BlockSetup.BAMBOO_LOG.get(),
+            BlockSetup.BAMBOO_STRIPPED_LOG.get(),
+            BlockSetup.WHITEWASH_PLANKS.get(),
+            BlockSetup.WHITEWASH_LOG.get(),
+            BlockSetup.WHITEWASH_STRIPPED_LOG.get(),
+            BlockSetup.THATCH_PLANKS.get(),
+            BlockSetup.THATCH_LOG.get(),
+            BlockSetup.THATCH_STRIPPED_LOG.get()
+        );
+
+        this.tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_HOE).add(
+            BlockSetup.THATCH_BLOCK.get()
+        );
+
+        this.tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE).add(
+            BlockSetup.SMOOTH_STONE_BORDERLESS.get()
+        );
     }
 
     @Override

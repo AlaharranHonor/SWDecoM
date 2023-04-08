@@ -2,11 +2,13 @@ package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.datagen.*;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class SlabGen extends BasicBlockGen<SlabBlock> {
@@ -18,6 +20,11 @@ public class SlabGen extends BasicBlockGen<SlabBlock> {
     @Override
     protected SlabBlock generate() {
         return new SlabBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
+    }
+
+    @Override
+    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+        gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 2);
     }
 
     @Override

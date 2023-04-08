@@ -2,17 +2,21 @@ package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
-import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
 
@@ -23,17 +27,72 @@ public class Recipes extends RecipeProvider {
 
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> recipe) {
-        //super.buildCraftingRecipes(recipe);
-
+    protected void buildCraftingRecipes(Consumer<FinishedRecipe> builder) {
         for (GenSet set : SetSetup.SETS) {
             set.genTypes.forEach(genType -> {
-                genType.addRecipes(this, recipe);
+                genType.addRecipes(this, builder);
             });
         }
 
-        //this.sets(recipe);
-        //this.misc(recipe);
+        ShapelessRecipeBuilder.shapeless(BlockSetup.get("roof_shingle_white"))
+            .requires(Blocks.GRAVEL).requires(ItemTags.PLANKS)
+            .unlockedBy("has_planks", has(ItemTags.PLANKS))
+            .save(builder, "roof_shingle_white_manual");
+
+        ShapelessRecipeBuilder.shapeless(BlockSetup.get("roof_tile_white"))
+            .requires(Blocks.CLAY).requires(ItemTags.PLANKS)
+            .unlockedBy("has_planks", has(ItemTags.PLANKS))
+            .save(builder, "roof_tile_white_manual");
+
+        ShapelessRecipeBuilder.shapeless(BlockSetup.get("roof_metal_white"))
+            .requires(Tags.Items.NUGGETS_IRON).requires(ItemTags.PLANKS)
+            .unlockedBy("has_planks", has(ItemTags.PLANKS))
+            .save(builder, "roof_metal_white_manual");
+
+        ShapelessRecipeBuilder.shapeless(BlockSetup.get("siding_light_white"))
+            .requires(Items.DRIED_KELP).requires(ItemTags.PLANKS)
+            .unlockedBy("has_planks", has(ItemTags.PLANKS))
+            .save(builder, "siding_light_white_manual");
+
+        ShapelessRecipeBuilder.shapeless(BlockSetup.WHITEWASH_PLANKS.get())
+            .requires(Items.WHITE_DYE).requires(ItemTags.PLANKS)
+            .unlockedBy("has_planks", has(ItemTags.PLANKS))
+            .save(builder, "whitewash_planks_manual");
+
+        ShapelessRecipeBuilder.shapeless(BlockSetup.THATCH_BLOCK.get())
+            .requires(Items.WHEAT).requires(ItemTags.PLANKS)
+            .unlockedBy("has_planks", has(ItemTags.PLANKS))
+            .save(builder);
+
+        this.defaultDecoBench(builder, BlockSetup.THATCH_PLANKS.get(), BlockSetup.THATCH_BLOCK.get());
+        this.defaultDecoBench(builder, BlockSetup.THATCH_LOG.get(), BlockSetup.THATCH_BLOCK.get());
+        this.defaultDecoBench(builder, BlockSetup.THATCH_STRIPPED_LOG.get(), BlockSetup.THATCH_BLOCK.get());
+        this.defaultDecoBench(builder, BlockSetup.BAMBOO_PLANKS.get(), Items.BAMBOO);
+        this.defaultDecoBench(builder, BlockSetup.BAMBOO_LOG.get(), Items.BAMBOO);
+        this.defaultDecoBench(builder, BlockSetup.BAMBOO_STRIPPED_LOG.get(), Items.BAMBOO);
+        this.defaultDecoBench(builder, BlockSetup.WHITEWASH_LOG.get(), BlockSetup.WHITEWASH_PLANKS.get());
+        this.defaultDecoBench(builder, BlockSetup.WHITEWASH_STRIPPED_LOG.get(), BlockSetup.WHITEWASH_PLANKS.get());
+        this.defaultDecoBench(builder, BlockSetup.SMOOTH_STONE_BORDERLESS.get(), Blocks.SMOOTH_STONE);
+    }
+
+    public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, ItemLike input, int amount) {
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(input), output, amount)
+            .unlockedBy("has_block", has(input))
+            .save(builder);
+    }
+
+    public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, TagKey<Item> input, int amount) {
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(input), output, amount)
+            .unlockedBy("has_block", has(input))
+            .save(builder);
+    }
+
+    public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, ItemLike input) {
+        this.defaultDecoBench(builder, output, input, 1);
+    }
+
+    public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, TagKey<Item> input) {
+        this.defaultDecoBench(builder, output, input, 1);
     }
 
     public InventoryChangeTrigger.TriggerInstance hasItem(ItemLike item) {

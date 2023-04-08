@@ -5,6 +5,7 @@ import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -30,6 +31,8 @@ public class GenSet {
     private final RenderType renderType;
     private final BlockColor blockColors;
     private final ItemColor itemColors;
+    private final List<TagKey<Block>> blockTags;
+    private final List<TagKey<Item>> itemTags;
 
     // TODO Set Block/Item Tags
 
@@ -45,7 +48,10 @@ public class GenSet {
                    TextureSet itemTextures,
                    RenderType renderType,
                    BlockColor blockColors,
-                   ItemColor itemColors) {
+                   ItemColor itemColors,
+                   List<TagKey<Block>> blockTags,
+                   List<TagKey<Item>> itemTags
+    ) {
         this.baseBlock = baseBlock;
         this.generatedBaseBlock = baseBlock;
         this.baseName = baseName;
@@ -57,6 +63,8 @@ public class GenSet {
         this.renderType = renderType;
         this.blockColors = blockColors;
         this.itemColors = itemColors;
+        this.blockTags = blockTags;
+        this.itemTags = itemTags;
     }
 
     public void register(DeferredRegister<Block> blocks, DeferredRegister<Item> items) {
@@ -121,6 +129,14 @@ public class GenSet {
         return this.itemColors;
     }
 
+    public List<TagKey<Block>> getBlockTags() {
+        return this.blockTags;
+    }
+
+    public List<TagKey<Item>> getItemTags() {
+        return this.itemTags;
+    }
+
     public static Builder builder(RegistryObject<Block> base) {
         return new Builder(base);
     }
@@ -145,6 +161,8 @@ public class GenSet {
         private RenderType renderType = RenderType.solid();
         private BlockColor blockColor;
         private ItemColor itemColor;
+        private List<TagKey<Block>> blockTags = new ArrayList<>();
+        private List<TagKey<Item>> itemTags = new ArrayList<>();
 
         private Builder(Supplier<Block> baseBlock, String baseName) {
             this.baseBlock = baseBlock;
@@ -191,6 +209,18 @@ public class GenSet {
             return this;
         }
 
+        @SafeVarargs
+        public final Builder blockTags(TagKey<Block>... tags) {
+            this.blockTags.addAll(List.of(tags));
+            return this;
+        }
+
+        @SafeVarargs
+        public final Builder itemTags(TagKey<Item>... tags) {
+            this.itemTags.addAll(List.of(tags));
+            return this;
+        }
+
         public final Builder blockTextures(Consumer<TextureSet.Builder> textures) {
             textures.accept(this.blockTextures);
             return this;
@@ -231,7 +261,9 @@ public class GenSet {
                 this.itemTextures.build(),
                 this.renderType,
                 this.blockColor,
-                this.itemColor
+                this.itemColor,
+                this.blockTags,
+                this.itemTags
             );
         }
     }

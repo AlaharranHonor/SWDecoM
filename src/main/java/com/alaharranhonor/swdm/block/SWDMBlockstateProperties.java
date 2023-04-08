@@ -51,7 +51,7 @@ public class SWDMBlockstateProperties {
     }
 
     public enum WallType implements StringRepresentable {
-        UPPER, LOWER, FULL;
+        FULL, LOWER, UPPER;
 
         @Override
         public String getSerializedName() {

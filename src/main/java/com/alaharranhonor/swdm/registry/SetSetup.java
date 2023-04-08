@@ -3,6 +3,7 @@ package com.alaharranhonor.swdm.registry;
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.block.TwoWayBlock;
+import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.gentypes.*;
 import com.alaharranhonor.swdm.gentypes.block.*;
 import com.alaharranhonor.swdm.gentypes.item.StickGen;
@@ -11,6 +12,7 @@ import com.alaharranhonor.swdm.util.TextureSet;
 import com.google.common.collect.Streams;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -32,8 +34,11 @@ import java.util.stream.Collectors;
 public class SetSetup {
 
     public static final List<String> STONE_TYPES = List.of("mossy", "cracked", "mossy_more");
+    public static final List<String> FENCE_TYPES = List.of("lattice", "picket", "slat", "solid", "sturdy");
+
     public static final List<String> LMD_TYPES = List.of("light", "medium", "dark");
     public static final List<String> CUSTOM_COLORS = List.of("sage", "golden");
+    public static final List<String> WARM_COOL = List.of("warm", "cool");
     public static final List<String> NATURAL_TONES = List.of("tuscan", "peach", "thistle", "dark_brown", "brown", "mahogany", "muted_brown", "vivid_red", "orange", "golden", "pale", "yellow", "white", "pearl", "dusted_gray", "light_gray", "slate", "blue_gray", "gray", "royal_gray", "black");
     public static final List<String> DYE_COLORS = Arrays.stream(DyeColor.values()).map(DyeColor::getSerializedName).collect(Collectors.toList());
 
@@ -46,30 +51,45 @@ public class SetSetup {
     public static final List<GenSet> SETS = new ArrayList<>();
 
     public static void init() {
-        SETS.add(GenSet.builder(() -> Blocks.STONE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.STONE).withBase(BlockGen::new).sets(LMD_TYPES).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.DIORITE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.GRANITE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.ANDESITE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.STONE_BRICKS, "stone_brick").withBase(BlockGen::new).sets(LMD_TYPES).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.STONE_BRICKS, "stone_brick").withBase(BlockGen::new).sets(LMD_TYPES, STONE_TYPES).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.DARK_PRISMARINE).withBase(BlockGen::new).sets(DYE_COLORS).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA).withBase(BlockGen::new).sets(CUSTOM_COLORS).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.GLASS, "bricks_glass").withBase(BlockGen::new).sets(DYE_COLORS).types(stoneTypes()).renderType(RenderType.cutout()).build());
-        SETS.add(GenSet.builder(() -> Blocks.BRICKS, "bricks_cottage").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.SANDSTONE, "sandcotta").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "paver").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "bricks_paver").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE).types(HalfWallGen::new).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE).withBase(BlockGen::new).sets(LMD_TYPES, WARM_COOL).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE).withBase(BlockGen::new).sets(LMD_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.COBBLESTONE).withBase(BlockGen::new).sets(LMD_TYPES, WARM_COOL).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.COBBLESTONE, "paver").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.COBBLESTONE, "bricks_paver").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.DIORITE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.GRANITE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.ANDESITE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE_BRICKS, "stone_brick").withBase(BlockGen::new).sets(LMD_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE_BRICKS, "stone_brick").withBase(BlockGen::new).sets(LMD_TYPES, STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.DARK_PRISMARINE).withBase(BlockGen::new).sets(DYE_COLORS).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA).withBase(BlockGen::new).sets(CUSTOM_COLORS).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.GLASS, "bricks_glass").withBase(BlockGen::new).sets(DYE_COLORS).types(sswtTypes()).renderType(RenderType.cutout()).build());
+        SETS.add(GenSet.builder(() -> Blocks.BRICKS, "bricks_cottage").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.SANDSTONE, "sandcotta").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
 
-        SETS.add(GenSet.builder(() -> Blocks.OAK_PLANKS, "siding").withBase(BlockGen::new).sets(LMD_TYPES, DYE_COLORS).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_metal").withBase(BlockGen::new).sets(DYE_COLORS).types(sswtTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_tile").withBase(BlockGen::new).sets(DYE_COLORS).types(sswtTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_shingle").withBase(BlockGen::new).sets(DYE_COLORS).types(sswtTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.GLASS, "screen").withBase(BlockGen::new).sets(LMD_TYPES).types(sswtTypes()).renderType(RenderType.cutout()).build());
+        SETS.add(GenSet.builder(() -> Blocks.SANDSTONE).sets(NATURAL_TONES).types(b -> new BlockGen(b) {
+            @Override
+            public void addBlockStates(BlockStates gen, TextureSet textures) {
+                ResourceLocation basePath = this.generated.getRegistryName();
+                gen.simpleBlock(this.generated, gen.models().cubeBottomTop(basePath.getPath(), RL.prefix(basePath, "block/"), textures.get("bottom", basePath), textures.get("top", basePath)));
+            }
+        }).blockTextures(sandstone()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
 
+        SETS.add(GenSet.builder(() -> Blocks.SAND).sets(NATURAL_TONES).types(SandGen::new).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
 
-        SETS.add(GenSet.builder(() -> Blocks.DIRT).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.COARSE_DIRT).types(stoneTypes()).build());
+        SETS.add(GenSet.builder(() -> Blocks.OAK_PLANKS, "siding").withBase(SidingGen::new).sets(LMD_TYPES, DYE_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_metal").withBase(RoofGen.Metal::new).sets(DYE_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_tile").withBase(RoofGen.Tile::new).sets(DYE_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_shingle").withBase(RoofGen.Shingle::new).sets(DYE_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.IRON_BARS, "screen").withBase(BlockGen::new).sets(LMD_TYPES).types(sswtTypes()).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+
+        SETS.add(GenSet.builder(() -> Blocks.DIRT).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
+        SETS.add(GenSet.builder(() -> Blocks.COARSE_DIRT).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
+
+        SETS.add(GenSet.builder(() -> Blocks.SNOW_BLOCK).types(sswtTypes()).blockTextures(t -> t.with("", base -> new ResourceLocation("block/snow"))).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
+        SETS.add(GenSet.builder(() -> Blocks.BONE_BLOCK, "bianco_block").withBase(BlockGen::new).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
 
         // TODO
         //SETS.add(GenSet.builder(() -> Blocks.GRASS_BLOCK).types(stoneTypes()).textures(grassyTextureSet()).renderType(RenderType.cutoutMipped())
@@ -77,22 +97,24 @@ public class SetSetup {
         //    .itemColors((pStack, pTintIndex) -> GrassColor.get(0.5, 1.0))
         //    .build());
 
-        SETS.add(GenSet.builder(() -> Blocks.MYCELIUM).types(stoneTypes()).blockTextures(grassyTextureSet()).build());
-        SETS.add(GenSet.builder(() -> Blocks.PODZOL).types(stoneTypes()).blockTextures(grassyTextureSet()).build());
-        SETS.add(GenSet.builder(() -> Blocks.GLASS).types(stoneTypes()).renderType(RenderType.cutout()).build());
-        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA).types(stoneTypes()).build());
-        SETS.add(GenSet.builder(() -> Blocks.SMOOTH_STONE, "smooth_stone_borderless").withBase(BlockGen::new).types(stoneTypes()).build());
+        SETS.add(GenSet.builder(() -> Blocks.MYCELIUM).types(sswtTypes()).blockTextures(grassyTextureSet()).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
+        SETS.add(GenSet.builder(() -> Blocks.PODZOL).types(sswtTypes()).blockTextures(grassyTextureSet()).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
+        SETS.add(GenSet.builder(() -> Blocks.GLASS).types(sswtTypes()).renderType(RenderType.cutout()).build());
+        SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
 
-        SETS.add(GenSet.builder(() -> Blocks.WHITE_CARPET, "fiber_carpet").sets(LMD_TYPES, NATURAL_TONES).types(HorizontalCarpetGen::new).renderType(RenderType.cutout()).build());
-        SETS.add(GenSet.builder(() -> Blocks.SAND, "fiber_carpet").sets(LMD_TYPES, List.of("sand", "red_sand")).types(HorizontalCarpetGen::new).renderType(RenderType.cutout()).build());
+        SETS.add(GenSet.builder(BlockSetup.SMOOTH_STONE_BORDERLESS).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(BlockSetup.SMOOTH_STONE_BORDERLESS).withBase(BlockGen::new).sets(LMD_TYPES, WARM_COOL).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
 
-        SETS.add(GenSet.builder(() -> Blocks.CHAIN, "chain_coated").sets(DYE_COLORS).types(TwoWayGen::new).renderType(RenderType.cutout()).build());
-        SETS.add(GenSet.builder(() -> Blocks.CHAIN, "pylon").sets(DYE_COLORS).types(b -> new TwoWayGen(b) {
+        SETS.add(GenSet.builder(() -> Blocks.WHITE_CARPET, "fiber_carpet").sets(LMD_TYPES, NATURAL_TONES).types(HorizontalCarpetGen::new).renderType(RenderType.cutout()).blockTags(BlockTags.WOOL).build());
+        SETS.add(GenSet.builder(() -> Blocks.SAND, "fiber_carpet").sets(LMD_TYPES, List.of("sand", "red_sand")).types(HorizontalCarpetGen::new).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
+
+        SETS.add(GenSet.builder(() -> Blocks.CHAIN, "chain_coated").sets(DYE_COLORS).types(ChainGen::new).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.CHAIN, "pylon").sets(DYE_COLORS).types(b -> new ChainGen(b) {
             @Override
             protected TwoWayBlock generate() {
                 return new TwoWayBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).lightLevel(s -> 15));
             }
-        }).renderType(RenderType.cutout()).build());
+        }).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
 
         for (DyeColor color : DyeColor.values()) {
             String colorName = color.getSerializedName();
@@ -100,12 +122,12 @@ public class SetSetup {
             Block terracotta = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(colorName + "_terracotta"));
             Block wool = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(colorName + "_wool"));
             Block stained_glass = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(colorName + "_stained_glass"));
-            SETS.add(GenSet.builder(() -> concrete).types(stoneTypes()).build());
-            SETS.add(GenSet.builder(() -> terracotta).types(stoneTypes()).build());
-            SETS.add(GenSet.builder(() -> wool).types(sswtTypes()).build());
+            SETS.add(GenSet.builder(() -> concrete).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+            SETS.add(GenSet.builder(() -> terracotta).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+            SETS.add(GenSet.builder(() -> wool).types(sswtTypes()).blockTags(BlockTags.WOOL).build());
             SETS.add(GenSet.builder(() -> stained_glass).types(sswtTypes()).renderType(RenderType.translucent()).build());
-            SETS.add(GenSet.builder(() -> wool, "wool_pastel_" + colorName).withBase(BlockGen::new).types(sswtTypes()).build());
-            SETS.add(GenSet.builder(() -> wool, "wool_tinted_" + colorName).withBase(BlockGen::new).types(sswtTypes()).build());
+            SETS.add(GenSet.builder(() -> wool, "wool_pastel_" + colorName).withBase(BlockGen::new).types(sswtTypes()).blockTags(BlockTags.WOOL).build());
+            SETS.add(GenSet.builder(() -> wool, "wool_tinted_" + colorName).withBase(BlockGen::new).types(sswtTypes()).blockTags(BlockTags.WOOL).build());
         }
 
         WOODS.forEach(name -> {
@@ -113,13 +135,18 @@ public class SetSetup {
             Block log = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_log"));
             Block strippedLog = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("stripped_" + name + "_log"));
             Block trapdoor = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_trapdoor"));
-            SETS.add(GenSet.builder(() -> planks).types(woodenPlanksTypes()).build());
-            SETS.add(GenSet.builder(() -> log, name + "_log").types(woodenTypes()).build());
-            SETS.add(GenSet.builder(() -> strippedLog, "stripped_" + name + "_log").types(woodenTypes()).build());
-            SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).renderType(RenderType.cutout()).build());
+            SETS.add(GenSet.builder(() -> planks).types(woodenPlanksTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> log).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> strippedLog).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
-            SETS.add(GenSet.builder(() -> planks, name).types(StickGen::new).build());
-            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderType.cutout()).build());
+            SETS.add(GenSet.builder(() -> planks, name).types(StickGen::new).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> planks, "fence_" + name).types(SWDMFenceGen::new).sets(FENCE_TYPES).blockTextures(swdmFences(name)).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+
+            if (!"oak".equals(name)) { // Oak Bookshelf is the default
+                SETS.add(GenSet.builder(() -> planks, name).types(BookshelfGen::new).blockTextures(bookshelf()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            }
         });
 
         STEMS.forEach(name -> {
@@ -127,40 +154,44 @@ public class SetSetup {
             Block stem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_stem"));
             Block strippedStem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("stripped_" + name + "_stem"));
             Block trapdoor = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_trapdoor"));
-            SETS.add(GenSet.builder(() -> planks).types(woodenPlanksTypes()).build());
-            SETS.add(GenSet.builder(() -> stem).types(woodenTypes()).build());
-            SETS.add(GenSet.builder(() -> strippedStem).types(woodenTypes()).build());
-            SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).build());
+            SETS.add(GenSet.builder(() -> planks).types(woodenPlanksTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> stem).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> strippedStem).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
-            SETS.add(GenSet.builder(() -> planks, name).types(StickGen::new).build());
-            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderType.cutout()).build());
+            SETS.add(GenSet.builder(() -> planks, name).types(StickGen::new).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> planks, name).types(BookshelfGen::new).blockTextures(bookshelf()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> planks, "fence_" + name).types(SWDMFenceGen::new).sets(FENCE_TYPES).blockTextures(swdmFences(name)).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
         });
 
-
         MODDED_WOODS.forEach(name -> {
-            RegistryObject<Block> planks = BlockSetup.BLOCKS_BY_NAME.get(SWDM.res(name + "_planks"));
-            RegistryObject<Block> log = BlockSetup.BLOCKS_BY_NAME.get(SWDM.res(name + "_log"));
-            RegistryObject<Block> strippedLog = BlockSetup.BLOCKS_BY_NAME.get(SWDM.res(name + "_stripped_log"));
-            SETS.add(GenSet.builder(planks).types(woodenTypes()).build());
-            SETS.add(GenSet.builder(log).types(woodenTypes()).build());
-            SETS.add(GenSet.builder(strippedLog).types(woodenTypes()).build());
+            RegistryObject<Block> planks = BlockSetup.MANUAL_BLOCKS.get(SWDM.res(name + "_planks"));
+            RegistryObject<Block> log = BlockSetup.MANUAL_BLOCKS.get(SWDM.res(name + "_log"));
+            RegistryObject<Block> strippedLog = BlockSetup.MANUAL_BLOCKS.get(SWDM.res(name + "_stripped_log"));
+            SETS.add(GenSet.builder(planks).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(log).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(strippedLog).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
-            SETS.add(GenSet.builder(planks, name).types(StickGen::new).build());
-            SETS.add(GenSet.builder(planks, name).types(DoorGen::new).blockTextures(doors()).renderType(RenderType.cutout()).build());
-            SETS.add(GenSet.builder(planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderType.cutout()).build());
-            SETS.add(GenSet.builder(planks, name).withBase(b -> cast(new TrapDoorGen(b))).types(ShutterGen::new).blockTextures(trapdoors()).renderType(RenderType.cutout()).build());
+            SETS.add(GenSet.builder(planks, name).types(StickGen::new).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(planks, name).types(BookshelfGen::new).blockTextures(bookshelf()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(planks, name).types(DoorGen::new).blockTextures(doors()).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(planks, name).withBase(b -> cast(new TrapDoorGen(b))).types(ShutterGen::new).blockTextures(trapdoors()).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(planks, "fence_" + name).types(SWDMFenceGen::new).sets(FENCE_TYPES).blockTextures(swdmFences(name)).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
         });
 
         // Trapdoor/Door variations (wood_trapdoor_variation and wood_door_variation)
-        VANILLA_WOODS.forEach(variation -> {
+        ALL_WOODS.forEach(variation -> {
             VANILLA_WOODS.forEach(wood -> {
                 if (wood.equals(variation)) return;
                 Block planks = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(wood + "_planks"));
-                SETS.add(GenSet.builder(() -> planks, wood).types(b -> new TrapdoorVariationGen(b, variation), b -> new DoorVariationGen(b, variation)).blockTextures(variationDoors()).renderType(RenderType.cutout()).build());
+                SETS.add(GenSet.builder(() -> planks, wood).types(b -> new TrapdoorVariationGen(b, variation), b -> new DoorVariationGen(b, variation)).blockTextures(variationDoors()).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             });
             MODDED_WOODS.forEach(wood -> {
-                RegistryObject<Block> planks = BlockSetup.BLOCKS_BY_NAME.get(SWDM.res(wood + "_planks"));
-                SETS.add(GenSet.builder(planks, wood).types(b -> new TrapdoorVariationGen(b, variation), b -> new DoorVariationGen(b, variation)).blockTextures(variationDoors()).renderType(RenderType.cutout()).build());
+                if (wood.equals(variation)) return;
+                RegistryObject<Block> planks = BlockSetup.MANUAL_BLOCKS.get(SWDM.res(wood + "_planks"));
+                SETS.add(GenSet.builder(planks, wood).types(b -> new TrapdoorVariationGen(b, variation), b -> new DoorVariationGen(b, variation)).blockTextures(variationDoors()).renderType(RenderType.cutout()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             });
         });
 
@@ -178,11 +209,11 @@ public class SetSetup {
     }
 
     private static List<Function<Supplier<Block>, GenType<?>>> woodenTypes() {
-        return List.of(StairGen::new, SlabGen::new, HalfWallGen::new, HalfFenceGen::new, TrapDoorGen::new, b -> new ButtonGen(b, false), b -> new PressurePlateGen(b, PressurePlateBlock.Sensitivity.EVERYTHING), FenceGateGen::new);
+        return List.of(StairGen::new, SlabGen::new, HalfWallGen::new, TrapDoorGen::new, b -> new ButtonGen(b, false), b -> new PressurePlateGen(b, PressurePlateBlock.Sensitivity.EVERYTHING), FenceGateGen::new);
     }
 
     private static List<Function<Supplier<Block>, GenType<?>>> woodenPlanksTypes() {
-        return List.of(HalfWallGen::new, HalfFenceGen::new, TrapDoorGen::new);
+        return List.of(HalfWallGen::new, TrapDoorGen::new);
     }
 
     private static Consumer<TextureSet.Builder> grassyTextureSet() {
@@ -191,6 +222,20 @@ public class SetSetup {
             textures.with("side", base -> TextureSet.Builder.block(RL.suffix(base, "_side")));
             textures.with("bottom", base -> new ResourceLocation("block/dirt"));
         };
+    }
+
+    private static Consumer<TextureSet.Builder> swdmFences(String name) {
+        return tex -> tex.with("", base -> new ResourceLocation(base.getNamespace(), "block/" + name + "_planks"));
+    }
+
+    private static Consumer<TextureSet.Builder> sandstone() {
+        BiFunction<String, String, String> transform = (name, type) -> {
+            int splitIndex = name.indexOf("_");
+            return name.substring(0, splitIndex) + "_" + type + name.substring(splitIndex);
+        };
+        return tex -> tex
+            .with("top", base -> TextureSet.Builder.block(new ResourceLocation(base.getNamespace(), transform.apply(base.getPath(), "top"))))
+            .with("bottom", base -> TextureSet.Builder.block(new ResourceLocation(base.getNamespace(), transform.apply(base.getPath(), "bottom"))));
     }
 
     private static Consumer<TextureSet.Builder> ladders() {
@@ -207,6 +252,12 @@ public class SetSetup {
         return tex -> tex
             .with("top", base -> TextureSet.Builder.block(RL.suffix(base, "_door_top")))
             .with("bottom", base -> TextureSet.Builder.block(RL.suffix(base, "_door_bottom")));
+    }
+
+    private static Consumer<TextureSet.Builder> bookshelf() {
+        return tex -> tex
+            .with("side", base -> TextureSet.Builder.block(RL.withNamespace(RL.suffix(base, "_bookshelf"), SWDM.MOD_ID)))
+            .with("end", base -> TextureSet.Builder.block(RL.suffix(base, "_planks")));
     }
 
 

@@ -4,6 +4,7 @@ import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.block.*;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
+import com.alaharranhonor.swdm.util.RL;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -23,10 +24,16 @@ public class BlockStates extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        BlockSetup.BLOCKS_BY_NAME.values().forEach(block -> {
+        BlockSetup.MANUAL_BLOCKS.values().forEach(block -> {
+            if (block.getId().equals(BlockSetup.THATCH_BLOCK.getId())) {
+                return;
+            }
             this.simpleBlock(block.get());
             this.itemModels().withExistingParent(block.getId().getPath(), new ResourceLocation(block.getId().getNamespace(), "block/" + block.getId().getPath()));
         });
+
+        this.simpleBlock(BlockSetup.THATCH_BLOCK.get(), this.models().cubeColumn(BlockSetup.THATCH_BLOCK.getId().getPath(), this.modLoc("block/thatch_block"), this.modLoc("block/thatch_block_top")));
+        this.itemModels().withExistingParent(BlockSetup.THATCH_BLOCK.getId().getPath(), RL.prefix(BlockSetup.THATCH_BLOCK.getId(), "block/"));
 
         for (GenSet set : SetSetup.SETS) {
             set.genTypes.forEach(genType -> {
@@ -228,6 +235,50 @@ public class BlockStates extends BlockStateProvider {
                         .modelFile(type == SWDMBlockstateProperties.WallType.FULL ? side : halfSide)
                         .rotationX(type == SWDMBlockstateProperties.WallType.UPPER ? 180 : 0)
                         .rotationY((((int) dir.toYRot()) + (type != SWDMBlockstateProperties.WallType.UPPER ? 180 : 0)) % 360)
+                        .uvLock(true)
+                        .addModel()
+                        .condition(value, true)
+                        .condition(HalfFenceBlock.WALL_TYPE, type);
+                }
+            }
+        });
+    }
+
+    public void swdmFenceBlockItem(HalfFenceBlock block, ResourceLocation texture, String fenceType) {
+        this.models().withExistingParent(block.getRegistryName().getPath() + "_inventory", modLoc("block/fence/fence_" + fenceType + "_inv")).texture("texture", texture);
+    }
+
+    public void swdmFenceBlock(HalfFenceBlock block, ResourceLocation texture, String fenceType) {
+        String baseName = block.getRegistryName().toString();
+        ModelFile post = models().withExistingParent(baseName + "_post", this.modLoc("block/fence/fence_post")).texture("texture", texture).texture("particle", texture);
+        ModelFile halfPost = models().withExistingParent(baseName + "_half_post", this.modLoc("block/fence/fence_half_post")).texture("texture", texture).texture("particle", texture);
+        ModelFile full = models().withExistingParent(baseName + "_full", this.modLoc("block/fence/fence_" + fenceType + "_full")).texture("texture", texture).texture("particle", texture);
+        ModelFile lower = models().withExistingParent(baseName + "_lower", this.modLoc("block/fence/fence_" + fenceType + "_lower")).texture("texture", texture).texture("particle", texture);
+        ModelFile upper = models().withExistingParent(baseName + "_upper", this.modLoc("block/fence/fence_" + fenceType + "_upper")).texture("texture", texture).texture("particle", texture);
+        swdmFenceBlock(block, post, halfPost, full, upper, lower);
+    }
+
+    public void swdmFenceBlock(HalfFenceBlock block,
+                               ModelFile post, ModelFile halfPost,
+                               ModelFile full, ModelFile upper, ModelFile lower) {
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(block)
+            .part().modelFile(post).addModel()
+            .condition(HalfFenceBlock.WALL_TYPE, SWDMBlockstateProperties.WallType.FULL).end()
+            .part().modelFile(halfPost).addModel()
+            .condition(HalfFenceBlock.WALL_TYPE, SWDMBlockstateProperties.WallType.LOWER).end()
+            .part().modelFile(halfPost).rotationX(180).addModel()
+            .condition(HalfFenceBlock.WALL_TYPE, SWDMBlockstateProperties.WallType.UPPER).end();
+
+        this.swdmFenceBlockMultipart(builder, full, upper, lower);
+    }
+
+    public void swdmFenceBlockMultipart(MultiPartBlockStateBuilder builder, ModelFile full, ModelFile upper, ModelFile lower) {
+        PipeBlock.PROPERTY_BY_DIRECTION.forEach((dir, value) -> {
+            if (dir.getAxis().isHorizontal()) {
+                for (SWDMBlockstateProperties.WallType type : SWDMBlockstateProperties.WallType.values()) {
+                    builder.part()
+                        .modelFile(type == SWDMBlockstateProperties.WallType.FULL ? full : type == SWDMBlockstateProperties.WallType.UPPER ? upper : lower)
+                        .rotationY((((int) dir.toYRot() + 270)) % 360)
                         .uvLock(true)
                         .addModel()
                         .condition(value, true)
