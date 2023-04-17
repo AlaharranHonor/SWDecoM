@@ -18,8 +18,8 @@ public class SWDMFenceGen extends HalfFenceGen {
         String path = this.generated.getRegistryName().getPath();
         ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path);
         String fenceType = path.substring(path.lastIndexOf('_') + 1);
-        gen.swdmFenceBlock(this.generated, textures.get("", basePath), fenceType);
-        gen.swdmFenceBlockItem(this.generated, textures.get("", basePath), fenceType);
+        gen.swdmFenceBlock(this.generated, textures.get("", basePath), textures.get("lattice", basePath), fenceType);
+        gen.swdmFenceBlockItem(this.generated, textures.get("", basePath), textures.get("lattice", basePath), fenceType);
     }
 
     @Override

@@ -154,6 +154,10 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, "fence_" + name).types(SWDMFenceGen::new).sets(FENCE_TYPES).blockTextures(swdmFences(name)).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
+            SETS.add(GenSet.builder(() -> planks, "beam_" + name + "_planks").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> log, "beam_" + name + "_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> strippedLog, "beam_" + name + "_stripped_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+
             for (int variant = 1; variant <= LEAVES_VARIANTS; variant++) { // Starting loops at 1.. yuck.
                 SETS.add(GenSet.builder(() -> leaves, name + "_leaves_variant" + variant).withBase(BlockGen::new).types(sswtTypes()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.LEAVES).build());
             }
@@ -173,6 +177,10 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> strippedStem).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
+            SETS.add(GenSet.builder(() -> planks, "beam_" + name + "_planks").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> stem, "beam_" + name + "_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> strippedStem, "beam_" + name + "_stripped_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+
             SETS.add(GenSet.builder(() -> planks, name).types(StickGen::new).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, name).types(BookshelfGen::new).blockTextures(bookshelf()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
@@ -186,6 +194,10 @@ public class SetSetup {
             SETS.add(GenSet.builder(planks).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(log).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(strippedLog).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+
+            SETS.add(GenSet.builder(planks, "beam_" + name + "_planks").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(log, "beam_" + name + "_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(strippedLog, "beam_" + name + "_stripped_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
             SETS.add(GenSet.builder(planks, name).types(StickGen::new).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(planks, name).types(BookshelfGen::new).blockTextures(bookshelf()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
@@ -254,7 +266,9 @@ public class SetSetup {
     }
 
     private static Consumer<TextureSet.Builder> swdmFences(String name) {
-        return tex -> tex.with("", base -> new ResourceLocation(base.getNamespace(), "block/" + name + "_planks"));
+        return tex -> tex
+                .with("", base -> new ResourceLocation(base.getNamespace(), "block/" + name + "_planks"))
+                .with("lattice", base -> SWDM.res("block/lattice_" + name));
     }
 
     private static Consumer<TextureSet.Builder> sandstone() {
@@ -287,6 +301,14 @@ public class SetSetup {
         return tex -> tex
             .with("side", base -> TextureSet.Builder.block(RL.withNamespace(RL.suffix(base, "_bookshelf"), SWDM.MOD_ID)))
             .with("end", base -> TextureSet.Builder.block(RL.suffix(base, "_planks")));
+    }
+
+    private static Consumer<TextureSet.Builder> beams() {
+        return tex -> tex
+            .with("beam.down", base -> TextureSet.Builder.block(RL.suffix(base, "_down")))
+            .with("beam.lower", base -> TextureSet.Builder.block(RL.suffix(base, "_lower")))
+            .with("beam.middle", base -> TextureSet.Builder.block(RL.suffix(base, "_middle")))
+            .with("beam.single", base -> TextureSet.Builder.block(RL.suffix(base, "_single")));
     }
 
 

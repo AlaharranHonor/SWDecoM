@@ -10,9 +10,9 @@ public class SWDMBlockstateProperties {
 
     public enum Tileable implements StringRepresentable {
         SINGLE,
-        UP,
+        UPPER,
         MIDDLE,
-        DOWN;
+        LOWER;
 
         @Override
         public String toString() {
@@ -21,7 +21,7 @@ public class SWDMBlockstateProperties {
 
         @Override
         public String getSerializedName() {
-            return this == SINGLE ? "single" : this == DOWN ? "down" : this == MIDDLE ? "middle" : "up";
+            return this == SINGLE ? "single" : this == LOWER ? "lower" : this == MIDDLE ? "middle" : "upper";
         }
     }
 

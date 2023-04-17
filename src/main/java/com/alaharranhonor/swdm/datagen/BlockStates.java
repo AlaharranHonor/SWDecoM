@@ -247,17 +247,17 @@ public class BlockStates extends BlockStateProvider {
         });
     }
 
-    public void swdmFenceBlockItem(HalfFenceBlock block, ResourceLocation texture, String fenceType) {
-        this.models().withExistingParent(block.getRegistryName().getPath() + "_inventory", modLoc("block/fence/fence_" + fenceType + "_inv")).texture("texture", texture);
+    public void swdmFenceBlockItem(HalfFenceBlock block, ResourceLocation texture, ResourceLocation lattice, String fenceType) {
+        this.models().withExistingParent(block.getRegistryName().getPath() + "_inventory", modLoc("block/fence/fence_" + fenceType + "_inv")).texture("texture", texture).texture("lattice", lattice);
     }
 
-    public void swdmFenceBlock(HalfFenceBlock block, ResourceLocation texture, String fenceType) {
+    public void swdmFenceBlock(HalfFenceBlock block, ResourceLocation texture, ResourceLocation lattice, String fenceType) {
         String baseName = block.getRegistryName().toString();
-        ModelFile post = models().withExistingParent(baseName + "_post", this.modLoc("block/fence/fence_post")).texture("texture", texture).texture("particle", texture);
-        ModelFile halfPost = models().withExistingParent(baseName + "_half_post", this.modLoc("block/fence/fence_half_post")).texture("texture", texture).texture("particle", texture);
-        ModelFile full = models().withExistingParent(baseName + "_full", this.modLoc("block/fence/fence_" + fenceType + "_full")).texture("texture", texture).texture("particle", texture);
-        ModelFile lower = models().withExistingParent(baseName + "_lower", this.modLoc("block/fence/fence_" + fenceType + "_lower")).texture("texture", texture).texture("particle", texture);
-        ModelFile upper = models().withExistingParent(baseName + "_upper", this.modLoc("block/fence/fence_" + fenceType + "_upper")).texture("texture", texture).texture("particle", texture);
+        ModelFile post = models().withExistingParent(baseName + "_post", this.modLoc("block/fence/fence_post")).texture("texture", texture).texture("lattice", lattice).texture("particle", texture);
+        ModelFile halfPost = models().withExistingParent(baseName + "_half_post", this.modLoc("block/fence/fence_half_post")).texture("texture", texture).texture("lattice", lattice).texture("particle", texture);
+        ModelFile full = models().withExistingParent(baseName + "_full", this.modLoc("block/fence/fence_" + fenceType + "_full")).texture("texture", texture).texture("lattice", lattice).texture("particle", texture);
+        ModelFile lower = models().withExistingParent(baseName + "_lower", this.modLoc("block/fence/fence_" + fenceType + "_lower")).texture("texture", texture).texture("lattice", lattice).texture("particle", texture);
+        ModelFile upper = models().withExistingParent(baseName + "_upper", this.modLoc("block/fence/fence_" + fenceType + "_upper")).texture("texture", texture).texture("lattice", lattice).texture("particle", texture);
         swdmFenceBlock(block, post, halfPost, full, upper, lower);
     }
 
