@@ -1,10 +1,11 @@
 package com.alaharranhonor.swdm.gentypes.item;
 
 import com.alaharranhonor.swdm.SWDM;
-import com.alaharranhonor.swdm.datagen.*;
+import com.alaharranhonor.swdm.datagen.ItemModels;
+import com.alaharranhonor.swdm.datagen.ItemTags;
+import com.alaharranhonor.swdm.datagen.Recipes;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

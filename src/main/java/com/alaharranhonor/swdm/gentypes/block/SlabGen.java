@@ -1,7 +1,7 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
-import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.datagen.*;
+import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;

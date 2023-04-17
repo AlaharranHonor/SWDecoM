@@ -1,7 +1,7 @@
 package com.alaharranhonor.swdm.gentypes;
 
-import com.alaharranhonor.swdm.util.TextureSet;
 import com.alaharranhonor.swdm.datagen.*;
+import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColor;

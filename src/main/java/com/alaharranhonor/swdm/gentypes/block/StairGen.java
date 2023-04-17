@@ -1,7 +1,10 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.datagen.BlockStates;
+import com.alaharranhonor.swdm.datagen.BlockTags;
+import com.alaharranhonor.swdm.datagen.ItemModels;
+import com.alaharranhonor.swdm.datagen.ItemTags;
 import com.alaharranhonor.swdm.util.TextureSet;
-import com.alaharranhonor.swdm.datagen.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StairBlock;

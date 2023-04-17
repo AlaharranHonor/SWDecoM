@@ -1,10 +1,10 @@
 package com.alaharranhonor.swdm;
 
 import com.alaharranhonor.swdm.gentypes.GenType;
+import com.alaharranhonor.swdm.util.RenderTypeWrapper;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.Item;
@@ -28,13 +28,11 @@ public class GenSet {
     private final Function<Supplier<Block>, GenType<Block>> baseGenerator;
     private final TextureSet blockTextures;
     private final TextureSet itemTextures;
-    private final RenderType renderType;
+    private final Supplier<RenderTypeWrapper> renderType;
     private final BlockColor blockColors;
     private final ItemColor itemColors;
     private final List<TagKey<Block>> blockTags;
     private final List<TagKey<Item>> itemTags;
-
-    // TODO Set Block/Item Tags
 
     public final List<GenType<?>> genTypes = new ArrayList<>();
     private Supplier<Block> generatedBaseBlock;
@@ -46,7 +44,7 @@ public class GenSet {
                    Function<Supplier<Block>, GenType<Block>> baseGenerator,
                    TextureSet blockTextures,
                    TextureSet itemTextures,
-                   RenderType renderType,
+                   Supplier<RenderTypeWrapper> renderType,
                    BlockColor blockColors,
                    ItemColor itemColors,
                    List<TagKey<Block>> blockTags,
@@ -117,8 +115,8 @@ public class GenSet {
         return this.itemTextures;
     }
 
-    public RenderType getRenderType() {
-        return this.renderType;
+    public RenderTypeWrapper getRenderType() {
+        return this.renderType.get();
     }
 
     public BlockColor getBlockColors() {
@@ -158,7 +156,7 @@ public class GenSet {
         private Function<Supplier<Block>, GenType<Block>> baseGenerator;
         private final TextureSet.Builder blockTextures = TextureSet.builder(TextureSet.DEFAULT_BLOCK_TEXTURE_SET);
         private final TextureSet.Builder itemTextures = TextureSet.builder(TextureSet.DEFAULT_ITEM_TEXTURE_SET);
-        private RenderType renderType = RenderType.solid();
+        private Supplier<RenderTypeWrapper> renderType = RenderTypeWrapper::solid;
         private BlockColor blockColor;
         private ItemColor itemColor;
         private List<TagKey<Block>> blockTags = new ArrayList<>();
@@ -231,7 +229,7 @@ public class GenSet {
             return this;
         }
 
-        public final Builder renderType(RenderType renderType) {
+        public final Builder renderType(Supplier<RenderTypeWrapper> renderType) {
             this.renderType = renderType;
             return this;
         }
