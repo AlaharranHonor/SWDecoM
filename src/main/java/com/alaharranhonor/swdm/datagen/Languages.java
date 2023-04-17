@@ -5,6 +5,7 @@ import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class Languages extends LanguageProvider {
@@ -15,7 +16,9 @@ public class Languages extends LanguageProvider {
     @Override
     protected void addTranslations() {
         this.add("itemGroup.swdmtab", "SWDM");
+        this.add("container.deco_workshop", "Deco Workshop");
         this.add(ItemSetup.CHANGE_TOOL.get(), "Change Tool");
+        this.add(BlockSetup.DECO_WORKSHOP.get(), "Deco Workshop");
 
         for (GenSet set : SetSetup.SETS) {
             set.genTypes.forEach(genType -> {

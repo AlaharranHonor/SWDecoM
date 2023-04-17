@@ -2,13 +2,22 @@ package com.alaharranhonor.swdm.events;
 
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.registry.BlockSetup;
+import com.alaharranhonor.swdm.registry.MenuSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
+import com.alaharranhonor.swdm.workshop.DecoWorkshopMenu;
+import com.alaharranhonor.swdm.workshop.DecoWorkshopScreen;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.StonecutterScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -21,12 +30,17 @@ public class ModEventBusSubscriber {
         public static void finalizeSetup(FMLLoadCompleteEvent event) {
             SetSetup.SETS.clear();
             BlockSetup.MANUAL_BLOCKS.clear();
-            System.gc();
         }
     }
 
     @Mod.EventBusSubscriber(modid = SWDM.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModBusHandler {
+
+        @SubscribeEvent
+        public static void clientSetup(FMLClientSetupEvent event) {
+            MenuScreens.register(MenuSetup.DECO_WORKSHOP.get(), DecoWorkshopScreen::new);
+        }
+
         @SubscribeEvent
         public static void registerBlockColors(ColorHandlerEvent.Block event) {
             BlockColors colors = event.getBlockColors();

@@ -30,8 +30,7 @@ public class HalfWallBlock extends WallBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        super.createBlockStateDefinition(pBuilder);
-        pBuilder.add(WALL_TYPE);
+        pBuilder.add(UP, NORTH_WALL, EAST_WALL, WEST_WALL, SOUTH_WALL, WALL_TYPE);
     }
 
     @Override

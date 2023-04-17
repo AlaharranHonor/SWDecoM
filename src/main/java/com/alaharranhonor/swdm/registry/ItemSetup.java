@@ -19,6 +19,8 @@ public class ItemSetup {
             ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(SWDM.TAB)));
         });
 
+        ITEMS.register("deco_workshop", () -> new BlockItem(BlockSetup.DECO_WORKSHOP.get(), new Item.Properties().tab(SWDM.TAB)));
+
         ITEMS.register(modBus);
     }
 }

@@ -63,6 +63,8 @@ public class LootTables extends LootTableProvider {
                 this.add(block.get(), this.simpleBlockDrop(block.get()));
             });
 
+            this.add(BlockSetup.DECO_WORKSHOP.get(), this.simpleBlockDrop(BlockSetup.DECO_WORKSHOP.get()));
+
             for (GenSet set : SetSetup.SETS) {
                 set.genTypes.forEach(genType -> {
                     genType.addLootTables(this);

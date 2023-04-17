@@ -225,13 +225,13 @@ public class SetSetup {
         List.of("white", "black").forEach(color -> {
             RegistryObject<Block> smoothStone = BlockSetup.SMOOTH_STONE_BORDERLESS;
             ARRAY_NUMBERS.forEach(type -> {
-                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_number_" + type).withBase(b -> cast(new ArrayGen(b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_number_" + type).withBase(b -> cast(new ArrayGen(b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE).build());
             });
             ARRAY_LETTERS.forEach(type -> {
-                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_letter_" + type).withBase(b -> cast(new ArrayGen(b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_letter_" + type).withBase(b -> cast(new ArrayGen(b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE).build());
             });
             ARRAY_SYMBOLS.forEach(type -> {
-                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_symbol_" + type).withBase(b -> cast(new ArrayGen(b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_symbol_" + type).withBase(b -> cast(new ArrayGen(b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE).build());
             });
         });
 

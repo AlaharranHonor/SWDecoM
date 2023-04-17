@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.registry;
 
 import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.block.DecoWorkshopBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -42,6 +43,7 @@ public class BlockSetup {
     public static final RegistryObject<Block> THATCH_STRIPPED_LOG = register("thatch_stripped_log", () -> log(MaterialColor.COLOR_YELLOW, MaterialColor.COLOR_YELLOW));
 
     public static final RegistryObject<Block> SMOOTH_STONE_BORDERLESS = register("smooth_stone_borderless", () -> new Block(BlockBehaviour.Properties.copy(Blocks.SMOOTH_STONE)));
+    public static final RegistryObject<Block> DECO_WORKSHOP = BLOCKS.register("deco_workshop", () -> new DecoWorkshopBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(1.5F, 6.0F)));
 
 
     public static void init(IEventBus modBus) {

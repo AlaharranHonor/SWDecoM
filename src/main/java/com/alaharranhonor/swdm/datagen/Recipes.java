@@ -3,6 +3,8 @@ package com.alaharranhonor.swdm.datagen;
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.registry.BlockSetup;
+import com.alaharranhonor.swdm.registry.ItemSetup;
+import com.alaharranhonor.swdm.registry.RecipeSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -14,6 +16,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
@@ -64,6 +67,25 @@ public class Recipes extends RecipeProvider {
             .unlockedBy("has_planks", has(ItemTags.PLANKS))
             .save(builder);
 
+        ShapedRecipeBuilder.shaped(BlockSetup.DECO_WORKSHOP.get())
+            .pattern("SSS")
+            .pattern("SCS")
+            .pattern("SSS")
+            .define('S', Blocks.STONE)
+            .define('C', ItemSetup.CHANGE_TOOL.get())
+            .unlockedBy("has_change_tool", has(ItemSetup.CHANGE_TOOL.get()))
+            .save(builder);
+
+        ShapedRecipeBuilder.shaped(ItemSetup.CHANGE_TOOL.get())
+            .pattern(" NR")
+            .pattern(" SN")
+            .pattern("S  ")
+            .define('S', Tags.Items.RODS_WOODEN)
+            .define('N', Tags.Items.NUGGETS_IRON)
+            .define('R', Tags.Items.DUSTS_REDSTONE)
+            .unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN))
+            .save(builder);
+
         this.defaultDecoBench(builder, BlockSetup.THATCH_PLANKS.get(), BlockSetup.THATCH_BLOCK.get());
         this.defaultDecoBench(builder, BlockSetup.THATCH_LOG.get(), BlockSetup.THATCH_BLOCK.get());
         this.defaultDecoBench(builder, BlockSetup.THATCH_STRIPPED_LOG.get(), BlockSetup.THATCH_BLOCK.get());
@@ -76,13 +98,13 @@ public class Recipes extends RecipeProvider {
     }
 
     public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, ItemLike input, int amount) {
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(input), output, amount)
+        new SingleItemRecipeBuilder(RecipeSetup.DECO_RECIPE_SERIALIZER.get(), Ingredient.of(input), output, amount)
             .unlockedBy("has_block", has(input))
             .save(builder);
     }
 
     public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, TagKey<Item> input, int amount) {
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(input), output, amount)
+        new SingleItemRecipeBuilder(RecipeSetup.DECO_RECIPE_SERIALIZER.get(), Ingredient.of(input), output, amount)
             .unlockedBy("has_block", has(input))
             .save(builder);
     }

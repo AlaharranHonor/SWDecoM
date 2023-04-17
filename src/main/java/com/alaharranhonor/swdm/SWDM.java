@@ -1,12 +1,12 @@
 package com.alaharranhonor.swdm;
 
-import com.alaharranhonor.swdm.registry.BlockSetup;
-import com.alaharranhonor.swdm.registry.ItemSetup;
-import com.alaharranhonor.swdm.registry.SetSetup;
+import com.alaharranhonor.swdm.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -40,5 +40,7 @@ public class SWDM {
         SetSetup.init();
         BlockSetup.init(modBus);
         ItemSetup.init(modBus);
+        RecipeSetup.init(modBus);
+        MenuSetup.init(modBus);
     }
 }

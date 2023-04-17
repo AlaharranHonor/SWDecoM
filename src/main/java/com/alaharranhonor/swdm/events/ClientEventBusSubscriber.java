@@ -13,14 +13,11 @@ public class ClientEventBusSubscriber {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-        //SWEMonClientSetup(event);
-        //Sheets.addWoodType(SWDM.THATCH_WT);
-        //Sheets.addWoodType(SWDM.BAMBOO_WT);
         ClientEventBusSubscriber.setRenderLayers();
     }
 
     @SubscribeEvent
-    public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
 
     }
 
