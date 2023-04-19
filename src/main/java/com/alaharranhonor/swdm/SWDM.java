@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm;
 
+import com.alaharranhonor.swdm.compat.SWLMCompat;
 import com.alaharranhonor.swdm.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -8,6 +9,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -26,7 +28,7 @@ public class SWDM {
     public static final CreativeModeTab TAB = new CreativeModeTab("swdmtab") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(Items.STICK);
+            return new ItemStack(ItemSetup.CHANGE_TOOL.get());
         }
 
         @Override
@@ -42,5 +44,7 @@ public class SWDM {
         ItemSetup.init(modBus);
         RecipeSetup.init(modBus);
         MenuSetup.init(modBus);
+
+        SWLMCompat.init();
     }
 }
