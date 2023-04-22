@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.Recipes;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -12,8 +13,8 @@ import java.util.function.Supplier;
 
 public class SidingGen extends BlockGen {
 
-    public SidingGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public SidingGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override

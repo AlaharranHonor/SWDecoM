@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -16,18 +17,18 @@ import java.util.function.Supplier;
 public class ButtonGen extends BasicBlockGen<ButtonBlock> {
 
     private final boolean isStone;
-    public ButtonGen(Supplier<Block> baseBlock, boolean isStone) {
-        super(baseBlock);
+    public ButtonGen(GenSet set, Supplier<Block> baseBlock, boolean isStone) {
+        super(set, baseBlock);
         this.isStone = isStone;
     }
 
     @Override
     protected ButtonBlock generate() {
         if (this.isStone) {
-            return new StoneButtonBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()).noCollission());
+            return new StoneButtonBlock(this.props().noCollission());
         }
 
-        return new WoodButtonBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()).noCollission());
+        return new WoodButtonBlock(this.props().noCollission());
     }
 
     @Override

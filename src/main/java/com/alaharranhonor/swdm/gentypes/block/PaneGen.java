@@ -8,31 +8,34 @@ import com.alaharranhonor.swdm.datagen.ItemTags;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Supplier;
 
-public class BookshelfGen extends BasicBlockGen<Block> {
+public class PaneGen extends BasicBlockGen<IronBarsBlock> {
 
-    public BookshelfGen(GenSet set, Supplier<Block> baseBlock) {
+    public PaneGen(GenSet set, Supplier<Block> baseBlock) {
         super(set, baseBlock);
     }
 
     @Override
-    protected Block generate() {
-        return new Block(this.props());
+    protected IronBarsBlock generate() {
+        return new IronBarsBlock(this.props());
     }
 
     @Override
     public void addBlockStates(BlockStates gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 10));
-        gen.simpleBlock(this.generated, gen.models().cubeColumn(path, textures.get("side", basePath), textures.get("end", basePath)));
+        ResourceLocation basePath = new ResourceLocation(this.generated.getRegistryName().getNamespace(), path.substring(0, path.length() - 5));
+        gen.paneBlock(this.generated, textures.get("pane", basePath), textures.get("pane", basePath));
     }
 
     @Override
     public void addItemModels(ItemModels gen, TextureSet textures) {
-        gen.existingBlock(this.generated);
+        String path = this.generated.getRegistryName().getPath();
+        ResourceLocation basePath = new ResourceLocation(this.generated.getRegistryName().getNamespace(), path.substring(0, path.length() - 5));
+        gen.singleTexture(path, gen.mcLoc("item/generated"), "layer0", textures.get("pane", basePath));
     }
 
     @Override
@@ -47,6 +50,6 @@ public class BookshelfGen extends BasicBlockGen<Block> {
 
     @Override
     public String getSuffix() {
-        return "_bookshelf";
+        return "_pane";
     }
 }

@@ -9,12 +9,14 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -24,13 +26,14 @@ public class GenSet {
     private final Supplier<Block> baseBlock;
     private final String baseName;
     private final List<List<String>> modifierSets;
-    private final List<Function<Supplier<Block>, GenType<?>>> genTypeFactories;
-    private final Function<Supplier<Block>, GenType<Block>> baseGenerator;
+    private final List<BiFunction<GenSet, Supplier<Block>, GenType<?>>> genTypeFactories;
+    private final BiFunction<GenSet, Supplier<Block>, GenType<Block>> baseGenerator;
     private final TextureSet blockTextures;
     private final TextureSet itemTextures;
     private final Supplier<RenderTypeWrapper> renderType;
     private final BlockColor blockColors;
     private final ItemColor itemColors;
+    private final Consumer<BlockBehaviour.Properties> customProperties;
     private final List<TagKey<Block>> blockTags;
     private final List<TagKey<Item>> itemTags;
 
@@ -40,15 +43,16 @@ public class GenSet {
     private GenSet(Supplier<Block> baseBlock,
                    String baseName,
                    List<List<String>> modifierSets,
-                   List<Function<Supplier<Block>, GenType<?>>> genTypeFactories,
-                   Function<Supplier<Block>, GenType<Block>> baseGenerator,
+                   List<BiFunction<GenSet, Supplier<Block>, GenType<?>>> genTypeFactories,
+                   BiFunction<GenSet, Supplier<Block>, GenType<Block>> baseGenerator,
                    TextureSet blockTextures,
                    TextureSet itemTextures,
                    Supplier<RenderTypeWrapper> renderType,
                    BlockColor blockColors,
                    ItemColor itemColors,
                    List<TagKey<Block>> blockTags,
-                   List<TagKey<Item>> itemTags
+                   List<TagKey<Item>> itemTags,
+                   Consumer<BlockBehaviour.Properties> customProperties
     ) {
         this.baseBlock = baseBlock;
         this.generatedBaseBlock = baseBlock;
@@ -63,6 +67,7 @@ public class GenSet {
         this.itemColors = itemColors;
         this.blockTags = blockTags;
         this.itemTags = itemTags;
+        this.customProperties = customProperties;
     }
 
     public void register(DeferredRegister<Block> blocks, DeferredRegister<Item> items) {
@@ -81,13 +86,13 @@ public class GenSet {
             }
 
             if (this.baseGenerator != null) {
-                GenType<Block> baseGen = this.baseGenerator.apply(this.baseBlock);
+                GenType<Block> baseGen = this.baseGenerator.apply(this, this.baseBlock);
                 baseGen.register(nameBuilder.toString(), blocks, items);
                 this.genTypes.add(baseGen);
                 this.generatedBaseBlock = baseGen;
             }
-            for (Function<Supplier<Block>, GenType<?>> factory : this.genTypeFactories) {
-                GenType<?> genType = factory.apply(this.generatedBaseBlock);
+            for (BiFunction<GenSet, Supplier<Block>, GenType<?>> factory : this.genTypeFactories) {
+                GenType<?> genType = factory.apply(this, this.generatedBaseBlock);
                 if (genType.register(nameBuilder.toString(), blocks, items)) {
                     this.genTypes.add(genType);
                 }
@@ -127,6 +132,11 @@ public class GenSet {
         return this.itemColors;
     }
 
+    public BlockBehaviour.Properties applyCustomProperties(BlockBehaviour.Properties props) {
+        this.customProperties.accept(props);
+        return props;
+    }
+
     public List<TagKey<Block>> getBlockTags() {
         return this.blockTags;
     }
@@ -152,13 +162,14 @@ public class GenSet {
         private final Supplier<Block> baseBlock;
         private final String baseName;
         private final List<List<String>> modifierSets = new ArrayList<>();
-        private final List<Function<Supplier<Block>, GenType<?>>> genTypes = new ArrayList<>();
-        private Function<Supplier<Block>, GenType<Block>> baseGenerator;
+        private final List<BiFunction<GenSet, Supplier<Block>, GenType<?>>> genTypes = new ArrayList<>();
+        private BiFunction<GenSet, Supplier<Block>, GenType<Block>> baseGenerator;
         private final TextureSet.Builder blockTextures = TextureSet.builder(TextureSet.DEFAULT_BLOCK_TEXTURE_SET);
         private final TextureSet.Builder itemTextures = TextureSet.builder(TextureSet.DEFAULT_ITEM_TEXTURE_SET);
         private Supplier<RenderTypeWrapper> renderType = RenderTypeWrapper::solid;
         private BlockColor blockColor;
         private ItemColor itemColor;
+        private Consumer<BlockBehaviour.Properties> customProperties = p -> {};
         private List<TagKey<Block>> blockTags = new ArrayList<>();
         private List<TagKey<Item>> itemTags = new ArrayList<>();
 
@@ -175,7 +186,7 @@ public class GenSet {
             this(base, base.getId().getPath());
         }
 
-        public Builder withBase(Function<Supplier<Block>, GenType<Block>> type) {
+        public Builder withBase(BiFunction<GenSet, Supplier<Block>, GenType<Block>> type) {
             this.baseGenerator = type;
             return this;
         }
@@ -197,12 +208,12 @@ public class GenSet {
         }
 
         @SafeVarargs
-        public final Builder types(Function<Supplier<Block>, GenType<?>>... types) {
+        public final Builder types(BiFunction<GenSet, Supplier<Block>, GenType<?>>... types) {
             this.genTypes.addAll(List.of(types));
             return this;
         }
 
-        public final Builder types(List<Function<Supplier<Block>, GenType<?>>> types) {
+        public final Builder types(List<BiFunction<GenSet, Supplier<Block>, GenType<?>>> types) {
             this.genTypes.addAll(types);
             return this;
         }
@@ -234,6 +245,11 @@ public class GenSet {
             return this;
         }
 
+        public final Builder customProperties(Consumer<BlockBehaviour.Properties> customProperties) {
+            this.customProperties = customProperties;
+            return this;
+        }
+
         public final Builder blockColors(BlockColor color) {
             this.blockColor = color;
             return this;
@@ -261,7 +277,8 @@ public class GenSet {
                 this.blockColor,
                 this.itemColor,
                 this.blockTags,
-                this.itemTags
+                this.itemTags,
+                this.customProperties
             );
         }
     }

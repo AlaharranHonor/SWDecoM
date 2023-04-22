@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.resources.ResourceLocation;
@@ -8,8 +9,8 @@ import net.minecraft.world.level.block.Block;
 import java.util.function.Supplier;
 
 public class ArrayGen extends ShutterGen {
-    public ArrayGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public ArrayGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override

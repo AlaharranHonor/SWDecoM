@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.block.HorizontalCarpetBlock;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
@@ -13,14 +14,14 @@ import java.util.function.Supplier;
 
 public class HorizontalCarpetGen extends BasicBlockGen<HorizontalCarpetBlock> {
 
-    public HorizontalCarpetGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public HorizontalCarpetGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
 
     @Override
     protected HorizontalCarpetBlock generate() {
-        return new HorizontalCarpetBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()).noOcclusion());
+        return new HorizontalCarpetBlock(this.props().noOcclusion());
     }
 
     @Override

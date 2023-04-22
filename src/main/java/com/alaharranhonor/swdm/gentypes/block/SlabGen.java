@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -13,13 +14,13 @@ import java.util.function.Supplier;
 
 public class SlabGen extends BasicBlockGen<SlabBlock> {
 
-    public SlabGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public SlabGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
     protected SlabBlock generate() {
-        return new SlabBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
+        return new SlabBlock(this.props());
     }
 
     @Override

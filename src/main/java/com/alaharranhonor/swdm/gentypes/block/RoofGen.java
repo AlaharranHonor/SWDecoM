@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.Recipes;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -12,8 +13,8 @@ import java.util.function.Supplier;
 
 public abstract class RoofGen extends BlockGen {
 
-    public RoofGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public RoofGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
@@ -28,8 +29,8 @@ public abstract class RoofGen extends BlockGen {
 
     public static class Shingle extends RoofGen {
 
-        public Shingle(Supplier<Block> baseBlock) {
-            super(baseBlock);
+        public Shingle(GenSet set, Supplier<Block> baseBlock) {
+            super(set, baseBlock);
         }
 
         @Override
@@ -40,8 +41,8 @@ public abstract class RoofGen extends BlockGen {
 
     public static class Metal extends RoofGen {
 
-        public Metal(Supplier<Block> baseBlock) {
-            super(baseBlock);
+        public Metal(GenSet set, Supplier<Block> baseBlock) {
+            super(set, baseBlock);
         }
 
         @Override
@@ -52,8 +53,8 @@ public abstract class RoofGen extends BlockGen {
 
     public static class Tile extends RoofGen {
 
-        public Tile(Supplier<Block> baseBlock) {
-            super(baseBlock);
+        public Tile(GenSet set, Supplier<Block> baseBlock) {
+            super(set, baseBlock);
         }
 
         @Override

@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.block.HalfWallBlock;
 import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
@@ -23,8 +24,8 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
 
     private RegistryObject<HalfWallBlock> lowerBlock;
     private RegistryObject<HalfWallBlock> upperBlock;
-    public HalfWallGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public HalfWallGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
@@ -50,7 +51,7 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
     }
 
     private HalfWallBlock generateHalfWall(Supplier<HalfWallBlock> next) {
-        return new HalfWallBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()), next);
+        return new HalfWallBlock(this.props(), next);
     }
 
     @Override

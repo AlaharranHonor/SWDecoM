@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.resources.ResourceLocation;
@@ -9,8 +10,8 @@ import java.util.function.Supplier;
 
 public class SWDMFenceGen extends HalfFenceGen {
 
-    public SWDMFenceGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public SWDMFenceGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override

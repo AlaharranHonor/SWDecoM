@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.block.ShutterBlock;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
@@ -13,13 +14,13 @@ import java.util.function.Supplier;
 
 public class ShutterGen extends BasicBlockGen<ShutterBlock> {
 
-    public ShutterGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public ShutterGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
     protected ShutterBlock generate() {
-        return new ShutterBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()).noOcclusion());
+        return new ShutterBlock(this.props().noOcclusion());
     }
 
     @Override

@@ -17,6 +17,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -78,7 +79,7 @@ public class SetSetup {
         SETS.add(GenSet.builder(() -> Blocks.BRICKS, "bricks_cottage").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.SANDSTONE, "sandcotta").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
 
-        SETS.add(GenSet.builder(() -> Blocks.SANDSTONE).sets(NATURAL_TONES).types(b -> new BlockGen(b) {
+        SETS.add(GenSet.builder(() -> Blocks.SANDSTONE).sets(NATURAL_TONES).types((s, b) -> new BlockGen(s, b) {
             @Override
             public void addBlockStates(BlockStates gen, TextureSet textures) {
                 ResourceLocation basePath = this.generated.getRegistryName();
@@ -92,7 +93,7 @@ public class SetSetup {
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_metal").withBase(RoofGen.Metal::new).sets(ROOF_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_tile").withBase(RoofGen.Tile::new).sets(ROOF_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_shingle").withBase(RoofGen.Shingle::new).sets(ROOF_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
-        SETS.add(GenSet.builder(() -> Blocks.IRON_BARS, "screen").withBase(BlockGen::new).sets(LMD_TYPES).types(sswtTypes()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.GLASS, "screen").withBase(BlockGen::new).customProperties(p -> p.sound(SoundType.METAL)).sets(LMD_TYPES).types(sswtTypes()).types(PaneGen::new).renderType(RenderTypeWrapper::cutout).build());
 
         SETS.add(GenSet.builder(() -> Blocks.DIRT).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
         SETS.add(GenSet.builder(() -> Blocks.COARSE_DIRT).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
@@ -118,7 +119,7 @@ public class SetSetup {
         SETS.add(GenSet.builder(() -> Blocks.SAND, "fiber_carpet").sets(LMD_TYPES, List.of("sand", "red_sand")).types(HorizontalCarpetGen::new).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
 
         SETS.add(GenSet.builder(() -> Blocks.CHAIN, "chain_coated").sets(DYE_COLORS).types(ChainGen::new).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
-        SETS.add(GenSet.builder(() -> Blocks.CHAIN, "pylon").sets(DYE_COLORS).types(b -> new ChainGen(b) {
+        SETS.add(GenSet.builder(() -> Blocks.CHAIN, "pylon").sets(DYE_COLORS).types((s, b) -> new ChainGen(s, b) {
             @Override
             protected TwoWayBlock generate() {
                 return new TwoWayBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).lightLevel(s -> 15));
@@ -154,9 +155,9 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, "fence_" + name).types(SWDMFenceGen::new).sets(FENCE_TYPES).blockTextures(swdmFences(name)).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
-            SETS.add(GenSet.builder(() -> planks, "beam_" + name + "_planks").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
-            SETS.add(GenSet.builder(() -> log, "beam_" + name + "_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
-            SETS.add(GenSet.builder(() -> strippedLog, "beam_" + name + "_stripped_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> planks, "beam_" + name + "_planks").withBase((s, b) -> cast(new BeamGen(s, b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> log, "beam_" + name + "_log").withBase((s, b) -> cast(new BeamGen(s, b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> strippedLog, "beam_" + name + "_stripped_log").withBase((s, b) -> cast(new BeamGen(s, b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
             for (int variant = 1; variant <= LEAVES_VARIANTS; variant++) { // Starting loops at 1.. yuck.
                 SETS.add(GenSet.builder(() -> leaves, name + "_leaves_variant" + variant).withBase(BlockGen::new).types(sswtTypes()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.LEAVES).build());
@@ -177,9 +178,9 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> strippedStem).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
-            SETS.add(GenSet.builder(() -> planks, "beam_" + name + "_planks").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
-            SETS.add(GenSet.builder(() -> stem, "beam_" + name + "_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
-            SETS.add(GenSet.builder(() -> strippedStem, "beam_" + name + "_stripped_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> planks, "beam_" + name + "_planks").withBase((s, b) -> cast(new BeamGen(s, b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> stem, "beam_" + name + "_log").withBase((s, b) -> cast(new BeamGen(s, b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> strippedStem, "beam_" + name + "_stripped_log").withBase((s, b) -> cast(new BeamGen(s, b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
             SETS.add(GenSet.builder(() -> planks, name).types(StickGen::new).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, name).types(BookshelfGen::new).blockTextures(bookshelf()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
@@ -195,15 +196,15 @@ public class SetSetup {
             SETS.add(GenSet.builder(log).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(strippedLog).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
-            SETS.add(GenSet.builder(planks, "beam_" + name + "_planks").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
-            SETS.add(GenSet.builder(log, "beam_" + name + "_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
-            SETS.add(GenSet.builder(strippedLog, "beam_" + name + "_stripped_log").withBase(b -> cast(new BeamGen(b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(planks, "beam_" + name + "_planks").withBase((s, b) -> cast(new BeamGen(s, b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(log, "beam_" + name + "_log").withBase((s, b) -> cast(new BeamGen(s, b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(strippedLog, "beam_" + name + "_stripped_log").withBase((s, b) -> cast(new BeamGen(s, b))).blockTextures(beams()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
             SETS.add(GenSet.builder(planks, name).types(StickGen::new).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(planks, name).types(BookshelfGen::new).blockTextures(bookshelf()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(planks, name).types(DoorGen::new).blockTextures(doors()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
-            SETS.add(GenSet.builder(planks, name).withBase(b -> cast(new TrapDoorGen(b))).types(ShutterGen::new).blockTextures(trapdoors()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(planks, name).withBase((s, b) -> cast(new TrapDoorGen(s, b))).types(ShutterGen::new).blockTextures(trapdoors()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(planks, "fence_" + name).types(SWDMFenceGen::new).sets(FENCE_TYPES).blockTextures(swdmFences(name)).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
         });
 
@@ -212,12 +213,12 @@ public class SetSetup {
             VANILLA_WOODS.forEach(wood -> {
                 if (wood.equals(variation)) return;
                 Block planks = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(wood + "_planks"));
-                SETS.add(GenSet.builder(() -> planks, wood).types(b -> new TrapdoorVariationGen(b, variation), b -> new DoorVariationGen(b, variation)).blockTextures(variationDoors()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+                SETS.add(GenSet.builder(() -> planks, wood).types((s, b) -> new TrapdoorVariationGen(s, b, variation), (s, b) -> new DoorVariationGen(s, b, variation), (s, b) -> new ShutterVariationGen(s, b, variation)).blockTextures(variationDoors()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             });
             MODDED_WOODS.forEach(wood -> {
                 if (wood.equals(variation)) return;
                 RegistryObject<Block> planks = BlockSetup.MANUAL_BLOCKS.get(SWDM.res(wood + "_planks"));
-                SETS.add(GenSet.builder(planks, wood).types(b -> new TrapdoorVariationGen(b, variation), b -> new DoorVariationGen(b, variation)).blockTextures(variationDoors()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+                SETS.add(GenSet.builder(planks, wood).types((s, b) -> new TrapdoorVariationGen(s, b, variation), (s, b) -> new DoorVariationGen(s, b, variation), (s, b) -> new ShutterVariationGen(s, b, variation)).blockTextures(variationDoors()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             });
         });
 
@@ -225,35 +226,45 @@ public class SetSetup {
         List.of("white", "black").forEach(color -> {
             RegistryObject<Block> smoothStone = BlockSetup.SMOOTH_STONE_BORDERLESS;
             ARRAY_NUMBERS.forEach(type -> {
-                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_number_" + type).withBase(b -> cast(new ArrayGen(b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE).build());
+                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_number_" + type).withBase((s, b) -> cast(new ArrayGen(s, b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE).build());
             });
             ARRAY_LETTERS.forEach(type -> {
-                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_letter_" + type).withBase(b -> cast(new ArrayGen(b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE).build());
+                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_letter_" + type).withBase((s, b) -> cast(new ArrayGen(s, b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE).build());
             });
             ARRAY_SYMBOLS.forEach(type -> {
-                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_symbol_" + type).withBase(b -> cast(new ArrayGen(b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE).build());
+                SETS.add(GenSet.builder(smoothStone, "array_" + color + "_symbol_" + type).withBase((s, b) -> cast(new ArrayGen(s, b))).blockTags(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE).build());
             });
         });
 
+        // Meter Points
+        NATURAL_TONES.forEach(tone -> {
+            Supplier<Block> sandstone = () -> ForgeRegistries.BLOCKS.getValue(SWDM.res("sandstone_" + tone));
+            SETS.add(GenSet.builder(sandstone, "meter_point_" + tone).types(MeterPointGen::new).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        });
+
+        List.of("sandstone", "red_sandstone").forEach(tone -> {
+            Supplier<Block> sandstone = () -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(tone));
+            SETS.add(GenSet.builder(sandstone, "meter_point_" + tone).types(MeterPointGen::new).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        });
 
         for (GenSet set : SETS) {
             set.register(BlockSetup.BLOCKS, ItemSetup.ITEMS);
         }
     }
 
-    private static List<Function<Supplier<Block>, GenType<?>>> sswtTypes() {
+    private static List<BiFunction<GenSet, Supplier<Block>, GenType<?>>> sswtTypes() {
         return List.of(StairGen::new, SlabGen::new, /*HalfWallGen::new,*/ TrapDoorGen::new);
     }
 
-    private static List<Function<Supplier<Block>, GenType<?>>> stoneTypes() {
-        return List.of(StairGen::new, SlabGen::new, /*HalfWallGen::new,*/ TrapDoorGen::new, b -> new ButtonGen(b, true), b -> new PressurePlateGen(b, PressurePlateBlock.Sensitivity.MOBS));
+    private static List<BiFunction<GenSet, Supplier<Block>, GenType<?>>> stoneTypes() {
+        return List.of(StairGen::new, SlabGen::new, /*HalfWallGen::new,*/ TrapDoorGen::new, (s, b) -> new ButtonGen(s, b, true), (s, b) -> new PressurePlateGen(s, b, PressurePlateBlock.Sensitivity.MOBS));
     }
 
-    private static List<Function<Supplier<Block>, GenType<?>>> woodenTypes() {
-        return List.of(StairGen::new, SlabGen::new, /*HalfWallGen::new,*/ TrapDoorGen::new, b -> new ButtonGen(b, false), b -> new PressurePlateGen(b, PressurePlateBlock.Sensitivity.EVERYTHING), FenceGateGen::new);
+    private static List<BiFunction<GenSet, Supplier<Block>, GenType<?>>> woodenTypes() {
+        return List.of(StairGen::new, SlabGen::new, /*HalfWallGen::new,*/ TrapDoorGen::new, (s, b) -> new ButtonGen(s, b, false), (s, b) -> new PressurePlateGen(s, b, PressurePlateBlock.Sensitivity.EVERYTHING), FenceGateGen::new);
     }
 
-    private static List<Function<Supplier<Block>, GenType<?>>> woodenPlanksTypes() {
+    private static List<BiFunction<GenSet, Supplier<Block>, GenType<?>>> woodenPlanksTypes() {
         return List.of(/*HalfWallGen::new,*/ TrapDoorGen::new);
     }
 
@@ -313,13 +324,15 @@ public class SetSetup {
 
 
     private static Consumer<TextureSet.Builder> variationDoors() {
-        BiFunction<String, String, String> transform = (name, type) -> {
+        BiFunction<String, String, String> doorTransform = (name, type) -> {
             int splitIndex = name.lastIndexOf("door");
             return name.substring(0, splitIndex) + "door_" + type + name.substring(splitIndex + 4);
         };
+
         return tex -> tex
-            .with("top", base -> TextureSet.Builder.block(new ResourceLocation(base.getNamespace(), transform.apply(base.getPath(), "top"))))
-            .with("bottom", base -> TextureSet.Builder.block(new ResourceLocation(base.getNamespace(), transform.apply(base.getPath(), "bottom"))));
+            .with("top", base -> TextureSet.Builder.block(new ResourceLocation(base.getNamespace(), doorTransform.apply(base.getPath(), "top"))))
+            .with("bottom", base -> TextureSet.Builder.block(new ResourceLocation(base.getNamespace(), doorTransform.apply(base.getPath(), "bottom"))))
+            .with("shutter", base -> TextureSet.Builder.block(new ResourceLocation(base.getNamespace(), base.getPath().replaceAll("shutter", "trapdoor"))));
     }
 
 

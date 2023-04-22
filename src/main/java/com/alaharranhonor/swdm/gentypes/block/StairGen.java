@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
 import com.alaharranhonor.swdm.datagen.ItemModels;
@@ -14,13 +15,13 @@ import java.util.function.Supplier;
 
 public class StairGen extends BasicBlockGen<StairBlock> {
 
-    public StairGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public StairGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
     protected StairBlock generate() {
-        return new StairBlock(() -> this.baseBlock.get().defaultBlockState(), BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
+        return new StairBlock(() -> this.baseBlock.get().defaultBlockState(), this.props());
     }
 
     @Override

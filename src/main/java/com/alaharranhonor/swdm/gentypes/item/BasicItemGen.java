@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.item;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
 import com.alaharranhonor.swdm.datagen.Languages;
@@ -16,8 +17,8 @@ import java.util.function.Supplier;
 
 public abstract class BasicItemGen<T extends Item> extends GenType<T> {
 
-    public BasicItemGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public BasicItemGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override

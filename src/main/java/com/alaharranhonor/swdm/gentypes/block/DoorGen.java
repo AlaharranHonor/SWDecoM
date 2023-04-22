@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.loot.BlockLoot;
@@ -14,13 +15,13 @@ import java.util.function.Supplier;
 
 public class DoorGen extends BasicBlockGen<DoorBlock> {
 
-    public DoorGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public DoorGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
     protected DoorBlock generate() {
-        return new DoorBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
+        return new DoorBlock(this.props());
     }
 
     @Override

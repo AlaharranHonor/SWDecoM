@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.block.HalfFenceBlock;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
@@ -13,13 +14,13 @@ import java.util.function.Supplier;
 
 public class HalfFenceGen extends BasicBlockGen<HalfFenceBlock> {
 
-    public HalfFenceGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public HalfFenceGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
     protected HalfFenceBlock generate() {
-        return new HalfFenceBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
+        return new HalfFenceBlock(this.props());
     }
 
     @Override

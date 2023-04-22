@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -13,13 +14,13 @@ import java.util.function.Supplier;
 
 public class LadderGen extends BasicBlockGen<LadderBlock> {
 
-    public LadderGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public LadderGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
     protected LadderBlock generate() {
-        return new LadderBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()).noOcclusion());
+        return new LadderBlock(this.props().noOcclusion());
     }
 
     @Override

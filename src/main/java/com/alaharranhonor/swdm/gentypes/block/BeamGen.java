@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.block.BeamBlock;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
@@ -13,13 +14,13 @@ import java.util.function.Supplier;
 
 public class BeamGen extends BasicBlockGen<BeamBlock> {
 
-    public BeamGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public BeamGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
     protected BeamBlock generate() {
-        return new BeamBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
+        return new BeamBlock(this.props());
     }
 
     @Override

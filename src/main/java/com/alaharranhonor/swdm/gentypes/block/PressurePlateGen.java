@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -15,14 +16,14 @@ public class PressurePlateGen extends BasicBlockGen<PressurePlateBlock> {
 
     private final PressurePlateBlock.Sensitivity sensitivity;
 
-    public PressurePlateGen(Supplier<Block> baseBlock, PressurePlateBlock.Sensitivity sensitivity) {
-        super(baseBlock);
+    public PressurePlateGen(GenSet set, Supplier<Block> baseBlock, PressurePlateBlock.Sensitivity sensitivity) {
+        super(set, baseBlock);
         this.sensitivity = sensitivity;
     }
 
     @Override
     protected PressurePlateBlock generate() {
-        return new PressurePlateBlock(this.sensitivity, BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()).noCollission());
+        return new PressurePlateBlock(this.sensitivity, this.props().noCollission());
     }
 
     @Override

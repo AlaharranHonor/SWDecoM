@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -13,13 +14,13 @@ import java.util.function.Supplier;
 
 public class FenceGateGen extends BasicBlockGen<FenceGateBlock> {
 
-    public FenceGateGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public FenceGateGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
     protected FenceGateBlock generate() {
-        return new FenceGateBlock(BlockBehaviour.Properties.copy(this.baseBlock.get()).color(this.baseBlock.get().defaultMaterialColor()));
+        return new FenceGateBlock(this.props());
     }
 
     @Override

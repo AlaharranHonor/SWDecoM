@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
 import com.alaharranhonor.swdm.datagen.ItemModels;
@@ -13,13 +14,13 @@ import java.util.function.Supplier;
 
 public class SandGen extends BasicBlockGen<SandBlock> {
 
-    public SandGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public SandGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
     protected SandBlock generate() {
-        return new SandBlock(14406560, BlockBehaviour.Properties.copy(this.baseBlock.get()));
+        return new SandBlock(14406560, this.props());
     }
 
     @Override

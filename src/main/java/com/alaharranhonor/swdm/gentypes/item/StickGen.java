@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.item;
 
+import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.datagen.ItemModels;
 import com.alaharranhonor.swdm.datagen.ItemTags;
@@ -16,8 +17,8 @@ import java.util.function.Supplier;
 
 public class StickGen extends BasicItemGen<Item> {
 
-    public StickGen(Supplier<Block> baseBlock) {
-        super(baseBlock);
+    public StickGen(GenSet set, Supplier<Block> baseBlock) {
+        super(set, baseBlock);
     }
 
     @Override
