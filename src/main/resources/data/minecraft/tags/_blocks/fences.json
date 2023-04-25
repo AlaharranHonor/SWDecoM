@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#minecraft:wooden_fences",
-    "minecraft:nether_brick_fence",
-    "swdm:thatch_fence",
-    "swdm:bamboo_fence"
-  ]
-}

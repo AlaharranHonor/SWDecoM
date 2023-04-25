@@ -1,6 +1,6 @@
 package com.alaharranhonor.swdm.block;
 
-import com.alaharranhonor.swdm.registry.SWDMTags;
+import com.alaharranhonor.swdm.registry.TagSetup;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -37,7 +37,7 @@ public class HalfFenceBlock extends FenceBlock {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pPlayer.getItemInHand(pHand).is(SWDMTags.STATE_CYCLER)) {
+        if (!pPlayer.getItemInHand(pHand).is(TagSetup.STATE_CYCLER)) {
             return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
         }
 

@@ -4,11 +4,9 @@ import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.block.HalfWallBlock;
 import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
-import com.alaharranhonor.swdm.datagen.BlockStates;
-import com.alaharranhonor.swdm.datagen.BlockTags;
-import com.alaharranhonor.swdm.datagen.ItemModels;
-import com.alaharranhonor.swdm.datagen.ItemTags;
+import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -18,6 +16,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
@@ -40,8 +39,6 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
         this.lowerBlock = blocks.register(name + this.getSuffix() + "_lower", () -> this.generateHalfWall(this.upperBlock));
         this.upperBlock = blocks.register(name + this.getSuffix() + "_upper", () -> this.generateHalfWall(this));
         items.register(name + this.getSuffix(), () -> new BlockItem(this.get(), new Item.Properties().tab(SWDM.TAB)));
-        items.register(name + this.getSuffix() + "_lower", () -> new BlockItem(this.get(), new Item.Properties().tab(SWDM.TAB)));
-        items.register(name + this.getSuffix() + "_upper", () -> new BlockItem(this.get(), new Item.Properties().tab(SWDM.TAB)));
         return true;
     }
 
@@ -51,7 +48,7 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
     }
 
     private HalfWallBlock generateHalfWall(Supplier<HalfWallBlock> next) {
-        return new HalfWallBlock(this.props(), next);
+        return new HalfWallBlock(this.props(), this, next);
     }
 
     @Override
@@ -59,14 +56,31 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
         String path = this.generated.getRegistryName().getPath();
         ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 5));
         gen.tintedHalfWall(this.generated, SWDMBlockstateProperties.WallType.FULL, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
-        //gen.tintedHalfWall(this.lowerBlock.get(), textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
-        //gen.tintedHalfWall(this.upperBlock.get(), textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
+        gen.tintedHalfWall(this.lowerBlock.get(), SWDMBlockstateProperties.WallType.LOWER, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
+        gen.tintedHalfWall(this.upperBlock.get(), SWDMBlockstateProperties.WallType.UPPER, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
     }
 
     @Override
     public void addItemModels(ItemModels gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        gen.withExistingParent(path, gen.modLoc("block/" + path + "_inventory")); // Item model
+        gen.withExistingParent(path, gen.modLoc("block/" + path + "_inventory"));
+    }
+
+    @Override
+    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+        gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 1);
+    }
+
+    @Override
+    public void addLang(Languages gen) {
+        super.addLang(gen);
+    }
+
+    @Override
+    public void addLootTables(LootTables.ModLootTables gen) {
+        gen.dropSelf(this.generated);
+        gen.dropOther(this.lowerBlock.get(), this.generated);
+        gen.dropOther(this.upperBlock.get(), this.generated);
     }
 
     @Override
@@ -76,7 +90,7 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
 
     @Override
     public void addBlockTags(BlockTags gen) {
-        gen.tag(net.minecraft.tags.BlockTags.WALLS).add(this.generated);
+        gen.tag(net.minecraft.tags.BlockTags.WALLS).add(this.generated, this.lowerBlock.get(), this.upperBlock.get());
     }
 
     @Override

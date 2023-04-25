@@ -2,7 +2,7 @@ package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.registry.ItemSetup;
-import com.alaharranhonor.swdm.registry.SWDMTags;
+import com.alaharranhonor.swdm.registry.TagSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -19,7 +19,7 @@ public class ItemTags extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
-        this.tag(SWDMTags.STATE_CYCLER).add(ItemSetup.CHANGE_TOOL.get());
+        this.tag(TagSetup.STATE_CYCLER).add(ItemSetup.CHANGE_TOOL.get());
 
         for (GenSet set : SetSetup.SETS) {
             set.genTypes.forEach(genType -> {

@@ -1,17 +1,20 @@
 package com.alaharranhonor.swdm.block;
 
-import com.alaharranhonor.swdm.registry.SWDMTags;
+import com.alaharranhonor.swdm.registry.TagSetup;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WallSide;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -20,16 +23,18 @@ import java.util.function.Supplier;
 
 public class HalfWallBlock extends WallBlock {
 
+    private final Supplier<HalfWallBlock> clone;
     private final Supplier<HalfWallBlock> next;
 
-    public HalfWallBlock(Properties properties, Supplier<HalfWallBlock> next) {
+    public HalfWallBlock(Properties properties, Supplier<HalfWallBlock> clone, Supplier<HalfWallBlock> next) {
         super(properties);
+        this.clone = clone;
         this.next = next;
     }
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pPlayer.getItemInHand(pHand).is(SWDMTags.STATE_CYCLER)) {
+        if (!pPlayer.getItemInHand(pHand).is(TagSetup.STATE_CYCLER)) {
             return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
         }
 
@@ -37,7 +42,6 @@ public class HalfWallBlock extends WallBlock {
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
-    // pBuilder.add(UP, NORTH_WALL, EAST_WALL, WEST_WALL, SOUTH_WALL, WATERLOGGED);
     public BlockState nextState(BlockState state) {
         BlockState nextState = this.next.get().defaultBlockState();
         nextState = nextState.setValue(UP, state.getValue(UP));
@@ -47,6 +51,11 @@ public class HalfWallBlock extends WallBlock {
         nextState = nextState.setValue(SOUTH_WALL, state.getValue(SOUTH_WALL));
         nextState = nextState.setValue(WATERLOGGED, state.getValue(WATERLOGGED));
         return nextState;
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+        return new ItemStack(this.clone.get());
     }
 
     @Override

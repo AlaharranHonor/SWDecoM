@@ -3,10 +3,13 @@ package com.alaharranhonor.swdm.block;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
+import java.util.Locale;
+
 public class SWDMBlockstateProperties {
     public static final EnumProperty<Tileable> TILEABLE = EnumProperty.create("tile", Tileable.class);
     public static final EnumProperty<TwoWay> TWO_WAY = EnumProperty.create("two_way", TwoWay.class);
     public static final EnumProperty<WallType> WALL = EnumProperty.create("wall", WallType.class);
+    public static final EnumProperty<ShelfType> SHELF = EnumProperty.create("shelf", ShelfType.class);
 
     public enum Tileable implements StringRepresentable {
         SINGLE,
@@ -56,6 +59,23 @@ public class SWDMBlockstateProperties {
         @Override
         public String getSerializedName() {
             return this == UPPER ? "upper" : this == LOWER ? "lower" : "full";
+        }
+    }
+
+    public enum ShelfType implements StringRepresentable {
+        UPPER_FRONT(0), UPPER_MIDDLE(0), UPPER_BACK(0),
+        MIDDLE_FRONT(1), MIDDLE_MIDDLE(1), MIDDLE_BACK(1),
+        LOWER_FRONT(2), LOWER_MIDDLE(2), LOWER_BACK(2);
+
+        public final int shapeIndex;
+
+        ShelfType(int shapeIndex) {
+            this.shapeIndex = shapeIndex;
+        }
+
+        @Override
+        public String getSerializedName() {
+            return this.name().toLowerCase(Locale.ROOT);
         }
     }
 }

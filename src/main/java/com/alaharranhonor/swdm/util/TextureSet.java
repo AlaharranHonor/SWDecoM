@@ -62,6 +62,10 @@ public class TextureSet {
             return RL.prefix(res, "block/");
         }
 
+        public static ResourceLocation entity(ResourceLocation res) {
+            return RL.prefix(res, "entity/");
+        }
+
         public static ResourceLocation item(ResourceLocation res) {
             return RL.prefix(res, "item/");
         }

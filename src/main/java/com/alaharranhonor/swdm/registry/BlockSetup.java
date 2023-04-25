@@ -2,12 +2,11 @@ package com.alaharranhonor.swdm.registry;
 
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.block.DecoWorkshopBlock;
+import com.alaharranhonor.swdm.block.entity.SWDMSignBlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -16,18 +15,22 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
 public class BlockSetup {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SWDM.MOD_ID);
-    public static final Map<ResourceLocation, RegistryObject<Block>> MANUAL_BLOCKS = new HashMap<>();
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, SWDM.MOD_ID);
 
-    //public static final RegistryObject<Block> MANGROVE_PLANKS = register("mangrove_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.COLOR_RED)));
-    //public static final RegistryObject<Block> MANGROVE_LOG = register("mangrove_log", () -> log(MaterialColor.COLOR_RED, MaterialColor.COLOR_RED));
-    //public static final RegistryObject<Block> MANGROVE_STRIPPED_LOG = register("mangrove_stripped_log", () -> log(MaterialColor.COLOR_RED, MaterialColor.COLOR_RED));
+    // Registered sign blocks are stored for the block set for sign block entity
+    public static final List<RegistryObject<? extends SignBlock>> SIGN_BLOCKS = new ArrayList<>();
+    public static RegistryObject<BlockEntityType<SWDMSignBlockEntity>> SIGN_BLOCK_ENTITY;
+
+    public static final Map<ResourceLocation, RegistryObject<Block>> MANUAL_BLOCKS = new HashMap<>();
 
     public static final RegistryObject<Block> WHITEWASH_PLANKS = register("whitewash_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.SNOW)));
     public static final RegistryObject<Block> WHITEWASH_LOG = register("whitewash_log", () -> log(MaterialColor.SNOW, MaterialColor.SNOW));
@@ -48,6 +51,9 @@ public class BlockSetup {
 
     public static void init(IEventBus modBus) {
         BLOCKS.register(modBus);
+        BLOCK_ENTITIES.register(modBus);
+
+        SIGN_BLOCK_ENTITY = BLOCK_ENTITIES.register("sign", () -> BlockEntityType.Builder.of(SWDMSignBlockEntity::new, SIGN_BLOCKS.stream().map(RegistryObject::get).toList().toArray(new Block[0])).build(null));
     }
 
     public static RegistryObject<Block> register(String name, Supplier<Block> supplier) {

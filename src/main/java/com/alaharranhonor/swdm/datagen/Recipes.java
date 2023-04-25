@@ -95,6 +95,8 @@ public class Recipes extends RecipeProvider {
         this.defaultDecoBench(builder, BlockSetup.WHITEWASH_LOG.get(), BlockSetup.WHITEWASH_PLANKS.get());
         this.defaultDecoBench(builder, BlockSetup.WHITEWASH_STRIPPED_LOG.get(), BlockSetup.WHITEWASH_PLANKS.get());
         this.defaultDecoBench(builder, BlockSetup.SMOOTH_STONE_BORDERLESS.get(), Blocks.SMOOTH_STONE);
+        this.defaultDecoBench(builder, ItemSetup.INVISIBLE_ITEM_FRAME.get(), Items.ITEM_FRAME, 4);
+        this.defaultDecoBench(builder, ItemSetup.MIRROR_PAINTING.get(), Items.PAINTING);
     }
 
     public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, ItemLike input, int amount) {

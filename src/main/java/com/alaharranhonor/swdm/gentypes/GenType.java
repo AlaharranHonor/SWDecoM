@@ -52,6 +52,7 @@ public abstract class GenType<T> implements Supplier<T> {
     public abstract void addLootTables(LootTables.ModLootTables gen);
     public abstract String getSuffix();
     public void setRenderType(RenderType renderType) {};
+    public void setupClient() {}
 
     public void registerBlockColors(BlockColors reg, BlockColor color) {}
     public void registerItemColors(ItemColors reg, ItemColor color) {}

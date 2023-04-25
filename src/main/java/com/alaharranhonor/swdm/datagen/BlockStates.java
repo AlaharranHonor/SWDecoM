@@ -48,6 +48,17 @@ public class BlockStates extends BlockStateProvider {
         }
     }
 
+    public void shelf(ShelfBlock block, ResourceLocation texture) {
+        this.getVariantBuilder(block).forAllStates(state -> {
+            SWDMBlockstateProperties.ShelfType shelfType = state.getValue(ShelfBlock.SHELF_TYPE);
+            Direction.Axis axis = state.getValue(ShelfBlock.AXIS);
+            return ConfiguredModel.builder().modelFile(
+                    this.models().withExistingParent(block.getRegistryName().getPath() + "_" + shelfType.getSerializedName(), this.modLoc("shelf_" + shelfType.getSerializedName())).texture("texture", texture)
+                ).rotationY(axis == Direction.Axis.X ? 90 : 0)
+                .build();
+        });
+    }
+
     public void tintedStairs(StairBlock block, ResourceLocation texture) {
         this.tintedStairs(block, texture, texture, texture);
     }
@@ -204,6 +215,54 @@ public class BlockStates extends BlockStateProvider {
         );
     }
 
+    public void halfWallBlock(HalfWallBlock block, SWDMBlockstateProperties.WallType wallType,
+                              ModelFile post, ModelFile side, ModelFile sideTall,
+                              ModelFile halfPost, ModelFile halfSide
+    ) {
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(block);
+
+        if (wallType == SWDMBlockstateProperties.WallType.FULL) {
+            builder.part().modelFile(post).addModel().condition(HalfWallBlock.UP, true);
+        }
+        if (wallType == SWDMBlockstateProperties.WallType.LOWER) {
+            builder.part().modelFile(halfPost).addModel().condition(HalfWallBlock.UP, true);
+        }
+        if (wallType == SWDMBlockstateProperties.WallType.UPPER) {
+            builder.part().modelFile(halfPost).rotationX(180).addModel().condition(HalfWallBlock.UP, true);
+        }
+
+        BlockStateProvider.WALL_PROPS.entrySet().stream()
+            .filter(e -> e.getKey().getAxis().isHorizontal())
+            .forEach(entry -> {
+                if (wallType == SWDMBlockstateProperties.WallType.FULL) {
+                    wallSidePartFull(builder, side, entry, WallSide.LOW);
+                    wallSidePartFull(builder, sideTall, entry, WallSide.TALL);
+                } else {
+                    wallSidePartHalf(builder, halfSide, entry, wallType);
+                    wallSidePartHalf(builder, halfSide, entry, wallType);
+                }
+            });
+    }
+
+    private void wallSidePartFull(MultiPartBlockStateBuilder builder, ModelFile fullWall, Map.Entry<Direction, Property<WallSide>> entry, WallSide height) {
+        builder.part()
+            .modelFile(fullWall)
+            .rotationY((((int) entry.getKey().toYRot()) + 180) % 360)
+            .uvLock(true)
+            .addModel()
+            .condition(entry.getValue(), height);
+    }
+
+    private void wallSidePartHalf(MultiPartBlockStateBuilder builder, ModelFile halfWall, Map.Entry<Direction, Property<WallSide>> entry, SWDMBlockstateProperties.WallType type) {
+        builder.part()
+            .modelFile(halfWall)
+            .rotationX(type == SWDMBlockstateProperties.WallType.UPPER ? 180 : 0)
+            .rotationY((((int) entry.getKey().toYRot()) + (type != SWDMBlockstateProperties.WallType.UPPER ? 180 : 0)) % 360)
+            .uvLock(true)
+            .addModel()
+            .condition(entry.getValue(), WallSide.TALL, WallSide.LOW);
+    }
+
     public void halfFenceBlockItem(HalfFenceBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
         this.models().withExistingParent(block.getRegistryName().getPath() + "_inventory", modLoc("block/fence_inventory"))
             .texture("side", side)
@@ -292,42 +351,6 @@ public class BlockStates extends BlockStateProvider {
                 }
             }
         });
-    }
-
-    public void halfWallBlock(HalfWallBlock block, SWDMBlockstateProperties.WallType wallType,
-                              ModelFile post, ModelFile side, ModelFile sideTall,
-                              ModelFile halfPost, ModelFile halfSide
-    ) {
-        MultiPartBlockStateBuilder builder = getMultipartBuilder(block);
-
-        if (wallType == SWDMBlockstateProperties.WallType.FULL) {
-            builder.part().modelFile(post).addModel().condition(HalfWallBlock.UP, true);
-        }
-        if (wallType == SWDMBlockstateProperties.WallType.LOWER) {
-            builder.part().modelFile(halfPost).addModel().condition(HalfWallBlock.UP, true);
-        }
-        if (wallType == SWDMBlockstateProperties.WallType.UPPER) {
-            builder.part().modelFile(halfPost).rotationX(180).addModel().condition(HalfWallBlock.UP, true);
-        }
-
-        BlockStateProvider.WALL_PROPS.entrySet().stream()
-            .filter(e -> e.getKey().getAxis().isHorizontal())
-            .forEach(entry -> {
-                for (SWDMBlockstateProperties.WallType type : SWDMBlockstateProperties.WallType.values()) {
-                    halfWallSidePart(builder, side, halfSide, entry, WallSide.LOW, type);
-                    halfWallSidePart(builder, sideTall, halfSide, entry, WallSide.TALL, type);
-                }
-            });
-    }
-
-    private void halfWallSidePart(MultiPartBlockStateBuilder builder, ModelFile fullWall, ModelFile halfWall, Map.Entry<Direction, Property<WallSide>> entry, WallSide height, SWDMBlockstateProperties.WallType type) {
-        builder.part()
-            .modelFile(type == SWDMBlockstateProperties.WallType.FULL ? fullWall : halfWall)
-            .rotationX(type == SWDMBlockstateProperties.WallType.UPPER ? 180 : 0)
-            .rotationY((((int) entry.getKey().toYRot()) + (type != SWDMBlockstateProperties.WallType.UPPER ? 180 : 0)) % 360)
-            .uvLock(true)
-            .addModel()
-            .condition(entry.getValue(), height);
     }
 
     public BlockModelBuilder halfFencePost(String name, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {

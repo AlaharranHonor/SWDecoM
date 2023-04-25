@@ -18,6 +18,8 @@ public class ItemModels extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		this.withExistingParent(ItemSetup.CHANGE_TOOL.getId().getPath(), "item/handheld").texture("layer0", "item/change_tool");
+		this.withExistingParent(ItemSetup.INVISIBLE_ITEM_FRAME.getId().getPath(), "item/generated").texture("layer0", "item/invisible_item_frame_item");
+		this.withExistingParent(ItemSetup.MIRROR_PAINTING.getId().getPath(), "item/generated").texture("layer0", "item/mirror_painting_item");
 
 		for (GenSet set : SetSetup.SETS) {
 			set.genTypes.forEach(genType -> {
