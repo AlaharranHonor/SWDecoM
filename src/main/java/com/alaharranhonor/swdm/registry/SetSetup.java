@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -35,6 +34,7 @@ import java.util.stream.Collectors;
 
 public class SetSetup {
 
+    public static final List<String> STONES = List.of("stone", "andesite", "diorite", "granite");
     public static final List<String> STONE_TYPES = List.of("mossy", "cracked", "mossy_more");
     public static final List<String> FENCE_TYPES = List.of("lattice", "picket", "slat", "solid", "sturdy");
 
@@ -64,16 +64,17 @@ public class SetSetup {
         SETS.add(GenSet.builder(() -> Blocks.STONE).withBase(BlockGen::new).sets(LMD_TYPES, WARM_COOL).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.STONE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.STONE).withBase(BlockGen::new).sets(LMD_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.CLAY).withBase(BlockGen::new).sets(LMD_TYPES).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
         SETS.add(GenSet.builder(() -> Blocks.COBBLESTONE).withBase(BlockGen::new).sets(LMD_TYPES, WARM_COOL).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
-        SETS.add(GenSet.builder(() -> Blocks.BRICKS, "brick").withBase(BlockGen::new).sets(LMD_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
-        SETS.add(GenSet.builder(() -> Blocks.BRICKS, "brick").withBase(BlockGen::new).sets(LMD_TYPES, STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.BRICKS).withBase(BlockGen::new).sets(LMD_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.BRICKS).withBase(BlockGen::new).sets(LMD_TYPES, STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.COBBLESTONE, "paver").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.COBBLESTONE, "bricks_paver").withBase(BlockGen::new).sets(NATURAL_TONES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.DIORITE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.GRANITE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.ANDESITE).withBase(BlockGen::new).sets(STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
-        SETS.add(GenSet.builder(() -> Blocks.STONE_BRICKS, "stone_brick").withBase(BlockGen::new).sets(LMD_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
-        SETS.add(GenSet.builder(() -> Blocks.STONE_BRICKS, "stone_brick").withBase(BlockGen::new).sets(LMD_TYPES, STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE_BRICKS).withBase(BlockGen::new).sets(LMD_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE_BRICKS).withBase(BlockGen::new).sets(LMD_TYPES, STONE_TYPES).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.DARK_PRISMARINE).withBase(BlockGen::new).sets(DYE_COLORS).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA).withBase(BlockGen::new).sets(CUSTOM_COLORS).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.GLASS, "bricks_glass").withBase(BlockGen::new).sets(DYE_COLORS).types(sswtTypes()).renderType(RenderTypeWrapper::cutout).build());
@@ -107,7 +108,7 @@ public class SetSetup {
         SETS.add(GenSet.builder(() -> Blocks.COARSE_DIRT).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
 
         SETS.add(GenSet.builder(() -> Blocks.SNOW_BLOCK).types(sswtTypes()).blockTextures(t -> t.with("", base -> new ResourceLocation("block/snow"))).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
-        SETS.add(GenSet.builder(() -> Blocks.BONE_BLOCK, "bianco_block").withBase(BlockGen::new).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE, "bianco_block").withBase(BlockGen::new).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
 
         // TODO
         //SETS.add(GenSet.builder(() -> Blocks.GRASS_BLOCK).types(stoneTypes()).textures(grassyTextureSet()).renderType(RenderType.cutoutMipped())
@@ -157,6 +158,7 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> planks).types(woodenPlanksTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> log).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> strippedLog).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> leaves).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
             SETS.add(GenSet.builder(() -> planks, name).types(StickGen::new).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
@@ -198,6 +200,7 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> planks, "shelf_" + name).withBase((s, b) -> cast(new ShelfGen(s, b))).blockTextures(shelf(planks.getRegistryName())).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
         });
 
+        SETS.add(GenSet.builder(BlockSetup.THATCH).types(StairGen::new, SlabGen::new, HalfWallGen::new, (s, b) -> new ButtonGen(s, b, false), (s, b) -> new PressurePlateGen(s, b, PressurePlateBlock.Sensitivity.EVERYTHING)).blockTags(BlockTags.MINEABLE_WITH_HOE).build());
         MODDED_WOODS.forEach(name -> {
             RegistryObject<Block> planks = BlockSetup.MANUAL_BLOCKS.get(SWDM.res(name + "_planks"));
             RegistryObject<Block> log = BlockSetup.MANUAL_BLOCKS.get(SWDM.res(name + "_log"));

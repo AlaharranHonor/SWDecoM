@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Supplier;
 
@@ -21,7 +22,12 @@ public class StairGen extends BasicBlockGen<StairBlock> {
 
     @Override
     protected StairBlock generate() {
-        return new StairBlock(() -> this.baseBlock.get().defaultBlockState(), this.props());
+        return new StairBlock(() -> this.baseBlock.get().defaultBlockState(), this.props()){
+            @Override
+            public boolean isRandomlyTicking(BlockState pState) {
+                return false;
+            }
+        };
     }
 
     @Override

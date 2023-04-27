@@ -40,7 +40,7 @@ public class BlockSetup {
     public static final RegistryObject<Block> BAMBOO_LOG = register("bamboo_log", () -> log(MaterialColor.COLOR_GREEN, MaterialColor.COLOR_GREEN));
     public static final RegistryObject<Block> BAMBOO_STRIPPED_LOG = register("bamboo_stripped_log", () -> log(MaterialColor.COLOR_GREEN, MaterialColor.COLOR_GREEN));
 
-    public static final RegistryObject<Block> THATCH_BLOCK = register("thatch_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
+    public static final RegistryObject<Block> THATCH = register("thatch", () -> new Block(BlockBehaviour.Properties.copy(Blocks.HAY_BLOCK)));
     public static final RegistryObject<Block> THATCH_PLANKS = register("thatch_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.COLOR_YELLOW)));
     public static final RegistryObject<Block> THATCH_LOG = register("thatch_log", () -> log(MaterialColor.COLOR_YELLOW, MaterialColor.COLOR_YELLOW));
     public static final RegistryObject<Block> THATCH_STRIPPED_LOG = register("thatch_stripped_log", () -> log(MaterialColor.COLOR_YELLOW, MaterialColor.COLOR_YELLOW));

@@ -28,15 +28,15 @@ public class BlockStates extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         BlockSetup.MANUAL_BLOCKS.values().forEach(block -> {
-            if (block.getId().equals(BlockSetup.THATCH_BLOCK.getId())) {
+            if (block.getId().equals(BlockSetup.THATCH.getId())) {
                 return;
             }
             this.simpleBlock(block.get());
             this.itemModels().withExistingParent(block.getId().getPath(), new ResourceLocation(block.getId().getNamespace(), "block/" + block.getId().getPath()));
         });
 
-        this.simpleBlock(BlockSetup.THATCH_BLOCK.get(), this.models().cubeColumn(BlockSetup.THATCH_BLOCK.getId().getPath(), this.modLoc("block/thatch_block"), this.modLoc("block/thatch_block_top")));
-        this.itemModels().withExistingParent(BlockSetup.THATCH_BLOCK.getId().getPath(), RL.prefix(BlockSetup.THATCH_BLOCK.getId(), "block/"));
+        this.simpleBlock(BlockSetup.THATCH.get(), this.models().cubeColumn(BlockSetup.THATCH.getId().getPath(), this.modLoc("block/thatch"), this.modLoc("block/thatch_top")));
+        this.itemModels().withExistingParent(BlockSetup.THATCH.getId().getPath(), RL.prefix(BlockSetup.THATCH.getId(), "block/"));
 
         this.simpleBlock(BlockSetup.DECO_WORKSHOP.get(), models().cubeBottomTop(BlockSetup.DECO_WORKSHOP.getId().getPath(), this.modLoc("block/deco_workshop_side"), this.modLoc("block/deco_workshop_bot"), this.modLoc("block/deco_workshop_top")));
         this.itemModels().withExistingParent(BlockSetup.DECO_WORKSHOP.getId().getPath(), this.modLoc("block/deco_workshop"));

@@ -43,7 +43,7 @@ public class BlockTags extends BlockTagsProvider {
         );
 
         this.tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_HOE).add(
-            BlockSetup.THATCH_BLOCK.get()
+            BlockSetup.THATCH.get()
         );
 
         this.tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE).add(

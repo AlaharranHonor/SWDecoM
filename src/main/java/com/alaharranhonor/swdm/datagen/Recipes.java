@@ -1,7 +1,6 @@
 package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.alaharranhonor.swdm.registry.RecipeSetup;
@@ -10,13 +9,11 @@ import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
@@ -62,7 +59,7 @@ public class Recipes extends RecipeProvider {
             .unlockedBy("has_planks", has(ItemTags.PLANKS))
             .save(builder, "whitewash_planks_manual");
 
-        ShapelessRecipeBuilder.shapeless(BlockSetup.THATCH_BLOCK.get())
+        ShapelessRecipeBuilder.shapeless(BlockSetup.THATCH.get())
             .requires(Items.WHEAT).requires(ItemTags.PLANKS)
             .unlockedBy("has_planks", has(ItemTags.PLANKS))
             .save(builder);
@@ -86,9 +83,9 @@ public class Recipes extends RecipeProvider {
             .unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN))
             .save(builder);
 
-        this.defaultDecoBench(builder, BlockSetup.THATCH_PLANKS.get(), BlockSetup.THATCH_BLOCK.get());
-        this.defaultDecoBench(builder, BlockSetup.THATCH_LOG.get(), BlockSetup.THATCH_BLOCK.get());
-        this.defaultDecoBench(builder, BlockSetup.THATCH_STRIPPED_LOG.get(), BlockSetup.THATCH_BLOCK.get());
+        this.defaultDecoBench(builder, BlockSetup.THATCH_PLANKS.get(), BlockSetup.THATCH.get());
+        this.defaultDecoBench(builder, BlockSetup.THATCH_LOG.get(), BlockSetup.THATCH.get());
+        this.defaultDecoBench(builder, BlockSetup.THATCH_STRIPPED_LOG.get(), BlockSetup.THATCH.get());
         this.defaultDecoBench(builder, BlockSetup.BAMBOO_PLANKS.get(), Items.BAMBOO);
         this.defaultDecoBench(builder, BlockSetup.BAMBOO_LOG.get(), Items.BAMBOO);
         this.defaultDecoBench(builder, BlockSetup.BAMBOO_STRIPPED_LOG.get(), Items.BAMBOO);
