@@ -7,21 +7,20 @@ import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.CarpetBlock;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class HorizontalCarpetGen extends BasicBlockGen<HorizontalCarpetBlock> {
+public class CarpetGen extends BasicBlockGen<CarpetBlock> {
 
-    public HorizontalCarpetGen(GenSet set, Supplier<Block> baseBlock) {
+    public CarpetGen(GenSet set, Supplier<Block> baseBlock) {
         super(set, baseBlock);
     }
 
-
     @Override
-    protected HorizontalCarpetBlock generate() {
-        return new HorizontalCarpetBlock(this.props().noOcclusion());
+    protected CarpetBlock generate() {
+        return new CarpetBlock(this.props().noOcclusion());
     }
 
     @Override
@@ -32,13 +31,15 @@ public class HorizontalCarpetGen extends BasicBlockGen<HorizontalCarpetBlock> {
     @Override
     public void addBlockStates(BlockStates gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.generated.getRegistryName().getNamespace(), path);
-        gen.horizontalCarpet(this.generated, textures.get("top", basePath));
+        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 7));
+        gen.carpet(this.generated, textures.get("", basePath));
     }
 
     @Override
     public void addItemModels(ItemModels gen, TextureSet textures) {
-        gen.withExistingParent(this.generated.getRegistryName().getPath(), gen.modLoc("block/" + this.generated.getRegistryName().getPath()));
+        String path = this.generated.getRegistryName().getPath();
+        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 7));
+        gen.carpet(this.generated.getRegistryName().getPath(), textures.get("", basePath));
     }
 
     @Override
@@ -53,6 +54,6 @@ public class HorizontalCarpetGen extends BasicBlockGen<HorizontalCarpetBlock> {
 
     @Override
     public String getSuffix() {
-        return "";
+        return "_carpet";
     }
 }

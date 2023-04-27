@@ -15,6 +15,7 @@ public class ItemSetup {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, SWDM.MOD_ID);
 
+    public static final RegistryObject<Item> DECO_WORKSHOP = ITEMS.register("deco_workshop", () -> new BlockItem(BlockSetup.DECO_WORKSHOP.get(), new Item.Properties().tab(SWDM.TAB)));
     public static final RegistryObject<Item> CHANGE_TOOL = ITEMS.register("change_tool", () -> new Item(new Item.Properties().tab(SWDM.TAB)));
     public static final RegistryObject<Item> INVISIBLE_ITEM_FRAME = ITEMS.register("invisible_item_frame", () -> new InvisibleItemFrameItem(new Item.Properties().tab(SWDM.TAB)));
     public static final RegistryObject<Item> MIRROR_PAINTING = ITEMS.register("mirror_painting", () -> new MirrorPaintingItem(new Item.Properties().tab(SWDM.TAB)));
@@ -23,8 +24,6 @@ public class ItemSetup {
         BlockSetup.MANUAL_BLOCKS.values().forEach(block -> {
             ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(SWDM.TAB)));
         });
-
-        ITEMS.register("deco_workshop", () -> new BlockItem(BlockSetup.DECO_WORKSHOP.get(), new Item.Properties().tab(SWDM.TAB)));
 
         ITEMS.register(modBus);
     }

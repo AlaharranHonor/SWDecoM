@@ -30,6 +30,8 @@ public class ForgeEventBusSubscriber {
         }
 
         BlockState pState = event.getWorld().getBlockState(event.getPos());
+        if (!(pState.getBlock() instanceof ShelfBlock)) return;
+
         int stateOrdinal = pState.getValue(ShelfBlock.SHELF_TYPE).ordinal();
         int height = stateOrdinal / 3;
         int pos = stateOrdinal % 3;
@@ -43,7 +45,8 @@ public class ForgeEventBusSubscriber {
 
     @SubscribeEvent
     public static void remapBlocks(RegistryEvent.MissingMappings<Block> event) {
-        event.getMappings(SWDM.MOD_ID).forEach(mapping -> {
+        event.getAllMappings().forEach(mapping -> {
+            if (!mapping.key.getNamespace().equals(SWDM.MOD_ID) && !mapping.key.getNamespace().equals("swlm")) return;
             String key = mapping.key.getPath();
 
             for (String wood : SetSetup.ALL_WOODS) {
@@ -85,6 +88,7 @@ public class ForgeEventBusSubscriber {
                 if (remap(mapping, key, "mossy_" + lmd + "_brick", "bricks_" + lmd + "_mossy")) return;
                 if (remap(mapping, key, "more_mossy_" + lmd + "_brick", "bricks_" + lmd + "_mossy_more")) return;
                 if (remap(mapping, key, lmd + "_stone_brick", "stone_bricks_" + lmd)) return;
+                if (remap(mapping, key, lmd + "_stone_bricks", "stone_bricks_" + lmd)) return;
                 if (remap(mapping, key, "cracked_" + lmd + "_stone_brick", "stone_bricks_" + lmd + "_cracked")) return;
                 if (remap(mapping, key, "mossy_" + lmd + "_stone_brick", "stone_bricks_" + lmd + "_mossy")) return;
                 if (remap(mapping, key, "more_mossy_" + lmd + "_stone_brick", "stone_bricks_" + lmd + "_mossy_more"))
@@ -94,6 +98,7 @@ public class ForgeEventBusSubscriber {
                     if (remap(mapping, key, lmd + "_" + stone, stone + "_" + lmd)) return;
                 }
                 if (remap(mapping, key, lmd + "_brick", "bricks_" + lmd)) return;
+                if (remap(mapping, key, lmd + "_bricks", "bricks_" + lmd)) return;
             }
 
             for (String stone : SetSetup.STONES) {

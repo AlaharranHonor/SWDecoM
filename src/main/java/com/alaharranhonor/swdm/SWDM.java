@@ -2,6 +2,7 @@ package com.alaharranhonor.swdm;
 
 import com.alaharranhonor.swdm.compat.SWLMCompat;
 import com.alaharranhonor.swdm.registry.*;
+import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -35,6 +36,12 @@ public class SWDM {
         public boolean hasSearchBar() {
             return true;
         }
+
+        @Override
+        public void fillItemList(NonNullList<ItemStack> pItems) {
+            super.fillItemList(pItems);
+        }
+
     }.setBackgroundImage(new ResourceLocation("minecraft", "textures/gui/container/creative_inventory/tab_item_search.png"));
 
     public SWDM() {

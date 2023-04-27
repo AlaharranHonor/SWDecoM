@@ -35,7 +35,7 @@ public class ShelfBlock extends Block {
     public ShelfBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
-            .setValue(SHELF_TYPE, SWDMBlockstateProperties.ShelfType.MIDDLE_BACK)
+            .setValue(SHELF_TYPE, SWDMBlockstateProperties.ShelfType.MIDDLE_FRONT)
             .setValue(AXIS, Direction.Axis.X)
         );
     }
