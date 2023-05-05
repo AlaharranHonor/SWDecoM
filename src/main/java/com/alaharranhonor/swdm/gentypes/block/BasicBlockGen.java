@@ -8,6 +8,8 @@ import com.alaharranhonor.swdm.datagen.Recipes;
 import com.alaharranhonor.swdm.gentypes.GenType;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -61,6 +63,11 @@ public abstract class BasicBlockGen<T extends Block> extends GenType<T> {
 
     @Override
     public void registerBlockColors(BlockColors reg, BlockColor color) {
+        reg.register(color, this.generated);
+    }
+
+    @Override
+    public void registerItemColors(ItemColors reg, ItemColor color) {
         reg.register(color, this.generated);
     }
 }
