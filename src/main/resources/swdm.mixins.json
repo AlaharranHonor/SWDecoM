@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.alaharranhonor.swdm.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "swdm.refmap.json",
+  "mixins": [
+    "ForgeHooksMixin"
+  ],
+  "minVersion": "0.8",
+  "client": [
+  ]
+}

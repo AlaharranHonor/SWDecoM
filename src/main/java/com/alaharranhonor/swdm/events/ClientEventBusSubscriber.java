@@ -33,7 +33,7 @@ public class ClientEventBusSubscriber {
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(BlockSetup.SIGN_BLOCK_ENTITY.get(), SignRenderer::new);
         event.registerEntityRenderer(EntitySetup.INVISIBLE_ITEM_FRAME.get(), InvisibleItemFrameRenderer::new);
-        event.registerEntityRenderer(EntitySetup.MIRROR_PAINTING.get(), PaintingRenderer::new);
+        //event.registerEntityRenderer(EntitySetup.MIRROR_PAINTING.get(), PaintingRenderer::new);
     }
 
     public static void setRenderLayers() {

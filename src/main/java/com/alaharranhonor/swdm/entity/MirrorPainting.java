@@ -1,6 +1,5 @@
 package com.alaharranhonor.swdm.entity;
 
-import com.alaharranhonor.swdm.registry.EntitySetup;
 import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
@@ -11,7 +10,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.Motive;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -22,12 +21,12 @@ import java.util.List;
 
 public class MirrorPainting extends Painting {
 
-    public MirrorPainting(EntityType<MirrorPainting> type, Level level) {
+    public MirrorPainting(EntityType<Painting> type, Level level) {
         super(type, level);
     }
 
     public MirrorPainting(Level level, BlockPos pos, Direction direction) {
-        super(EntitySetup.MIRROR_PAINTING.get(), level);
+        super(EntityType.PAINTING, level);
         this.pos = pos;
 
         List<MirrorMotive> list = Lists.newArrayList();
@@ -75,5 +74,10 @@ public class MirrorPainting extends Painting {
 
             this.spawnAtLocation(ItemSetup.MIRROR_PAINTING.get());
         }
+    }
+
+    @Override
+    public ItemStack getPickResult() {
+        return new ItemStack(ItemSetup.MIRROR_PAINTING.get());
     }
 }
