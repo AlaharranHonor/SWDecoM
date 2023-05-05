@@ -61,11 +61,7 @@ public class InvisibleItemFrameRenderer extends ItemFrameRenderer<InvisibleItemF
 
         if (!placedItem.isEmpty()) { // Render placed item
             MapItemSavedData mapData = MapItem.getSavedData(placedItem, frame.level);
-            if (isInvisible) {
-                ms.translate(0.0D, 0.0D, 0.5D);
-            } else {
-                ms.translate(0.0D, 0.0D, 0.4375D);
-            }
+            ms.translate(0.0D, 0.0D, d0);
 
             int j = mapData != null ? frame.getRotation() % 4 * 2 : frame.getRotation();
             ms.mulPose(Vector3f.ZP.rotationDegrees((float)j * 360.0F / 8.0F));
@@ -73,7 +69,7 @@ public class InvisibleItemFrameRenderer extends ItemFrameRenderer<InvisibleItemF
                 if (mapData != null) {
                     ms.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
                     float f = 0.0078125F;
-                    ms.scale(0.0078125F, 0.0078125F, 0.0078125F);
+                    ms.scale(f, f, f);
                     ms.translate(-64.0D, -64.0D, 0.0D);
                     Integer integer = MapItem.getMapId(placedItem);
                     ms.translate(0.0D, 0.0D, -1.0D);

@@ -7,9 +7,7 @@ import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.gentypes.GenType;
 import com.alaharranhonor.swdm.gentypes.block.*;
 import com.alaharranhonor.swdm.gentypes.item.StickGen;
-import com.alaharranhonor.swdm.util.RL;
-import com.alaharranhonor.swdm.util.RenderTypeWrapper;
-import com.alaharranhonor.swdm.util.TextureSet;
+import com.alaharranhonor.swdm.util.*;
 import com.google.common.collect.Streams;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
@@ -161,19 +159,15 @@ public class SetSetup {
                 SETS.add(GenSet.builder(() -> planks, name).types(BookshelfGen::new).blockTextures(bookshelf()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             }
 
-            BlockColor blockColor;
+            Supplier<BlockColorWrapper> blockColors;
             if ("spruce".equals(name)) {
-                blockColor = (state, reader, pos, color) -> FoliageColor.getEvergreenColor();
+                blockColors = BlockColorWrapper::spruce;
             } else if ("birch".equals(name)) {
-                blockColor = (state, reader, pos, color) -> FoliageColor.getBirchColor();
+                blockColors = BlockColorWrapper::birch;
             } else {
-                blockColor = (state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getAverageFoliageColor(reader, pos) : FoliageColor.getDefaultColor();
+                blockColors = BlockColorWrapper::biome;
             }
-
-            SETS.add(GenSet.builder(() -> leaves).blockColors(blockColor).itemColors((stack, color) -> {
-                BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
-                return Minecraft.getInstance().getBlockColors().getColor(blockstate, null, null, color);
-            }).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).renderType(RenderTypeWrapper::cutout).build());
+            SETS.add(GenSet.builder(() -> leaves).blockColors(blockColors).itemColors(ItemColorWrapper::item).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).renderType(RenderTypeWrapper::cutout).build());
 
             for (int variant = 1; variant <= LEAVES_VARIANTS; variant++) { // Starting loops at 1.. yuck.
                 SETS.add(GenSet.builder(() -> leaves, name + "_leaves_variant" + variant).withBase(BlockGen::new).types(sswtTypes()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.LEAVES).build());

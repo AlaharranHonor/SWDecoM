@@ -51,10 +51,10 @@ public class BlockStates extends BlockStateProvider {
     public void shelf(ShelfBlock block, ResourceLocation texture) {
         this.getVariantBuilder(block).forAllStates(state -> {
             SWDMBlockstateProperties.ShelfType shelfType = state.getValue(ShelfBlock.SHELF_TYPE);
-            Direction.Axis axis = state.getValue(ShelfBlock.AXIS);
+            Direction facing = state.getValue(ShelfBlock.FACING);
             return ConfiguredModel.builder().modelFile(
                     this.models().withExistingParent(block.getRegistryName().getPath() + "_" + shelfType.getSerializedName(), this.modLoc("shelf_" + shelfType.getSerializedName())).texture("texture", texture)
-                ).rotationY(axis == Direction.Axis.X ? 90 : 0)
+                ).rotationY((int) facing.toYRot())
                 .build();
         });
     }

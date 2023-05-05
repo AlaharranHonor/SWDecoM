@@ -1,6 +1,8 @@
 package com.alaharranhonor.swdm;
 
 import com.alaharranhonor.swdm.gentypes.GenType;
+import com.alaharranhonor.swdm.util.BlockColorWrapper;
+import com.alaharranhonor.swdm.util.ItemColorWrapper;
 import com.alaharranhonor.swdm.util.RenderTypeWrapper;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.client.color.block.BlockColor;
@@ -31,8 +33,8 @@ public class GenSet {
     private final TextureSet blockTextures;
     private final TextureSet itemTextures;
     private final Supplier<RenderTypeWrapper> renderType;
-    private final BlockColor blockColors;
-    private final ItemColor itemColors;
+    private final Supplier<BlockColorWrapper> blockColors;
+    private final Supplier<ItemColorWrapper> itemColors;
     private final Consumer<BlockBehaviour.Properties> customProperties;
     private final List<TagKey<Block>> blockTags;
     private final List<TagKey<Item>> itemTags;
@@ -48,8 +50,8 @@ public class GenSet {
                    TextureSet blockTextures,
                    TextureSet itemTextures,
                    Supplier<RenderTypeWrapper> renderType,
-                   BlockColor blockColors,
-                   ItemColor itemColors,
+                   Supplier<BlockColorWrapper> blockColors,
+                   Supplier<ItemColorWrapper> itemColors,
                    List<TagKey<Block>> blockTags,
                    List<TagKey<Item>> itemTags,
                    Consumer<BlockBehaviour.Properties> customProperties
@@ -125,11 +127,11 @@ public class GenSet {
     }
 
     public BlockColor getBlockColors() {
-        return this.blockColors;
+        return this.blockColors.get().get();
     }
 
     public ItemColor getItemColors() {
-        return this.itemColors;
+        return this.itemColors.get().get();
     }
 
     public BlockBehaviour.Properties applyCustomProperties(BlockBehaviour.Properties props) {
@@ -167,8 +169,8 @@ public class GenSet {
         private final TextureSet.Builder blockTextures = TextureSet.builder(TextureSet.DEFAULT_BLOCK_TEXTURE_SET);
         private final TextureSet.Builder itemTextures = TextureSet.builder(TextureSet.DEFAULT_ITEM_TEXTURE_SET);
         private Supplier<RenderTypeWrapper> renderType = RenderTypeWrapper::solid;
-        private BlockColor blockColor;
-        private ItemColor itemColor;
+        private Supplier<BlockColorWrapper> blockColor = () -> () -> null;
+        private Supplier<ItemColorWrapper> itemColor = () -> () -> null;
         private Consumer<BlockBehaviour.Properties> customProperties = p -> {};
         private List<TagKey<Block>> blockTags = new ArrayList<>();
         private List<TagKey<Item>> itemTags = new ArrayList<>();
@@ -250,12 +252,12 @@ public class GenSet {
             return this;
         }
 
-        public final Builder blockColors(BlockColor color) {
+        public final Builder blockColors(Supplier<BlockColorWrapper> color) {
             this.blockColor = color;
             return this;
         }
 
-        public final Builder itemColors(ItemColor color) {
+        public final Builder itemColors(Supplier<ItemColorWrapper> color) {
             this.itemColor = color;
             return this;
         }

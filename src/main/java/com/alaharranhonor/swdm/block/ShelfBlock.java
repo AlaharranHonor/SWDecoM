@@ -1,6 +1,5 @@
 package com.alaharranhonor.swdm.block;
 
-import com.alaharranhonor.swdm.gentypes.block.ShelfGen;
 import com.alaharranhonor.swdm.registry.TagSetup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 public class ShelfBlock extends Block {
 
     public static final EnumProperty<SWDMBlockstateProperties.ShelfType> SHELF_TYPE = SWDMBlockstateProperties.SHELF;
-    public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     private static final VoxelShape[] SHAPES_BY_HEIGHT = new VoxelShape[] {
         Shapes.box(0, 0.5, 0, 1, 1, 1),
@@ -36,7 +35,7 @@ public class ShelfBlock extends Block {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
             .setValue(SHELF_TYPE, SWDMBlockstateProperties.ShelfType.MIDDLE_FRONT)
-            .setValue(AXIS, Direction.Axis.X)
+            .setValue(FACING, Direction.NORTH)
         );
     }
 
@@ -61,14 +60,14 @@ public class ShelfBlock extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(SHELF_TYPE, AXIS);
+        builder.add(SHELF_TYPE, FACING);
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        Direction.Axis axis = ctx.getClickedFace().getAxis().isVertical() ? ctx.getHorizontalDirection().getAxis() : ctx.getClickedFace().getAxis();
-        return this.defaultBlockState().setValue(AXIS, axis);
+        Direction facing = ctx.getClickedFace(); //ctx.getClickedFace().getAxis().isVertical() ? ctx.getHorizontalDirection().getAxis() : ctx.getClickedFace().getAxis();
+        return this.defaultBlockState().setValue(FACING, facing);
     }
 
     @Override
