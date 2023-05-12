@@ -129,7 +129,7 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> wool, "wool_pastel_" + colorName).withBase(BlockGen::new).types(sswtTypes()).types(CarpetGen::new).blockTags(BlockTags.WOOL).build());
             SETS.add(GenSet.builder(() -> wool, "wool_tinted_" + colorName).withBase(BlockGen::new).types(sswtTypes()).types(CarpetGen::new).blockTags(BlockTags.WOOL).build());
         }
-        SETS.add(GenSet.builder(() -> Blocks.GLASS, "bricks_glass").withBase(BlockGen::new).sets(DYE_COLORS).types(sswtTypes()).renderType(RenderTypeWrapper::cutout).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE, "bricks_glass").withBase(BlockGen::new).sets(DYE_COLORS).types(sswtTypes()).customProperties(props -> props.sound(SoundType.GLASS)).renderType(RenderTypeWrapper::cutout).build());
         SETS.add(GenSet.builder(() -> Blocks.DARK_PRISMARINE).withBase(BlockGen::new).sets(DYE_COLORS).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_shingle").withBase(RoofGen.Shingle::new).sets(ROOF_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_metal").withBase(RoofGen.Metal::new).sets(ROOF_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());

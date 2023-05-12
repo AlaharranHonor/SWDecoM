@@ -21,7 +21,7 @@ public class DoorGen extends BasicBlockGen<DoorBlock> {
 
     @Override
     protected DoorBlock generate() {
-        return new DoorBlock(this.props());
+        return new DoorBlock(this.props().noOcclusion());
     }
 
     @Override
