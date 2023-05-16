@@ -24,4 +24,9 @@ public class DecoRecipe extends SingleItemRecipe {
     public ItemStack getToastSymbol() {
         return new ItemStack(BlockSetup.DECO_WORKSHOP.get());
     }
+
+    @Override
+    public boolean isSpecial() {
+        return true;
+    }
 }

@@ -21,8 +21,8 @@ import net.minecraftforge.common.Tags;
 import java.util.function.Consumer;
 
 public class Recipes extends RecipeProvider {
-    public Recipes(DataGenerator p_i48262_1_) {
-        super(p_i48262_1_);
+    public Recipes(DataGenerator gen) {
+        super(gen);
     }
 
 
@@ -36,31 +36,37 @@ public class Recipes extends RecipeProvider {
 
         ShapelessRecipeBuilder.shapeless(BlockSetup.get("roof_shingle_white"))
             .requires(Blocks.GRAVEL).requires(ItemTags.PLANKS)
+            .group("deco_bench")
             .unlockedBy("has_planks", has(ItemTags.PLANKS))
             .save(builder, "roof_shingle_white_manual");
 
         ShapelessRecipeBuilder.shapeless(BlockSetup.get("roof_tile_white"))
             .requires(Blocks.CLAY).requires(ItemTags.PLANKS)
+            .group("deco_bench")
             .unlockedBy("has_planks", has(ItemTags.PLANKS))
             .save(builder, "roof_tile_white_manual");
 
         ShapelessRecipeBuilder.shapeless(BlockSetup.get("roof_metal_white"))
             .requires(Tags.Items.NUGGETS_IRON).requires(ItemTags.PLANKS)
+            .group("deco_bench")
             .unlockedBy("has_planks", has(ItemTags.PLANKS))
             .save(builder, "roof_metal_white_manual");
 
         ShapelessRecipeBuilder.shapeless(BlockSetup.get("siding_light_white"))
             .requires(Items.DRIED_KELP).requires(ItemTags.PLANKS)
+            .group("deco_bench")
             .unlockedBy("has_planks", has(ItemTags.PLANKS))
             .save(builder, "siding_light_white_manual");
 
         ShapelessRecipeBuilder.shapeless(BlockSetup.WHITEWASH_PLANKS.get())
             .requires(Items.WHITE_DYE).requires(ItemTags.PLANKS)
+            .group("deco_bench")
             .unlockedBy("has_planks", has(ItemTags.PLANKS))
             .save(builder, "whitewash_planks_manual");
 
         ShapelessRecipeBuilder.shapeless(BlockSetup.THATCH.get())
             .requires(Items.WHEAT).requires(ItemTags.PLANKS)
+            .group("deco_bench")
             .unlockedBy("has_planks", has(ItemTags.PLANKS))
             .save(builder);
 
@@ -70,6 +76,7 @@ public class Recipes extends RecipeProvider {
             .pattern("SSS")
             .define('S', Blocks.STONE)
             .define('C', ItemSetup.CHANGE_TOOL.get())
+            .group("deco_bench")
             .unlockedBy("has_change_tool", has(ItemSetup.CHANGE_TOOL.get()))
             .save(builder);
 
@@ -80,6 +87,7 @@ public class Recipes extends RecipeProvider {
             .define('S', Tags.Items.RODS_WOODEN)
             .define('N', Tags.Items.NUGGETS_IRON)
             .define('R', Tags.Items.DUSTS_REDSTONE)
+            .group("deco_bench")
             .unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN))
             .save(builder);
 
@@ -99,12 +107,14 @@ public class Recipes extends RecipeProvider {
     public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, ItemLike input, int amount) {
         new SingleItemRecipeBuilder(RecipeSetup.DECO_RECIPE_SERIALIZER.get(), Ingredient.of(input), output, amount)
             .unlockedBy("has_block", has(input))
+            .group("deco_bench")
             .save(builder);
     }
 
     public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, TagKey<Item> input, int amount) {
         new SingleItemRecipeBuilder(RecipeSetup.DECO_RECIPE_SERIALIZER.get(), Ingredient.of(input), output, amount)
             .unlockedBy("has_block", has(input))
+            .group("deco_bench")
             .save(builder);
     }
 
