@@ -66,7 +66,7 @@ public class ShelfBlock extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        Direction facing = ctx.getClickedFace(); //ctx.getClickedFace().getAxis().isVertical() ? ctx.getHorizontalDirection().getAxis() : ctx.getClickedFace().getAxis();
+        Direction facing = ctx.getHorizontalDirection().getOpposite(); //ctx.getClickedFace().getAxis().isVertical() ? ctx.getHorizontalDirection().getAxis() : ctx.getClickedFace().getAxis();
         return this.defaultBlockState().setValue(FACING, facing);
     }
 

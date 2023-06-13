@@ -1,2 +1,2 @@
-1.18.2-2.0.0:
-- Ported to 1.18.2
+1.18.2-3.0.1:
+- Fixed Shelf crashing when placed on top of blocks.

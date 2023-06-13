@@ -138,6 +138,7 @@ dependencies {
     //compileOnly fg.deobf("com.alaharranhonor.swem:swem:${mc_version}-${swem_version}")
     //implementation fg.deobf("curse.maven:swlm-381070:${swlm_slug}")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:9.7.1.255")
+    implementation 'org.jetbrains:annotations:20.1.0'
 }
 
 jar {
