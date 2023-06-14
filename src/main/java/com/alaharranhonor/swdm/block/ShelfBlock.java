@@ -66,7 +66,9 @@ public class ShelfBlock extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        Direction facing = ctx.getHorizontalDirection().getOpposite(); //ctx.getClickedFace().getAxis().isVertical() ? ctx.getHorizontalDirection().getAxis() : ctx.getClickedFace().getAxis();
+        // Always try to place against the side of the wall first.
+        // If placing on top or bottom, pick the players direction.
+        Direction facing = ctx.getClickedFace().getAxis().isVertical() ? ctx.getHorizontalDirection().getOpposite() : ctx.getClickedFace();
         return this.defaultBlockState().setValue(FACING, facing);
     }
 

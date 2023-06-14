@@ -231,7 +231,7 @@ public class SetSetup {
         });
 
         SETS.add(GenSet.builder(() -> Blocks.CLAY).withBase(BlockGen::new).sets(LMD_TYPES).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
-        SETS.add(GenSet.builder(() -> Blocks.STONE, "bianco_block").withBase(BlockGen::new).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE, "bianco_block").withBase(BlockGen::new).customProperties(props -> props.sound(SoundType.BONE_BLOCK)).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.SNOW_BLOCK).types(sswtTypes()).blockTextures(t -> t.with("", base -> new ResourceLocation("block/snow"))).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
         SETS.add(GenSet.builder(() -> Blocks.GLASS, "screen").withBase(BlockGen::new).customProperties(p -> p.sound(SoundType.METAL)).sets(LMD_TYPES).types(sswtTypes()).types(PaneGen::new).renderType(RenderTypeWrapper::cutout).build());
         for (DyeColor color : DyeColor.values()) {

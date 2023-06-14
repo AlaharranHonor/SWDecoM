@@ -20,7 +20,7 @@ displayName="Star Worm Deco Mod" #mandatory
 
 logoFile="logo.png" #optional
 
-credits="Silverwolf11420" #optional
+credits="Quarris, Silverwolf11420" #optional
 
 authors="AlaharranHonor" #optional
 
@@ -38,17 +38,5 @@ Decoration additions in support of SWEM (Star Worm Equestrian Mod).
     modId="minecraft"
     mandatory=true
 	versionRange="[1.18.2,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.swdm]]
-    modId="swem"
-    mandatory=false
-    versionRange="[1.16.5-0.2,]"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.swdm]]
-    modId="swlm"
-    mandatory=false
-    versionRange="[1.16.5-1,]"
     ordering="NONE"
     side="BOTH"

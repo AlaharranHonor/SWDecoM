@@ -136,9 +136,12 @@ dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
     implementation fg.deobf("software.bernie.geckolib:geckolib-1.18-forge:${geckolib_version}")
     //compileOnly fg.deobf("com.alaharranhonor.swem:swem:${mc_version}-${swem_version}")
+    runtimeOnly fg.deobf("_:worldedit-mod:7.2.10")
     //implementation fg.deobf("curse.maven:swlm-381070:${swlm_slug}")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:9.7.1.255")
     implementation 'org.jetbrains:annotations:20.1.0'
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 }
 
 jar {

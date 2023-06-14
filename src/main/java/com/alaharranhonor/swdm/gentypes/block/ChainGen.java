@@ -44,7 +44,7 @@ public class ChainGen extends BasicBlockGen<TwoWayBlock> {
 
     @Override
     public void addBlockTags(BlockTags gen) {
-
+        gen.tag(net.minecraft.tags.BlockTags.WALLS).add(this.generated);
     }
 
     @Override
