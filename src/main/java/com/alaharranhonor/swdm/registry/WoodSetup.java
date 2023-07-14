@@ -20,7 +20,10 @@ public class WoodSetup {
             return THATCH;
         }
 
-        return null;
+        return WoodType.values()
+            .filter(type -> type.name().contains(name))
+            .findFirst()
+            .orElse(null);
     }
 
     public static String strippedName(WoodType type) {

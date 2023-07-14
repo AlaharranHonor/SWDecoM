@@ -147,6 +147,7 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> strippedLog).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, "fence_" + name).types(SWDMFenceGen::new).sets(FENCE_TYPES).blockTextures(swdmFences(name)).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, "shelf_" + name).withBase((s, b) -> cast(new ShelfGen(s, b))).blockTextures(shelf(planks.getRegistryName())).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> planks, "board_" + name).types((s, b) -> new WoodBoardGen(s, b, WoodSetup.fromName(name))).blockTextures(woodBoard(name)).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, name).types(StickGen::new).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
@@ -184,6 +185,7 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> strippedStem).types(woodenTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, "fence_" + name).types(SWDMFenceGen::new).sets(FENCE_TYPES).blockTextures(swdmFences(name)).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, "shelf_" + name).withBase((s, b) -> cast(new ShelfGen(s, b))).blockTextures(shelf(planks.getRegistryName())).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(() -> planks, "board_" + name).types((s, b) -> new WoodBoardGen(s, b, WoodSetup.fromName(name))).blockTextures(woodBoard(name)).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, name).types(StickGen::new).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(() -> trapdoor).types(ShutterGen::new).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
@@ -205,6 +207,7 @@ public class SetSetup {
             SETS.add(GenSet.builder(planks, "fence_" + name).types(SWDMFenceGen::new).sets(FENCE_TYPES).blockTextures(swdmFences(name)).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(planks, name).types(DoorGen::new).blockTextures(doors()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(planks, name).types((s, b) -> new SignGen(s, b, WoodSetup.fromName(name))).blockTextures(sign(name)).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
+            SETS.add(GenSet.builder(planks, "board_" + name).types((s, b) -> new WoodBoardGen(s, b, WoodSetup.fromName(name))).blockTextures(woodBoard(name)).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(planks, "shelf_" + name).withBase((s, b) -> cast(new ShelfGen(s, b))).blockTextures(shelf(planks.getId())).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(planks, name).types(StickGen::new).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
             SETS.add(GenSet.builder(planks, name).types(LadderGen::new).blockTextures(ladders()).renderType(RenderTypeWrapper::cutout).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
@@ -358,6 +361,12 @@ public class SetSetup {
     private static Consumer<TextureSet.Builder> sign(String wood) {
         return textures -> {
             textures.with("", base -> TextureSet.Builder.entity(SWDM.res("signs/" + wood)));
+        };
+    }
+
+    private static Consumer<TextureSet.Builder> woodBoard(String wood) {
+        return textures -> {
+            textures.with("", base -> TextureSet.Builder.entity(new ResourceLocation(base.getNamespace(), "signs/" + wood)));
         };
     }
 
