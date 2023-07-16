@@ -33,7 +33,6 @@ public class WoodBoardGen extends BasicBlockGen<WoodBoardBlock> {
         String path = this.generated.getRegistryName().getPath();
         ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 5));
         ModelFile model = gen.models().withExistingParent(path, SWDM.res("block/sign")).texture("texture", textures.get("", basePath));
-        //gen.simpleBlock(this.generated, model);
         gen.horizontalBlock(this.generated, model);
     }
 
