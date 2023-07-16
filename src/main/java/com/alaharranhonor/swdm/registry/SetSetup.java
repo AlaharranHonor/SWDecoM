@@ -69,7 +69,7 @@ public class SetSetup {
 
     public static final List<GenSet> SETS = new ArrayList<>();
 
-    // Order and loops are made in order to clean up the creative made and put them in order
+    // Order and loops are made in order to clean up the creative mode menu and put them in order
     public static void init() {
         // Stones
         SETS.add(GenSet.builder(() -> Blocks.STONE).types(HalfWallGen::new).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
@@ -85,7 +85,7 @@ public class SetSetup {
         SETS.add(GenSet.builder(() -> Blocks.COBBLESTONE).withBase(BlockGen::new).sets(LMD_TYPES, WARM_COOL).types(sstTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.STONE).withBase(BlockGen::new).sets(LMD_TYPES, WARM_COOL).types(sstTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(BlockSetup.SMOOTH_STONE_BORDERLESS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
-        SETS.add(GenSet.builder(BlockSetup.SMOOTH_STONE_BORDERLESS).withBase(BlockGen::new).sets(LMD_TYPES, WARM_COOL).types(sstTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(BlockSetup.SMOOTH_STONE_BORDERLESS).withBase(BlockGen::new).sets(LMD_TYPES, WARM_COOL).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
 
         // Natural Tones
         SETS.add(GenSet.builder(() -> Blocks.SAND).sets(NATURAL_TONES).types(SandGen::new).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
