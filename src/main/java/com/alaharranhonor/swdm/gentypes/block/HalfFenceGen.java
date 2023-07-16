@@ -7,6 +7,8 @@ import com.alaharranhonor.swdm.block.HalfWallBlock;
 import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -79,6 +81,16 @@ public class HalfFenceGen extends BasicBlockGen<HalfFenceBlock> {
     public void addItemModels(ItemModels gen, TextureSet textures) {
         String path = this.generated.getRegistryName().getPath();
         gen.withExistingParent(path, gen.modLoc("block/" + path + "_inventory")); // Item model
+    }
+
+    @Override
+    public void setRenderType(RenderType renderType) {
+        ItemBlockRenderTypes.setRenderLayer(this.generated, renderType);
+        ItemBlockRenderTypes.setRenderLayer(this.blockWaterlogged.get(), renderType);
+        ItemBlockRenderTypes.setRenderLayer(this.lowerBlock.get(), renderType);
+        ItemBlockRenderTypes.setRenderLayer(this.lowerBlockWaterlogged.get(), renderType);
+        ItemBlockRenderTypes.setRenderLayer(this.upperBlock.get(), renderType);
+        ItemBlockRenderTypes.setRenderLayer(this.upperBlockWaterlogged.get(), renderType);
     }
 
     @Override
