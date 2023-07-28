@@ -9,30 +9,20 @@ import com.alaharranhonor.swdm.gentypes.block.*;
 import com.alaharranhonor.swdm.gentypes.item.StickGen;
 import com.alaharranhonor.swdm.util.*;
 import com.google.common.collect.Streams;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.block.BlockColor;
-import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.client.color.item.ItemColors;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -129,7 +119,7 @@ public class SetSetup {
             SETS.add(GenSet.builder(() -> wool, "wool_pastel_" + colorName).withBase(BlockGen::new).types(sstTypes()).types(CarpetGen::new).blockTags(BlockTags.WOOL).build());
             SETS.add(GenSet.builder(() -> wool, "wool_tinted_" + colorName).withBase(BlockGen::new).types(sstTypes()).types(CarpetGen::new).blockTags(BlockTags.WOOL).build());
         }
-        SETS.add(GenSet.builder(() -> Blocks.STONE, "bricks_glass").withBase(BlockGen::new).sets(DYE_COLORS).types(sswtTypes()).customProperties(props -> props.sound(SoundType.GLASS)).renderType(RenderTypeWrapper::cutout).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE, "bricks_glass").withBase(BlockGen::new).sets(DYE_COLORS).types(sswtTypes()).withProps(props -> BlockBehaviour.Properties.of(Material.STONE).strength(0.3F).sound(SoundType.GLASS).isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false).isViewBlocking((s, l, p) -> false)).renderType(RenderTypeWrapper::cutout).build());
         SETS.add(GenSet.builder(() -> Blocks.DARK_PRISMARINE).withBase(BlockGen::new).sets(DYE_COLORS).types(stoneTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_shingle").withBase(RoofGen.Shingle::new).sets(ROOF_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_metal").withBase(RoofGen.Metal::new).sets(ROOF_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
@@ -234,9 +224,9 @@ public class SetSetup {
         });
 
         SETS.add(GenSet.builder(() -> Blocks.CLAY).withBase(BlockGen::new).sets(LMD_TYPES).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
-        SETS.add(GenSet.builder(() -> Blocks.STONE, "bianco_block").withBase(BlockGen::new).customProperties(props -> props.sound(SoundType.BONE_BLOCK)).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.STONE, "bianco_block").withBase(BlockGen::new).withProps(props -> props.sound(SoundType.BONE_BLOCK)).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.SNOW_BLOCK).types(sswtTypes()).blockTextures(t -> t.with("", base -> new ResourceLocation("block/snow"))).blockTags(BlockTags.MINEABLE_WITH_SHOVEL).build());
-        SETS.add(GenSet.builder(() -> Blocks.GLASS, "screen").withBase(BlockGen::new).customProperties(p -> p.sound(SoundType.METAL)).sets(LMD_TYPES).types(sstTypes()).types(PaneGen::new).renderType(RenderTypeWrapper::cutout).build());
+        SETS.add(GenSet.builder(() -> Blocks.GLASS, "screen").withBase(BlockGen::new).withProps(p -> p.sound(SoundType.METAL)).sets(LMD_TYPES).types(sstTypes()).types(PaneGen::new).renderType(RenderTypeWrapper::cutout).build());
         for (DyeColor color : DyeColor.values()) {
             String colorName = color.getSerializedName();
             Block concrete = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(colorName + "_concrete"));

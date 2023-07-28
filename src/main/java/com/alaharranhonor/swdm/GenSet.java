@@ -35,7 +35,7 @@ public class GenSet {
     private final Supplier<RenderTypeWrapper> renderType;
     private final Supplier<BlockColorWrapper> blockColors;
     private final Supplier<ItemColorWrapper> itemColors;
-    private final Consumer<BlockBehaviour.Properties> customProperties;
+    private final Function<BlockBehaviour.Properties, BlockBehaviour.Properties> customProperties;
     private final List<TagKey<Block>> blockTags;
     private final List<TagKey<Item>> itemTags;
 
@@ -54,7 +54,7 @@ public class GenSet {
                    Supplier<ItemColorWrapper> itemColors,
                    List<TagKey<Block>> blockTags,
                    List<TagKey<Item>> itemTags,
-                   Consumer<BlockBehaviour.Properties> customProperties
+                   Function<BlockBehaviour.Properties, BlockBehaviour.Properties> customProperties
     ) {
         this.baseBlock = baseBlock;
         this.generatedBaseBlock = baseBlock;
@@ -135,8 +135,7 @@ public class GenSet {
     }
 
     public BlockBehaviour.Properties applyCustomProperties(BlockBehaviour.Properties props) {
-        this.customProperties.accept(props);
-        return props;
+        return this.customProperties.apply(props);
     }
 
     public List<TagKey<Block>> getBlockTags() {
@@ -171,7 +170,7 @@ public class GenSet {
         private Supplier<RenderTypeWrapper> renderType = RenderTypeWrapper::solid;
         private Supplier<BlockColorWrapper> blockColor = () -> () -> null;
         private Supplier<ItemColorWrapper> itemColor = () -> () -> null;
-        private Consumer<BlockBehaviour.Properties> customProperties = p -> {};
+        private Function<BlockBehaviour.Properties, BlockBehaviour.Properties> customProperties = Function.identity();
         private List<TagKey<Block>> blockTags = new ArrayList<>();
         private List<TagKey<Item>> itemTags = new ArrayList<>();
 
@@ -247,7 +246,7 @@ public class GenSet {
             return this;
         }
 
-        public final Builder customProperties(Consumer<BlockBehaviour.Properties> customProperties) {
+        public final Builder withProps(Function<BlockBehaviour.Properties, BlockBehaviour.Properties> customProperties) {
             this.customProperties = customProperties;
             return this;
         }
