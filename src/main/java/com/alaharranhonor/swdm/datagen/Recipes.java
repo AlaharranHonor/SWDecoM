@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
+import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.alaharranhonor.swdm.registry.RecipeSetup;
@@ -9,6 +10,7 @@ import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -17,6 +19,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Consumer;
 
@@ -102,6 +107,23 @@ public class Recipes extends RecipeProvider {
         this.defaultDecoBench(builder, BlockSetup.SMOOTH_STONE_BORDERLESS.get(), Blocks.SMOOTH_STONE);
         this.defaultDecoBench(builder, ItemSetup.INVISIBLE_ITEM_FRAME.get(), Items.ITEM_FRAME, 4);
         this.defaultDecoBench(builder, ItemSetup.MIRROR_PAINTING.get(), Items.PAINTING);
+
+        Item swemWhitewashPlanks = ForgeRegistries.ITEMS.getValue(new ResourceLocation("swem:whitewash_plank"));
+        System.out.println(swemWhitewashPlanks);
+        if (swemWhitewashPlanks != null) {
+            this.modLoadedDecoBench("swem", SWDM.res("whitewash_planks_dm_to_em"), builder, swemWhitewashPlanks, BlockSetup.WHITEWASH_PLANKS.get(), 1);
+            this.modLoadedDecoBench("swem", SWDM.res("whitewash_planks_em_to_dm"), builder, BlockSetup.WHITEWASH_PLANKS.get(), swemWhitewashPlanks, 1);
+        }
+    }
+
+    public void modLoadedDecoBench(String mod, ResourceLocation id, Consumer<FinishedRecipe> builder, ItemLike output, ItemLike input, int amount) {
+        ConditionalRecipe.builder()
+            .addCondition(new ModLoadedCondition(mod))
+            .addRecipe(writer -> new SingleItemRecipeBuilder(RecipeSetup.DECO_RECIPE_SERIALIZER.get(), Ingredient.of(input), output, amount)
+                .unlockedBy("has_block", has(input))
+                .group("deco_bench")
+                .save(writer))
+            .build(builder, id);
     }
 
     public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, ItemLike input, int amount) {

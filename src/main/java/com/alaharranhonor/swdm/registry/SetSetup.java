@@ -124,7 +124,7 @@ public class SetSetup {
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_shingle").withBase(RoofGen.Shingle::new).sets(ROOF_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_metal").withBase(RoofGen.Metal::new).sets(ROOF_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
         SETS.add(GenSet.builder(() -> Blocks.TERRACOTTA, "roof_tile").withBase(RoofGen.Tile::new).sets(ROOF_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
-        SETS.add(GenSet.builder(() -> Blocks.OAK_PLANKS, "siding").withBase(SidingGen::new).sets(LMD_TYPES, DYE_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_PICKAXE).build());
+        SETS.add(GenSet.builder(() -> Blocks.OAK_PLANKS, "siding").withBase(SidingGen::new).sets(LMD_TYPES, DYE_COLORS).types(sswtTypes()).blockTags(BlockTags.MINEABLE_WITH_AXE).build());
 
         WOODS.forEach(name -> {
             Block planks = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name + "_planks"));

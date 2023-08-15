@@ -32,11 +32,11 @@ public class BlockSetup {
 
     public static final Map<ResourceLocation, RegistryObject<Block>> MANUAL_BLOCKS = new HashMap<>();
 
-    public static final RegistryObject<Block> WHITEWASH_PLANKS = register("whitewash_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.SNOW)));
+    public static final RegistryObject<Block> WHITEWASH_PLANKS = register("whitewash_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).color(MaterialColor.SNOW)));
     public static final RegistryObject<Block> WHITEWASH_LOG = register("whitewash_log", () -> log(MaterialColor.SNOW, MaterialColor.SNOW));
     public static final RegistryObject<Block> WHITEWASH_STRIPPED_LOG = register("whitewash_stripped_log", () -> log(MaterialColor.SNOW, MaterialColor.SNOW));
 
-    public static final RegistryObject<Block> BAMBOO_PLANKS = register("bamboo_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.COLOR_GREEN)));
+    public static final RegistryObject<Block> BAMBOO_PLANKS = register("bamboo_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).color(MaterialColor.COLOR_GREEN)));
     public static final RegistryObject<Block> BAMBOO_LOG = register("bamboo_log", () -> log(MaterialColor.COLOR_GREEN, MaterialColor.COLOR_GREEN));
     public static final RegistryObject<Block> BAMBOO_STRIPPED_LOG = register("bamboo_stripped_log", () -> log(MaterialColor.COLOR_GREEN, MaterialColor.COLOR_GREEN));
 

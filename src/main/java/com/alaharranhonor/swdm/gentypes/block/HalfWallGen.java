@@ -22,6 +22,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
 
@@ -129,6 +130,12 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
     public void addBlockTags(BlockTags gen) {
         gen.tag(net.minecraft.tags.BlockTags.WALLS).add(
             this.generated, this.lowerBlock.get(), this.upperBlock.get(),
+            this.blockWaterlogged.get(), this.lowerBlockWaterlogged.get(), this.upperBlockWaterlogged.get());
+    }
+
+    @Override
+    public Stream<HalfWallBlock> subTypes() {
+        return Stream.of(this.generated, this.lowerBlock.get(), this.upperBlock.get(),
             this.blockWaterlogged.get(), this.lowerBlockWaterlogged.get(), this.upperBlockWaterlogged.get());
     }
 

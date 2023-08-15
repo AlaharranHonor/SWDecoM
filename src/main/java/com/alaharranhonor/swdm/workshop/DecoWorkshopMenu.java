@@ -136,6 +136,8 @@ public class DecoWorkshopMenu extends AbstractContainerMenu {
      * Handles the given Button-click on the server, currently only used by enchanting. Name is for legacy.
      */
     public boolean clickMenuButton(Player pPlayer, int pId) {
+        if (pId < 0) pId += 256; // Remove byte conversion from the packet
+
         if (this.isValidRecipeIndex(pId)) {
             this.selectedRecipeIndex.set(pId);
             this.setupResultSlot();

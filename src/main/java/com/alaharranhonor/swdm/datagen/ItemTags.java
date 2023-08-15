@@ -9,6 +9,7 @@ import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,9 +26,10 @@ public class ItemTags extends ItemTagsProvider {
             set.genTypes.forEach(genType -> {
                 genType.addItemTags(this);
                 set.getItemTags().forEach(tag -> {
-                    if (genType.get() instanceof Item item) {
-                        this.tag(tag).add(item);
-                    }
+                    genType.subTypes()
+                        .filter(sub -> sub instanceof Item)
+                        .map(Item.class::cast)
+                        .forEach(subItems -> this.tag(tag).add(subItems));
                 });
             });
         }

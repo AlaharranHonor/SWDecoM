@@ -20,6 +20,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class HalfFenceGen extends BasicBlockGen<HalfFenceBlock> {
 
@@ -112,6 +113,11 @@ public class HalfFenceGen extends BasicBlockGen<HalfFenceBlock> {
         gen.dropOther(this.lowerBlockWaterlogged.get(), this.generated);
         gen.dropOther(this.upperBlock.get(), this.generated);
         gen.dropOther(this.upperBlockWaterlogged.get(), this.generated);
+    }
+
+    @Override
+    public Stream<HalfFenceBlock> subTypes() {
+        return Stream.of(this.generated, this.blockWaterlogged.get(), this.lowerBlock.get(), this.lowerBlockWaterlogged.get(), this.upperBlock.get(), this.upperBlockWaterlogged.get());
     }
 
     @Override

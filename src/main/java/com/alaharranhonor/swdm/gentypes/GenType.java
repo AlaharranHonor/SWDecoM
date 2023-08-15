@@ -16,6 +16,7 @@ import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public abstract class GenType<T> implements Supplier<T> {
 
@@ -56,4 +57,8 @@ public abstract class GenType<T> implements Supplier<T> {
 
     public void registerBlockColors(BlockColors reg, BlockColor color) {}
     public void registerItemColors(ItemColors reg, ItemColor color) {}
+
+    public Stream<T> subTypes() {
+        return Stream.of(this.generated);
+    }
 }

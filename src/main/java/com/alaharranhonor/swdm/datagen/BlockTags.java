@@ -22,9 +22,10 @@ public class BlockTags extends BlockTagsProvider {
             set.genTypes.forEach(genType -> {
                 genType.addBlockTags(this);
                 set.getBlockTags().forEach(tag -> {
-                    if (genType.get() instanceof Block block) {
-                        this.tag(tag).add(block);
-                    }
+                    genType.subTypes()
+                        .filter(sub -> sub instanceof Block)
+                        .map(Block.class::cast)
+                        .forEach(subBlock -> this.tag(tag).add(subBlock));
                 });
             });
         }
