@@ -142,11 +142,11 @@ dependencies {
     //compileOnly fg.deobf("com.alaharranhonor.swem:swem:${mc_version}-${swem_version}")
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.18:3.0.57")
     implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:0.4.0+1.18")
-    runtimeOnly fg.deobf("_:worldedit-mod:7.2.10")
-    runtimeOnly fg.deobf("_:ferritecore:4.2.2-forge")
+    //runtimeOnly fg.deobf("_:worldedit-mod:7.2.10")
+    //runtimeOnly fg.deobf("_:ferritecore:4.2.2-forge")
     //implementation fg.deobf("curse.maven:swlm-381070:${swlm_slug}")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:9.7.1.255")
-    runtimeOnly fg.deobf("_:swem-forge-1.18.2:1.3.0-12")
+    //runtimeOnly fg.deobf("_:swem-forge-1.18.2:1.3.0-12")
     implementation 'org.jetbrains:annotations:20.1.0'
 
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
