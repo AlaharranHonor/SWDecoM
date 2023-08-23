@@ -2,6 +2,9 @@ package com.alaharranhonor.swdm.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -10,16 +13,13 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
@@ -80,12 +80,26 @@ public class ShutterBlock extends Block {
         };
     }
 
-    private int getCloseSound() {
-        return this.material == Material.METAL ? 1011 : 1012;
+
+    private SoundEvent getCloseSound() {
+        return SoundEvents.WOODEN_TRAPDOOR_OPEN;
     }
 
-    private int getOpenSound() {
-        return this.material == Material.METAL ? 1005 : 1006;
+    private SoundEvent getOpenSound() {
+        return SoundEvents.WOODEN_TRAPDOOR_CLOSE;
+    }
+
+    protected void playSound(@Nullable Player pPlayer, Level pLevel, BlockPos pPos, boolean pIsOpened) {
+        pLevel.playSound(pPlayer, pPos, pIsOpened ? this.getOpenSound() : this.getCloseSound(), SoundSource.BLOCKS, 1.0F, pLevel.getRandom().nextFloat() * 0.1F + 0.9F);
+        pLevel.gameEvent(pPlayer, pIsOpened ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pPos);
+    }
+
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        pState = pState.cycle(OPEN);
+        pLevel.setBlock(pPos, pState, 10);
+
+        this.playSound(pPlayer, pLevel, pPos, pState.getValue(OPEN));
+        return InteractionResult.sidedSuccess(pLevel.isClientSide);
     }
 
     @Nullable
@@ -185,23 +199,16 @@ public class ShutterBlock extends Block {
         }
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        pState = pState.cycle(OPEN);
-        pLevel.setBlock(pPos, pState, 10);
-        pLevel.levelEvent(pPlayer, pState.getValue(OPEN) ? this.getOpenSound() : this.getCloseSound(), pPos, 0);
-        pLevel.gameEvent(pPlayer, this.isOpen(pState) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pPos);
-        return InteractionResult.sidedSuccess(pLevel.isClientSide);
-    }
+
 
     public boolean isOpen(BlockState pState) {
         return pState.getValue(OPEN);
     }
 
-    public void setOpen(@Nullable Entity p_153166_, Level p_153167_, BlockState p_153168_, BlockPos p_153169_, boolean p_153170_) {
-        if (p_153168_.is(this) && p_153168_.getValue(OPEN) != p_153170_) {
-            p_153167_.setBlock(p_153169_, p_153168_.setValue(OPEN, Boolean.valueOf(p_153170_)), 10);
-            this.playSound(p_153167_, p_153169_, p_153170_);
-            p_153167_.gameEvent(p_153166_, p_153170_ ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, p_153169_);
+    public void setOpen(@Nullable Entity pEntity, Level pLevel, BlockState pState, BlockPos pPos, boolean pOpen) {
+        if (pState.is(this) && pState.getValue(OPEN) != pOpen) {
+            pLevel.setBlock(pPos, pState.setValue(OPEN, pOpen), 10);
+            this.playSound(pEntity instanceof Player player ? player : null, pLevel, pPos, pOpen);
         }
     }
 
@@ -209,16 +216,11 @@ public class ShutterBlock extends Block {
         boolean isPowered = pLevel.hasNeighborSignal(pPos);
         if (!this.defaultBlockState().is(pBlock) && isPowered != pState.getValue(POWERED)) {
             if (isPowered != pState.getValue(OPEN)) {
-                this.playSound(pLevel, pPos, isPowered);
-                pLevel.gameEvent(isPowered ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pPos);
+                this.playSound(null, pLevel, pPos, pState.getValue(OPEN));
             }
 
             pLevel.setBlock(pPos, pState.setValue(POWERED, isPowered).setValue(OPEN, isPowered), 2);
         }
-    }
-
-    private void playSound(Level pLevel, BlockPos pPos, boolean pIsOpening) {
-        pLevel.levelEvent(null, pIsOpening ? this.getOpenSound() : this.getCloseSound(), pPos, 0);
     }
 
     public PushReaction getPistonPushReaction(BlockState pState) {

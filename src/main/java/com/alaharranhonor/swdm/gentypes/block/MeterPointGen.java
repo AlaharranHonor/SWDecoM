@@ -8,7 +8,6 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.HashMap;
@@ -28,7 +27,7 @@ public class MeterPointGen extends BasicBlockGen<Block> {
     public boolean register(String name, DeferredRegister<Block> blocks, DeferredRegister<Item> items) {
         this.registeredName = name;
         blocks.register(name + this.getSuffix(), this);
-        items.register(name + this.getSuffix(), () -> new BlockItem(this.get(), new Item.Properties().tab(SWDM.TAB)));
+        items.register(name + this.getSuffix(), () -> new BlockItem(this.get(), new Item.Properties()));
         METER_POINT_FLATTENABLES.put(this.baseBlock, this);
         return true;
     }
@@ -39,27 +38,27 @@ public class MeterPointGen extends BasicBlockGen<Block> {
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
         gen.simpleBlock(this.generated);
     }
 
     @Override
-    public void addItemModels(ItemModels gen, TextureSet textures) {
-        gen.withExistingParent(this.generated.getRegistryName().getPath(), gen.modLoc("block/" + this.generated.getRegistryName().getPath())); // Item model
+    public void addItemModels(ItemModelGen gen, TextureSet textures) {
+        gen.withExistingParent(blockKey(this.generated).getPath(), gen.modLoc("block/" + blockKey(this.generated).getPath())); // Item model
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
-
-    }
-
-    @Override
-    public void addItemTags(ItemTags gen) {
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
 
     }
 
     @Override
-    public void addBlockTags(BlockTags gen) {
+    public void addItemTags(ItemTagGen gen) {
+
+    }
+
+    @Override
+    public void addBlockTags(BlockTagGen gen) {
 
     }
 

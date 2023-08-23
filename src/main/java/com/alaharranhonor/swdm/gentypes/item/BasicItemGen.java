@@ -1,10 +1,10 @@
 package com.alaharranhonor.swdm.gentypes.item;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.datagen.BlockStates;
-import com.alaharranhonor.swdm.datagen.BlockTags;
-import com.alaharranhonor.swdm.datagen.Languages;
-import com.alaharranhonor.swdm.datagen.LootTables;
+import com.alaharranhonor.swdm.datagen.BlockStateGen;
+import com.alaharranhonor.swdm.datagen.BlockTagGen;
+import com.alaharranhonor.swdm.datagen.EnUsLanguageGen;
+import com.alaharranhonor.swdm.datagen.LootTableGen;
 import com.alaharranhonor.swdm.gentypes.GenType;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.resources.ResourceLocation;
@@ -33,16 +33,16 @@ public abstract class BasicItemGen<T extends Item> extends GenType<T> {
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {}
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {}
 
     @Override
-    public void addBlockTags(BlockTags gen) {}
+    public void addBlockTags(BlockTagGen gen) {}
 
     @Override
-    public void addLootTables(LootTables.ModLootTables gen) {}
+    public void addLootTables(LootTableGen.BlockLoot gen) {}
 
     @Override
-    public void addLang(Languages gen) {
-        gen.add(this.generated, gen.sanitizedName(this.generated.getRegistryName().getPath()));
+    public void addLang(EnUsLanguageGen gen) {
+        gen.add(this.generated, gen.sanitizedName(itemKey(this.generated).getPath()));
     }
 }

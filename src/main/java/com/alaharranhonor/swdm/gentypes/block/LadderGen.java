@@ -7,7 +7,6 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LadderBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -24,31 +23,31 @@ public class LadderGen extends BasicBlockGen<LadderBlock> {
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 8);
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.generated.getRegistryName().getNamespace(), path.substring(0, path.length() - 7));
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.generated).getNamespace(), path.substring(0, path.length() - 7));
         gen.ladder(this.generated, textures.get("ladder", basePath));
     }
 
     @Override
-    public void addItemModels(ItemModels gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.generated.getRegistryName().getNamespace(), path.substring(0, path.length() - 7));
+    public void addItemModels(ItemModelGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.generated).getNamespace(), path.substring(0, path.length() - 7));
         gen.singleTexture(path, gen.mcLoc("item/generated"), "layer0", textures.get("ladder", basePath));
     }
 
     @Override
-    public void addItemTags(ItemTags gen) {
+    public void addItemTags(ItemTagGen gen) {
 
     }
 
     @Override
-    public void addBlockTags(BlockTags gen) {
+    public void addBlockTags(BlockTagGen gen) {
         gen.tag(net.minecraft.tags.BlockTags.CLIMBABLE).add(this.generated);
     }
 

@@ -3,7 +3,6 @@ package com.alaharranhonor.swdm.block;
 import com.alaharranhonor.swdm.workshop.DecoWorkshopMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -19,7 +18,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import javax.annotation.Nullable;
 
 public class DecoWorkshopBlock extends Block {
-    private static final Component CONTAINER_TITLE = new TranslatableComponent("container.deco_workshop");
+    private static final Component CONTAINER_TITLE = Component.translatable("container.deco_workshop");
 
     public DecoWorkshopBlock(BlockBehaviour.Properties props) {
         super(props);

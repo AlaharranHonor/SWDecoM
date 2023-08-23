@@ -2,7 +2,7 @@ package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
-import com.alaharranhonor.swdm.datagen.BlockStates;
+import com.alaharranhonor.swdm.datagen.BlockStateGen;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -16,9 +16,9 @@ public class SWDMFenceGen extends HalfFenceGen {
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path);
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path);
         String fenceType = path.substring(path.lastIndexOf('_') + 1);
         gen.swdmFenceBlock(this.generated, SWDMBlockstateProperties.WallType.FULL, textures.get("", basePath), textures.get("lattice", basePath), fenceType);
         gen.swdmFenceBlock(this.blockWaterlogged.get(), SWDMBlockstateProperties.WallType.FULL, textures.get("", basePath), textures.get("lattice", basePath), fenceType);

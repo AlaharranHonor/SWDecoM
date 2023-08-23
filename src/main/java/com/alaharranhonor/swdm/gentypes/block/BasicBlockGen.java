@@ -2,9 +2,9 @@ package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
-import com.alaharranhonor.swdm.datagen.Languages;
-import com.alaharranhonor.swdm.datagen.LootTables;
-import com.alaharranhonor.swdm.datagen.Recipes;
+import com.alaharranhonor.swdm.datagen.EnUsLanguageGen;
+import com.alaharranhonor.swdm.datagen.LootTableGen;
+import com.alaharranhonor.swdm.datagen.RecipeGen;
 import com.alaharranhonor.swdm.gentypes.GenType;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.block.BlockColors;
@@ -30,7 +30,7 @@ public abstract class BasicBlockGen<T extends Block> extends GenType<T> {
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 1);
     }
 
@@ -42,17 +42,17 @@ public abstract class BasicBlockGen<T extends Block> extends GenType<T> {
         }
         this.registeredName = name;
         blocks.register(name + this.getSuffix(), this);
-        items.register(name + this.getSuffix(), () -> new BlockItem(this.get(), new Item.Properties().tab(SWDM.TAB)));
+        items.register(name + this.getSuffix(), () -> new BlockItem(this.get(), new Item.Properties()));
         return true;
     }
 
     @Override
-    public void addLang(Languages gen) {
-        gen.add(this.generated, gen.sanitizedName(this.generated.getRegistryName().getPath()));
+    public void addLang(EnUsLanguageGen gen) {
+        gen.add(this.generated, gen.sanitizedName(blockKey(this.generated).getPath()));
     }
 
     @Override
-    public void addLootTables(LootTables.ModLootTables gen) {
+    public void addLootTables(LootTableGen.BlockLoot gen) {
         gen.dropSelf(this.generated);
     }
 

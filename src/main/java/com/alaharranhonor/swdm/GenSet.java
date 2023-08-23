@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
@@ -180,7 +181,7 @@ public class GenSet {
         }
 
         private Builder(Supplier<Block> base) {
-            this(base, base.get().getRegistryName().getPath());
+            this(base, ForgeRegistries.BLOCKS.getKey(base.get()).getPath());
         }
 
         private Builder(RegistryObject<Block> base) {

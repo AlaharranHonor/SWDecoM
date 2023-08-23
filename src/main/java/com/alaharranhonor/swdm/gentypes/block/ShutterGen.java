@@ -7,7 +7,6 @@ import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -24,30 +23,30 @@ public class ShutterGen extends BasicBlockGen<ShutterBlock> {
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 8);
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 8));
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 8));
         gen.shutter(this.generated, textures.get("side", basePath), textures.get("front", basePath), textures.get("back", basePath));
     }
 
     @Override
-    public void addItemModels(ItemModels gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
+    public void addItemModels(ItemModelGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
         gen.withExistingParent(path, gen.modLoc("block/" + path)); // Item model
     }
 
     @Override
-    public void addItemTags(ItemTags gen) {
+    public void addItemTags(ItemTagGen gen) {
 
     }
 
     @Override
-    public void addBlockTags(BlockTags gen) {
+    public void addBlockTags(BlockTagGen gen) {
 
     }
 

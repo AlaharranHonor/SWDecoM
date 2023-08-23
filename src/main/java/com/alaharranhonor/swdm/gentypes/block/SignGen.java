@@ -40,7 +40,7 @@ public class SignGen extends BasicBlockGen<SWDMStandingSignBlock> {
         this.registeredName = name;
         RegistryObject<SWDMStandingSignBlock> standingSign = blocks.register(name + this.getSuffix(), this);
         this.wallBlock = blocks.register(name + this.getSuffix() + "_wall", () -> new SWDMWallSignBlock(this.props(), this.wood));
-        items.register(name + this.getSuffix(), () -> new SignItem(new Item.Properties().tab(SWDM.TAB), this.generated, this.wallBlock.get()));
+        items.register(name + this.getSuffix(), () -> new SignItem(new Item.Properties(), this.generated, this.wallBlock.get()));
         BlockSetup.SIGN_BLOCKS.add(standingSign);
         BlockSetup.SIGN_BLOCKS.add(this.wallBlock);
         return true;
@@ -57,35 +57,35 @@ public class SignGen extends BasicBlockGen<SWDMStandingSignBlock> {
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 8);
     }
 
     @Override
-    public void addLootTables(LootTables.ModLootTables gen) {
+    public void addLootTables(LootTableGen.BlockLoot gen) {
         super.addLootTables(gen);
         gen.dropOther(this.wallBlock.get(), this.generated);
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 5));
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 5));
         gen.signBlock(this.generated, this.wallBlock.get(), textures.get("", basePath));
     }
 
     @Override
-    public void addItemModels(ItemModels gen, TextureSet textures) {
-        gen.singleTexture(this.generated.getRegistryName().getPath(), gen.mcLoc("item/generated"), "layer0", TextureSet.Builder.item(this.generated.getRegistryName()));
+    public void addItemModels(ItemModelGen gen, TextureSet textures) {
+        gen.singleTexture(blockKey(this.generated).getPath(), gen.mcLoc("item/generated"), "layer0", TextureSet.Builder.item(blockKey(this.generated)));
     }
 
     @Override
-    public void addItemTags(ItemTags gen) {
+    public void addItemTags(ItemTagGen gen) {
         gen.tag(net.minecraft.tags.ItemTags.SIGNS).add(this.generated.asItem());
     }
 
     @Override
-    public void addBlockTags(BlockTags gen) {
+    public void addBlockTags(BlockTagGen gen) {
         gen.tag(net.minecraft.tags.BlockTags.STANDING_SIGNS).add(this.generated);
         gen.tag(net.minecraft.tags.BlockTags.WALL_SIGNS).add(this.wallBlock.get());
     }

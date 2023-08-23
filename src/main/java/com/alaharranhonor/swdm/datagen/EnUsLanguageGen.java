@@ -1,21 +1,22 @@
 package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
+import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.registry.BlockSetup;
-import com.alaharranhonor.swdm.registry.EntitySetup;
 import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
-public class Languages extends LanguageProvider {
-    public Languages(DataGenerator gen, String modid, String locale) {
-        super(gen, modid, locale);
+public class EnUsLanguageGen extends LanguageProvider {
+
+    public EnUsLanguageGen(PackOutput pOutput, String locale) {
+        super(pOutput, ModRef.ID, locale);
     }
 
     @Override
     protected void addTranslations() {
-        this.add("itemGroup.swdmtab", "SWDM");
+        this.add("itemGroup.swdm.main", "Star Worm Deco Mod");
         this.add("container.deco_workshop", "Deco Workshop");
         this.add(ItemSetup.CHANGE_TOOL.get(), "Change Tool");
         this.add(BlockSetup.DECO_WORKSHOP.get(), "Deco Workshop");

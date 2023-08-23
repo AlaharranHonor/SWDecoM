@@ -1,87 +1,87 @@
 package com.alaharranhonor.swdm.entity;
 
-import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.ModRef;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
+import org.joml.Matrix4f;
 
 public class InvisibleItemFrameRenderer extends ItemFrameRenderer<InvisibleItemFrame> {
 
-    private static final ResourceLocation FRAME_LOCATION = SWDM.res("textures/entity/invisible_item_frame.png");
+    private static final ResourceLocation FRAME_LOCATION = ModRef.res("textures/entity/invisible_item_frame.png");
 
     public InvisibleItemFrameRenderer(EntityRendererProvider.Context ctx) {
         super(ctx);
     }
 
     @Override
-    public void render(InvisibleItemFrame frame, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buf, int light) {
+    public void render(InvisibleItemFrame pEntity, float pEntityYaw, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        net.minecraftforge.client.event.RenderNameplateEvent renderNameplateEvent = new net.minecraftforge.client.event.RenderNameplateEvent(frame, frame.getDisplayName(), this, ms, buf, light, partialTicks);
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(renderNameplateEvent);
-        if (renderNameplateEvent.getResult() != net.minecraftforge.eventbus.api.Event.Result.DENY && (renderNameplateEvent.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW || this.shouldShowName(frame))) {
-            this.renderNameTag(frame, renderNameplateEvent.getContent(), ms, buf, light);
+        var renderNameTagEvent = new net.minecraftforge.client.event.RenderNameTagEvent(pEntity, pEntity.getDisplayName(), this, pPoseStack, pBuffer, pPackedLight, pPartialTick);
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(renderNameTagEvent);
+        if (renderNameTagEvent.getResult() != net.minecraftforge.eventbus.api.Event.Result.DENY && (renderNameTagEvent.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW || this.shouldShowName(pEntity))) {
+            this.renderNameTag(pEntity, renderNameTagEvent.getContent(), pPoseStack, pBuffer, pPackedLight);
         }
 
-        ms.pushPose();
-        Direction direction = frame.getDirection();
-        Vec3 vec3 = this.getRenderOffset(frame, partialTicks);
-        ms.translate(-vec3.x(), -vec3.y(), -vec3.z());
+        pPoseStack.pushPose();
+        Direction direction = pEntity.getDirection();
+        Vec3 vec3 = this.getRenderOffset(pEntity, pPartialTick);
+        pPoseStack.translate(-vec3.x(), -vec3.y(), -vec3.z());
         double d0 = 0.46875D;
-        ms.translate((double)direction.getStepX() * d0, (double)direction.getStepY() * d0, (double)direction.getStepZ() * d0);
-        ms.mulPose(Vector3f.XP.rotationDegrees(frame.getXRot()));
-        ms.mulPose(Vector3f.YP.rotationDegrees(180 - frame.getYRot()));
-        ItemStack placedItem = frame.getItem();
+        pPoseStack.translate((double)direction.getStepX() * d0, (double)direction.getStepY() * d0, (double)direction.getStepZ() * d0);
+        pPoseStack.mulPose(Axis.XP.rotationDegrees(pEntity.getXRot()));
+        pPoseStack.mulPose(Axis.YP.rotationDegrees(180 - pEntity.getYRot()));
+        ItemStack placedItem = pEntity.getItem();
 
-        boolean shouldRenderItem = !MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderItemInFrameEvent(frame, this, ms, buf, light));
-        boolean isInvisible = frame.isInvisible() || !shouldRenderItem || !placedItem.isEmpty();
+        boolean shouldRenderItem = !MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderItemInFrameEvent(pEntity, this, pPoseStack, pBuffer, pPackedLight));
+        boolean isInvisible = pEntity.isInvisible() || !shouldRenderItem || !placedItem.isEmpty();
         if (!isInvisible) { // Render background frame
-            ms.pushPose();
-            ms.mulPose(Vector3f.YP.rotationDegrees(180));
-            ms.mulPose(Vector3f.ZP.rotationDegrees(-90));
-            ms.translate(-0.5D, -0.5D, -0.5D);
-            this.renderFrame(ms, buf.getBuffer(RenderType.text(FRAME_LOCATION)), light);
-            ms.popPose();
+            pPoseStack.pushPose();
+            pPoseStack.mulPose(Axis.YP.rotationDegrees(180));
+            pPoseStack.mulPose(Axis.ZP.rotationDegrees(-90));
+            pPoseStack.translate(-0.5D, -0.5D, -0.5D);
+            this.renderFrame(pPoseStack, pBuffer.getBuffer(RenderType.text(FRAME_LOCATION)), pPackedLight);
+            pPoseStack.popPose();
         }
 
         if (!placedItem.isEmpty()) { // Render placed item
-            MapItemSavedData mapData = MapItem.getSavedData(placedItem, frame.level);
-            ms.translate(0.0D, 0.0D, d0);
+            MapItemSavedData mapData = MapItem.getSavedData(placedItem, pEntity.level());
+            pPoseStack.translate(0.0D, 0.0D, d0);
 
-            int j = mapData != null ? frame.getRotation() % 4 * 2 : frame.getRotation();
-            ms.mulPose(Vector3f.ZP.rotationDegrees((float)j * 360.0F / 8.0F));
+            int j = mapData != null ? pEntity.getRotation() % 4 * 2 : pEntity.getRotation();
+            pPoseStack.mulPose(Axis.ZP.rotationDegrees((float)j * 360.0F / 8.0F));
             if (shouldRenderItem) {
                 if (mapData != null) {
-                    ms.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
+                    pPoseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
                     float f = 0.0078125F;
-                    ms.scale(f, f, f);
-                    ms.translate(-64.0D, -64.0D, 0.0D);
+                    pPoseStack.scale(f, f, f);
+                    pPoseStack.translate(-64.0D, -64.0D, 0.0D);
                     Integer integer = MapItem.getMapId(placedItem);
-                    ms.translate(0.0D, 0.0D, -1.0D);
-                    minecraft.gameRenderer.getMapRenderer().render(ms, buf, integer, mapData, true, light);
+                    pPoseStack.translate(0.0D, 0.0D, -1.0D);
+                    minecraft.gameRenderer.getMapRenderer().render(pPoseStack, pBuffer, integer, mapData, true, pPackedLight);
                 } else {
-                    ms.scale(0.5F, 0.5F, 0.5F);
-                    minecraft.getItemRenderer().renderStatic(placedItem, ItemTransforms.TransformType.FIXED, light, OverlayTexture.NO_OVERLAY, ms, buf, frame.getId());
+                    pPoseStack.scale(0.5F, 0.5F, 0.5F);
+                    minecraft.getItemRenderer().renderStatic(placedItem, ItemDisplayContext.FIXED, pPackedLight, OverlayTexture.NO_OVERLAY, pPoseStack, pBuffer, pEntity.level(), pEntity.getId());
                 }
             }
         }
 
-        ms.popPose();
+        pPoseStack.popPose();
     }
 
     private void renderFrame(PoseStack ms, VertexConsumer buf, int light) {

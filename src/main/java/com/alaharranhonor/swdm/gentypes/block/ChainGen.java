@@ -6,7 +6,6 @@ import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -23,27 +22,27 @@ public class ChainGen extends BasicBlockGen<TwoWayBlock> {
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 16);
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
         gen.twoWayBlock(this.generated);
     }
 
     @Override
-    public void addItemModels(ItemModels gen, TextureSet textures) {
+    public void addItemModels(ItemModelGen gen, TextureSet textures) {
 
     }
 
     @Override
-    public void addItemTags(ItemTags gen) {
+    public void addItemTags(ItemTagGen gen) {
 
     }
 
     @Override
-    public void addBlockTags(BlockTags gen) {
+    public void addBlockTags(BlockTagGen gen) {
         gen.tag(net.minecraft.tags.BlockTags.WALLS).add(this.generated);
     }
 

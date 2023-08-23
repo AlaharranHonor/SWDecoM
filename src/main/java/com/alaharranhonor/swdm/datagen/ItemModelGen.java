@@ -1,18 +1,21 @@
 package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
+import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import com.alaharranhonor.swdm.util.RL;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemModels extends ItemModelProvider {
-	public ItemModels(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
-		super(generator, modid, existingFileHelper);
+public class ItemModelGen extends ItemModelProvider {
+	public ItemModelGen(PackOutput pOutput, ExistingFileHelper existingFileHelper) {
+		super(pOutput, ModRef.ID, existingFileHelper);
 	}
 
 	@Override
@@ -28,7 +31,11 @@ public class ItemModels extends ItemModelProvider {
 		}
 	}
 
+	public static ResourceLocation blockKey(Block block) {
+		return ForgeRegistries.BLOCKS.getKey(block);
+	}
+
 	public ItemModelBuilder existingBlock(Block block) {
-		return this.withExistingParent(block.getRegistryName().getPath(), RL.prefix(block.getRegistryName(), "block/"));
+		return this.withExistingParent(blockKey(block).getPath(), RL.prefix(blockKey(block), "block/"));
 	}
 }

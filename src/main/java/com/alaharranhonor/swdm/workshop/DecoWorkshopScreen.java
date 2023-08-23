@@ -3,6 +3,7 @@ package com.alaharranhonor.swdm.workshop;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -42,30 +43,30 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
         --this.titleLabelY;
     }
 
-    public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
-        this.renderTooltip(pPoseStack, pMouseX, pMouseY);
+    @Override
+    public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+        this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
     }
 
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pX, int pY) {
-        this.renderBackground(pPoseStack);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, BG_LOCATION);
+    @Override
+    protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pX, int pY) {
+        this.renderBackground(pGuiGraphics);
         int i = this.leftPos;
         int j = this.topPos;
-        this.blit(pPoseStack, i, j, 0, 0, this.imageWidth, this.imageHeight);
+        pGuiGraphics.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
         int k = (int)(41.0F * this.scrollOffs);
-        this.blit(pPoseStack, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15);
+        pGuiGraphics.blit(BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15);
         int l = this.leftPos + 52;
         int i1 = this.topPos + 14;
         int j1 = this.startIndex + 12;
-        this.renderButtons(pPoseStack, pX, pY, l, i1, j1);
-        this.renderRecipes(l, i1, j1);
+        this.renderButtons(pGuiGraphics, pX, pY, l, i1, j1, BG_LOCATION);
+        this.renderRecipes(pGuiGraphics, l, i1, j1);
     }
 
-    protected void renderTooltip(PoseStack pPoseStack, int pX, int pY) {
-        super.renderTooltip(pPoseStack, pX, pY);
+    @Override
+    protected void renderTooltip(GuiGraphics pGuiGraphics, int pX, int pY) {
+        super.renderTooltip(pGuiGraphics, pX, pY);
         if (this.displayRecipes) {
             int i = this.leftPos + 52;
             int j = this.topPos + 14;
@@ -77,14 +78,14 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
                 int j1 = i + i1 % 4 * 16;
                 int k1 = j + i1 / 4 * 18 + 2;
                 if (pX >= j1 && pX < j1 + 16 && pY >= k1 && pY < k1 + 18) {
-                    this.renderTooltip(pPoseStack, list.get(l).getResultItem(), pX, pY);
+                    pGuiGraphics.renderTooltip(this.font, list.get(l).getResultItem(this.minecraft.level.registryAccess()), pX, pY);
                 }
             }
         }
 
     }
 
-    private void renderButtons(PoseStack pPoseStack, int pMouseX, int pMouseY, int pX, int pY, int pLastVisibleElementIndex) {
+    private void renderButtons(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pX, int pY, int pLastVisibleElementIndex, ResourceLocation texture) {
         for(int i = this.startIndex; i < pLastVisibleElementIndex && i < this.menu.getNumRecipes(); ++i) {
             int j = i - this.startIndex;
             int k = pX + j % 4 * 16;
@@ -97,12 +98,12 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
                 j1 += 36;
             }
 
-            this.blit(pPoseStack, k, i1 - 1, 0, j1, 16, 18);
+            pGuiGraphics.blit(texture, k, i1 - 1, 0, j1, 16, 18);
         }
 
     }
 
-    private void renderRecipes(int pLeft, int pTop, int pRecipeIndexOffsetMax) {
+    private void renderRecipes(GuiGraphics pGuiGraphics, int pLeft, int pTop, int pRecipeIndexOffsetMax) {
         List<DecoRecipe> list = this.menu.getRecipes();
 
         for(int i = this.startIndex; i < pRecipeIndexOffsetMax && i < this.menu.getNumRecipes(); ++i) {
@@ -110,11 +111,12 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
             int k = pLeft + j % 4 * 16;
             int l = j / 4;
             int i1 = pTop + l * 18 + 2;
-            this.minecraft.getItemRenderer().renderAndDecorateItem(list.get(i).getResultItem(), k, i1);
+            pGuiGraphics.renderFakeItem(list.get(i).getResultItem(this.minecraft.level.registryAccess()), k, i1);
         }
 
     }
 
+    @Override
     public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
         this.scrolling = false;
         if (this.displayRecipes) {
@@ -143,6 +145,7 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
         return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
 
+    @Override
     public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
         if (this.scrolling && this.isScrollBarActive()) {
             int i = this.topPos + 14;
@@ -156,6 +159,7 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
         }
     }
 
+    @Override
     public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
         if (this.isScrollBarActive()) {
             int i = this.getOffscreenRows();

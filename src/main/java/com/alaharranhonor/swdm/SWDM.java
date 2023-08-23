@@ -16,39 +16,15 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(SWDM.MOD_ID)
+@Mod(ModRef.ID)
 public class SWDM {
-
-    public static final Logger LOGGER = LogManager.getLogger();
-    public static final String MOD_ID = "swdm";
-
-    public static ResourceLocation res(String name) {
-        return new ResourceLocation(MOD_ID, name);
-    }
-
-    public static final CreativeModeTab TAB = new CreativeModeTab("swdmtab") {
-        @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(ItemSetup.CHANGE_TOOL.get());
-        }
-
-        @Override
-        public boolean hasSearchBar() {
-            return true;
-        }
-
-        @Override
-        public void fillItemList(NonNullList<ItemStack> pItems) {
-            super.fillItemList(pItems);
-        }
-
-    }.setBackgroundImage(new ResourceLocation("minecraft", "textures/gui/container/creative_inventory/tab_item_search.png"));
 
     public SWDM() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         SetSetup.init();
         BlockSetup.init(modBus);
         ItemSetup.init(modBus);
+        CreativeTabSetup.init(modBus);
         EntitySetup.init(modBus);
         RecipeSetup.init(modBus);
         MenuSetup.init(modBus);

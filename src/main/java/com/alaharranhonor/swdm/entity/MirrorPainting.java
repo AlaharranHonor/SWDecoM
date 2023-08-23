@@ -4,11 +4,12 @@ import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.decoration.Motive;
 import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
@@ -29,16 +30,17 @@ public class MirrorPainting extends Painting {
         super(EntityType.PAINTING, level);
         this.pos = pos;
 
-        List<MirrorMotive> list = Lists.newArrayList();
+        List<MirrorVariant> list = Lists.newArrayList();
         int largestArea = 0;
-        for(Motive motive : ForgeRegistries.PAINTING_TYPES.getValues()) {
-            if (!(motive instanceof MirrorMotive)) continue;
+        for(PaintingVariant variant : ForgeRegistries.PAINTING_VARIANTS.getValues()) {
+            if (!(variant instanceof MirrorVariant)) continue;
 
-            this.motive = motive;
+
+            this.setVariant(Holder.direct(variant));
             this.setDirection(direction);
             if (this.survives()) {
-                list.add((MirrorMotive) motive);
-                int area = motive.getWidth() * motive.getHeight();
+                list.add((MirrorVariant) variant);
+                int area = variant.getWidth() * variant.getHeight();
                 if (area > largestArea) {
                     largestArea = area;
                 }
@@ -46,16 +48,16 @@ public class MirrorPainting extends Painting {
         }
 
         if (!list.isEmpty()) {
-            Iterator<MirrorMotive> ite = list.iterator();
+            Iterator<MirrorVariant> ite = list.iterator();
 
             while(ite.hasNext()) {
-                MirrorMotive next = ite.next();
+                MirrorVariant next = ite.next();
                 if (next.getWidth() * next.getHeight() < largestArea) {
                     ite.remove();
                 }
             }
 
-            this.motive = list.get(this.random.nextInt(list.size()));
+            this.setVariant(Holder.direct(list.get(this.random.nextInt(list.size()))));
         }
 
         this.setDirection(direction);
@@ -63,7 +65,7 @@ public class MirrorPainting extends Painting {
 
     @Override
     public void dropItem(@Nullable Entity breaker) {
-        if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+        if (this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
             this.playSound(SoundEvents.PAINTING_BREAK, 1.0F, 1.0F);
             if (breaker instanceof Player) {
                 Player player = (Player)breaker;

@@ -1,11 +1,12 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.block.HorizontalCarpetBlock;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CarpetBlock;
 
@@ -24,32 +25,32 @@ public class CarpetGen extends BasicBlockGen<CarpetBlock> {
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
-        gen.defaultDecoBench(builder, this.generated, net.minecraft.tags.ItemTags.CARPETS, 8);
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
+        gen.defaultDecoBench(builder, this.generated, ItemTags.WOOL_CARPETS, 8);
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 7));
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 7));
         gen.carpet(this.generated, textures.get("", basePath));
     }
 
     @Override
-    public void addItemModels(ItemModels gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 7));
-        gen.carpet(this.generated.getRegistryName().getPath(), textures.get("", basePath));
+    public void addItemModels(ItemModelGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 7));
+        gen.carpet(blockKey(this.generated).getPath(), textures.get("", basePath));
     }
 
     @Override
-    public void addItemTags(ItemTags gen) {
-        gen.tag(net.minecraft.tags.ItemTags.CARPETS).add(this.generated.asItem());
+    public void addItemTags(ItemTagGen gen) {
+        gen.tag(ItemTags.WOOL_CARPETS).add(this.generated.asItem());
     }
 
     @Override
-    public void addBlockTags(BlockTags gen) {
-        gen.tag(net.minecraft.tags.BlockTags.CARPETS).add(this.generated);
+    public void addBlockTags(BlockTagGen gen) {
+        gen.tag(BlockTags.WOOL_CARPETS).add(this.generated);
     }
 
     @Override

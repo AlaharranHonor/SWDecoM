@@ -1,25 +1,27 @@
 package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
+import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.block.*;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import com.alaharranhonor.swdm.util.RL;
 import net.minecraft.core.Direction;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
 
-public class BlockStates extends BlockStateProvider {
+public class BlockStateGen extends BlockStateProvider {
 
 
-    public BlockStates(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
-        super(gen, modid, exFileHelper);
+    public BlockStateGen(PackOutput pOutput, ExistingFileHelper exFileHelper) {
+        super(pOutput, ModRef.ID, exFileHelper);
     }
 
     @Override
@@ -45,12 +47,16 @@ public class BlockStates extends BlockStateProvider {
         }
     }
 
+    public static ResourceLocation key(Block block) {
+        return ForgeRegistries.BLOCKS.getKey(block);
+    }
+
     public void shelf(ShelfBlock block, ResourceLocation texture) {
         this.getVariantBuilder(block).forAllStates(state -> {
             SWDMBlockstateProperties.ShelfType shelfType = state.getValue(ShelfBlock.SHELF_TYPE);
             Direction facing = state.getValue(ShelfBlock.FACING);
             return ConfiguredModel.builder().modelFile(
-                    this.models().withExistingParent(block.getRegistryName().getPath() + "_" + shelfType.getSerializedName(), this.modLoc("shelf_" + shelfType.getSerializedName())).texture("texture", texture)
+                    this.models().withExistingParent(key(block).getPath() + "_" + shelfType.getSerializedName(), this.modLoc("shelf_" + shelfType.getSerializedName())).texture("texture", texture)
                 ).rotationY((int) facing.toYRot())
                 .build();
         });
@@ -61,15 +67,15 @@ public class BlockStates extends BlockStateProvider {
     }
 
     public void tintedStairs(StairBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
-        ModelFile stairs = models().withExistingParent(block.getRegistryName().toString(), modLoc("block/stairs"))
+        ModelFile stairs = models().withExistingParent(key(block).toString(), modLoc("block/stairs"))
             .texture("side", side)
             .texture("bottom", bottom)
             .texture("top", top);
-        ModelFile stairsInner = models().withExistingParent(block.getRegistryName().toString() + "_inner", modLoc("block/inner_stairs"))
+        ModelFile stairsInner = models().withExistingParent(key(block).toString() + "_inner", modLoc("block/inner_stairs"))
             .texture("side", side)
             .texture("bottom", bottom)
             .texture("top", top);
-        ModelFile stairsOuter = models().withExistingParent(block.getRegistryName().toString() + "_outer", modLoc("block/outer_stairs"))
+        ModelFile stairsOuter = models().withExistingParent(key(block).toString() + "_outer", modLoc("block/outer_stairs"))
             .texture("side", side)
             .texture("bottom", bottom)
             .texture("top", top);
@@ -82,13 +88,13 @@ public class BlockStates extends BlockStateProvider {
             .forAllStates(state -> {
                 Direction facing = state.getValue(LadderBlock.FACING);
                 return ConfiguredModel.builder().modelFile(
-                    this.models().withExistingParent(block.getRegistryName().getPath(), this.mcLoc("block/ladder")).texture("texture", texture)
+                    this.models().withExistingParent(key(block).getPath(), this.mcLoc("block/ladder")).texture("texture", texture)
                 ).rotationY((int) (facing.toYRot() + 180) % 360).build();
             });
     }
 
     public void beamBlock(BeamBlock block) {
-        String name = block.getRegistryName().getPath();
+        String name = key(block).getPath();
         this.getVariantBuilder(block).forAllStates(state -> {
             SWDMBlockstateProperties.Tileable tile = state.getValue(BeamBlock.TILE);
             return ConfiguredModel.builder()
@@ -108,11 +114,11 @@ public class BlockStates extends BlockStateProvider {
 
     public void tintedSlab(SlabBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top, ResourceLocation doubleSlab) {
         this.slabBlock(block,
-            models().withExistingParent(block.getRegistryName().getPath(), modLoc("block/slab"))
+            models().withExistingParent(key(block).getPath(), modLoc("block/slab"))
                 .texture("side", side)
                 .texture("bottom", bottom)
                 .texture("top", top),
-            models().withExistingParent(block.getRegistryName().getPath() + "_top", modLoc("block/slab_top"))
+            models().withExistingParent(key(block).getPath() + "_top", modLoc("block/slab_top"))
                 .texture("side", side)
                 .texture("bottom", bottom)
                 .texture("top", top),
@@ -140,7 +146,7 @@ public class BlockStates extends BlockStateProvider {
     }
 
     public void shutter(ShutterBlock block, ResourceLocation side, ResourceLocation top, ResourceLocation bottom) {
-        ModelFile model = models().withExistingParent(block.getRegistryName().toString(), modLoc("block/template_shutter"))
+        ModelFile model = models().withExistingParent(key(block).toString(), modLoc("block/template_shutter"))
             .texture("side", side)
             .texture("front", bottom)
             .texture("back", top);
@@ -171,15 +177,15 @@ public class BlockStates extends BlockStateProvider {
     }
 
     public void tintedTrapdoor(TrapDoorBlock block, ResourceLocation side, ResourceLocation top, ResourceLocation bottom) {
-        ModelFile openModel = models().withExistingParent(block.getRegistryName().toString() + "_open", modLoc("block/template_orientable_trapdoor_open"))
+        ModelFile openModel = models().withExistingParent(key(block).toString() + "_open", modLoc("block/template_orientable_trapdoor_open"))
             .texture("side", side)
             .texture("bottom", bottom)
             .texture("top", top);
-        ModelFile topModel = models().withExistingParent(block.getRegistryName().toString() + "top", modLoc("block/template_orientable_trapdoor_top"))
+        ModelFile topModel = models().withExistingParent(key(block).toString() + "top", modLoc("block/template_orientable_trapdoor_top"))
             .texture("side", side)
             .texture("bottom", bottom)
             .texture("top", top);
-        ModelFile bottomModel = models().withExistingParent(block.getRegistryName().toString() + "_bottom", modLoc("block/template_orientable_trapdoor_bottom"))
+        ModelFile bottomModel = models().withExistingParent(key(block).toString() + "_bottom", modLoc("block/template_orientable_trapdoor_bottom"))
             .texture("side", side)
             .texture("bottom", bottom)
             .texture("top", top);
@@ -191,18 +197,18 @@ public class BlockStates extends BlockStateProvider {
     }
 
     public void halfWallBlockItem(HalfWallBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
-        this.models().withExistingParent(block.getRegistryName().getPath() + "_inventory", modLoc("block/wall_inventory"))
+        this.models().withExistingParent(key(block).getPath() + "_inventory", modLoc("block/wall_inventory"))
             .texture("side", side)
             .texture("bottom", bottom)
             .texture("top", top);
     }
 
     public void halfWallBlock(HalfWallBlock block, SWDMBlockstateProperties.WallType wallType, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
-        halfWallBlockInternal(block, wallType, block.getRegistryName().toString(), side, bottom, top);
+        halfWallBlockInternal(block, wallType, key(block).toString(), side, bottom, top);
     }
 
     public void halfWallBlock(HalfWallBlock block, SWDMBlockstateProperties.WallType wallType, ResourceLocation texture) {
-        halfWallBlockInternal(block, wallType, block.getRegistryName().toString(), texture, texture, texture);
+        halfWallBlockInternal(block, wallType, key(block).toString(), texture, texture, texture);
     }
 
     private void halfWallBlockInternal(HalfWallBlock block, SWDMBlockstateProperties.WallType wallType, String baseName, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
@@ -261,14 +267,14 @@ public class BlockStates extends BlockStateProvider {
     }
 
     public void halfFenceBlockItem(HalfFenceBlock block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
-        this.models().withExistingParent(block.getRegistryName().getPath() + "_inventory", modLoc("block/fence_inventory"))
+        this.models().withExistingParent(key(block).getPath() + "_inventory", modLoc("block/fence_inventory"))
             .texture("side", side)
             .texture("bottom", bottom)
             .texture("top", top);
     }
 
     public void halfFenceBlock(HalfFenceBlock block, SWDMBlockstateProperties.WallType wallType, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
-        String baseName = block.getRegistryName().toString();
+        String baseName = key(block).toString();
         halfFenceBlock(block, wallType,
             fencePost(baseName + "_post", side, bottom, top), fenceSide(baseName + "_side", side, bottom, top),
             halfFencePost(baseName + "_half_post", side, bottom, top), halfFenceSide(baseName + "_half_side", side, bottom, top));
@@ -326,11 +332,11 @@ public class BlockStates extends BlockStateProvider {
     }
 
     public void swdmFenceBlockItem(HalfFenceBlock block, ResourceLocation texture, ResourceLocation lattice, String fenceType) {
-        this.models().withExistingParent(block.getRegistryName().getPath() + "_inventory", modLoc("block/fence/fence_" + fenceType + "_inv")).texture("texture", texture).texture("lattice", lattice);
+        this.models().withExistingParent(key(block).getPath() + "_inventory", modLoc("block/fence/fence_" + fenceType + "_inv")).texture("texture", texture).texture("lattice", lattice);
     }
 
     public void swdmFenceBlock(HalfFenceBlock block, SWDMBlockstateProperties.WallType wallType, ResourceLocation texture, ResourceLocation lattice, String fenceType) {
-        String baseName = block.getRegistryName().toString();
+        String baseName = key(block).toString();
         ModelFile post = models().withExistingParent(baseName + "_post", this.modLoc("block/fence/fence_post")).texture("texture", texture).texture("lattice", lattice).texture("particle", texture);
         ModelFile halfPost = models().withExistingParent(baseName + "_half_post", this.modLoc("block/fence/fence_half_post")).texture("texture", texture).texture("lattice", lattice).texture("particle", texture);
         ModelFile full = models().withExistingParent(baseName + "_full", this.modLoc("block/fence/fence_" + fenceType + "_full")).texture("texture", texture).texture("lattice", lattice).texture("particle", texture);
@@ -455,19 +461,19 @@ public class BlockStates extends BlockStateProvider {
 
 
     public void horizontalCarpet(CarpetBlock block, ResourceLocation wool) {
-        ModelFile carpetModel = models().carpet(block.getRegistryName().toString(), wool);
+        ModelFile carpetModel = models().carpet(key(block).toString(), wool);
         this.horizontalBlock(block, carpetModel);
     }
 
     public void carpet(CarpetBlock block, ResourceLocation wool) {
-        ModelFile carpetModel = models().carpet(block.getRegistryName().toString(), wool);
+        ModelFile carpetModel = models().carpet(key(block).toString(), wool);
         this.getVariantBuilder(block)
             .addModels(this.getVariantBuilder(block).partialState(), new ConfiguredModel(carpetModel));
     }
 
     public void pressurePlate(PressurePlateBlock block, ResourceLocation texture) {
-        ModelFile pressurePlateUp = models().singleTexture(block.getRegistryName().toString(), mcLoc("block/pressure_plate_up"), texture);
-        ModelFile pressurePlateDown = models().singleTexture(block.getRegistryName().toString() + "_down", mcLoc("block/pressure_plate_down"), texture);
+        ModelFile pressurePlateUp = models().singleTexture(key(block).toString(), mcLoc("block/pressure_plate_up"), texture);
+        ModelFile pressurePlateDown = models().singleTexture(key(block).toString() + "_down", mcLoc("block/pressure_plate_down"), texture);
 
         this.getVariantBuilder(block)
             .partialState().with(PressurePlateBlock.POWERED, true)
@@ -478,9 +484,9 @@ public class BlockStates extends BlockStateProvider {
     }
 
     public void button(ButtonBlock block, ResourceLocation texture) {
-        ModelFile button = models().singleTexture(block.getRegistryName().toString(), mcLoc("block/button"), texture);
-        ModelFile buttonPressed = models().singleTexture(block.getRegistryName().toString() + "_pressed", mcLoc("block/button_pressed"), texture);
-        models().singleTexture(block.getRegistryName().toString() + "_inventory", mcLoc("block/button_inventory"), texture);
+        ModelFile button = models().singleTexture(key(block).toString(), mcLoc("block/button"), texture);
+        ModelFile buttonPressed = models().singleTexture(key(block).toString() + "_pressed", mcLoc("block/button_pressed"), texture);
+        models().singleTexture(key(block).toString() + "_inventory", mcLoc("block/button_inventory"), texture);
 
         this.getVariantBuilder(block)
             .forAllStates((state) -> {
@@ -500,11 +506,11 @@ public class BlockStates extends BlockStateProvider {
     }
 
     public void twoWayBlock(TwoWayBlock block) {
-        ModelFile single = models().singleTexture(block.getRegistryName().getPath() + "_single", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath() + "_single"));
-        ModelFile middle = models().singleTexture(block.getRegistryName().getPath() + "_middle", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath() + "_middle"));
-        ModelFile edge = models().singleTexture(block.getRegistryName().getPath() + "_edge", mcLoc("block/chain"), "all", modLoc("block/" + block.getRegistryName().getPath() + "_edge"));
+        ModelFile single = models().singleTexture(key(block).getPath() + "_single", mcLoc("block/chain"), "all", modLoc("block/" + key(block).getPath() + "_single"));
+        ModelFile middle = models().singleTexture(key(block).getPath() + "_middle", mcLoc("block/chain"), "all", modLoc("block/" + key(block).getPath() + "_middle"));
+        ModelFile edge = models().singleTexture(key(block).getPath() + "_edge", mcLoc("block/chain"), "all", modLoc("block/" + key(block).getPath() + "_edge"));
 
-        this.itemModels().singleTexture(block.getRegistryName().getPath(), mcLoc("item/generated"), "layer0", new ResourceLocation("swdm", "item/" + block.getRegistryName().getPath()));
+        this.itemModels().singleTexture(key(block).getPath(), mcLoc("item/generated"), "layer0", new ResourceLocation("swdm", "item/" + key(block).getPath()));
 
         this.getVariantBuilder(block).forAllStates((state) -> {
             ModelFile fileToUse = state.getValue(TwoWayBlock.PART) == SWDMBlockstateProperties.TwoWay.SINGLE

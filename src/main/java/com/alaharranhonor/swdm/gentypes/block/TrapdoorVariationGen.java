@@ -1,7 +1,7 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.datagen.BlockStates;
+import com.alaharranhonor.swdm.datagen.BlockStateGen;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -17,9 +17,9 @@ public class TrapdoorVariationGen extends TrapDoorGen {
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.generated.getRegistryName().getNamespace(), path.substring(0, path.length()));
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.generated).getNamespace(), path.substring(0, path.length()));
         gen.tintedTrapdoor(this.generated, textures.get("", basePath));
     }
 

@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.compat;
 
+import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import net.minecraft.resources.ResourceLocation;
@@ -40,11 +41,11 @@ public class SWLMCompat {
     public static void generateSWLMBlockList() {
         if (SWLM_BLOCK_LIST.isEmpty()) return;
 
-        File swdmFile = new File(SWLM_CONFIG_FOLDER, SWDM.MOD_ID + ".txt");
+        File swdmFile = new File(SWLM_CONFIG_FOLDER, ModRef.ID + ".txt");
         try {
             swdmFile.createNewFile();
         } catch (IOException e) {
-            SWDM.LOGGER.error("Could not create SWDM Block List file for SWLM");
+            ModRef.LOGGER.error("Could not create SWDM Block List file for SWLM");
             e.printStackTrace();
             return;
         }
@@ -52,7 +53,7 @@ public class SWLMCompat {
         try {
             Files.write(swdmFile.toPath(), SWLM_BLOCK_LIST);
         } catch (IOException e) {
-            SWDM.LOGGER.error("Could not write SWDM Block List File for SWLM");
+            ModRef.LOGGER.error("Could not write SWDM Block List File for SWLM");
             e.printStackTrace();
         }
     }

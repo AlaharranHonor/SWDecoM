@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
+import java.util.Collections;
 import java.util.List;
 
 public class DecoWorkshopMenu extends AbstractContainerMenu {
@@ -63,7 +64,7 @@ public class DecoWorkshopMenu extends AbstractContainerMenu {
     public DecoWorkshopMenu(int id, Inventory inv, final ContainerLevelAccess access) {
         super(MenuSetup.DECO_WORKSHOP.get(), id);
         this.access = access;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.inputSlot = this.addSlot(new Slot(this.container, 0, 20, 33));
         this.resultSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33) {
             /**
@@ -74,8 +75,8 @@ public class DecoWorkshopMenu extends AbstractContainerMenu {
             }
 
             public void onTake(Player p_150672_, ItemStack p_150673_) {
-                p_150673_.onCraftedBy(p_150672_.level, p_150672_, p_150673_.getCount());
-                DecoWorkshopMenu.this.resultContainer.awardUsedRecipes(p_150672_);
+                p_150673_.onCraftedBy(p_150672_.level(), p_150672_, p_150673_.getCount());
+                DecoWorkshopMenu.this.resultContainer.awardUsedRecipes(p_150672_, Collections.singletonList(p_150673_));
                 ItemStack itemstack = DecoWorkshopMenu.this.inputSlot.remove(1);
                 if (!itemstack.isEmpty()) {
                     DecoWorkshopMenu.this.setupResultSlot();
@@ -176,7 +177,7 @@ public class DecoWorkshopMenu extends AbstractContainerMenu {
         if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
             DecoRecipe recipe = this.recipes.get(this.selectedRecipeIndex.get());
             this.resultContainer.setRecipeUsed(recipe);
-            this.resultSlot.set(recipe.assemble(this.container));
+            this.resultSlot.set(recipe.assemble(this.container, this.level.registryAccess()));
         } else {
             this.resultSlot.set(ItemStack.EMPTY);
         }
@@ -212,7 +213,7 @@ public class DecoWorkshopMenu extends AbstractContainerMenu {
             Item item = itemstack1.getItem();
             itemstack = itemstack1.copy();
             if (pIndex == 1) {
-                item.onCraftedBy(itemstack1, pPlayer.level, pPlayer);
+                item.onCraftedBy(itemstack1, pPlayer.level(), pPlayer);
                 if (!this.moveItemStackTo(itemstack1, 2, 38, true)) {
                     return ItemStack.EMPTY;
                 }

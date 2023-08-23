@@ -1,35 +1,33 @@
 package com.alaharranhonor.swdm.events;
 
-import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
 import com.alaharranhonor.swdm.block.ShelfBlock;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import com.alaharranhonor.swdm.registry.TagSetup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.decoration.Motive;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.MissingMappingsEvent;
 
-@Mod.EventBusSubscriber(modid = SWDM.MOD_ID)
+@Mod.EventBusSubscriber(modid = ModRef.ID)
 public class ForgeEventBusSubscriber {
 
     @SubscribeEvent
     public static void cycleShelfBlock(PlayerInteractEvent.RightClickBlock event) {
-        Player pPlayer = event.getPlayer();
+        Player pPlayer = event.getEntity();
         InteractionHand pHand = event.getHand();
         if (!pPlayer.isShiftKeyDown() || !pPlayer.getItemInHand(pHand).is(TagSetup.STATE_CYCLER)) {
             return;
         }
 
-        BlockState pState = event.getWorld().getBlockState(event.getPos());
+        BlockState pState = event.getLevel().getBlockState(event.getPos());
         if (!(pState.getBlock() instanceof ShelfBlock)) return;
 
         int stateOrdinal = pState.getValue(ShelfBlock.SHELF_TYPE).ordinal();
@@ -40,14 +38,14 @@ public class ForgeEventBusSubscriber {
         stateOrdinal = height * 3 + pos;
         stateOrdinal = stateOrdinal % SWDMBlockstateProperties.ShelfType.values().length;
 
-        event.getWorld().setBlock(event.getPos(), pState.setValue(ShelfBlock.SHELF_TYPE, SWDMBlockstateProperties.ShelfType.values()[stateOrdinal]), 3);
+        event.getLevel().setBlock(event.getPos(), pState.setValue(ShelfBlock.SHELF_TYPE, SWDMBlockstateProperties.ShelfType.values()[stateOrdinal]), 3);
     }
 
     @SubscribeEvent
-    public static void remapBlocks(RegistryEvent.MissingMappings<Block> event) {
-        event.getAllMappings().forEach(mapping -> {
-            if (!mapping.key.getNamespace().equals(SWDM.MOD_ID) && !mapping.key.getNamespace().equals("swlm")) return;
-            String key = mapping.key.getPath();
+    public static void remapBlocks(MissingMappingsEvent event) {
+        event.getAllMappings(Registries.BLOCK).forEach(mapping -> {
+            if (!mapping.getKey().getNamespace().equals(ModRef.ID) && !mapping.getKey().getNamespace().equals("swlm")) return;
+            String key = mapping.getKey().getPath();
 
             for (String wood : SetSetup.ALL_WOODS) {
                 if (remap(mapping, key, wood + "_beam", "beam_" + wood + "_planks")) return;
@@ -118,19 +116,19 @@ public class ForgeEventBusSubscriber {
 
 
     @SubscribeEvent
-    public static void remapEntities(RegistryEvent.MissingMappings<Motive> event) {
-        event.getMappings(SWDM.MOD_ID).forEach(mapping -> {
-            String key = mapping.key.getPath();
+    public static void remapEntities(MissingMappingsEvent event) {
+        event.getMappings(Registries.PAINTING_VARIANT, ModRef.ID).forEach(mapping -> {
+            String key = mapping.getKey().getPath();
 
             for (String wood : SetSetup.ALL_WOODS) {
                 if (key.startsWith("mirror_" + wood)) {
-                    mapping.remap(ForgeRegistries.PAINTING_TYPES.getValue(SWDM.res(key.replaceAll("mirror_" + wood, wood + "_mirror"))));
+                    mapping.remap(ForgeRegistries.PAINTING_VARIANTS.getValue(ModRef.res(key.replaceAll("mirror_" + wood, wood + "_mirror"))));
                 }
             }
         });
     }
 
-    private static boolean remap(RegistryEvent.MissingMappings.Mapping<Block> mapping, String key, String from, String to) {
+    private static boolean remap(MissingMappingsEvent.Mapping<Block> mapping, String key, String from, String to) {
         if (key.startsWith(from)) { // Using .contains() will result in blue/light_blue collision. eg. light_blue_dark_prismarine -> light_dark_prismarine_blue
             mapping.remap(getBlock(key.replaceAll(from, to)));
             return true;
@@ -139,6 +137,6 @@ public class ForgeEventBusSubscriber {
     }
 
     private static Block getBlock(String name) {
-        return ForgeRegistries.BLOCKS.getValue(SWDM.res(name));
+        return ForgeRegistries.BLOCKS.getValue(ModRef.res(name));
     }
 }

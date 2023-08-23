@@ -23,31 +23,31 @@ public class ShelfGen extends BasicBlockGen<ShelfBlock> {
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path);
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path);
         gen.shelf(this.generated, textures.get("", basePath));
     }
 
     @Override
-    public void addItemModels(ItemModels gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path);
+    public void addItemModels(ItemModelGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path);
         gen.withExistingParent(path, gen.modLoc("block/shelf_inventory")).texture("texture", textures.get("", basePath));
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 8);
     }
 
     @Override
-    public void addItemTags(ItemTags gen) {
+    public void addItemTags(ItemTagGen gen) {
 
     }
 
     @Override
-    public void addBlockTags(BlockTags gen) {
+    public void addBlockTags(BlockTagGen gen) {
 
     }
 

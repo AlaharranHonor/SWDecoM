@@ -1,9 +1,10 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.datagen.Recipes;
+import com.alaharranhonor.swdm.datagen.RecipeGen;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
@@ -18,9 +19,9 @@ public abstract class RoofGen extends BlockGen {
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
         Block base = BlockSetup.get("roof_" + roofType() + "_white");
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(base), this.generated)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(base), RecipeCategory.BUILDING_BLOCKS, this.generated)
             .unlockedBy("has_block", gen.hasItem(base))
             .save(builder);
     }

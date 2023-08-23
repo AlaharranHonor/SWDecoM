@@ -1,12 +1,12 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.block.WoodBoardBlock;
-import com.alaharranhonor.swdm.datagen.BlockStates;
-import com.alaharranhonor.swdm.datagen.BlockTags;
-import com.alaharranhonor.swdm.datagen.ItemModels;
-import com.alaharranhonor.swdm.datagen.ItemTags;
+import com.alaharranhonor.swdm.datagen.BlockStateGen;
+import com.alaharranhonor.swdm.datagen.BlockTagGen;
+import com.alaharranhonor.swdm.datagen.ItemModelGen;
+import com.alaharranhonor.swdm.datagen.ItemTagGen;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -29,26 +29,26 @@ public class WoodBoardGen extends BasicBlockGen<WoodBoardBlock> {
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 5));
-        ModelFile model = gen.models().withExistingParent(path, SWDM.res("block/sign")).texture("texture", textures.get("", basePath));
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 5));
+        ModelFile model = gen.models().withExistingParent(path, ModRef.res("block/sign")).texture("texture", textures.get("", basePath));
         gen.horizontalBlock(this.generated, model);
     }
 
     @Override
-    public void addItemModels(ItemModels gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
+    public void addItemModels(ItemModelGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
         gen.withExistingParent(path, gen.modLoc("block/" + path)); // Item model
     }
 
     @Override
-    public void addItemTags(ItemTags gen) {
+    public void addItemTags(ItemTagGen gen) {
 
     }
 
     @Override
-    public void addBlockTags(BlockTags gen) {
+    public void addBlockTags(BlockTagGen gen) {
 
     }
 

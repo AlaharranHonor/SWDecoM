@@ -1,25 +1,28 @@
 package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
+import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.registry.ItemSetup;
-import com.alaharranhonor.swdm.registry.TagSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import com.alaharranhonor.swdm.registry.TagSetup;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemTags extends ItemTagsProvider {
-    public ItemTags(DataGenerator pGenerator, BlockTagsProvider pBlockTagsProvider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
-        super(pGenerator, pBlockTagsProvider, modId, existingFileHelper);
+import java.util.concurrent.CompletableFuture;
+
+public class ItemTagGen extends ItemTagsProvider {
+    public ItemTagGen(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookup, BlockTagsProvider pBlockTagsProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(pOutput, pLookup, pBlockTagsProvider.contentsGetter(), ModRef.ID, existingFileHelper);
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider provider) {
         this.tag(TagSetup.STATE_CYCLER).add(ItemSetup.CHANGE_TOOL.get());
 
         for (GenSet set : SetSetup.SETS) {
@@ -35,8 +38,9 @@ public class ItemTags extends ItemTagsProvider {
         }
     }
 
+    // Set to public
     @Override
-    public TagAppender<Item> tag(TagKey<Item> pTag) {
+    public IntrinsicTagAppender<Item> tag(TagKey<Item> pTag) {
         return super.tag(pTag);
     }
 }

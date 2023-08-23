@@ -7,9 +7,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ButtonBlock;
-import net.minecraft.world.level.block.StoneButtonBlock;
-import net.minecraft.world.level.block.WoodButtonBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -25,32 +23,32 @@ public class ButtonGen extends BasicBlockGen<ButtonBlock> {
     @Override
     protected ButtonBlock generate() {
         if (this.isStone) {
-            return new StoneButtonBlock(this.props().noCollission());
+            return new ButtonBlock(this.props().noCollission(), BlockSetType.STONE, 20, false);
         }
 
-        return new WoodButtonBlock(this.props().noCollission());
+        return new ButtonBlock(this.props().noCollission(), BlockSetType.OAK, 30, true);
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 16);
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 7));
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 7));
         gen.button(this.generated, textures.get("top", basePath));
     }
 
     @Override
-    public void addItemModels(ItemModels gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
+    public void addItemModels(ItemModelGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
         gen.withExistingParent(path, gen.modLoc("block/" + path + "_inventory")); // Item model
     }
 
     @Override
-    public void addItemTags(ItemTags gen) {
+    public void addItemTags(ItemTagGen gen) {
         gen.tag(net.minecraft.tags.ItemTags.BUTTONS).add(this.generated.asItem());
         if (!this.isStone) {
             gen.tag(net.minecraft.tags.ItemTags.WOODEN_BUTTONS).add(this.generated.asItem());
@@ -58,7 +56,7 @@ public class ButtonGen extends BasicBlockGen<ButtonBlock> {
     }
 
     @Override
-    public void addBlockTags(BlockTags gen) {
+    public void addBlockTags(BlockTagGen gen) {
         gen.tag(net.minecraft.tags.BlockTags.BUTTONS).add(this.generated);
         if (!this.isStone) {
             gen.tag(net.minecraft.tags.BlockTags.WOODEN_BUTTONS).add(this.generated);

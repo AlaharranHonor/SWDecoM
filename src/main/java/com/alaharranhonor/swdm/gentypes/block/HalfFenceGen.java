@@ -3,7 +3,6 @@ package com.alaharranhonor.swdm.gentypes.block;
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.block.HalfFenceBlock;
-import com.alaharranhonor.swdm.block.HalfWallBlock;
 import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
@@ -48,7 +47,7 @@ public class HalfFenceGen extends BasicBlockGen<HalfFenceBlock> {
         this.blockWaterlogged = blocks.register(name + this.getSuffix() + "_waterlogged", () -> this.generateFence(true, this.lowerBlockWaterlogged, this));
         this.lowerBlockWaterlogged = blocks.register(name + this.getSuffix() + "_lower_waterlogged", () -> this.generateFence(true, this.upperBlockWaterlogged, this.lowerBlock));
         this.upperBlockWaterlogged = blocks.register(name + this.getSuffix() + "_upper_waterlogged", () -> this.generateFence(true, this.blockWaterlogged, this.upperBlock));
-        items.register(name + this.getSuffix(), () -> new BlockItem(this.get(), new Item.Properties().tab(SWDM.TAB)));
+        items.register(name + this.getSuffix(), () -> new BlockItem(this.get(), new Item.Properties()));
         return true;
     }
 
@@ -62,14 +61,14 @@ public class HalfFenceGen extends BasicBlockGen<HalfFenceBlock> {
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 4);
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.baseBlock.get().getRegistryName().getNamespace(), path.substring(0, path.length() - 11));
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 11));
         gen.tintedHalfFence(this.generated, SWDMBlockstateProperties.WallType.FULL, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
         gen.tintedHalfFence(this.blockWaterlogged.get(), SWDMBlockstateProperties.WallType.FULL, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
         gen.tintedHalfFence(this.lowerBlock.get(), SWDMBlockstateProperties.WallType.LOWER, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
@@ -79,8 +78,8 @@ public class HalfFenceGen extends BasicBlockGen<HalfFenceBlock> {
     }
 
     @Override
-    public void addItemModels(ItemModels gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
+    public void addItemModels(ItemModelGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
         gen.withExistingParent(path, gen.modLoc("block/" + path + "_inventory")); // Item model
     }
 
@@ -95,18 +94,18 @@ public class HalfFenceGen extends BasicBlockGen<HalfFenceBlock> {
     }
 
     @Override
-    public void addItemTags(ItemTags gen) {
+    public void addItemTags(ItemTagGen gen) {
 
     }
 
     @Override
-    public void addBlockTags(BlockTags gen) {
+    public void addBlockTags(BlockTagGen gen) {
         gen.tag(net.minecraft.tags.BlockTags.FENCES).add(this.generated, this.blockWaterlogged.get(), this.lowerBlock.get(), this.lowerBlockWaterlogged.get(), this.upperBlock.get(), this.upperBlockWaterlogged.get());
         gen.tag(net.minecraft.tags.BlockTags.WOODEN_FENCES).add(this.generated, this.blockWaterlogged.get(), this.lowerBlock.get(), this.lowerBlockWaterlogged.get(), this.upperBlock.get(), this.upperBlockWaterlogged.get());
     }
 
     @Override
-    public void addLootTables(LootTables.ModLootTables gen) {
+    public void addLootTables(LootTableGen.BlockLoot gen) {
         gen.dropSelf(this.generated);
         gen.dropOther(this.blockWaterlogged.get(), this.generated);
         gen.dropOther(this.lowerBlock.get(), this.generated);

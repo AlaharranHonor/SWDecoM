@@ -6,8 +6,9 @@ import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -25,30 +26,30 @@ public class HorizontalCarpetGen extends BasicBlockGen<HorizontalCarpetBlock> {
     }
 
     @Override
-    public void addRecipes(Recipes gen, Consumer<FinishedRecipe> builder) {
-        gen.defaultDecoBench(builder, this.generated, net.minecraft.tags.ItemTags.CARPETS, 8);
+    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
+        gen.defaultDecoBench(builder, this.generated, ItemTags.WOOL_CARPETS, 8);
     }
 
     @Override
-    public void addBlockStates(BlockStates gen, TextureSet textures) {
-        String path = this.generated.getRegistryName().getPath();
-        ResourceLocation basePath = new ResourceLocation(this.generated.getRegistryName().getNamespace(), path);
+    public void addBlockStates(BlockStateGen gen, TextureSet textures) {
+        String path = blockKey(this.generated).getPath();
+        ResourceLocation basePath = new ResourceLocation(blockKey(this.generated).getNamespace(), path);
         gen.horizontalCarpet(this.generated, textures.get("top", basePath));
     }
 
     @Override
-    public void addItemModels(ItemModels gen, TextureSet textures) {
-        gen.withExistingParent(this.generated.getRegistryName().getPath(), gen.modLoc("block/" + this.generated.getRegistryName().getPath()));
+    public void addItemModels(ItemModelGen gen, TextureSet textures) {
+        gen.withExistingParent(blockKey(this.generated).getPath(), gen.modLoc("block/" + blockKey(this.generated).getPath()));
     }
 
     @Override
-    public void addItemTags(ItemTags gen) {
-        gen.tag(net.minecraft.tags.ItemTags.CARPETS).add(this.generated.asItem());
+    public void addItemTags(ItemTagGen gen) {
+        gen.tag(ItemTags.WOOL_CARPETS).add(this.generated.asItem());
     }
 
     @Override
-    public void addBlockTags(BlockTags gen) {
-        gen.tag(net.minecraft.tags.BlockTags.CARPETS).add(this.generated);
+    public void addBlockTags(BlockTagGen gen) {
+        gen.tag(BlockTags.WOOL_CARPETS).add(this.generated);
     }
 
     @Override
