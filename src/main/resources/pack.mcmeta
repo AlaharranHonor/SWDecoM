@@ -1,6 +1,6 @@
 {
     "pack": {
-        "description": "SWDM Resources",
+        "description": "${mod_id} Resources",
         "pack_format": ${pack_format_number}
     }
 }
