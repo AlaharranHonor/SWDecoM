@@ -93,13 +93,6 @@ repositories {
 
 dependencies {
     minecraft "net.neoforged:forge:${mc_version}-${forge_version}"
-    //implementation fg.deobf("software.bernie.geckolib:geckolib-1.18-forge:${geckolib_version}")
-    //compileOnly fg.deobf("com.alaharranhonor.swem:swem:${mc_version}-${swem_version}")
-    //implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.18:3.0.57")
-    //implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:0.4.0+1.18")
-    //runtimeOnly fg.deobf("_:worldedit-mod:7.2.10")
-    //runtimeOnly fg.deobf("_:ferritecore:4.2.2-forge")
-    //implementation fg.deobf("curse.maven:swlm-381070:${swlm_slug}")
 
     // Compile
     compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}"))

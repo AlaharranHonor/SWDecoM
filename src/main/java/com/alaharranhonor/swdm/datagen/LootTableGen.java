@@ -63,6 +63,11 @@ public class LootTableGen extends LootTableProvider {
         }
 
         @Override
+        public LootTable.Builder createSlabItemTable(Block pBlock) {
+            return super.createSlabItemTable(pBlock);
+        }
+
+        @Override
         public void add(Block pBlock, Function<Block, LootTable.Builder> pFactory) {
             super.add(pBlock, pFactory);
         }

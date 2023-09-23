@@ -41,6 +41,11 @@ public class SlabGen extends BasicBlockGen<SlabBlock> {
     }
 
     @Override
+    public void addLootTables(LootTableGen.BlockLoot gen) {
+        gen.add(this.generated, gen::createSlabItemTable);
+    }
+
+    @Override
     public void addItemTags(ItemTagGen gen) {
 
     }
