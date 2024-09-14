@@ -23,7 +23,7 @@ apply plugin: "net.dumbcode.gradlehook"
 apply plugin: 'org.spongepowered.mixin'
 
 group = 'com.alaharranhonor.swdm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'swdm'
+archivesBaseName = "swdm-${mc_version}-${mod_version}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17) // MC 1.18.2 = Java 17
 
