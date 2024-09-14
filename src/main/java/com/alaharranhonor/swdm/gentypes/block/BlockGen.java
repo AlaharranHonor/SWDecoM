@@ -2,6 +2,7 @@ package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.block.BaseBlock;
 import com.alaharranhonor.swdm.compat.SWLMCompat;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
@@ -33,7 +34,7 @@ public class BlockGen extends BasicBlockGen<Block> {
 
     @Override
     protected Block generate() {
-        return new Block(this.props());
+        return new BaseBlock(this.props());
     }
 
 

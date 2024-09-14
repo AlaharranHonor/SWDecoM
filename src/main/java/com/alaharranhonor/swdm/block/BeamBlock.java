@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraftforge.common.PlantType;
 
 import javax.annotation.Nullable;
 
@@ -16,6 +17,12 @@ public class BeamBlock extends Block {
 
     public BeamBlock(Properties p_i48440_1_) {
         super(p_i48440_1_);
+    }
+
+    @Override
+    public boolean canSustainPlant(net.minecraft.world.level.block.state.BlockState state, net.minecraft.world.level.BlockGetter world, net.minecraft.core.BlockPos pos, net.minecraft.core.Direction facing, net.minecraftforge.common.IPlantable plantable) {
+        PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
+        return plantType != PlantType.CROP;
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {

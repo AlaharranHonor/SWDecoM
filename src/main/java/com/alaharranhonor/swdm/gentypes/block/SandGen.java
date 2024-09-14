@@ -2,6 +2,7 @@ package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.block.BaseSandBlock;
 import com.alaharranhonor.swdm.compat.SWLMCompat;
 import com.alaharranhonor.swdm.datagen.BlockStates;
 import com.alaharranhonor.swdm.datagen.BlockTags;
@@ -10,13 +11,11 @@ import com.alaharranhonor.swdm.datagen.ItemTags;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SandBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public class SandGen extends BasicBlockGen<SandBlock> {
+public class SandGen extends BasicBlockGen<BaseSandBlock> {
 
     public SandGen(GenSet set, Supplier<Block> baseBlock) {
         super(set, baseBlock);
@@ -33,8 +32,8 @@ public class SandGen extends BasicBlockGen<SandBlock> {
     }
 
     @Override
-    protected SandBlock generate() {
-        return new SandBlock(14406560, this.props());
+    protected BaseSandBlock generate() {
+        return new BaseSandBlock(14406560, this.props());
     }
 
     @Override
