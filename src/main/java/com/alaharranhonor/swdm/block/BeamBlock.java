@@ -3,11 +3,14 @@ package com.alaharranhonor.swdm.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.PlantType;
 
 import javax.annotation.Nullable;
 
@@ -20,6 +23,12 @@ public class BeamBlock extends Block {
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(TILE);
+    }
+
+    @Override
+    public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable) {
+        PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
+        return plantType != PlantType.CROP;
     }
 
     @Override

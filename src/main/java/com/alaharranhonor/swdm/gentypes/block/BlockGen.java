@@ -2,14 +2,20 @@ package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.ModRef;
+import com.alaharranhonor.swdm.block.BaseBlock;
 import com.alaharranhonor.swdm.compat.SWLMCompat;
 import com.alaharranhonor.swdm.datagen.BlockStateGen;
 import com.alaharranhonor.swdm.datagen.BlockTagGen;
 import com.alaharranhonor.swdm.datagen.ItemModelGen;
 import com.alaharranhonor.swdm.datagen.ItemTagGen;
 import com.alaharranhonor.swdm.util.TextureSet;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -32,7 +38,7 @@ public class BlockGen extends BasicBlockGen<Block> {
 
     @Override
     protected Block generate() {
-        return new Block(this.props());
+        return new BaseBlock(this.props());
     }
 
 
