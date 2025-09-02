@@ -39,7 +39,7 @@ public class SetSetup {
     public static final List<String> LMD_TYPES = List.of("light", "medium", "dark");
     public static final List<String> CUSTOM_COLORS = List.of("golden", "sage");
     public static final List<String> WARM_COOL = List.of("warm", "cool");
-    public static final List<String> NATURAL_TONES = List.of("tuscan", "peach", "thistle", "dark_brown", "brown", "mahogany", "muted_brown", "vivid_red", "orange", "golden", "pale", "yellow", "white", "pearl", "dusted_gray", "light_gray", "slate", "blue_gray", "gray", "royal_gray", "black");
+    public static final List<String> NATURAL_TONES = List.of("tuscan", "peach", "thistle", "dark_brown", "brown", "mahogany", "muted_brown", "vivid_red", "orange", "golden", "pale", "yellow", "white", "pearl", "dusted_gray", "light_gray", "slate", "blue_gray", "gray", "royal_gray", "black", "canterbury", "chocolate", "green_tea", "pink");
     public static final List<String> DYE_COLORS = Arrays.stream(DyeColor.values()).map(DyeColor::getSerializedName).collect(Collectors.toList());
     public static final List<String> ROOF_COLORS = Streams.concat(List.copyOf(DYE_COLORS).stream(), List.of("brown_legacy", "white_legacy", "lime_legacy").stream()).toList();
     
