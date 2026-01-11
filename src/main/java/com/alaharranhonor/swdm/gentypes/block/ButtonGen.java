@@ -3,41 +3,36 @@ package com.alaharranhonor.swdm.gentypes.block;
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class ButtonGen extends BasicBlockGen<ButtonBlock> {
 
-    private final boolean isStone;
-    public ButtonGen(GenSet set, Supplier<Block> baseBlock, boolean isStone) {
+    private final int ticks;
+    public ButtonGen(GenSet set, Supplier<Block> baseBlock, int ticks) {
         super(set, baseBlock);
-        this.isStone = isStone;
+        this.ticks = ticks;
     }
 
     @Override
     protected ButtonBlock generate() {
-        if (this.isStone) {
-            return new ButtonBlock(this.props().noCollission(), BlockSetType.STONE, 20, false);
-        }
-
-        return new ButtonBlock(this.props().noCollission(), BlockSetType.OAK, 30, true);
+        return new ButtonBlock(this.set.getBlockSetType(), ticks, this.props().noCollission());
     }
 
     @Override
-    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, RecipeOutput builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 16);
     }
 
     @Override
     public void addBlockStates(BlockStateGen gen, TextureSet textures) {
         String path = blockKey(this.generated).getPath();
-        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 7));
+        ResourceLocation basePath = ResourceLocation.fromNamespaceAndPath(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 7));
         gen.button(this.generated, textures.get("top", basePath));
     }
 
@@ -50,18 +45,11 @@ public class ButtonGen extends BasicBlockGen<ButtonBlock> {
     @Override
     public void addItemTags(ItemTagGen gen) {
         gen.tag(net.minecraft.tags.ItemTags.BUTTONS).add(this.generated.asItem());
-        if (!this.isStone) {
-            gen.tag(net.minecraft.tags.ItemTags.WOODEN_BUTTONS).add(this.generated.asItem());
-        }
     }
 
     @Override
     public void addBlockTags(BlockTagGen gen) {
         gen.tag(net.minecraft.tags.BlockTags.BUTTONS).add(this.generated);
-        if (!this.isStone) {
-            gen.tag(net.minecraft.tags.BlockTags.WOODEN_BUTTONS).add(this.generated);
-        }
-
     }
 
     @Override

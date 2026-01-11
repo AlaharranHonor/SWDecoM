@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,6 +30,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -52,13 +54,13 @@ public class HalfWallBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pPlayer.getItemInHand(pHand).is(TagSetup.STATE_CYCLER)) {
-            return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (!player.getItemInHand(hand).is(TagSetup.STATE_CYCLER)) {
+            return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
         }
 
-        pLevel.setBlock(pPos, this.nextState(pState), 3);
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        level.setBlock(pos, this.nextState(state), 3);
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
     public BlockState nextState(BlockState state) {
@@ -72,7 +74,7 @@ public class HalfWallBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
         return new ItemStack(this.clone.get());
     }
 
@@ -130,8 +132,8 @@ public class HalfWallBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public boolean canPlaceLiquid(BlockGetter pLevel, BlockPos pPos, BlockState pState, Fluid pFluid) {
-        return !this.isWaterlogged && pFluid == Fluids.WATER;
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
+        return !this.isWaterlogged && fluid == Fluids.WATER;
     }
 
     @Override
@@ -149,11 +151,11 @@ public class HalfWallBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public ItemStack pickupBlock(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
+    public ItemStack pickupBlock(@Nullable Player player, LevelAccessor level, BlockPos pos, BlockState state) {
         if (this.isWaterlogged) {
-            pLevel.setBlock(pPos, this.getWaterlogState(pState), 3);
-            if (!pState.canSurvive(pLevel, pPos)) {
-                pLevel.destroyBlock(pPos, true);
+            level.setBlock(pos, this.getWaterlogState(state), 3);
+            if (!state.canSurvive(level, pos)) {
+                level.destroyBlock(pos, true);
             }
 
             return new ItemStack(Items.WATER_BUCKET);

@@ -5,13 +5,13 @@ import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import com.alaharranhonor.swdm.util.RL;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class ItemModelGen extends ItemModelProvider {
 	public ItemModelGen(PackOutput pOutput, ExistingFileHelper existingFileHelper) {
@@ -32,7 +32,7 @@ public class ItemModelGen extends ItemModelProvider {
 	}
 
 	public static ResourceLocation blockKey(Block block) {
-		return ForgeRegistries.BLOCKS.getKey(block);
+		return BuiltInRegistries.BLOCK.getKey(block);
 	}
 
 	public ItemModelBuilder existingBlock(Block block) {

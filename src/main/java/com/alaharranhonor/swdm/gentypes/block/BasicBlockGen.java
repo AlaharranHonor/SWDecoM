@@ -1,9 +1,8 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.SWDM;
+import com.alaharranhonor.swdm.datagen.BlockLoot;
 import com.alaharranhonor.swdm.datagen.EnUsLanguageGen;
-import com.alaharranhonor.swdm.datagen.LootTableGen;
 import com.alaharranhonor.swdm.datagen.RecipeGen;
 import com.alaharranhonor.swdm.gentypes.GenType;
 import net.minecraft.client.color.block.BlockColor;
@@ -12,15 +11,14 @@ import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public abstract class BasicBlockGen<T extends Block> extends GenType<T> {
@@ -30,14 +28,14 @@ public abstract class BasicBlockGen<T extends Block> extends GenType<T> {
     }
 
     @Override
-    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, RecipeOutput builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 1);
     }
 
     @Override
-    public boolean register(String name, DeferredRegister<Block> blocks, DeferredRegister<Item> items) {
+    public boolean register(String name, DeferredRegister.Blocks blocks, DeferredRegister.Items items) {
         // Don't register blocks which are in vanilla
-        if (ForgeRegistries.BLOCKS.containsKey(new ResourceLocation("minecraft", name + this.getSuffix()))) {
+        if (BuiltInRegistries.BLOCK.containsKey(ResourceLocation.fromNamespaceAndPath("minecraft", name + this.getSuffix()))) {
             return false;
         }
         this.registeredName = name;
@@ -52,7 +50,7 @@ public abstract class BasicBlockGen<T extends Block> extends GenType<T> {
     }
 
     @Override
-    public void addLootTables(LootTableGen.BlockLoot gen) {
+    public void addLootTables(BlockLoot gen) {
         gen.dropSelf(this.generated);
     }
 

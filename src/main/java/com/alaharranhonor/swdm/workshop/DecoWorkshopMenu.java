@@ -13,7 +13,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 
 import java.util.Collections;
@@ -30,7 +31,7 @@ public class DecoWorkshopMenu extends AbstractContainerMenu {
     /** The index of the selected recipe in the GUI. */
     private final DataSlot selectedRecipeIndex = DataSlot.standalone();
     private final Level level;
-    private List<DecoRecipe> recipes = Lists.newArrayList();
+    private List<RecipeHolder<DecoRecipe>> recipes = Lists.newArrayList();
     /** The {@plainlink ItemStack} set in the input slot by the player. */
     private ItemStack input = ItemStack.EMPTY;
     /**
@@ -114,7 +115,7 @@ public class DecoWorkshopMenu extends AbstractContainerMenu {
         return this.selectedRecipeIndex.get();
     }
 
-    public List<DecoRecipe> getRecipes() {
+    public List<RecipeHolder<DecoRecipe>> getRecipes() {
         return this.recipes;
     }
 
@@ -163,21 +164,21 @@ public class DecoWorkshopMenu extends AbstractContainerMenu {
 
     }
 
-    private void setupRecipeList(Container pInventory, ItemStack pStack) {
+    private void setupRecipeList(Container inventory, ItemStack input) {
         this.recipes.clear();
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
-        if (!pStack.isEmpty()) {
-            this.recipes = this.level.getRecipeManager().getRecipesFor(RecipeSetup.DECO_RECIPE_TYPE.get(), pInventory, this.level);
+        if (!input.isEmpty()) {
+            this.recipes = this.level.getRecipeManager().getRecipesFor(RecipeSetup.DECO_RECIPE_TYPE.get(), new SingleRecipeInput(input), this.level);
         }
 
     }
 
     void setupResultSlot() {
         if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-            DecoRecipe recipe = this.recipes.get(this.selectedRecipeIndex.get());
+            RecipeHolder<DecoRecipe> recipe = this.recipes.get(this.selectedRecipeIndex.get());
             this.resultContainer.setRecipeUsed(recipe);
-            this.resultSlot.set(recipe.assemble(this.container, this.level.registryAccess()));
+            this.resultSlot.set(recipe.value().assemble(new SingleRecipeInput(this.container.getItem(0)), this.level.registryAccess()));
         } else {
             this.resultSlot.set(ItemStack.EMPTY);
         }
@@ -223,7 +224,7 @@ public class DecoWorkshopMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(itemstack1, 2, 38, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.level.getRecipeManager().getRecipeFor(RecipeSetup.DECO_RECIPE_TYPE.get(), new SimpleContainer(itemstack1), this.level).isPresent()) {
+            } else if (this.level.getRecipeManager().getRecipeFor(RecipeSetup.DECO_RECIPE_TYPE.get(), new SingleRecipeInput(itemstack1), this.level).isPresent()) {
                 if (!this.moveItemStackTo(itemstack1, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }

@@ -2,14 +2,15 @@ package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.ModRef;
-import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.ItemSetup;
-import com.alaharranhonor.swdm.registry.RecipeSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
+import com.alaharranhonor.swdm.workshop.DecoRecipe;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -20,25 +21,21 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 public class RecipeGen extends RecipeProvider {
-    public RecipeGen(PackOutput pOutput) {
-        super(pOutput);
+    public RecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        super(output, registries);
     }
 
 
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> builder) {
+    protected void buildRecipes(RecipeOutput builder) {
         for (GenSet set : SetSetup.SETS) {
-            set.genTypes.forEach(genType -> {
-                genType.addRecipes(this, builder);
-            });
+            set.genTypes.forEach(genType -> genType.addRecipes(this, builder));
         }
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BlockSetup.get("roof_shingle_white"))
@@ -110,54 +107,51 @@ public class RecipeGen extends RecipeProvider {
         this.defaultDecoBench(builder, ItemSetup.INVISIBLE_ITEM_FRAME.get(), Items.ITEM_FRAME, 4);
         this.defaultDecoBench(builder, ItemSetup.MIRROR_PAINTING.get(), Items.PAINTING);
 
-        Item swemWhitewashPlanks = ForgeRegistries.ITEMS.getValue(new ResourceLocation("swem:whitewash_plank"));
-        if (swemWhitewashPlanks != null) {
+        if (BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse("swem:whitewash_plank"))) {
+            Item swemWhitewashPlanks = BuiltInRegistries.ITEM.get(ResourceLocation.parse("swem:whitewash_plank"));
             this.modLoadedDecoBench("swem", ModRef.res("whitewash_planks_dm_to_em"), builder, swemWhitewashPlanks, BlockSetup.WHITEWASH_PLANKS.get(), 1);
             this.modLoadedDecoBench("swem", ModRef.res("whitewash_planks_em_to_dm"), builder, BlockSetup.WHITEWASH_PLANKS.get(), swemWhitewashPlanks, 1);
         }
     }
 
-    public void modLoadedDecoBench(String mod, ResourceLocation id, Consumer<FinishedRecipe> builder, ItemLike output, ItemLike input, int amount) {
-        ConditionalRecipe.builder()
-            .addCondition(new ModLoadedCondition(mod))
-            .addRecipe(writer -> new SingleItemRecipeBuilder(RecipeCategory.BUILDING_BLOCKS, RecipeSetup.DECO_RECIPE_SERIALIZER.get(), Ingredient.of(input), output, amount)
-                .unlockedBy("has_block", has(input))
-                .group("deco_bench")
-                .save(writer))
-            .build(builder, id);
+    public void modLoadedDecoBench(String mod, ResourceLocation id, RecipeOutput builder, ItemLike output, ItemLike input, int amount) {
+        new SingleItemRecipeBuilder(RecipeCategory.BUILDING_BLOCKS, DecoRecipe::new, Ingredient.of(input), output, amount)
+            .unlockedBy("has_block", has(input))
+            .group("deco_bench")
+            .save(builder.withConditions(new ModLoadedCondition(mod)), id);
     }
 
-    public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, ItemLike input, int amount) {
-        new SingleItemRecipeBuilder(RecipeCategory.BUILDING_BLOCKS, RecipeSetup.DECO_RECIPE_SERIALIZER.get(), Ingredient.of(input), output, amount)
+    public void defaultDecoBench(RecipeOutput builder, ItemLike output, ItemLike input, int amount) {
+        new SingleItemRecipeBuilder(RecipeCategory.BUILDING_BLOCKS, DecoRecipe::new, Ingredient.of(input), output, amount)
             .unlockedBy("has_block", has(input))
             .group("deco_bench")
             .save(builder);
     }
 
-    public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, TagKey<Item> input, int amount) {
-        new SingleItemRecipeBuilder(RecipeCategory.BUILDING_BLOCKS, RecipeSetup.DECO_RECIPE_SERIALIZER.get(), Ingredient.of(input), output, amount)
+    public void defaultDecoBench(RecipeOutput builder, ItemLike output, TagKey<Item> input, int amount) {
+        new SingleItemRecipeBuilder(RecipeCategory.BUILDING_BLOCKS, DecoRecipe::new, Ingredient.of(input), output, amount)
             .unlockedBy("has_block", has(input))
             .group("deco_bench")
             .save(builder);
     }
 
-    public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, ItemLike input) {
+    public void defaultDecoBench(RecipeOutput builder, ItemLike output, ItemLike input) {
         this.defaultDecoBench(builder, output, input, 1);
     }
 
-    public void defaultDecoBench(Consumer<FinishedRecipe> builder, ItemLike output, TagKey<Item> input) {
+    public void defaultDecoBench(RecipeOutput builder, ItemLike output, TagKey<Item> input) {
         this.defaultDecoBench(builder, output, input, 1);
     }
 
-    public InventoryChangeTrigger.TriggerInstance hasItem(ItemLike item) {
+    public Criterion<InventoryChangeTrigger.TriggerInstance> hasItem(ItemLike item) {
         return has(item);
     }
 
-    public InventoryChangeTrigger.TriggerInstance hasItem(TagKey<Item> tag) {
+    public Criterion<InventoryChangeTrigger.TriggerInstance> hasItem(TagKey<Item> tag) {
         return has(tag);
     }
 
-    public InventoryChangeTrigger.TriggerInstance hasItem(MinMaxBounds.Ints range, ItemLike item) {
+    public Criterion<InventoryChangeTrigger.TriggerInstance> hasItem(MinMaxBounds.Ints range, ItemLike item) {
         return has(range, item);
     }
 }

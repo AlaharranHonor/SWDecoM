@@ -1,7 +1,6 @@
 package com.alaharranhonor.swdm.block;
 
 import com.alaharranhonor.swdm.registry.TagSetup;
-import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.Util;
@@ -10,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -18,14 +18,11 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.WallSide;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -35,6 +32,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -63,24 +61,33 @@ public class HalfFenceBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
         return new ItemStack(this.clone.get());
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        ItemStack held = pPlayer.getItemInHand(pHand);
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack held = player.getItemInHand(hand);
         if (held.is(TagSetup.STATE_CYCLER)) {
-            pLevel.setBlock(pPos, this.nextState(pState), 3);
-            return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+            level.setBlock(pos, this.nextState(state), 3);
+            return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
         }
 
         // Fence Block Logic
-        if (pLevel.isClientSide) {
-            return held.is(Items.LEAD) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+        if (level.isClientSide) {
+            return held.is(Items.LEAD) ? ItemInteractionResult.SUCCESS : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         } else {
-            return LeadItem.bindPlayerMobs(pPlayer, pLevel, pPos);
+            if (LeadItem.bindPlayerMobs(player, level, pos).consumesAction()) {
+                return ItemInteractionResult.SUCCESS;
+            }
+
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        return !level.isClientSide() ? LeadItem.bindPlayerMobs(player, level, pos) : InteractionResult.PASS;
     }
 
     private BlockState nextState(BlockState state) {
@@ -105,8 +112,8 @@ public class HalfFenceBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public boolean canPlaceLiquid(BlockGetter pLevel, BlockPos pPos, BlockState pState, Fluid pFluid) {
-        return !this.isWaterlogged && pFluid == Fluids.WATER;
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
+        return !this.isWaterlogged && fluid == Fluids.WATER;
     }
 
     @Override
@@ -124,11 +131,11 @@ public class HalfFenceBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public ItemStack pickupBlock(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
+    public ItemStack pickupBlock(@Nullable Player player, LevelAccessor level, BlockPos pos, BlockState state) {
         if (this.isWaterlogged) {
-            pLevel.setBlock(pPos, this.getWaterlogState(pState), 3);
-            if (!pState.canSurvive(pLevel, pPos)) {
-                pLevel.destroyBlock(pPos, true);
+            level.setBlock(pos, this.getWaterlogState(state), 3);
+            if (!state.canSurvive(level, pos)) {
+                level.destroyBlock(pos, true);
             }
 
             return new ItemStack(Items.WATER_BUCKET);

@@ -11,7 +11,7 @@ import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 
 import java.util.function.Supplier;
 
@@ -31,7 +31,7 @@ public class WoodBoardGen extends BasicBlockGen<WoodBoardBlock> {
     @Override
     public void addBlockStates(BlockStateGen gen, TextureSet textures) {
         String path = blockKey(this.generated).getPath();
-        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 5));
+        ResourceLocation basePath = ResourceLocation.fromNamespaceAndPath(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 5));
         ModelFile model = gen.models().withExistingParent(path, ModRef.res("block/sign")).texture("texture", textures.get("", basePath));
         gen.horizontalBlock(this.generated, model);
     }

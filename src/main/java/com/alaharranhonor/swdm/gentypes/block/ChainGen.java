@@ -4,10 +4,9 @@ import com.alaharranhonor.swdm.GenSet;
 import com.alaharranhonor.swdm.block.TwoWayBlock;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.level.block.Block;
 
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class ChainGen extends BasicBlockGen<TwoWayBlock> {
@@ -22,7 +21,7 @@ public class ChainGen extends BasicBlockGen<TwoWayBlock> {
     }
 
     @Override
-    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, RecipeOutput builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 16);
     }
 

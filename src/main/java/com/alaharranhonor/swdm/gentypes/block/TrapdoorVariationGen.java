@@ -19,7 +19,7 @@ public class TrapdoorVariationGen extends TrapDoorGen {
     @Override
     public void addBlockStates(BlockStateGen gen, TextureSet textures) {
         String path = blockKey(this.generated).getPath();
-        ResourceLocation basePath = new ResourceLocation(blockKey(this.generated).getNamespace(), path.substring(0, path.length()));
+        ResourceLocation basePath = ResourceLocation.fromNamespaceAndPath(blockKey(this.generated).getNamespace(), path.substring(0, path.length()));
         gen.tintedTrapdoor(this.generated, textures.get("", basePath));
     }
 

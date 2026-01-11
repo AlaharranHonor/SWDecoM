@@ -8,15 +8,14 @@ import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -41,18 +40,18 @@ public abstract class GenType<T> implements Supplier<T> {
     }
 
     protected BlockBehaviour.Properties props() {
-        return this.set.applyCustomProperties(BlockBehaviour.Properties.copy(this.baseBlock.get()).mapColor(this.baseBlock.get().defaultMapColor()));
+        return this.set.applyCustomProperties(BlockBehaviour.Properties.ofFullCopy(this.baseBlock.get()).mapColor(this.baseBlock.get().defaultMapColor()));
     }
 
     protected abstract T generate();
-    public abstract boolean register(String name, DeferredRegister<Block> blocks, DeferredRegister<Item> items);
-    public abstract void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder);
+    public abstract boolean register(String name, DeferredRegister.Blocks blocks, DeferredRegister.Items items);
+    public abstract void addRecipes(RecipeGen gen, RecipeOutput builder);
     public abstract void addBlockStates(BlockStateGen gen, TextureSet textures);
     public abstract void addItemModels(ItemModelGen gen, TextureSet textures);
     public abstract void addItemTags(ItemTagGen gen);
     public abstract void addBlockTags(BlockTagGen gen);
     public abstract void addLang(EnUsLanguageGen gen);
-    public abstract void addLootTables(LootTableGen.BlockLoot gen);
+    public abstract void addLootTables(BlockLoot gen);
     public abstract String getSuffix();
     public void setRenderType(RenderType renderType) {};
     public void setupClient() {}
@@ -65,10 +64,10 @@ public abstract class GenType<T> implements Supplier<T> {
     }
 
     public static ResourceLocation blockKey(Block block) {
-        return ForgeRegistries.BLOCKS.getKey(block);
+        return BuiltInRegistries.BLOCK.getKey(block);
     }
 
     public static ResourceLocation itemKey(Item item) {
-        return ForgeRegistries.ITEMS.getKey(item);
+        return BuiltInRegistries.ITEM.getKey(item);
     }
 }

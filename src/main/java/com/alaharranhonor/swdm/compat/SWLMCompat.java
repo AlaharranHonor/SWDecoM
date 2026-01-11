@@ -1,12 +1,10 @@
 package com.alaharranhonor.swdm.compat;
 
 import com.alaharranhonor.swdm.ModRef;
-import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.File;
 import java.io.IOException;

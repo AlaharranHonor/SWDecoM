@@ -1,22 +1,20 @@
 package com.alaharranhonor.swdm.workshop;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
 
 public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu> {
-    private static final ResourceLocation BG_LOCATION = new ResourceLocation("textures/gui/container/stonecutter.png");
+    private static final ResourceLocation BG_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/container/stonecutter.png");
     private static final int SCROLLER_WIDTH = 12;
     private static final int SCROLLER_HEIGHT = 15;
     private static final int RECIPES_COLUMNS = 4;
@@ -50,18 +48,18 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
     }
 
     @Override
-    protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pX, int pY) {
-        this.renderBackground(pGuiGraphics);
+    protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+        this.renderBackground(graphics, mouseX, mouseY, partialTick);
         int i = this.leftPos;
         int j = this.topPos;
-        pGuiGraphics.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
+        graphics.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
         int k = (int)(41.0F * this.scrollOffs);
-        pGuiGraphics.blit(BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15);
+        graphics.blit(BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15);
         int l = this.leftPos + 52;
         int i1 = this.topPos + 14;
         int j1 = this.startIndex + 12;
-        this.renderButtons(pGuiGraphics, pX, pY, l, i1, j1, BG_LOCATION);
-        this.renderRecipes(pGuiGraphics, l, i1, j1);
+        this.renderButtons(graphics, mouseX, mouseY, l, i1, j1, BG_LOCATION);
+        this.renderRecipes(graphics, l, i1, j1);
     }
 
     @Override
@@ -71,14 +69,14 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
             int i = this.leftPos + 52;
             int j = this.topPos + 14;
             int k = this.startIndex + 12;
-            List<DecoRecipe> list = this.menu.getRecipes();
+            List<RecipeHolder<DecoRecipe>> list = this.menu.getRecipes();
 
             for(int l = this.startIndex; l < k && l < this.menu.getNumRecipes(); ++l) {
                 int i1 = l - this.startIndex;
                 int j1 = i + i1 % 4 * 16;
                 int k1 = j + i1 / 4 * 18 + 2;
                 if (pX >= j1 && pX < j1 + 16 && pY >= k1 && pY < k1 + 18) {
-                    pGuiGraphics.renderTooltip(this.font, list.get(l).getResultItem(this.minecraft.level.registryAccess()), pX, pY);
+                    pGuiGraphics.renderTooltip(this.font, list.get(l).value().getResultItem(this.minecraft.level.registryAccess()), pX, pY);
                 }
             }
         }
@@ -104,14 +102,14 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
     }
 
     private void renderRecipes(GuiGraphics pGuiGraphics, int pLeft, int pTop, int pRecipeIndexOffsetMax) {
-        List<DecoRecipe> list = this.menu.getRecipes();
+        List<RecipeHolder<DecoRecipe>> list = this.menu.getRecipes();
 
         for(int i = this.startIndex; i < pRecipeIndexOffsetMax && i < this.menu.getNumRecipes(); ++i) {
             int j = i - this.startIndex;
             int k = pLeft + j % 4 * 16;
             int l = j / 4;
             int i1 = pTop + l * 18 + 2;
-            pGuiGraphics.renderFakeItem(list.get(i).getResultItem(this.minecraft.level.registryAccess()), k, i1);
+            pGuiGraphics.renderFakeItem(list.get(i).value().getResultItem(this.minecraft.level.registryAccess()), k, i1);
         }
 
     }
@@ -160,10 +158,10 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
     }
 
     @Override
-    public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         if (this.isScrollBarActive()) {
             int i = this.getOffscreenRows();
-            float f = (float)pDelta / (float)i;
+            float f = (float)scrollY / (float)i;
             this.scrollOffs = Mth.clamp(this.scrollOffs - f, 0.0F, 1.0F);
             this.startIndex = (int)((double)(this.scrollOffs * (float)i) + 0.5D) * 4;
         }

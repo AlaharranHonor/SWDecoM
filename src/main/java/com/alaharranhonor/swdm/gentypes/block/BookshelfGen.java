@@ -25,7 +25,7 @@ public class BookshelfGen extends BasicBlockGen<Block> {
     @Override
     public void addBlockStates(BlockStateGen gen, TextureSet textures) {
         String path = blockKey(this.generated).getPath();
-        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 10));
+        ResourceLocation basePath = ResourceLocation.fromNamespaceAndPath(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 10));
         gen.simpleBlock(this.generated, gen.models().cubeColumn(path, textures.get("side", basePath), textures.get("end", basePath)));
     }
 

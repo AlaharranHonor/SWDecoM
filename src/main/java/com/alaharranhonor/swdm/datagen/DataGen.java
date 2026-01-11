@@ -3,44 +3,44 @@ package com.alaharranhonor.swdm.datagen;
 import com.alaharranhonor.swdm.ModRef;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-@Mod.EventBusSubscriber(modid = ModRef.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ModRef.ID, bus = EventBusSubscriber.Bus.MOD)
 public class DataGen {
 
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
-        DataGenerator data = event.getGenerator();
+        DataGenerator gen = event.getGenerator();
         PackOutput output = event.getGenerator().getPackOutput();
-        CompletableFuture<HolderLookup.Provider> lookup = event.getLookupProvider();
-        ExistingFileHelper helper = event.getExistingFileHelper();
+        CompletableFuture<HolderLookup.Provider> registries = event.getLookupProvider();
+        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
-        boolean isClient = event.includeClient();
-        boolean isServer = event.includeServer();
+        boolean includeClient = event.includeClient();
+        boolean includeServer = event.includeServer();
 
         // Client Data
-        data.addProvider(isClient, new EnUsLanguageGen(output, "en_us"));
-        data.addProvider(isClient, new BlockStateGen(output, event.getExistingFileHelper()));
-        data.addProvider(isClient, new ItemModelGen(output, event.getExistingFileHelper()));
-        data.addProvider(isClient, new SpriteSourceGen(output, event.getExistingFileHelper()));
+        gen.addProvider(includeClient, new EnUsLanguageGen(output, "en_us"));
+        gen.addProvider(includeClient, new BlockStateGen(output, existingFileHelper));
+        gen.addProvider(includeClient, new ItemModelGen(output, existingFileHelper));
+        gen.addProvider(includeClient, new SpriteSourceGen(output, registries, existingFileHelper));
 
         // Server Data
-        BlockTagGen blockTags = data.addProvider(isServer, new BlockTagGen(output, lookup, helper));
-        data.addProvider(isServer, new ItemTagGen(output, lookup, blockTags, event.getExistingFileHelper()));
-		data.addProvider(isServer, new RecipeGen(output));
-		data.addProvider(isServer, new LootTableGen(
-            output,
-            Collections.emptySet(),
-            List.of(new LootTableProvider.SubProviderEntry(LootTableGen.BlockLoot::new, LootContextParamSets.BLOCK))));
+        BlockTagGen blockTags = gen.addProvider(includeServer, new BlockTagGen(output, registries, existingFileHelper));
+        gen.addProvider(includeServer, new ItemTagGen(output, registries, blockTags, existingFileHelper));
+		gen.addProvider(includeServer, new RecipeGen(output, registries));
+        gen.addProvider(includeServer, (DataProvider.Factory<LootTableProvider>) o -> new LootTableProvider(o, Set.of(), List.of(
+            new LootTableProvider.SubProviderEntry(BlockLoot::new, LootContextParamSets.BLOCK)
+        ), registries));
     }
 }

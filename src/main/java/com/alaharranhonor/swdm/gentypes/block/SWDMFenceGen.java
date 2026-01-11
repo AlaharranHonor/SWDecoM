@@ -18,7 +18,7 @@ public class SWDMFenceGen extends HalfFenceGen {
     @Override
     public void addBlockStates(BlockStateGen gen, TextureSet textures) {
         String path = blockKey(this.generated).getPath();
-        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path);
+        ResourceLocation basePath = ResourceLocation.fromNamespaceAndPath(blockKey(this.baseBlock.get()).getNamespace(), path);
         String fenceType = path.substring(path.lastIndexOf('_') + 1);
         gen.swdmFenceBlock(this.generated, SWDMBlockstateProperties.WallType.FULL, textures.get("", basePath), textures.get("lattice", basePath), fenceType);
         gen.swdmFenceBlock(this.blockWaterlogged.get(), SWDMBlockstateProperties.WallType.FULL, textures.get("", basePath), textures.get("lattice", basePath), fenceType);

@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
 import org.joml.Matrix4f;
 
 public class InvisibleItemFrameRenderer extends ItemFrameRenderer<InvisibleItemFrame> {
@@ -29,27 +28,27 @@ public class InvisibleItemFrameRenderer extends ItemFrameRenderer<InvisibleItemF
     }
 
     @Override
-    public void render(InvisibleItemFrame pEntity, float pEntityYaw, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
+    public void render(InvisibleItemFrame frame, float pEntityYaw, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        var renderNameTagEvent = new net.minecraftforge.client.event.RenderNameTagEvent(pEntity, pEntity.getDisplayName(), this, pPoseStack, pBuffer, pPackedLight, pPartialTick);
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(renderNameTagEvent);
-        if (renderNameTagEvent.getResult() != net.minecraftforge.eventbus.api.Event.Result.DENY && (renderNameTagEvent.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW || this.shouldShowName(pEntity))) {
-            this.renderNameTag(pEntity, renderNameTagEvent.getContent(), pPoseStack, pBuffer, pPackedLight);
+        var event = new net.neoforged.neoforge.client.event.RenderNameTagEvent(frame, frame.getDisplayName(), this, pPoseStack, pBuffer, pPackedLight, pPartialTick);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(event);
+        if (event.canRender().isTrue() || event.canRender().isDefault() && this.shouldShowName(frame)) {
+            this.renderNameTag(frame, event.getContent(), pPoseStack, pBuffer, pPackedLight, pPartialTick);
         }
 
         pPoseStack.pushPose();
-        Direction direction = pEntity.getDirection();
-        Vec3 vec3 = this.getRenderOffset(pEntity, pPartialTick);
+        Direction direction = frame.getDirection();
+        Vec3 vec3 = this.getRenderOffset(frame, pPartialTick);
         pPoseStack.translate(-vec3.x(), -vec3.y(), -vec3.z());
         double d0 = 0.46875D;
         pPoseStack.translate((double)direction.getStepX() * d0, (double)direction.getStepY() * d0, (double)direction.getStepZ() * d0);
-        pPoseStack.mulPose(Axis.XP.rotationDegrees(pEntity.getXRot()));
-        pPoseStack.mulPose(Axis.YP.rotationDegrees(180 - pEntity.getYRot()));
-        ItemStack placedItem = pEntity.getItem();
+        pPoseStack.mulPose(Axis.XP.rotationDegrees(frame.getXRot()));
+        pPoseStack.mulPose(Axis.YP.rotationDegrees(180 - frame.getYRot()));
+        ItemStack placedItem = frame.getItem();
 
-        boolean shouldRenderItem = !MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderItemInFrameEvent(pEntity, this, pPoseStack, pBuffer, pPackedLight));
-        boolean isInvisible = pEntity.isInvisible() || !shouldRenderItem || !placedItem.isEmpty();
+        boolean shouldRenderItem = !net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.client.event.RenderItemInFrameEvent(frame, this, pPoseStack, pBuffer, pPackedLight)).isCanceled();
+        boolean isInvisible = frame.isInvisible() || !shouldRenderItem || !placedItem.isEmpty();
         if (!isInvisible) { // Render background frame
             pPoseStack.pushPose();
             pPoseStack.mulPose(Axis.YP.rotationDegrees(180));
@@ -60,10 +59,10 @@ public class InvisibleItemFrameRenderer extends ItemFrameRenderer<InvisibleItemF
         }
 
         if (!placedItem.isEmpty()) { // Render placed item
-            MapItemSavedData mapData = MapItem.getSavedData(placedItem, pEntity.level());
+            MapItemSavedData mapData = MapItem.getSavedData(placedItem, frame.level());
             pPoseStack.translate(0.0D, 0.0D, d0);
 
-            int j = mapData != null ? pEntity.getRotation() % 4 * 2 : pEntity.getRotation();
+            int j = mapData != null ? frame.getRotation() % 4 * 2 : frame.getRotation();
             pPoseStack.mulPose(Axis.ZP.rotationDegrees((float)j * 360.0F / 8.0F));
             if (shouldRenderItem) {
                 if (mapData != null) {
@@ -71,12 +70,11 @@ public class InvisibleItemFrameRenderer extends ItemFrameRenderer<InvisibleItemF
                     float f = 0.0078125F;
                     pPoseStack.scale(f, f, f);
                     pPoseStack.translate(-64.0D, -64.0D, 0.0D);
-                    Integer integer = MapItem.getMapId(placedItem);
                     pPoseStack.translate(0.0D, 0.0D, -1.0D);
-                    minecraft.gameRenderer.getMapRenderer().render(pPoseStack, pBuffer, integer, mapData, true, pPackedLight);
+                    minecraft.gameRenderer.getMapRenderer().render(pPoseStack, pBuffer, frame.getFramedMapId(placedItem), mapData, true, pPackedLight);
                 } else {
                     pPoseStack.scale(0.5F, 0.5F, 0.5F);
-                    minecraft.getItemRenderer().renderStatic(placedItem, ItemDisplayContext.FIXED, pPackedLight, OverlayTexture.NO_OVERLAY, pPoseStack, pBuffer, pEntity.level(), pEntity.getId());
+                    minecraft.getItemRenderer().renderStatic(placedItem, ItemDisplayContext.FIXED, pPackedLight, OverlayTexture.NO_OVERLAY, pPoseStack, pBuffer, frame.level(), frame.getId());
                 }
             }
         }
@@ -88,14 +86,14 @@ public class InvisibleItemFrameRenderer extends ItemFrameRenderer<InvisibleItemF
         //RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         //RenderSystem.setShaderTexture(0, FRAME_LOCATION);
         Matrix4f matrix4f = ms.last().pose();
-        buf.vertex(matrix4f, 0F, 1, 0.01F).color(255, 255, 255, 255).uv(0.0F, 1.0F).uv2(light).endVertex();
-        buf.vertex(matrix4f, 0F, 0F, 0.01F).color(255, 255, 255, 255).uv(0.0F, 0.0F).uv2(light).endVertex();
-        buf.vertex(matrix4f, 1, 0F, 0.01F).color(255, 255, 255, 255).uv(1.0F, 0.0F).uv2(light).endVertex();
-        buf.vertex(matrix4f, 1, 1, 0.01F).color(255, 255, 255, 255).uv(1.0F, 1.0F).uv2(light).endVertex();
+        buf.addVertex(matrix4f, 0F, 1, 0.01F).setColor(255, 255, 255, 255).setUv(0.0F, 1.0F).setLight(light);
+        buf.addVertex(matrix4f, 0F, 0F, 0.01F).setColor(255, 255, 255, 255).setUv(0.0F, 0.0F).setLight(light);
+        buf.addVertex(matrix4f, 1, 0F, 0.01F).setColor(255, 255, 255, 255).setUv(1.0F, 0.0F).setLight(light);
+        buf.addVertex(matrix4f, 1, 1, 0.01F).setColor(255, 255, 255, 255).setUv(1.0F, 1.0F).setLight(light);
 
-        buf.vertex(matrix4f, 0F, 1, 0.01F).color(255, 255, 255, 255).uv(0.0F, 1.0F).uv2(light).endVertex();
-        buf.vertex(matrix4f, 1, 1, 0.01F).color(255, 255, 255, 255).uv(1.0F, 1.0F).uv2(light).endVertex();
-        buf.vertex(matrix4f, 1, 0F, 0.01F).color(255, 255, 255, 255).uv(1.0F, 0.0F).uv2(light).endVertex();
-        buf.vertex(matrix4f, 0F, 0F, 0.01F).color(255, 255, 255, 255).uv(0.0F, 0.0F).uv2(light).endVertex();
+        buf.addVertex(matrix4f, 0F, 1, 0.01F).setColor(255, 255, 255, 255).setUv(0.0F, 1.0F).setLight(light);
+        buf.addVertex(matrix4f, 1, 1, 0.01F).setColor(255, 255, 255, 255).setUv(1.0F, 1.0F).setLight(light);
+        buf.addVertex(matrix4f, 1, 0F, 0.01F).setColor(255, 255, 255, 255).setUv(1.0F, 0.0F).setLight(light);
+        buf.addVertex(matrix4f, 0F, 0F, 0.01F).setColor(255, 255, 255, 255).setUv(0.0F, 0.0F).setLight(light);
     }
 }

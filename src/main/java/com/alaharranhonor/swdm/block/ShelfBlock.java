@@ -5,7 +5,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -40,22 +42,22 @@ public class ShelfBlock extends Block {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pPlayer.getItemInHand(pHand).is(TagSetup.STATE_CYCLER)) {
-            return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!player.getItemInHand(hand).is(TagSetup.STATE_CYCLER)) {
+            return super.useItemOn(stack, state, level, pos, player, hand, hit);
         }
 
-        int stateOrdinal = pState.getValue(SHELF_TYPE).ordinal();
+        int stateOrdinal = state.getValue(SHELF_TYPE).ordinal();
         int height = stateOrdinal / 3;
-        int pos = stateOrdinal % 3;
-        pos = (pos + 1) % 3;
+        int posVal = stateOrdinal % 3;
+        posVal = (posVal + 1) % 3;
 
-        stateOrdinal = height * 3 + pos;
+        stateOrdinal = height * 3 + posVal;
 
         stateOrdinal = stateOrdinal % SWDMBlockstateProperties.ShelfType.values().length;
 
-        pLevel.setBlock(pPos, pState.setValue(SHELF_TYPE, SWDMBlockstateProperties.ShelfType.values()[stateOrdinal]), 3);
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        level.setBlock(pos, state.setValue(SHELF_TYPE, SWDMBlockstateProperties.ShelfType.values()[stateOrdinal]), 3);
+        return super.useItemOn(stack, state, level, pos, player, hand, hit);
     }
 
     @Override

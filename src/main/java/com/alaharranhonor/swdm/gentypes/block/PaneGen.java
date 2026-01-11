@@ -26,14 +26,14 @@ public class PaneGen extends BasicBlockGen<IronBarsBlock> {
     @Override
     public void addBlockStates(BlockStateGen gen, TextureSet textures) {
         String path = blockKey(this.generated).getPath();
-        ResourceLocation basePath = new ResourceLocation(blockKey(this.generated).getNamespace(), path.substring(0, path.length() - 5));
+        ResourceLocation basePath = ResourceLocation.fromNamespaceAndPath(blockKey(this.generated).getNamespace(), path.substring(0, path.length() - 5));
         gen.paneBlock(this.generated, textures.get("pane", basePath), textures.get("pane", basePath));
     }
 
     @Override
     public void addItemModels(ItemModelGen gen, TextureSet textures) {
         String path = blockKey(this.generated).getPath();
-        ResourceLocation basePath = new ResourceLocation(blockKey(this.generated).getNamespace(), path.substring(0, path.length() - 5));
+        ResourceLocation basePath = ResourceLocation.fromNamespaceAndPath(blockKey(this.generated).getNamespace(), path.substring(0, path.length() - 5));
         gen.singleTexture(path, gen.mcLoc("item/generated"), "layer0", textures.get("pane", basePath));
     }
 

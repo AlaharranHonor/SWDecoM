@@ -6,7 +6,7 @@ import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.ItemSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class EnUsLanguageGen extends LanguageProvider {
 

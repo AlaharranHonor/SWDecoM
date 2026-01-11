@@ -1,7 +1,6 @@
 package com.alaharranhonor.swdm.registry;
 
 import com.alaharranhonor.swdm.ModRef;
-import com.alaharranhonor.swdm.SWDM;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 

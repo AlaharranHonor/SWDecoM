@@ -1,18 +1,16 @@
 package com.alaharranhonor.swdm.gentypes.item;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.datagen.ItemModelGen;
 import com.alaharranhonor.swdm.datagen.ItemTagGen;
 import com.alaharranhonor.swdm.datagen.RecipeGen;
 import com.alaharranhonor.swdm.util.TextureSet;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class StickGen extends BasicItemGen<Item> {
@@ -33,7 +31,7 @@ public class StickGen extends BasicItemGen<Item> {
     }
 
     @Override
-    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, RecipeOutput builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 32);
     }
 

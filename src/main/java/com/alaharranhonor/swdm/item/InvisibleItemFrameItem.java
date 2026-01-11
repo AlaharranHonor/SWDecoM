@@ -3,43 +3,45 @@ package com.alaharranhonor.swdm.item;
 import com.alaharranhonor.swdm.entity.InvisibleItemFrame;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public class InvisibleItemFrameItem extends Item {
 
-    public InvisibleItemFrameItem(Item.Properties pProperties) {
-        super(pProperties);
+    public InvisibleItemFrameItem(Item.Properties props) {
+        super(props);
     }
 
-    public InteractionResult useOn(UseOnContext pContext) {
-        BlockPos blockpos = pContext.getClickedPos();
-        Direction direction = pContext.getClickedFace();
+    public InteractionResult useOn(UseOnContext ctx) {
+        BlockPos blockpos = ctx.getClickedPos();
+        Direction direction = ctx.getClickedFace();
         BlockPos placePos = blockpos.relative(direction);
-        Player player = pContext.getPlayer();
-        ItemStack itemstack = pContext.getItemInHand();
+        Player player = ctx.getPlayer();
+        ItemStack itemstack = ctx.getItemInHand();
         if (player != null && !this.mayPlace(player, direction, itemstack, placePos)) {
             return InteractionResult.FAIL;
         } else {
-            Level level = pContext.getLevel();
-            InvisibleItemFrame entity = new InvisibleItemFrame(level, placePos, direction);
-            CompoundTag compoundtag = itemstack.getTag();
-            if (compoundtag != null) {
-                EntityType.updateCustomEntityTag(level, player, entity, compoundtag);
+            Level level = ctx.getLevel();
+            InvisibleItemFrame frameEntity = new InvisibleItemFrame(level, placePos, direction);
+            CustomData customdata = itemstack.getOrDefault(DataComponents.ENTITY_DATA, CustomData.EMPTY);
+            if (!customdata.isEmpty()) {
+                EntityType.updateCustomEntityTag(level, player, frameEntity, customdata);
             }
 
-            if (entity.survives()) {
+            if (frameEntity.survives()) {
                 if (!level.isClientSide) {
-                    entity.playPlacementSound();
+                    frameEntity.playPlacementSound();
                     level.gameEvent(player, GameEvent.ENTITY_PLACE, blockpos);
-                    level.addFreshEntity(entity);
+                    level.addFreshEntity(frameEntity);
                 }
 
                 itemstack.shrink(1);
@@ -50,7 +52,7 @@ public class InvisibleItemFrameItem extends Item {
         }
     }
 
-    protected boolean mayPlace(Player pPlayer, Direction pDirection, ItemStack pItemStack, BlockPos pPos) {
-        return !pPlayer.level().isOutsideBuildHeight(pPos) && pPlayer.mayUseItemAt(pPos, pDirection, pItemStack);
+    protected boolean mayPlace(Player player, Direction dir, ItemStack stack, BlockPos pos) {
+        return !player.level().isOutsideBuildHeight(pos) && player.mayUseItemAt(pos, dir, stack);
     }
 }

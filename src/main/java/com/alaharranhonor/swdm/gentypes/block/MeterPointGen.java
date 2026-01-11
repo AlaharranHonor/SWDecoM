@@ -1,18 +1,16 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class MeterPointGen extends BasicBlockGen<Block> {
@@ -24,7 +22,7 @@ public class MeterPointGen extends BasicBlockGen<Block> {
     }
 
     @Override
-    public boolean register(String name, DeferredRegister<Block> blocks, DeferredRegister<Item> items) {
+    public boolean register(String name, DeferredRegister.Blocks blocks, DeferredRegister.Items items) {
         this.registeredName = name;
         blocks.register(name + this.getSuffix(), this);
         items.register(name + this.getSuffix(), () -> new BlockItem(this.get(), new Item.Properties()));
@@ -48,7 +46,7 @@ public class MeterPointGen extends BasicBlockGen<Block> {
     }
 
     @Override
-    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, RecipeOutput builder) {
 
     }
 

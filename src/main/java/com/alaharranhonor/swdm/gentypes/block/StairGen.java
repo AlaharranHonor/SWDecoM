@@ -21,7 +21,7 @@ public class StairGen extends BasicBlockGen<StairBlock> {
 
     @Override
     protected StairBlock generate() {
-        return new StairBlock(() -> this.baseBlock.get().defaultBlockState(), this.props()){
+        return new StairBlock(this.baseBlock.get().defaultBlockState(), this.props()){
             @Override
             public boolean isRandomlyTicking(BlockState pState) {
                 return false;
@@ -32,7 +32,7 @@ public class StairGen extends BasicBlockGen<StairBlock> {
     @Override
     public void addBlockStates(BlockStateGen gen, TextureSet textures) {
         String path = blockKey(this.generated).getPath();
-        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 7));
+        ResourceLocation basePath = ResourceLocation.fromNamespaceAndPath(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 7));
         gen.tintedStairs(this.generated, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
     }
 

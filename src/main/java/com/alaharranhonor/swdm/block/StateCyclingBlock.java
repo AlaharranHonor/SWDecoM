@@ -20,9 +20,8 @@ public abstract class StateCyclingBlock extends Block {
         super.createBlockStateDefinition(pBuilder);
     }
 
-    @Override
+    /*@Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
-    }
+    }*/
 }

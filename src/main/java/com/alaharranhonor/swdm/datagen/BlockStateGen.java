@@ -7,13 +7,13 @@ import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import com.alaharranhonor.swdm.util.RL;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.model.generators.*;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.Map;
 
@@ -31,7 +31,7 @@ public class BlockStateGen extends BlockStateProvider {
                 return;
             }
             this.simpleBlock(block.get());
-            this.itemModels().withExistingParent(block.getId().getPath(), new ResourceLocation(block.getId().getNamespace(), "block/" + block.getId().getPath()));
+            this.itemModels().withExistingParent(block.getId().getPath(), ResourceLocation.fromNamespaceAndPath(block.getId().getNamespace(), "block/" + block.getId().getPath()));
         });
 
         this.simpleBlock(BlockSetup.THATCH.get(), this.models().cubeColumn(BlockSetup.THATCH.getId().getPath(), this.modLoc("block/thatch"), this.modLoc("block/thatch_top")));
@@ -48,7 +48,7 @@ public class BlockStateGen extends BlockStateProvider {
     }
 
     public static ResourceLocation key(Block block) {
-        return ForgeRegistries.BLOCKS.getKey(block);
+        return BuiltInRegistries.BLOCK.getKey(block);
     }
 
     public void shelf(ShelfBlock block, ResourceLocation texture) {
@@ -510,7 +510,7 @@ public class BlockStateGen extends BlockStateProvider {
         ModelFile middle = models().singleTexture(key(block).getPath() + "_middle", mcLoc("block/chain"), "all", modLoc("block/" + key(block).getPath() + "_middle"));
         ModelFile edge = models().singleTexture(key(block).getPath() + "_edge", mcLoc("block/chain"), "all", modLoc("block/" + key(block).getPath() + "_edge"));
 
-        this.itemModels().singleTexture(key(block).getPath(), mcLoc("item/generated"), "layer0", new ResourceLocation("swdm", "item/" + key(block).getPath()));
+        this.itemModels().singleTexture(key(block).getPath(), mcLoc("item/generated"), "layer0", ResourceLocation.fromNamespaceAndPath("swdm", "item/" + key(block).getPath()));
 
         this.getVariantBuilder(block).forAllStates((state) -> {
             ModelFile fileToUse = state.getValue(TwoWayBlock.PART) == SWDMBlockstateProperties.TwoWay.SINGLE

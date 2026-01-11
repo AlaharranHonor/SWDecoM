@@ -1,7 +1,6 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.block.HalfWallBlock;
 import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
 import com.alaharranhonor.swdm.datagen.*;
@@ -10,34 +9,33 @@ import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
 
-    private RegistryObject<HalfWallBlock> lowerBlock;
-    private RegistryObject<HalfWallBlock> upperBlock;
-    private RegistryObject<HalfWallBlock> lowerBlockWaterlogged;
-    private RegistryObject<HalfWallBlock> upperBlockWaterlogged;
-    private RegistryObject<HalfWallBlock> blockWaterlogged;
+    private DeferredBlock<HalfWallBlock> lowerBlock;
+    private DeferredBlock<HalfWallBlock> upperBlock;
+    private DeferredBlock<HalfWallBlock> lowerBlockWaterlogged;
+    private DeferredBlock<HalfWallBlock> upperBlockWaterlogged;
+    private DeferredBlock<HalfWallBlock> blockWaterlogged;
     public HalfWallGen(GenSet set, Supplier<Block> baseBlock) {
         super(set, baseBlock);
     }
 
     @Override
-    public boolean register(String name, DeferredRegister<Block> blocks, DeferredRegister<Item> items) {
+    public boolean register(String name, DeferredRegister.Blocks blocks, DeferredRegister.Items items) {
         // Don't register blocks which are in vanilla
-        if (ForgeRegistries.BLOCKS.containsKey(new ResourceLocation("minecraft", name + this.getSuffix()))) {
+        if (BuiltInRegistries.BLOCK.containsKey(ResourceLocation.fromNamespaceAndPath("minecraft", name + this.getSuffix()))) {
             return false;
         }
 
@@ -65,7 +63,7 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
     @Override
     public void addBlockStates(BlockStateGen gen, TextureSet textures) {
         String path = blockKey(this.generated).getPath();
-        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 5));
+        ResourceLocation basePath = ResourceLocation.fromNamespaceAndPath(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 5));
         gen.tintedHalfWall(this.generated, SWDMBlockstateProperties.WallType.FULL, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
         gen.tintedHalfWall(this.blockWaterlogged.get(), SWDMBlockstateProperties.WallType.FULL, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
         gen.tintedHalfWall(this.lowerBlock.get(), SWDMBlockstateProperties.WallType.LOWER, textures.get("side", basePath), textures.get("bottom", basePath), textures.get("top", basePath));
@@ -81,7 +79,7 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
     }
 
     @Override
-    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, RecipeOutput builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 1);
     }
 
@@ -111,7 +109,7 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
     }
 
     @Override
-    public void addLootTables(LootTableGen.BlockLoot gen) {
+    public void addLootTables(BlockLoot gen) {
         gen.dropSelf(this.generated);
         gen.dropOther(this.blockWaterlogged.get(), this.generated);
         gen.dropOther(this.lowerBlock.get(), this.generated);

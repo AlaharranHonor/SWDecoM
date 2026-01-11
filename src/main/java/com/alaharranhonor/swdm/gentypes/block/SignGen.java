@@ -1,44 +1,43 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
-import com.alaharranhonor.swdm.SWDM;
 import com.alaharranhonor.swdm.block.SWDMStandingSignBlock;
 import com.alaharranhonor.swdm.block.SWDMWallSignBlock;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.alaharranhonor.swdm.util.TextureSet;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class SignGen extends BasicBlockGen<SWDMStandingSignBlock> {
 
     private final WoodType wood;
-    private RegistryObject<SWDMWallSignBlock> wallBlock;
+    private DeferredBlock<SWDMWallSignBlock> wallBlock;
     public SignGen(GenSet set, Supplier<Block> baseBlock, WoodType wood) {
         super(set, baseBlock);
         this.wood = wood;
     }
 
     @Override
-    public boolean register(String name, DeferredRegister<Block> blocks, DeferredRegister<Item> items) {
+    public boolean register(String name, DeferredRegister.Blocks blocks, DeferredRegister.Items items) {
         // Don't register blocks which are in vanilla
-        if (ForgeRegistries.BLOCKS.containsKey(new ResourceLocation("minecraft", name + this.getSuffix()))) {
+        if (BuiltInRegistries.BLOCK.containsKey(ResourceLocation.fromNamespaceAndPath("minecraft", name + this.getSuffix()))) {
             return false;
         }
 
         this.registeredName = name;
-        RegistryObject<SWDMStandingSignBlock> standingSign = blocks.register(name + this.getSuffix(), this);
+        DeferredBlock<SWDMStandingSignBlock> standingSign = blocks.register(name + this.getSuffix(), this);
         this.wallBlock = blocks.register(name + this.getSuffix() + "_wall", () -> new SWDMWallSignBlock(this.props(), this.wood));
         items.register(name + this.getSuffix(), () -> new SignItem(new Item.Properties(), this.generated, this.wallBlock.get()));
         BlockSetup.SIGN_BLOCKS.add(standingSign);
@@ -57,12 +56,12 @@ public class SignGen extends BasicBlockGen<SWDMStandingSignBlock> {
     }
 
     @Override
-    public void addRecipes(RecipeGen gen, Consumer<FinishedRecipe> builder) {
+    public void addRecipes(RecipeGen gen, RecipeOutput builder) {
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 8);
     }
 
     @Override
-    public void addLootTables(LootTableGen.BlockLoot gen) {
+    public void addLootTables(BlockLoot gen) {
         super.addLootTables(gen);
         gen.dropOther(this.wallBlock.get(), this.generated);
     }
@@ -70,7 +69,7 @@ public class SignGen extends BasicBlockGen<SWDMStandingSignBlock> {
     @Override
     public void addBlockStates(BlockStateGen gen, TextureSet textures) {
         String path = blockKey(this.generated).getPath();
-        ResourceLocation basePath = new ResourceLocation(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 5));
+        ResourceLocation basePath = ResourceLocation.fromNamespaceAndPath(blockKey(this.baseBlock.get()).getNamespace(), path.substring(0, path.length() - 5));
         gen.signBlock(this.generated, this.wallBlock.get(), textures.get("", basePath));
     }
 

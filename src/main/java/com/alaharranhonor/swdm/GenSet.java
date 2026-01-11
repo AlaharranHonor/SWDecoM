@@ -7,14 +7,15 @@ import com.alaharranhonor.swdm.util.RenderTypeWrapper;
 import com.alaharranhonor.swdm.util.TextureSet;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +40,7 @@ public class GenSet {
     private final Function<BlockBehaviour.Properties, BlockBehaviour.Properties> customProperties;
     private final List<TagKey<Block>> blockTags;
     private final List<TagKey<Item>> itemTags;
+    private final BlockSetType blockSetType;
 
     public final List<GenType<?>> genTypes = new ArrayList<>();
     private Supplier<Block> generatedBaseBlock;
@@ -55,7 +57,8 @@ public class GenSet {
                    Supplier<ItemColorWrapper> itemColors,
                    List<TagKey<Block>> blockTags,
                    List<TagKey<Item>> itemTags,
-                   Function<BlockBehaviour.Properties, BlockBehaviour.Properties> customProperties
+                   Function<BlockBehaviour.Properties, BlockBehaviour.Properties> customProperties,
+                   BlockSetType blockSetType
     ) {
         this.baseBlock = baseBlock;
         this.generatedBaseBlock = baseBlock;
@@ -71,9 +74,10 @@ public class GenSet {
         this.blockTags = blockTags;
         this.itemTags = itemTags;
         this.customProperties = customProperties;
+        this.blockSetType = blockSetType;
     }
 
-    public void register(DeferredRegister<Block> blocks, DeferredRegister<Item> items) {
+    public void register(DeferredRegister.Blocks blocks, DeferredRegister.Items items) {
         int[] indices = new int[this.modifierSets.size()];
         Arrays.fill(indices, 0);
         List<List<String>> sets = this.modifierSets;
@@ -147,7 +151,11 @@ public class GenSet {
         return this.itemTags;
     }
 
-    public static Builder builder(RegistryObject<Block> base) {
+    public BlockSetType getBlockSetType() {
+        return this.blockSetType;
+    }
+
+    public static Builder builder(DeferredBlock<Block> base) {
         return new Builder(base);
     }
 
@@ -174,6 +182,7 @@ public class GenSet {
         private Function<BlockBehaviour.Properties, BlockBehaviour.Properties> customProperties = Function.identity();
         private List<TagKey<Block>> blockTags = new ArrayList<>();
         private List<TagKey<Item>> itemTags = new ArrayList<>();
+        private BlockSetType blockSetType = BlockSetType.OAK;
 
         private Builder(Supplier<Block> baseBlock, String baseName) {
             this.baseBlock = baseBlock;
@@ -181,10 +190,10 @@ public class GenSet {
         }
 
         private Builder(Supplier<Block> base) {
-            this(base, ForgeRegistries.BLOCKS.getKey(base.get()).getPath());
+            this(base, BuiltInRegistries.BLOCK.getKey(base.get()).getPath());
         }
 
-        private Builder(RegistryObject<Block> base) {
+        private Builder(DeferredBlock<Block> base) {
             this(base, base.getId().getPath());
         }
 
@@ -262,6 +271,11 @@ public class GenSet {
             return this;
         }
 
+        public final Builder blockSetType(BlockSetType blockSetType) {
+            this.blockSetType = blockSetType;
+            return this;
+        }
+
         public GenSet build() {
             if (this.modifierSets.isEmpty()) {
                 this.set("");
@@ -280,7 +294,8 @@ public class GenSet {
                 this.itemColor,
                 this.blockTags,
                 this.itemTags,
-                this.customProperties
+                this.customProperties,
+                this.blockSetType
             );
         }
     }

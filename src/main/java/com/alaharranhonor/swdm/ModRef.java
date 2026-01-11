@@ -10,7 +10,7 @@ public class ModRef {
     public static final String ID = "swdm";
 
     public static ResourceLocation res(String name) {
-        return new ResourceLocation(ID, name);
+        return ResourceLocation.fromNamespaceAndPath(ID, name);
     }
 
 }

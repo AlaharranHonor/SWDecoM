@@ -1,7 +1,6 @@
 package com.alaharranhonor.swdm.registry;
 
 import com.alaharranhonor.swdm.ModRef;
-import com.alaharranhonor.swdm.SWDM;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;

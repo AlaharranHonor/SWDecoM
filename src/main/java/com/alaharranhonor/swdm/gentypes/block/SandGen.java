@@ -9,16 +9,8 @@ import com.alaharranhonor.swdm.datagen.BlockTagGen;
 import com.alaharranhonor.swdm.datagen.ItemModelGen;
 import com.alaharranhonor.swdm.datagen.ItemTagGen;
 import com.alaharranhonor.swdm.util.TextureSet;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SandBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.PlantType;
-import net.minecraftforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
@@ -29,7 +21,7 @@ public class SandGen extends BasicBlockGen<BaseSandBlock> {
     }
 
     @Override
-    public boolean register(String name, DeferredRegister<Block> blocks, DeferredRegister<Item> items) {
+    public boolean register(String name, DeferredRegister.Blocks blocks, DeferredRegister.Items items) {
         if (super.register(name, blocks, items)) {
             SWLMCompat.addBlockName(ModRef.res(this.registeredName));
             return true;
