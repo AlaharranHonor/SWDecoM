@@ -48,6 +48,7 @@ public class ShutterBlock extends Block {
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, Boolean.FALSE).setValue(HINGE, DoorHingeSide.LEFT).setValue(POWERED, Boolean.FALSE));
     }
 
+    @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         Direction direction = pState.getValue(FACING);
         boolean isClosed = !pState.getValue(OPEN);
@@ -66,6 +67,7 @@ public class ShutterBlock extends Block {
      * returns its solidified counterpart.
      * Note that this method should ideally consider only the specific direction passed in.
      */
+    @Override
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
         /*if (pFacing.getAxis() == Direction.Axis.Y) {
             return pFacingState.is(this) ? pState.setValue(FACING, pFacingState.getValue(FACING)).setValue(OPEN, pFacingState.getValue(OPEN)).setValue(HINGE, pFacingState.getValue(HINGE)).setValue(POWERED, pFacingState.getValue(POWERED)) : Blocks.AIR.defaultBlockState();
@@ -96,15 +98,17 @@ public class ShutterBlock extends Block {
         pLevel.gameEvent(pPlayer, pIsOpened ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pPos);
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        pState = pState.cycle(OPEN);
-        pLevel.setBlock(pPos, pState, 10);
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        state = state.cycle(OPEN);
+        level.setBlock(pos, state, 10);
 
-        this.playSound(pPlayer, pLevel, pPos, pState.getValue(OPEN));
-        return InteractionResult.sidedSuccess(pLevel.isClientSide);
+        this.playSound(player, level, pos, state.getValue(OPEN));
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     @Nullable
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         BlockPos blockpos = pContext.getClickedPos();
         Level level = pContext.getLevel();
@@ -214,6 +218,7 @@ public class ShutterBlock extends Block {
         }
     }
 
+    @Override
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
         boolean isPowered = pLevel.hasNeighborSignal(pPos);
         if (!this.defaultBlockState().is(pBlock) && isPowered != pState.getValue(POWERED)) {
@@ -225,18 +230,22 @@ public class ShutterBlock extends Block {
         }
     }
 
+    @Override
     public PushReaction getPistonPushReaction(BlockState pState) {
         return PushReaction.DESTROY;
     }
 
+    @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {
         return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
     }
 
+    @Override
     public BlockState mirror(BlockState pState, Mirror pMirror) {
         return pMirror == Mirror.NONE ? pState : pState.rotate(pMirror.getRotation(pState.getValue(FACING))).cycle(HINGE);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING, OPEN, HINGE, POWERED);
     }

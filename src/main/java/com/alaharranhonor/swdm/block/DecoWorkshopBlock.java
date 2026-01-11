@@ -24,19 +24,15 @@ public class DecoWorkshopBlock extends Block {
         super(props);
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide) {
-            return InteractionResult.SUCCESS;
-        } else {
-            pPlayer.openMenu(pState.getMenuProvider(pLevel, pPos));
-            return InteractionResult.CONSUME;
-        }
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        player.openMenu(state.getMenuProvider(level, pos));
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     @Nullable
+    @Override
     public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
-        return new SimpleMenuProvider((id, inv, player) -> {
-            return new DecoWorkshopMenu(id, inv, ContainerLevelAccess.create(pLevel, pPos));
-        }, CONTAINER_TITLE);
+        return new SimpleMenuProvider((id, inv, player) -> new DecoWorkshopMenu(id, inv, ContainerLevelAccess.create(pLevel, pPos)), CONTAINER_TITLE);
     }
 }

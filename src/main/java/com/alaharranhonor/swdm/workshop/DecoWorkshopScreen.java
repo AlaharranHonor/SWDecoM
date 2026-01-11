@@ -14,6 +14,11 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu> {
+    private static final ResourceLocation SCROLLER_SPRITE = ResourceLocation.withDefaultNamespace("container/stonecutter/scroller");
+    private static final ResourceLocation SCROLLER_DISABLED_SPRITE = ResourceLocation.withDefaultNamespace("container/stonecutter/scroller_disabled");
+    private static final ResourceLocation RECIPE_SELECTED_SPRITE = ResourceLocation.withDefaultNamespace("container/stonecutter/recipe_selected");
+    private static final ResourceLocation RECIPE_HIGHLIGHTED_SPRITE = ResourceLocation.withDefaultNamespace("container/stonecutter/recipe_highlighted");
+    private static final ResourceLocation RECIPE_SPRITE = ResourceLocation.withDefaultNamespace("container/stonecutter/recipe");
     private static final ResourceLocation BG_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/container/stonecutter.png");
     private static final int SCROLLER_WIDTH = 12;
     private static final int SCROLLER_HEIGHT = 15;
@@ -25,20 +30,14 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
     private static final int RECIPES_X = 52;
     private static final int RECIPES_Y = 14;
     private float scrollOffs;
-    /** Is {@code true} if the player clicked on the scroll wheel in the GUI. */
     private boolean scrolling;
-    /**
-     * The index of the first recipe to display.
-     * The number of recipes displayed at any time is 12 (4 recipes per row, and 3 rows). If the player scrolled down one
-     * row, this value would be 4 (representing the index of the first slot on the second row).
-     */
     private int startIndex;
     private boolean displayRecipes;
 
     public DecoWorkshopScreen(DecoWorkshopMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
         pMenu.registerUpdateListener(this::containerChanged);
-        --this.titleLabelY;
+        this.titleLabelY--;
     }
 
     @Override
@@ -49,22 +48,22 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
 
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTick);
         int i = this.leftPos;
         int j = this.topPos;
         graphics.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
         int k = (int)(41.0F * this.scrollOffs);
-        graphics.blit(BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15);
+        ResourceLocation resourcelocation = this.isScrollBarActive() ? SCROLLER_SPRITE : SCROLLER_DISABLED_SPRITE;
+        graphics.blitSprite(resourcelocation, i + 119, j + 15 + k, 12, 15);
         int l = this.leftPos + 52;
         int i1 = this.topPos + 14;
         int j1 = this.startIndex + 12;
-        this.renderButtons(graphics, mouseX, mouseY, l, i1, j1, BG_LOCATION);
+        this.renderButtons(graphics, mouseX, mouseY, l, i1, j1);
         this.renderRecipes(graphics, l, i1, j1);
     }
 
     @Override
-    protected void renderTooltip(GuiGraphics pGuiGraphics, int pX, int pY) {
-        super.renderTooltip(pGuiGraphics, pX, pY);
+    protected void renderTooltip(GuiGraphics graphics, int x, int y) {
+        super.renderTooltip(graphics, x, y);
         if (this.displayRecipes) {
             int i = this.leftPos + 52;
             int j = this.topPos + 14;
@@ -75,47 +74,48 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
                 int i1 = l - this.startIndex;
                 int j1 = i + i1 % 4 * 16;
                 int k1 = j + i1 / 4 * 18 + 2;
-                if (pX >= j1 && pX < j1 + 16 && pY >= k1 && pY < k1 + 18) {
-                    pGuiGraphics.renderTooltip(this.font, list.get(l).value().getResultItem(this.minecraft.level.registryAccess()), pX, pY);
+                if (x >= j1 && x < j1 + 16 && y >= k1 && y < k1 + 18) {
+                    graphics.renderTooltip(this.font, list.get(l).value().getResultItem(this.minecraft.level.registryAccess()), x, y);
                 }
             }
         }
 
     }
 
-    private void renderButtons(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pX, int pY, int pLastVisibleElementIndex, ResourceLocation texture) {
-        for(int i = this.startIndex; i < pLastVisibleElementIndex && i < this.menu.getNumRecipes(); ++i) {
+    private void renderButtons(GuiGraphics graphics, int mouseX, int mouseY, int x, int y, int lastVisibleElementIndex) {
+        for (int i = this.startIndex; i < lastVisibleElementIndex && i < this.menu.getNumRecipes(); i++) {
             int j = i - this.startIndex;
-            int k = pX + j % 4 * 16;
+            int k = x + j % 4 * 16;
             int l = j / 4;
-            int i1 = pY + l * 18 + 2;
-            int j1 = this.imageHeight;
+            int i1 = y + l * 18 + 2;
+            ResourceLocation resourcelocation;
             if (i == this.menu.getSelectedRecipeIndex()) {
-                j1 += 18;
-            } else if (pMouseX >= k && pMouseY >= i1 && pMouseX < k + 16 && pMouseY < i1 + 18) {
-                j1 += 36;
+                resourcelocation = RECIPE_SELECTED_SPRITE;
+            } else if (mouseX >= k && mouseY >= i1 && mouseX < k + 16 && mouseY < i1 + 18) {
+                resourcelocation = RECIPE_HIGHLIGHTED_SPRITE;
+            } else {
+                resourcelocation = RECIPE_SPRITE;
             }
 
-            pGuiGraphics.blit(texture, k, i1 - 1, 0, j1, 16, 18);
+            graphics.blitSprite(resourcelocation, k, i1 - 1, 16, 18);
         }
-
     }
 
-    private void renderRecipes(GuiGraphics pGuiGraphics, int pLeft, int pTop, int pRecipeIndexOffsetMax) {
+    private void renderRecipes(GuiGraphics graphics, int x, int y, int startIndex) {
         List<RecipeHolder<DecoRecipe>> list = this.menu.getRecipes();
 
-        for(int i = this.startIndex; i < pRecipeIndexOffsetMax && i < this.menu.getNumRecipes(); ++i) {
+        for(int i = this.startIndex; i < startIndex && i < this.menu.getNumRecipes(); ++i) {
             int j = i - this.startIndex;
-            int k = pLeft + j % 4 * 16;
+            int k = x + j % 4 * 16;
             int l = j / 4;
-            int i1 = pTop + l * 18 + 2;
-            pGuiGraphics.renderFakeItem(list.get(i).value().getResultItem(this.minecraft.level.registryAccess()), k, i1);
+            int i1 = y + l * 18 + 2;
+            graphics.renderItem(list.get(i).value().getResultItem(this.minecraft.level.registryAccess()), k, i1);
         }
 
     }
 
     @Override
-    public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         this.scrolling = false;
         if (this.displayRecipes) {
             int i = this.leftPos + 52;
@@ -124,8 +124,8 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
 
             for(int l = this.startIndex; l < k; ++l) {
                 int i1 = l - this.startIndex;
-                double d0 = pMouseX - (double)(i + i1 % 4 * 16);
-                double d1 = pMouseY - (double)(j + i1 / 4 * 18);
+                double d0 = mouseX - (double)(i + i1 % 4 * 16);
+                double d1 = mouseY - (double)(j + i1 / 4 * 18);
                 if (d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D && this.menu.clickMenuButton(this.minecraft.player, l)) {
                     Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
                     this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, l);
@@ -135,12 +135,12 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
 
             i = this.leftPos + 119;
             j = this.topPos + 9;
-            if (pMouseX >= (double)i && pMouseX < (double)(i + 12) && pMouseY >= (double)j && pMouseY < (double)(j + 54)) {
+            if (mouseX >= (double)i && mouseX < (double)(i + 12) && mouseY >= (double)j && mouseY < (double)(j + 54)) {
                 this.scrolling = true;
             }
         }
 
-        return super.mouseClicked(pMouseX, pMouseY, pButton);
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override

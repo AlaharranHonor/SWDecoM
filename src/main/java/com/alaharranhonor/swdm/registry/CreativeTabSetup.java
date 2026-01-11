@@ -17,7 +17,7 @@ public class CreativeTabSetup {
         CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.swdm.main"))
             .icon(() -> new ItemStack(ItemSetup.CHANGE_TOOL.get()))
-            .withTabsImage(ModRef.res("textures/gui/container/creative_inventory/tab_main.png"))
+            .backgroundTexture(ModRef.res("textures/gui/container/creative_inventory/tab_main.png"))
             .withSearchBar(55)
             .displayItems(((pParameters, pOutput) -> {
                 ItemSetup.REGISTRY.getEntries().forEach(item -> pOutput.accept(item.get()));
