@@ -1,6 +1,5 @@
 package com.alaharranhonor.swdm.events;
 
-import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.block.SWDMBlockstateProperties;
 import com.alaharranhonor.swdm.block.ShelfBlock;
 import com.alaharranhonor.swdm.registry.TagSetup;

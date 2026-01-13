@@ -116,6 +116,7 @@ public class RecipeGen extends RecipeProvider {
         this.defaultDecoBench(builder, BlockSetup.SMOOTH_STONE_BORDERLESS.get(), Blocks.SMOOTH_STONE);
         this.defaultDecoBench(builder, ItemSetup.INVISIBLE_ITEM_FRAME.get(), Items.ITEM_FRAME, 4);
         this.defaultDecoBench(builder, ItemSetup.MIRROR_PAINTING.get(), Items.PAINTING);
+        this.defaultDecoBench(ModRef.res("painting_from_mirror"), builder, Items.PAINTING, ItemSetup.MIRROR_PAINTING.get(), 1);
 
         if (BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse("swem:whitewash_plank"))) {
             Item swemWhitewashPlanks = BuiltInRegistries.ITEM.get(ResourceLocation.parse("swem:whitewash_plank"));

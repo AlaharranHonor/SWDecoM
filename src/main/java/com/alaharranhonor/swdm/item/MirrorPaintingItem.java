@@ -1,17 +1,11 @@
 package com.alaharranhonor.swdm.item;
 
 import com.alaharranhonor.swdm.entity.MirrorPainting;
-import com.alaharranhonor.swdm.entity.MirrorVariant;
-import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.decoration.Painting;
-import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,10 +13,8 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.Optional;
 
 public class MirrorPaintingItem extends Item {
 
@@ -40,9 +32,12 @@ public class MirrorPaintingItem extends Item {
             return InteractionResult.FAIL;
         } else {
             Level level = pContext.getLevel();
-            MirrorPainting painting = new MirrorPainting(level, placedPos, direction);
+            Optional<MirrorPainting> optional = MirrorPainting.createMirrorPainting(level, placedPos, direction);
+            if (optional.isEmpty()) {
+                return InteractionResult.CONSUME;
+            }
 
-            // TODO add nbt tag to say its a mirror painting
+            MirrorPainting painting = optional.get();
 
             CustomData customdata = itemstack.getOrDefault(DataComponents.ENTITY_DATA, CustomData.EMPTY);
             if (!customdata.isEmpty()) {

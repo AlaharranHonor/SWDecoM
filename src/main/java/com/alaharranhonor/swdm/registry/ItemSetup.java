@@ -3,11 +3,9 @@ package com.alaharranhonor.swdm.registry;
 import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.item.InvisibleItemFrameItem;
 import com.alaharranhonor.swdm.item.MirrorPaintingItem;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 

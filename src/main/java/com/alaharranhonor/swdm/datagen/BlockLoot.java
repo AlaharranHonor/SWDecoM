@@ -9,8 +9,6 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Collections;
 import java.util.function.Function;

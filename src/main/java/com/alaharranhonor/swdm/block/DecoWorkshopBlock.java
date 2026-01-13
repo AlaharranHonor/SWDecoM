@@ -3,7 +3,6 @@ package com.alaharranhonor.swdm.block;
 import com.alaharranhonor.swdm.workshop.DecoWorkshopMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;

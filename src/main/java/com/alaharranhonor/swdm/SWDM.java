@@ -17,8 +17,6 @@ public class SWDM {
         EntitySetup.init(modBus);
         RecipeSetup.init(modBus);
         MenuSetup.init(modBus);
-        PaintingSetup.init(modBus);
-
         SWLMCompat.init();
     }
 }

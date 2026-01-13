@@ -7,7 +7,6 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
-import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 import java.util.function.Supplier;
 
