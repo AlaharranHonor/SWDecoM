@@ -79,11 +79,6 @@ public class HalfWallGen extends BasicBlockGen<HalfWallBlock> {
     }
 
     @Override
-    public void addRecipes(RecipeGen gen, RecipeOutput builder) {
-        gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 1);
-    }
-
-    @Override
     public void setRenderType(RenderType renderType) {
         ItemBlockRenderTypes.setRenderLayer(this.generated, renderType);
         ItemBlockRenderTypes.setRenderLayer(this.blockWaterlogged.get(), renderType);

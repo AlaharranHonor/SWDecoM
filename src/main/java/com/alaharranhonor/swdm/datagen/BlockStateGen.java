@@ -30,6 +30,15 @@ public class BlockStateGen extends BlockStateProvider {
             if (block.getId().equals(BlockSetup.THATCH.getId())) {
                 return;
             }
+
+            if (block.get() instanceof RotatedPillarBlock log) {
+                ResourceLocation blockTexture = blockTexture(log);
+                BlockModelBuilder model = models().cubeColumn(block.getId().getPath(), blockTexture, blockTexture);
+                axisBlock(log, model, model);
+                this.itemModels().withExistingParent(block.getId().getPath(), ResourceLocation.fromNamespaceAndPath(block.getId().getNamespace(), "block/" + block.getId().getPath()));
+                return;
+            }
+
             this.simpleBlock(block.get());
             this.itemModels().withExistingParent(block.getId().getPath(), ResourceLocation.fromNamespaceAndPath(block.getId().getNamespace(), "block/" + block.getId().getPath()));
         });

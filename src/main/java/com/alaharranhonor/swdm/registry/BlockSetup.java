@@ -147,9 +147,9 @@ public class BlockSetup {
         });
     }
 
-    private static boolean remap(DeferredRegister<?> mapping, String key, String from, String to) {
+    private static boolean remap(DeferredRegister<?> registry, String key, String from, String to) {
         if (key.startsWith(from)) { // Using .contains() will result in blue/light_blue collision. eg. light_blue_dark_prismarine -> light_dark_prismarine_blue
-            mapping.addAlias(ResourceLocation.parse(from), ResourceLocation.parse(to));
+            registry.addAlias(ResourceLocation.parse(from), ResourceLocation.parse(to));
             return true;
         }
         return false;

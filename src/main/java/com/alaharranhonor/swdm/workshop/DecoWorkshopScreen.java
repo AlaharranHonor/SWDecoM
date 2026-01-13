@@ -51,30 +51,30 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
         int i = this.leftPos;
         int j = this.topPos;
         graphics.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
-        int k = (int)(41.0F * this.scrollOffs);
-        ResourceLocation resourcelocation = this.isScrollBarActive() ? SCROLLER_SPRITE : SCROLLER_DISABLED_SPRITE;
-        graphics.blitSprite(resourcelocation, i + 119, j + 15 + k, 12, 15);
-        int l = this.leftPos + 52;
-        int i1 = this.topPos + 14;
-        int j1 = this.startIndex + 12;
-        this.renderButtons(graphics, mouseX, mouseY, l, i1, j1);
-        this.renderRecipes(graphics, l, i1, j1);
+        int k = (int) (41.0F * this.scrollOffs);
+        ResourceLocation scrollSprite = this.isScrollBarActive() ? SCROLLER_SPRITE : SCROLLER_DISABLED_SPRITE;
+        graphics.blitSprite(scrollSprite, i + 119, j + SCROLLER_HEIGHT + k, SCROLLER_WIDTH, SCROLLER_HEIGHT);
+        int drawX = this.leftPos + RECIPES_X;
+        int drawY = this.topPos + RECIPES_Y;
+        int scrollX = this.startIndex + SCROLLER_WIDTH;
+        this.renderButtons(graphics, mouseX, mouseY, drawX, drawY, scrollX);
+        this.renderRecipes(graphics, drawX, drawY, scrollX);
     }
 
     @Override
     protected void renderTooltip(GuiGraphics graphics, int x, int y) {
         super.renderTooltip(graphics, x, y);
         if (this.displayRecipes) {
-            int i = this.leftPos + 52;
-            int j = this.topPos + 14;
-            int k = this.startIndex + 12;
+            int i = this.leftPos + RECIPES_X;
+            int j = this.topPos + RECIPES_Y;
+            int k = this.startIndex + SCROLLER_WIDTH;
             List<RecipeHolder<DecoRecipe>> list = this.menu.getRecipes();
 
-            for(int l = this.startIndex; l < k && l < this.menu.getNumRecipes(); ++l) {
+            for (int l = this.startIndex; l < k && l < this.menu.getNumRecipes(); ++l) {
                 int i1 = l - this.startIndex;
-                int j1 = i + i1 % 4 * 16;
-                int k1 = j + i1 / 4 * 18 + 2;
-                if (x >= j1 && x < j1 + 16 && y >= k1 && y < k1 + 18) {
+                int j1 = i + i1 % 4 * RECIPES_IMAGE_SIZE_WIDTH;
+                int k1 = j + i1 / 4 * RECIPES_IMAGE_SIZE_HEIGHT + 2;
+                if (x >= j1 && x < j1 + RECIPES_IMAGE_SIZE_WIDTH && y >= k1 && y < k1 + RECIPES_IMAGE_SIZE_HEIGHT) {
                     graphics.renderTooltip(this.font, list.get(l).value().getResultItem(this.minecraft.level.registryAccess()), x, y);
                 }
             }
@@ -85,30 +85,30 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
     private void renderButtons(GuiGraphics graphics, int mouseX, int mouseY, int x, int y, int lastVisibleElementIndex) {
         for (int i = this.startIndex; i < lastVisibleElementIndex && i < this.menu.getNumRecipes(); i++) {
             int j = i - this.startIndex;
-            int k = x + j % 4 * 16;
-            int l = j / 4;
-            int i1 = y + l * 18 + 2;
+            int k = x + j % RECIPES_COLUMNS * RECIPES_IMAGE_SIZE_WIDTH;
+            int l = j / RECIPES_COLUMNS;
+            int i1 = y + l * RECIPES_IMAGE_SIZE_HEIGHT + 2;
             ResourceLocation resourcelocation;
             if (i == this.menu.getSelectedRecipeIndex()) {
                 resourcelocation = RECIPE_SELECTED_SPRITE;
-            } else if (mouseX >= k && mouseY >= i1 && mouseX < k + 16 && mouseY < i1 + 18) {
+            } else if (mouseX >= k && mouseY >= i1 && mouseX < k + RECIPES_IMAGE_SIZE_WIDTH && mouseY < i1 + RECIPES_IMAGE_SIZE_HEIGHT) {
                 resourcelocation = RECIPE_HIGHLIGHTED_SPRITE;
             } else {
                 resourcelocation = RECIPE_SPRITE;
             }
 
-            graphics.blitSprite(resourcelocation, k, i1 - 1, 16, 18);
+            graphics.blitSprite(resourcelocation, k, i1 - 1, RECIPES_IMAGE_SIZE_WIDTH, RECIPES_IMAGE_SIZE_HEIGHT);
         }
     }
 
     private void renderRecipes(GuiGraphics graphics, int x, int y, int startIndex) {
         List<RecipeHolder<DecoRecipe>> list = this.menu.getRecipes();
 
-        for(int i = this.startIndex; i < startIndex && i < this.menu.getNumRecipes(); ++i) {
+        for (int i = this.startIndex; i < startIndex && i < this.menu.getNumRecipes(); ++i) {
             int j = i - this.startIndex;
-            int k = x + j % 4 * 16;
-            int l = j / 4;
-            int i1 = y + l * 18 + 2;
+            int k = x + j % RECIPES_COLUMNS * RECIPES_IMAGE_SIZE_WIDTH;
+            int l = j / RECIPES_COLUMNS;
+            int i1 = y + l * RECIPES_IMAGE_SIZE_HEIGHT + 2;
             graphics.renderItem(list.get(i).value().getResultItem(this.minecraft.level.registryAccess()), k, i1);
         }
 
@@ -118,14 +118,14 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         this.scrolling = false;
         if (this.displayRecipes) {
-            int i = this.leftPos + 52;
-            int j = this.topPos + 14;
-            int k = this.startIndex + 12;
+            int i = this.leftPos + RECIPES_X;
+            int j = this.topPos + RECIPES_Y;
+            int k = this.startIndex + SCROLLER_WIDTH;
 
-            for(int l = this.startIndex; l < k; ++l) {
+            for (int l = this.startIndex; l < k; ++l) {
                 int i1 = l - this.startIndex;
-                double d0 = mouseX - (double)(i + i1 % 4 * 16);
-                double d1 = mouseY - (double)(j + i1 / 4 * 18);
+                double d0 = mouseX - (double) (i + i1 % 4 * 16);
+                double d1 = mouseY - (double) (j + i1 / 4 * 18);
                 if (d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D && this.menu.clickMenuButton(this.minecraft.player, l)) {
                     Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
                     this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, l);
@@ -135,7 +135,7 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
 
             i = this.leftPos + 119;
             j = this.topPos + 9;
-            if (mouseX >= (double)i && mouseX < (double)(i + 12) && mouseY >= (double)j && mouseY < (double)(j + 54)) {
+            if (mouseX >= (double) i && mouseX < (double) (i + 12) && mouseY >= (double) j && mouseY < (double) (j + 54)) {
                 this.scrolling = true;
             }
         }
@@ -148,9 +148,9 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
         if (this.scrolling && this.isScrollBarActive()) {
             int i = this.topPos + 14;
             int j = i + 54;
-            this.scrollOffs = ((float)pMouseY - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
+            this.scrollOffs = ((float) pMouseY - (float) i - 7.5F) / ((float) (j - i) - 15.0F);
             this.scrollOffs = Mth.clamp(this.scrollOffs, 0.0F, 1.0F);
-            this.startIndex = (int)((double)(this.scrollOffs * (float)this.getOffscreenRows()) + 0.5D) * 4;
+            this.startIndex = (int) ((double) (this.scrollOffs * (float) this.getOffscreenRows()) + 0.5D) * 4;
             return true;
         } else {
             return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
@@ -161,9 +161,9 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         if (this.isScrollBarActive()) {
             int i = this.getOffscreenRows();
-            float f = (float)scrollY / (float)i;
+            float f = (float) scrollY / (float) i;
             this.scrollOffs = Mth.clamp(this.scrollOffs - f, 0.0F, 1.0F);
-            this.startIndex = (int)((double)(this.scrollOffs * (float)i) + 0.5D) * 4;
+            this.startIndex = (int) ((double) (this.scrollOffs * (float) i) + 0.5D) * 4;
         }
 
         return true;
@@ -177,9 +177,6 @@ public class DecoWorkshopScreen extends AbstractContainerScreen<DecoWorkshopMenu
         return (this.menu.getNumRecipes() + 4 - 1) / 4 - 3;
     }
 
-    /**
-     * Called every time this screen's container is changed (is marked as dirty).
-     */
     private void containerChanged() {
         this.displayRecipes = this.menu.hasInputItem();
         if (!this.displayRecipes) {

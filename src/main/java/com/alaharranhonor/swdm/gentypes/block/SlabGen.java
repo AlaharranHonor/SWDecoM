@@ -1,9 +1,13 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
+import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.datagen.*;
 import com.alaharranhonor.swdm.util.TextureSet;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
@@ -23,7 +27,15 @@ public class SlabGen extends BasicBlockGen<SlabBlock> {
 
     @Override
     public void addRecipes(RecipeGen gen, RecipeOutput builder) {
+        ResourceLocation baseId = BuiltInRegistries.ITEM.getKey(this.baseBlock.get().asItem());
+        ResourceLocation generatedId = BuiltInRegistries.ITEM.getKey(this.generated.asItem());
         gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 2);
+
+        new ShapelessRecipeBuilder(RecipeCategory.BUILDING_BLOCKS, this.baseBlock.get(), 1)
+            .requires(this.generated)
+            .requires(this.generated)
+            .unlockedBy("has_block", gen.hasItem(this.generated))
+            .save(builder, ModRef.res("deco_uncraft_slab_" + generatedId.getPath() + "_to_" + baseId.getPath()));
     }
 
     @Override

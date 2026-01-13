@@ -95,6 +95,16 @@ public class RecipeGen extends RecipeProvider {
             .unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN))
             .save(builder);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, Items.CLAY, 4)
+            .pattern("DDD")
+            .pattern("DCD")
+            .pattern("DDD")
+            .define('D', ItemTags.DIRT)
+            .define('C', Items.CLAY)
+            .group("deco_bench")
+            .unlockedBy("has_clay", has(Items.CLAY))
+            .save(builder, ModRef.res("moar_clay_for_prity_brix"));
+
         this.defaultDecoBench(builder, BlockSetup.THATCH_PLANKS.get(), BlockSetup.THATCH.get());
         this.defaultDecoBench(builder, BlockSetup.THATCH_LOG.get(), BlockSetup.THATCH.get());
         this.defaultDecoBench(builder, BlockSetup.THATCH_STRIPPED_LOG.get(), BlockSetup.THATCH.get());
@@ -122,10 +132,14 @@ public class RecipeGen extends RecipeProvider {
     }
 
     public void defaultDecoBench(RecipeOutput builder, ItemLike output, ItemLike input, int amount) {
+        this.defaultDecoBench(BuiltInRegistries.ITEM.getKey(output.asItem()), builder, output, input, amount);
+    }
+
+    public void defaultDecoBench(ResourceLocation id, RecipeOutput builder, ItemLike output, ItemLike input, int amount) {
         new SingleItemRecipeBuilder(RecipeCategory.BUILDING_BLOCKS, DecoRecipe::new, Ingredient.of(input), output, amount)
             .unlockedBy("has_block", has(input))
             .group("deco_bench")
-            .save(builder);
+            .save(builder, id);
     }
 
     public void defaultDecoBench(RecipeOutput builder, ItemLike output, TagKey<Item> input, int amount) {

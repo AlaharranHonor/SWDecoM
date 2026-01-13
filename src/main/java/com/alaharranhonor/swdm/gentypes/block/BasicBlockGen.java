@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.gentypes.block;
 
 import com.alaharranhonor.swdm.GenSet;
+import com.alaharranhonor.swdm.ModRef;
 import com.alaharranhonor.swdm.datagen.BlockLoot;
 import com.alaharranhonor.swdm.datagen.EnUsLanguageGen;
 import com.alaharranhonor.swdm.datagen.RecipeGen;
@@ -29,7 +30,10 @@ public abstract class BasicBlockGen<T extends Block> extends GenType<T> {
 
     @Override
     public void addRecipes(RecipeGen gen, RecipeOutput builder) {
-        gen.defaultDecoBench(builder, this.generated, this.baseBlock.get(), 1);
+        ResourceLocation baseId = BuiltInRegistries.ITEM.getKey(this.baseBlock.get().asItem());
+        ResourceLocation generatedId = BuiltInRegistries.ITEM.getKey(this.generated.asItem());
+        gen.defaultDecoBench(ModRef.res("deco_" + baseId.getPath() + "_to_" + generatedId.getPath()), builder, this.generated, this.baseBlock.get(), 1);
+        gen.defaultDecoBench(ModRef.res("deco_" + generatedId.getPath() + "_to_" + baseId.getPath()), builder, this.baseBlock.get(), this.generated, 1);
     }
 
     @Override
