@@ -8,10 +8,12 @@ import com.alaharranhonor.swdm.util.RL;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 public class ItemModelGen extends ItemModelProvider {
 	public ItemModelGen(PackOutput pOutput, ExistingFileHelper existingFileHelper) {
@@ -24,6 +26,8 @@ public class ItemModelGen extends ItemModelProvider {
 		this.withExistingParent(ItemSetup.INVISIBLE_ITEM_FRAME.getId().getPath(), "item/generated").texture("layer0", "item/invisible_item_frame_item");
 		this.withExistingParent(ItemSetup.MIRROR_PAINTING.getId().getPath(), "item/generated").texture("layer0", "item/mirror_painting_item");
 
+		generated(ItemSetup.DOOR_HINGE);
+
 		for (GenSet set : SetSetup.SETS) {
 			set.genTypes.forEach(genType -> {
 				genType.addItemModels(this, set.getBlockTextures());
@@ -33,6 +37,14 @@ public class ItemModelGen extends ItemModelProvider {
 
 	public static ResourceLocation blockKey(Block block) {
 		return BuiltInRegistries.BLOCK.getKey(block);
+	}
+
+	public void generated(DeferredItem<? extends Item> item) {
+		this.withExistingParent(item.getId().getPath(), "item/generated").texture("layer0", this.modLoc("item/" + item.getId().getPath()));
+	}
+
+	public void handheld(DeferredItem<? extends Item> item) {
+		this.withExistingParent(item.getId().getPath(), "item/handheld").texture("layer0", this.modLoc("item/" + item.getId().getPath()));
 	}
 
 	public ItemModelBuilder existingBlock(Block block) {

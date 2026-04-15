@@ -43,7 +43,10 @@ public class BlockTagGen extends BlockTagsProvider {
             BlockSetup.THATCH_PLANKS.get(),
             BlockSetup.THATCH_LOG.get(),
             BlockSetup.THATCH_STRIPPED_LOG.get(),
-            BlockSetup.DECO_WORKSHOP.get()
+            BlockSetup.DECO_WORKSHOP.get(),
+            BlockSetup.SLIDING_DOOR.get(),
+            BlockSetup.SWINGING_DOOR.get(),
+            BlockSetup.STATIC_DOOR.get()
         );
 
         this.tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_HOE).add(
@@ -52,7 +55,10 @@ public class BlockTagGen extends BlockTagsProvider {
 
         this.tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE).add(
             BlockSetup.SMOOTH_STONE_BORDERLESS.get(),
-            BlockSetup.DECO_WORKSHOP.get()
+            BlockSetup.DECO_WORKSHOP.get(),
+            BlockSetup.SLIDING_DOOR.get(),
+            BlockSetup.SWINGING_DOOR.get(),
+            BlockSetup.STATIC_DOOR.get()
         );
     }
 

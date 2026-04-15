@@ -17,6 +17,8 @@ public class SWDM {
         EntitySetup.init(modBus);
         RecipeSetup.init(modBus);
         MenuSetup.init(modBus);
+        AttachmentSetup.init(modBus);
+        DataComponentSetup.init(modBus);
         SWLMCompat.init();
     }
 }

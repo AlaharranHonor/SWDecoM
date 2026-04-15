@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.Map;
 
@@ -49,6 +50,15 @@ public class BlockStateGen extends BlockStateProvider {
         this.simpleBlock(BlockSetup.DECO_WORKSHOP.get(), models().cubeBottomTop(BlockSetup.DECO_WORKSHOP.getId().getPath(), this.modLoc("block/deco_workshop_side"), this.modLoc("block/deco_workshop_bot"), this.modLoc("block/deco_workshop_top")));
         this.itemModels().withExistingParent(BlockSetup.DECO_WORKSHOP.getId().getPath(), this.modLoc("block/deco_workshop"));
 
+        this.emptyModelBlock(BlockSetup.SLIDING_DOOR, blockTexture(Blocks.OAK_PLANKS));
+        this.itemModels().basicItem(BlockSetup.SLIDING_DOOR.asItem());
+
+        this.emptyModelBlock(BlockSetup.STATIC_DOOR, blockTexture(Blocks.OAK_PLANKS));
+        this.itemModels().basicItem(BlockSetup.STATIC_DOOR.asItem());
+
+        this.emptyModelBlock(BlockSetup.SWINGING_DOOR, blockTexture(Blocks.OAK_PLANKS));
+        this.itemModels().basicItem(BlockSetup.SWINGING_DOOR.asItem());
+
         for (GenSet set : SetSetup.SETS) {
             set.genTypes.forEach(genType -> {
                 genType.addBlockStates(this, set.getBlockTextures());
@@ -58,6 +68,11 @@ public class BlockStateGen extends BlockStateProvider {
 
     public static ResourceLocation key(Block block) {
         return BuiltInRegistries.BLOCK.getKey(block);
+    }
+
+    public void emptyModelBlock(DeferredBlock<? extends Block> block, ResourceLocation particle) {
+        BlockModelBuilder model = models().getBuilder(block.getId().getPath()).texture("particle", particle);
+        this.simpleBlock(block.get(), model); // Empty model
     }
 
     public void shelf(ShelfBlock block, ResourceLocation texture) {

@@ -123,6 +123,16 @@ public class RecipeGen extends RecipeProvider {
             this.modLoadedDecoBench("swem", ModRef.res("whitewash_planks_dm_to_em"), builder, swemWhitewashPlanks, BlockSetup.WHITEWASH_PLANKS.get(), 1);
             this.modLoadedDecoBench("swem", ModRef.res("whitewash_planks_em_to_dm"), builder, BlockSetup.WHITEWASH_PLANKS.get(), swemWhitewashPlanks, 1);
         }
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemSetup.DOOR_HINGE.get())
+            .pattern("ISI")
+            .pattern("IKI")
+            .define('I', Tags.Items.INGOTS_IRON)
+            .define('S', Tags.Items.RODS_WOODEN)
+            .define('K', Items.DRIED_KELP)
+            .group("crafting")
+            .unlockedBy("has_kelp", has(Items.DRIED_KELP))
+            .save(builder);
     }
 
     public void modLoadedDecoBench(String mod, ResourceLocation id, RecipeOutput builder, ItemLike output, ItemLike input, int amount) {

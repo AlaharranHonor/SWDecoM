@@ -1,12 +1,15 @@
 package com.alaharranhonor.swdm.registry;
 
 import com.alaharranhonor.swdm.ModRef;
-import com.alaharranhonor.swdm.block.DecoWorkshopBlock;
+import com.alaharranhonor.swdm.block.*;
+import com.alaharranhonor.swdm.block.entity.MultiDoorBlockEntity;
 import com.alaharranhonor.swdm.block.entity.SWDMSignBlockEntity;
+import com.alaharranhonor.swdm.multidoor.MultiDoorBlockItem;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class BlockSetup {
@@ -30,6 +34,7 @@ public class BlockSetup {
     // Registered sign blocks are stored for the block set for sign block entity
     public static final List<DeferredBlock<? extends SignBlock>> SIGN_BLOCKS = new ArrayList<>();
     public static DeferredHolder<BlockEntityType<?>, BlockEntityType<SWDMSignBlockEntity>> SIGN_BLOCK_ENTITY;
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MultiDoorBlockEntity>> MULTI_DOOR = BLOCK_ENTITIES.register("multi_door", () -> BlockEntityType.Builder.of(MultiDoorBlockEntity::new, BlockSetup.SLIDING_DOOR.get(), BlockSetup.STATIC_DOOR.get(), BlockSetup.SWINGING_DOOR.get()).build(null));
 
     public static final Map<ResourceLocation, DeferredBlock<Block>> MANUAL_BLOCKS = new HashMap<>();
 
@@ -49,6 +54,10 @@ public class BlockSetup {
     public static final DeferredBlock<Block> SMOOTH_STONE_BORDERLESS = register("smooth_stone_borderless", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_STONE)));
     public static final DeferredBlock<Block> DECO_WORKSHOP = REGISTRY.register("deco_workshop", () -> new DecoWorkshopBlock(BlockBehaviour.Properties.of().strength(1.5F, 6.0F)));
 
+    // Doors
+    public static final DeferredBlock<SlidingDoorBlock> SLIDING_DOOR = registerCustomItem("sliding_door", () -> new SlidingDoorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)), rb -> () -> new MultiDoorBlockItem(rb.get(), new Item.Properties(), 3, 4));
+    public static final DeferredBlock<SwingingDoorBlock> SWINGING_DOOR = registerCustomItem("swinging_door", () -> new SwingingDoorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)), rb -> () -> new MultiDoorBlockItem(rb.get(), new Item.Properties(), 3, 4));
+    public static final DeferredBlock<MultiDoorBlock> STATIC_DOOR = registerCustomItem("static_door", () -> new StaticDoorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)), rb -> () -> new MultiDoorBlockItem(rb.get(), new Item.Properties(), 3, 4));
 
     public static void init(IEventBus modBus) {
         REGISTRY.register(modBus);
@@ -63,6 +72,16 @@ public class BlockSetup {
         DeferredBlock<Block> block = REGISTRY.register(name, supplier);
         MANUAL_BLOCKS.put(block.getId(), block);
         return block;
+    }
+
+    private static <T extends Block> DeferredBlock<T> registerCustomItem(String name, Supplier<? extends T> sup, Function<DeferredBlock<T>, Supplier<? extends Item>> itemCreator) {
+        DeferredBlock<T> ret = registerNoItem(name, sup);
+        ItemSetup.REGISTRY.register(name, itemCreator.apply(ret));
+        return ret;
+    }
+
+    private static <T extends Block> DeferredBlock<T> registerNoItem(String name, Supplier<? extends T> sup) {
+        return REGISTRY.register(name, sup);
     }
 
     private static RotatedPillarBlock log(MapColor pTopColor, MapColor pBarkColor) {

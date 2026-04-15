@@ -1,14 +1,21 @@
 package com.alaharranhonor.swdm.datagen;
 
 import com.alaharranhonor.swdm.GenSet;
+import com.alaharranhonor.swdm.block.MultiDoorBlock;
 import com.alaharranhonor.swdm.registry.BlockSetup;
+import com.alaharranhonor.swdm.registry.DataComponentSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 
 import java.util.Collections;
 import java.util.function.Function;
@@ -26,6 +33,9 @@ public class BlockLoot extends BlockLootSubProvider {
         });
 
         this.dropSelf(BlockSetup.DECO_WORKSHOP.get());
+        this.add(BlockSetup.SLIDING_DOOR.get(), this::createMultiDoor);
+        this.add(BlockSetup.SWINGING_DOOR.get(), this::createMultiDoor);
+        this.add(BlockSetup.STATIC_DOOR.get(), this::createMultiDoor);
 
         for (GenSet set : SetSetup.SETS) {
             set.genTypes.forEach(genType -> {
@@ -49,6 +59,16 @@ public class BlockLoot extends BlockLootSubProvider {
     @Override
     public void dropOther(Block pBlock, ItemLike pItem) {
         super.dropOther(pBlock, pItem);
+    }
+
+    protected LootTable.Builder createMultiDoor(Block block) {
+        return LootTable.lootTable()
+            .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
+                .add(LootItem.lootTableItem(block)
+                    .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+                        .include(DataComponentSetup.MULTI_DOOR.get()))
+                    .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties()
+                        .hasProperty(MultiDoorBlock.MAIN, true))))));
     }
 
     @Override

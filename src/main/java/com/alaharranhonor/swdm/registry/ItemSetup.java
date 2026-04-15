@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.registry;
 
 import com.alaharranhonor.swdm.ModRef;
+import com.alaharranhonor.swdm.item.DoorHingeItem;
 import com.alaharranhonor.swdm.item.InvisibleItemFrameItem;
 import com.alaharranhonor.swdm.item.MirrorPaintingItem;
 import net.minecraft.world.item.BlockItem;
@@ -17,6 +18,7 @@ public class ItemSetup {
     public static final DeferredItem<Item> CHANGE_TOOL = REGISTRY.register("change_tool", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> INVISIBLE_ITEM_FRAME = REGISTRY.register("invisible_item_frame", () -> new InvisibleItemFrameItem(new Item.Properties()));
     public static final DeferredItem<Item> MIRROR_PAINTING = REGISTRY.register("mirror_painting", () -> new MirrorPaintingItem(new Item.Properties()));
+    public static final DeferredItem<DoorHingeItem> DOOR_HINGE = REGISTRY.register("door_hinge", () -> new DoorHingeItem(new Item.Properties().durability(243)));
 
     public static void init(IEventBus modBus) {
         BlockSetup.MANUAL_BLOCKS.values().forEach(block -> {

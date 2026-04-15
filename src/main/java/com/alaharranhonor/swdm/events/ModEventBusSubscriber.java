@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.events;
 
 import com.alaharranhonor.swdm.gentypes.block.MeterPointGen;
+import com.alaharranhonor.swdm.multidoor.DoorHingeScreen;
 import com.alaharranhonor.swdm.registry.MenuSetup;
 import com.alaharranhonor.swdm.registry.SetSetup;
 import com.alaharranhonor.swdm.workshop.DecoWorkshopScreen;
@@ -23,35 +24,6 @@ public class ModEventBusSubscriber {
         private static void commonSetup(FMLCommonSetupEvent event) {
             MeterPointGen.METER_POINT_FLATTENABLES.entrySet().forEach(entry -> {
                 ShovelItem.FLATTENABLES.put(entry.getKey().get(), entry.getValue().get().defaultBlockState());
-            });
-        }
-    }
-
-    @EventBusSubscriber(value = Dist.CLIENT)
-    public static class ClientModBusHandler {
-
-        @SubscribeEvent
-        private static void clientSetup(RegisterMenuScreensEvent event) {
-            event.register(MenuSetup.DECO_WORKSHOP.get(), DecoWorkshopScreen::new);
-        }
-
-        @SubscribeEvent
-        private static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
-            BlockColors colors = event.getBlockColors();
-            SetSetup.SETS.forEach(set -> {
-                if (set.getBlockColors() != null) {
-                    set.genTypes.forEach(type -> type.registerBlockColors(colors, set.getBlockColors()));
-                }
-            });
-        }
-
-        @SubscribeEvent
-        private static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-            ItemColors colors = event.getItemColors();
-            SetSetup.SETS.forEach(set -> {
-                if (set.getBlockColors() != null) {
-                    set.genTypes.forEach(type -> type.registerItemColors(colors, set.getItemColors()));
-                }
             });
         }
     }
