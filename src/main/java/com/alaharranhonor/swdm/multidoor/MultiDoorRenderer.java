@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.multidoor;
 
 import com.alaharranhonor.swdm.block.MultiDoorBlock;
+import com.alaharranhonor.swdm.block.SwingingDoorBlock;
 import com.alaharranhonor.swdm.block.entity.MultiDoorBlockEntity;
 import com.alaharranhonor.swdm.util.ShapeHelper;
 import com.alaharranhonor.swdm.util.ShapeRenderer;
@@ -38,10 +39,16 @@ public class MultiDoorRenderer implements BlockEntityRenderer<MultiDoorBlockEnti
         BlockState state = door.getBlockState();
         MultiDoorBlock block = (MultiDoorBlock) state.getBlock();
         DoorHingeSide hinge = state.getValue(MultiDoorBlock.HINGE);
-        Direction facing = state.getValue(MultiDoorBlock.FACING);
+        Direction facing = block.getEffectiveFacingDirection(state);//state.getValue(MultiDoorBlock.FACING);
         Direction hingeOffset = block.getHingeOffset(state);
         VoxelShape baseShape = state.getShape(mc.level, door.getBlockPos());
         boolean mirror = (hinge == DoorHingeSide.LEFT) != (facing.getAxisDirection() == Direction.AxisDirection.NEGATIVE);
+
+        // v This is a hack, it works, and I cannot be bothered figuring out the math.
+        // If anyone finds this and can manage to put it nicely into a neat function please DM me so I can present my godhood to you.
+        if (block instanceof SwingingDoorBlock && state.getValue(SwingingDoorBlock.OPEN) != MultiDoorBlock.DoorOpenState.CLOSED) {
+            mirror = !mirror;
+        }
 
         for (int w = 0; w < doorData.width(); w++) {
             for (int h = 0; h < doorData.height(); h++) {

@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -48,11 +49,19 @@ public abstract class MultiDoorBlock extends BaseEntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        float playerRotation = (((context.getRotation() + 180) % 360) + 180) % 360;
-        if (context.getHorizontalDirection() == Direction.SOUTH && playerRotation > 180) {
-            playerRotation -= 360;
-        }
-        float rotationOff = playerRotation - context.getHorizontalDirection().toYRot();
+        // Get the player's raw cumulative rotation
+        float rawRotation = context.getRotation();
+
+        // Wrap to [-180, 180] range
+        float wrappedPlayerRot = Mth.wrapDegrees(rawRotation);
+
+        // Get the YRot of the direction you are placing (0 for South, 90 for West, etc.)
+        float targetDirRot = context.getHorizontalDirection().toYRot();
+
+        // Calculate the difference and wrap it to handle the 180/-180 boundary
+        float rotationOff = Mth.wrapDegrees(wrappedPlayerRot - targetDirRot);
+
+        // Apply the hinge
         return this.defaultBlockState()
             .setValue(MAIN, true)
             .setValue(FACING, context.getHorizontalDirection().getOpposite())
@@ -196,10 +205,12 @@ public abstract class MultiDoorBlock extends BaseEntityBlock {
 
         private final Component key;
         private final Supplier<ItemStack> item;
+
         DoorType(Component key, Supplier<ItemStack> item) {
             this.key = key;
             this.item = item;
         }
+
         public Component getKey() {
             return this.key;
         }
