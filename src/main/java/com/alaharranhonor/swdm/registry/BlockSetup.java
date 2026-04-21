@@ -55,9 +55,9 @@ public class BlockSetup {
     public static final DeferredBlock<Block> DECO_WORKSHOP = REGISTRY.register("deco_workshop", () -> new DecoWorkshopBlock(BlockBehaviour.Properties.of().strength(1.5F, 6.0F)));
 
     // Doors
-    public static final DeferredBlock<SlidingDoorBlock> SLIDING_DOOR = registerCustomItem("sliding_door", () -> new SlidingDoorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)), rb -> () -> new MultiDoorBlockItem(rb.get(), new Item.Properties(), 3, 4));
-    public static final DeferredBlock<SwingingDoorBlock> SWINGING_DOOR = registerCustomItem("swinging_door", () -> new SwingingDoorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)), rb -> () -> new MultiDoorBlockItem(rb.get(), new Item.Properties(), 3, 4));
-    public static final DeferredBlock<MultiDoorBlock> STATIC_DOOR = registerCustomItem("static_door", () -> new StaticDoorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)), rb -> () -> new MultiDoorBlockItem(rb.get(), new Item.Properties(), 3, 4));
+    public static final DeferredBlock<SlidingDoorBlock> SLIDING_DOOR = registerCustomItem("sliding_door", () -> new SlidingDoorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)), rb -> () -> new MultiDoorBlockItem(rb.get(), new Item.Properties()));
+    public static final DeferredBlock<SwingingDoorBlock> SWINGING_DOOR = registerCustomItem("swinging_door", () -> new SwingingDoorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)), rb -> () -> new MultiDoorBlockItem(rb.get(), new Item.Properties()));
+    public static final DeferredBlock<MultiDoorBlock> STATIC_DOOR = registerCustomItem("static_door", () -> new StaticDoorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR)), rb -> () -> new MultiDoorBlockItem(rb.get(), new Item.Properties()));
 
     public static void init(IEventBus modBus) {
         REGISTRY.register(modBus);

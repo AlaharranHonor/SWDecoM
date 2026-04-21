@@ -12,6 +12,8 @@ import java.util.List;
 
 public record MultiDoorData(int width, int height, List<MultiDoorTexture> textures) implements TooltipComponent {
 
+    public static final MultiDoorData EMPTY = new MultiDoorData(0, 0, List.of());
+
     public static MultiDoorData fromTextures(int width, int height, List<ResourceLocation> textures) {
         return new MultiDoorData(width, height, textures.stream().map(MultiDoorTexture::new).toList());
     }

@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.block;
 
 import com.alaharranhonor.swdm.registry.TagSetup;
+import com.alaharranhonor.swdm.util.BlockHelper;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -206,7 +207,7 @@ public class HalfWallBlock extends Block implements SimpleWaterloggedBlock {
     private boolean connectsTo(BlockState pState, boolean pSideSolid, Direction pDirection) {
         Block block = pState.getBlock();
         boolean flag = block instanceof FenceGateBlock && FenceGateBlock.connectsToDirection(pState, pDirection);
-        return pState.is(BlockTags.WALLS) || !isExceptionForConnection(pState) && pSideSolid || block instanceof IronBarsBlock || flag;
+        return pState.is(BlockTags.WALLS) || (!BlockHelper.isExceptionToConnect(pState) && !isExceptionForConnection(pState)) && pSideSolid || block instanceof IronBarsBlock || flag;
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {

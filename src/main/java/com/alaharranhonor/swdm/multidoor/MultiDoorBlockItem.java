@@ -11,17 +11,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 public class MultiDoorBlockItem extends BlockItem {
 
-    public MultiDoorBlockItem(Block block, Properties properties, int width, int height) {
-        super(block, properties.component(DataComponentSetup.MULTI_DOOR, new MultiDoorData(
-            width, height,
-            Collections.nCopies(width * height, MultiDoorData.MultiDoorTexture.EMPTY)
-        )));
+    public MultiDoorBlockItem(Block block, Properties properties) {
+        super(block, properties.component(DataComponentSetup.MULTI_DOOR, MultiDoorData.EMPTY));
     }
 
     @Override
@@ -46,7 +42,13 @@ public class MultiDoorBlockItem extends BlockItem {
 
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
-        return !stack.has(DataComponents.HIDE_TOOLTIP) && !stack.has(DataComponents.HIDE_ADDITIONAL_TOOLTIP)
-            ? Optional.ofNullable(stack.get(DataComponentSetup.MULTI_DOOR)) : Optional.empty();
+        if (stack.has(DataComponents.HIDE_TOOLTIP) || stack.has(DataComponents.HIDE_ADDITIONAL_TOOLTIP))
+            return Optional.empty();
+
+        MultiDoorData data = stack.get(DataComponentSetup.MULTI_DOOR);
+        if (data == MultiDoorData.EMPTY) return Optional.empty();
+
+        return Optional.ofNullable(data);
+
     }
 }

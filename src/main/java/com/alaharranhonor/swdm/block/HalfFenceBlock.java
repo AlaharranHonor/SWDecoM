@@ -1,6 +1,7 @@
 package com.alaharranhonor.swdm.block;
 
 import com.alaharranhonor.swdm.registry.TagSetup;
+import com.alaharranhonor.swdm.util.BlockHelper;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.Util;
@@ -268,7 +269,7 @@ public class HalfFenceBlock extends Block implements SimpleWaterloggedBlock {
         Block block = pState.getBlock();
         boolean flag = this.isSameFence(pState);
         boolean flag1 = block instanceof FenceGateBlock && FenceGateBlock.connectsToDirection(pState, pDirection);
-        return !isExceptionForConnection(pState) && pIsSideSolid || flag || flag1;
+        return (!BlockHelper.isExceptionToConnect(pState) && !isExceptionForConnection(pState)) && pIsSideSolid || flag || flag1;
     }
 
     private boolean isSameFence(BlockState pState) {
