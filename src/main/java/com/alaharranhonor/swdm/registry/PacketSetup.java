@@ -1,5 +1,6 @@
 package com.alaharranhonor.swdm.registry;
 
+import com.alaharranhonor.swdm.network.CBWhyMinecraftWhyDoorPacket;
 import com.alaharranhonor.swdm.network.SBCreateMultiDoorItem;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -17,6 +18,7 @@ public class PacketSetup {
         registrar.playToServer(SBCreateMultiDoorItem.TYPE, SBCreateMultiDoorItem.STREAM_CODEC, SBCreateMultiDoorItem::handle);
 
         // Clientbound
+        registrar.playToClient(CBWhyMinecraftWhyDoorPacket.TYPE, CBWhyMinecraftWhyDoorPacket.STREAM_CODEC, CBWhyMinecraftWhyDoorPacket::handle);
     }
 
 }

@@ -2,21 +2,26 @@ package com.alaharranhonor.swdm.block;
 
 import com.alaharranhonor.swdm.block.entity.MultiDoorBlockEntity;
 import com.alaharranhonor.swdm.multidoor.MultiDoorData;
+import com.alaharranhonor.swdm.network.CBWhyMinecraftWhyDoorPacket;
 import com.alaharranhonor.swdm.registry.BlockSetup;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.List;
 
@@ -99,10 +104,15 @@ public class SlidingDoorBlock extends MultiDoorBlock {
         }
 
         // Remove the old door blocks.
+        if (!level.isClientSide()) {
+            // Why do block entities not get synced to client properly
+            PacketDistributor.sendToPlayersTrackingChunk(((ServerLevel) level), new ChunkPos(mainPos), new CBWhyMinecraftWhyDoorPacket(mainPos));
+        }
+
         for (int w = 0; w < width; w++) {
             for (int h = 0; h < doorData.height(); h++) {
                 BlockPos currentPos = mainPos.relative(hingeOffset, w).above(h);
-                level.removeBlock(currentPos, false);
+                level.setBlock(currentPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
             }
         }
 
@@ -116,6 +126,7 @@ public class SlidingDoorBlock extends MultiDoorBlock {
 
         level.getBlockEntity(newMainPos, BlockSetup.MULTI_DOOR.get()).ifPresent(newMain -> {
             newMain.setDoorData(doorData);
+            newMain.setChanged();
         });
 
         level.playSound(player, pos.getX(), pos.getY(), pos.getZ(), player.isSecondaryUseActive() ? SoundEvents.IRON_DOOR_CLOSE : SoundEvents.IRON_DOOR_OPEN, SoundSource.BLOCKS, 1.0F, 1.0F);
